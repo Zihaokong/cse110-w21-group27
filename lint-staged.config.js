@@ -1,5 +1,5 @@
 module.exports = {
-  '**/*.+(js|ts)': [
+  'source/*.+(js|ts)': [
     'eslint --fix',
     'prettier --write',
     // 'jest --findRelatedTests',
