@@ -46,7 +46,8 @@ Week 8 onwards
 
 | Date      | Week 3 | Week 4 | Week 5 | Week 6 | Week 7 | Week 8 | Week 9 | Week 10 |
 | ---       | ---    | ---    | ---    | ---    | ---    | ---    | ---    | ---     |
-| Name      |
-| Goal      |
+| Name      | Sprint 0  Sprint 0
+| Goal      | Create basic userflow
+              and design
 | Features  |
 | Milestone |
