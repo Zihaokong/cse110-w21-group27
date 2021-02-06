@@ -46,8 +46,7 @@ Week 8 onwards
 
 | Date      | Week 3 | Week 4 | Week 5 | Week 6 | Week 7 | Week 8 | Week 9 | Week 10 |
 | ---       | ---    | ---    | ---    | ---    | ---    | ---    | ---    | ---     |
-| Name      | Sprint 0  Sprint 0
-| Goal      | Create basic userflow
-              and design
+| Name      | Sprint 0 | Sprint 0 | Sprint 1 | Sprint 1 | Sprint 2 | Sprint 3 | Sprint 3 | Sprint 3
+| Goal      | Create basic userflow and design | Build basic fireframe, felsh out features| Build fleshed out wireframe with Figma, add personas, create ADRS| Implement task list page and set up build automation | Implement Pomo timer functionality, distraction counter, create progress bar | Implement advanced styling - ring timer, tomato progress bar, etc. | Add stats page for progress and distraction stats
 | Features  |
 | Milestone |
