@@ -20,4 +20,3 @@ jobs:
         run: yarn
       - name: Run tests
         run: yarn test
-      # TODO get more into the nitty gritty by figuring out how to set up tests
