@@ -4,6 +4,8 @@
  */
 const studentName = 'Johnny Boy';
 
+const test = 's';
+
 /**
  * Array of grades
  * @type {Array<number>}
