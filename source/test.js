@@ -17,6 +17,7 @@ const grades = [1, 2, 3, 4];
 const todo = {
   id: 1,
   text: 'Hello',
+  text2: 'Hey',
 };
 
 /**
