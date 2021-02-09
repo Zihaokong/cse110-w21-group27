@@ -76,6 +76,7 @@ class Student {
  * Student one
  * See {@link Student}
  */
+
 const student1 = new Student({
   name: 'Jake',
 });
