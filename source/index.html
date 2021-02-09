@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="main.css" />
+        <link rel="stylesheet" href="header.css" />
+        <link rel="stylesheet" href="task.css" />
+        <!-- Material Icons  -->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+        <!-- Google Font -->
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+
+        <!-- Bootstrap -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+
+        <title>Pomodoro App</title>
+    </head>
+
+    <body>
+        <div class="top-nav">
+            <h2 id="date">Today's date</h2>
+            <section id="cycle-count">
+                <span>
+                    <h2 id="completed-cycle" style="display: inline; color:#C4C4C4">
+                        | Not yet completed
+                    </h2>
+                </span>
+            </section>
+        </div>
+
+        <h1 id="todo-title">To-do List <button id="add-task-btn" class="add-task-btn">+ Add Task</button>
+        </h1>
+        <hr />
+
+        <!-- This form will be integrated with "+ Add Task" button and modal -->
+        <form>
+            <input type="text" class="todo-input" style="background-color: antiquewhite;" />
+            <button class="todo-button" type="submit">
+                <span class="material-icons">
+                    alarm_add
+                </span>
+            </button>
+        </form>
+        <!-- --------------------- separate line ------------------------------------->
+
+        <ul id="main-container" class="task-container">
+            <!-- ToDo from JS will append here -->
+        </ul>
+
+        <!-- Modal Goes here -->
+        <div id="myModal" class="modal">
+            <!-- Modal content -->
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <p>Some text in the Modal..</p>
+            </div>
+        </div>
+
+        <script src="main.js"></script>
+        <script src="header.js"></script>
+        <script src="task.js"></script>
+    </body>
+
+</html>

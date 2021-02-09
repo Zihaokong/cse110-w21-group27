@@ -1,0 +1,141 @@
+/* Styles for Task list */
+
+/*
+ * Section for the form to add task 
+ * Will be deleted once the modal of add task is completed.
+*/
+form {
+  min-height: 20vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+form input,
+form button {
+  padding: 0.5rem;
+  font-size: 2rem;
+  border: none;
+}
+form button {
+  color: #d88771;
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+form button:hover {
+  background: #d88771;
+  color: white;
+}
+/* //////////////////////////////////////////////////////////////// */
+
+/*
+ * Section for the task container
+ */
+#main-container {
+  list-style-type: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #d88771;
+
+  width: 65%;
+  max-height: 100%;
+  margin: 0 auto;
+  padding: 10px;
+
+  overflow: hidden;
+}
+
+/*
+ * Section for the task item in list
+ */
+.taskNode {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+
+  margin: 0.5rem;
+  padding: 0;
+  min-width: 100%;
+  font-size: 1.5rem;
+
+  border: 1px solid rgba(46, 71, 86, 0.418);
+  transition: all 0.5s ease;
+
+  /* flex-wrap: wrap; */
+  overflow: hidden;
+}
+
+/*
+ * Section for the checkbox in task item
+ */
+.form-check-input[type="checkbox"] {
+  color: #e5e5e5;
+  border-radius: 50% !important;
+  width: 1.3em;
+  height: 1.3em;
+  border-color: #e5e5e5;
+}
+
+.form-check-input[type="checkbox"]:checked {
+  background-color: #2e4756;
+  border-color: #2e4756;
+}
+.form-check-input[type="checkbox"]:focus {
+  border-color: #e5e5e5;
+  box-shadow: 0 0 0 0.2rem rgba(46, 71, 86, 0.3);
+}
+
+/*
+ * Section for the text of task in task item
+ */
+p.task-item {
+  min-width: 70%;
+  padding: 0rem;
+  margin: 0;
+  width: 0;
+  float: inline-start;
+  word-break: break-all;
+  overflow-wrap: break-word;
+  white-space: normal;
+}
+
+/* Section for the play button in task */
+a {
+  color: #2e4756 !important;
+}
+a:hover {
+  opacity: 0.5;
+}
+a > img {
+  border-radius: 75%;
+}
+
+/* For material icon adjustment */
+.material-icons {
+  font-size: 48px !important;
+  font-weight: bold;
+}
+
+button {
+  border: none;
+  background: #00000000;
+}
+
+.play-btn,
+.edit-btn {
+  background: 00000000;
+  border: none;
+  padding: 1rem;
+  cursor: pointer;
+  display: inline-block;
+  transition: all 0.3s ease;
+}
+
+/* Section for the delete animation */
+.fall {
+  transform: translateY(8rem) rotateZ(20deg);
+  opacity: 0;
+}
