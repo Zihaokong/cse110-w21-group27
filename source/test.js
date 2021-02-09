@@ -2,7 +2,7 @@
  * Student Name
  * @type {string}
  */
-const studentName = 'Johnny Boy';
+const studentName = 'Student Name';
 
 /**
  * Array of grades
