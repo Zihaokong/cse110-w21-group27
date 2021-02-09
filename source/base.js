@@ -4,7 +4,7 @@
  */
 const studentName = 'Johnny Boy';
 
-const test = 's';
+const test1 = 's';
 
 /**
  * Array of grades
