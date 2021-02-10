@@ -9,7 +9,7 @@ on:
     
 # Workflow of testing the code
 jobs:
-  test:
+  document_generation:
    
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
@@ -20,3 +20,8 @@ jobs:
         run: yarn
       - name: Generate Documentation
         run: yarn doc
+      - name: Commit and push
+        run: git add -f ./docs
+             git config --local user.name "github-actions[bot]"
+             git commit -am "Auto generated documentation"
+             git push
