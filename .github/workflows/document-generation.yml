@@ -3,9 +3,10 @@ name: Documentation Generation
  
 on:
   # Workflow is triggered on a pull_request to the main branch
-  # CHANGE TO MERGE LATER, SET TO PUSH FOR TESTING
+  # When there is a push to master (achieved only by a successful merge)
   push: 
-    # branches: [ m ]
+    branches:
+      - main
     
 # Workflow of testing the code
 jobs:
