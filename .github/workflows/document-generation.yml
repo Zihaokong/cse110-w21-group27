@@ -14,26 +14,14 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     steps:
-      # Gets source code into the virtual 
-      - uses: actions/checkout@v2
-        with:
-          repository: ${{github.repository}}.wiki
-      - name: Install modules
-        run: yarn
-      - name: Generate Documentation
-        run: yarn doc
-      - name: Chek wiki repo content
-        run: ls -al
-      - name: Add documentation to wiki
-        run: echo ./docs/source.md >. source.md
-      - name: Commit
+      - uses: actions/checkout@v1
+      - name: Generate document
         run: |
-             git add .
-             git config --local user.email "action@github.com"
-             git config --local user.name "GitHub Action"
-             git commit -am "Auto generated documentation"
-      - name: Push
-        uses: ad-m/github-push-action@master
+          yarn
+          yarn docmd
+      - name: Upload Documentation to Wiki
+        uses: SwiftDocOrg/github-wiki-publish-action@v1
         with:
-          repository: ${{github.repository}}.wiki
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          path: "Documentation"
+        env:
+          GH_PERSONAL_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
