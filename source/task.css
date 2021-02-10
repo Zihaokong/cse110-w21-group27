@@ -39,7 +39,7 @@ form button:hover {
   flex-direction: column;
   background-color: #d88771;
 
-  width: 65%;
+  max-width: 75%;
   max-height: 100%;
   margin: 0 auto;
   padding: 10px;
@@ -61,11 +61,10 @@ form button:hover {
   border: 1px solid rgba(46, 71, 86, 0.418);
   transition: all 0.5s ease;
 }
-/* flex-wrap: wrap; */
 
 /* Section for drag button */
 .drag-btn {
-  margin-right: 2%;
+  margin-right: 3%;
 }
 
 /*
@@ -92,22 +91,18 @@ form button:hover {
  * Section for the text of task in task item
  */
 p.task-item {
-  min-width: 25%;
   padding: 0rem;
   margin: 0;
-  width: 0;
-  float: inline-start;
-  word-break: break-all;
-  overflow-wrap: break-word;
-  white-space: normal;
+  width: 25%;
 }
 
 /* Section for progress-bar */
-progress,
-progress-bar {
-  margin-right: 20px;
+
+.progress-bar {
+  background-color: #2e4756 !important;
 }
 
+/* Section for dropdown menu */
 .dropright {
   background-color: #00000000;
 }
@@ -149,10 +144,7 @@ button {
 .edit-btn {
   background: 00000000;
   border: none;
-  padding: 1rem;
   cursor: pointer;
-  float: right;
-  /* display: inline-block; */
   transition: all 0.3s ease;
 }
 

@@ -20,7 +20,7 @@
     </head>
 
     <body>
-        <div class="top-nav">
+        <nav class="top-nav">
             <h2 id="date">Today's date</h2>
             <section id="cycle-count">
                 <span>
@@ -29,28 +29,29 @@
                     </h2>
                 </span>
             </section>
-        </div>
+        </nav>
+        <main>
+            <h1 id="todo-title">To-do List <button id="add-task-btn" class="add-task-btn">+ Add Task</button>
+            </h1>
+            <hr />
 
-        <h1 id="todo-title">To-do List <button id="add-task-btn" class="add-task-btn">+ Add Task</button>
-        </h1>
-        <hr />
+            <!-- This form will be integrated with "+ Add Task" button and modal -->
+            <form>
+                <input type="text" class="todo-input" style="background-color: antiquewhite;" />
+                <button class="todo-button" type="submit">
+                    <span class="material-icons">
+                        alarm_add
+                    </span>
+                </button>
+            </form>
+            <!-- --------------------- separate line ------------------------------------->
 
-        <!-- This form will be integrated with "+ Add Task" button and modal -->
-        <form>
-            <input type="text" class="todo-input" style="background-color: antiquewhite;" />
-            <button class="todo-button" type="submit">
-                <span class="material-icons">
-                    alarm_add
-                </span>
-            </button>
-        </form>
 
-        <!-- --------------------- separate line ------------------------------------->
-
-        <ul id="main-container" class="task-container d-flex flex-nowrap">
-            <!-- ToDo from JS will append here -->
-        </ul>
-
+            <ul id="main-container" class="task-container d-flex">
+                <!-- ToDo from JS will append here -->
+            </ul>
+            <button id="add-task-btn-bottom" class="add-task-btn">+ Add Task</button>
+        </main>
         <!-- Modal Goes here -->
         <div id="myModal" class="modal">
             <!-- Modal content -->

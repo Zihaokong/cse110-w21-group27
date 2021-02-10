@@ -35,7 +35,6 @@ hr {
 /* Styles for Add task button */
 .add-task-btn {
   float: right;
-
   font-family: "Poppins", sans-serif;
   font-weight: bold;
   color: #e5e5e5;
@@ -48,6 +47,11 @@ hr {
 .add-task-btn:hover {
   color: #e5e5e5;
   background: #64838c;
+}
+#add-task-btn-bottom {
+  float: left;
+  margin-top: 2%;
+  margin-left: 10%;
 }
 
 /* Styles for Modals */

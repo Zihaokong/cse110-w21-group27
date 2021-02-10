@@ -20,29 +20,28 @@ function addTask (event) {
 
     let taskName = taskInput.value
     const position = "beforeend";
-    if (taskName != "'") {
+    if (taskName != "") {
         // <span class="material-icons edit-btn p-2 bd-highlight">more_horiz</span>
 
-        const dragButton = `<span class="material-icons drag-btn p-2 bd-highlight ">drag_indicator</span>`;
+        const dragButton = `<span class="p-2 material-icons drag-btn">drag_indicator</span>`;
         const checkmark = `
-            <span class="form-check form-check-inline p-2 bd-highlight">
+            <span class="p-2 form-check form-check-inline">
                 <input class="form-check-input input-mysize large" type="checkbox" value="false">
                 <label for="checkbox"></label>
             </span>`;
-        const todoTask = '<p class="task-item dragzone flex-fill p-2 bd-highlight">' + taskName + '</p>';
+        const todoTask = '<p class="p-2 flex-md-fill flex-wrap task-item dragzone ">' + taskName + '</p>';
         const progressbar = `
-            <div class="progress">
-                <div class="progress-bar flex-fill p-2 bd-highlight" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                    25%
-                </div> 
-            </div>`;
-        const playButton = '<a href="https://www.google.com/"><span class="material-icons play-btn p-2 bd-highlight">play_circle</span></a>';
+            <div class=" flex-column w-50 progress">
+                <div class="p-2 flex-column progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+            </div>
+            `;
+        const playButton = '<a class="p-2" href="https://www.google.com/"><span class="material-icons play-btn">play_circle</span></a>';
         const editButton =
-            `<div class="btn-group dropright p-2 bd-highlight">
+            `<div class="p-2 bd-highlight btn-group dropright flex-right">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span class="material-icons edit-btn">more_horiz</span>
                 </button>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                <div class="dropdown-menu dropdown-menu-right " aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item" href="#">Edit</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#">Delete</a>
