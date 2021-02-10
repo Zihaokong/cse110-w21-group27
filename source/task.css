@@ -43,8 +43,6 @@ form button:hover {
   max-height: 100%;
   margin: 0 auto;
   padding: 10px;
-
-  overflow: hidden;
 }
 
 /*
@@ -52,7 +50,6 @@ form button:hover {
  */
 .taskNode {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   background: white;
 
@@ -63,9 +60,12 @@ form button:hover {
 
   border: 1px solid rgba(46, 71, 86, 0.418);
   transition: all 0.5s ease;
+}
+/* flex-wrap: wrap; */
 
-  /* flex-wrap: wrap; */
-  overflow: hidden;
+/* Section for drag button */
+.drag-btn {
+  margin-right: 2%;
 }
 
 /*
@@ -92,7 +92,7 @@ form button:hover {
  * Section for the text of task in task item
  */
 p.task-item {
-  min-width: 70%;
+  min-width: 25%;
   padding: 0rem;
   margin: 0;
   width: 0;
@@ -100,6 +100,27 @@ p.task-item {
   word-break: break-all;
   overflow-wrap: break-word;
   white-space: normal;
+}
+
+/* Section for progress-bar */
+progress,
+progress-bar {
+  margin-right: 20px;
+}
+
+.dropright {
+  background-color: #00000000;
+}
+.dropdown-toggle::after {
+  display: none !important;
+}
+#dropdownMenuButton {
+  background-color: #00000000;
+  color: rgba(46, 71, 86);
+  border: none;
+}
+#dropdownMenuButton:focus {
+  box-shadow: none;
 }
 
 /* Section for the play button in task */
@@ -130,7 +151,8 @@ button {
   border: none;
   padding: 1rem;
   cursor: pointer;
-  display: inline-block;
+  float: right;
+  /* display: inline-block; */
   transition: all 0.3s ease;
 }
 

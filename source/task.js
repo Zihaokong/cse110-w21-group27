@@ -21,12 +21,35 @@ function addTask (event) {
     let taskName = taskInput.value
     const position = "beforeend";
     if (taskName != "'") {
-        const dragButton = '<span class="material-icons drag-btn">drag_indicator</span>';
-        const checkmark = '<span class="form-check  form-check-inline"><input class="form-check-input input-mysize large" type="checkbox" value="false"><label for="checkbox"></label></span>';
-        const todoTask = '<p class="task-item dragzone">' + taskName + '</p>';
-        const playButton = '<a href="https://www.google.com/"><span class="material-icons play-btn">play_circle</span></a>'
-        const editButton = '<button><span class="material-icons edit-btn">more_horiz</span></button>';
-        list.insertAdjacentHTML(position, '<li id=' + uid + ', class="taskNode" draggable = true>' + dragButton + checkmark + todoTask + playButton + editButton);
+        // <span class="material-icons edit-btn p-2 bd-highlight">more_horiz</span>
+
+        const dragButton = `<span class="material-icons drag-btn p-2 bd-highlight ">drag_indicator</span>`;
+        const checkmark = `
+            <span class="form-check form-check-inline p-2 bd-highlight">
+                <input class="form-check-input input-mysize large" type="checkbox" value="false">
+                <label for="checkbox"></label>
+            </span>`;
+        const todoTask = '<p class="task-item dragzone flex-fill p-2 bd-highlight">' + taskName + '</p>';
+        const progressbar = `
+            <div class="progress">
+                <div class="progress-bar flex-fill p-2 bd-highlight" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                    25%
+                </div> 
+            </div>`;
+        const playButton = '<a href="https://www.google.com/"><span class="material-icons play-btn p-2 bd-highlight">play_circle</span></a>';
+        const editButton =
+            `<div class="btn-group dropright p-2 bd-highlight">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="material-icons edit-btn">more_horiz</span>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#">Edit</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Delete</a>
+                </div>
+            </div>`;
+        list.insertAdjacentHTML(position, '<li id=' + uid + ', class="taskNode d-flex flex-row bd-highlight" draggable = true>'
+            + dragButton + checkmark + todoTask + progressbar + playButton + editButton);
     }
 
     //ADD TODO TO LOCALSTORAGE
