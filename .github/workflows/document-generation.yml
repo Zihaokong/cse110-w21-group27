@@ -21,7 +21,9 @@ jobs:
       - name: Generate Documentation
         run: yarn doc
       - name: Commit and push
-        run: git add -f ./docs
+        run: |
+             git add -f ./docs
              git config --local user.name "github-actions[bot]"
+             git config --global user.email '41898282+github-actions[bot]@users.noreply.github.com'
              git commit -am "Auto generated documentation"
              git push
