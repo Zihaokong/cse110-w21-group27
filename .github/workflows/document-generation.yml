@@ -16,14 +16,24 @@ jobs:
     steps:
       # Gets source code into the virtual 
       - uses: actions/checkout@v2
+        with:
+          repository: ${{github.repository}}.wiki
       - name: Install modules
         run: yarn
       - name: Generate Documentation
         run: yarn doc
-      - name: Commit and push
+      - name: Chek wiki repo content
+        run: ls -al
+      - name: Add documentation to wiki
+        run: echo ./docs/source.md >. source.md
+      - name: Commit
         run: |
-             git add -f ./docs
-             git config --local user.name "github-actions[bot]"
-             git config --global user.email '41898282+github-actions[bot]@users.noreply.github.com'
+             git add .
+             git config --local user.email "action@github.com"
+             git config --local user.name "GitHub Action"
              git commit -am "Auto generated documentation"
-             git push
+      - name: Push
+        uses: ad-m/github-push-action@master
+        with:
+          repository: ${{github.repository}}.wiki
+          github_token: ${{ secrets.GITHUB_TOKEN }}
