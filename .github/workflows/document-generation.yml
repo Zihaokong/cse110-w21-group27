@@ -1,0 +1,27 @@
+
+name: Documentation Generation
+ 
+on:
+  # Workflow is triggered on a pull_request to the main branch
+  # CHANGE TO MERGE LATER, SET TO PUSH FOR TESTING
+  push: 
+    # branches: [ m ]
+    
+# Workflow of testing the code
+jobs:
+  document_generation:
+   
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    steps:
+      # Gets source code into the virtual 
+      - uses: actions/checkout@v2
+      - name: Install modules
+        run: yarn
+      - name: Generate Documentation
+        run: yarn doc
+      - name: Commit and push
+        run: git add -f ./docs
+             git config --local user.name "github-actions[bot]"
+             git commit -am "Auto generated documentation"
+             git push

@@ -4,6 +4,8 @@
  */
 const studentName = 'Student Name';
 
+const test1 = 's';
+
 /**
  * Array of grades
  * @type {Array<number>}
@@ -77,6 +79,7 @@ class Student {
  * Student one
  * See {@link Student}
  */
+
 const student1 = new Student({
   name: 'Jake',
 });
