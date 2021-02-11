@@ -7,11 +7,11 @@ const taskInput = document.getElementById("task-name");
 //const taskButton = document.querySelector(".todo-button");
 const list = document.querySelector(".task-container");
 const taskForm = document.getElementById("taskform");
-
+const welcome = document.getElementById("welcome-message");
 
 /// Event Listeners for Task
 taskForm.addEventListener("submit", addTask);
-list.addEventListener("click", deleteCheck);
+list.addEventListener("click", handleEdit);
 
 
 
@@ -45,12 +45,15 @@ function addTask (event) {
                     <span class="material-icons edit-btn">more_horiz</span>
                 </button>
                 <div class="dropdown-menu dropdown-menu-right " aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#">Edit</a>
+                    <a class="dropdown-item" href="#" job="edit">Edit</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#" id="delete-btn">Delete</a>
+                    <a class="dropdown-item" href="#" job="delete">Delete</a>
                 </div>
             </div>`;
 
+        if(welcome){
+            welcome.remove();
+        }
         list.insertAdjacentHTML(position, '<li id=' + uid + ', class="taskNode d-flex flex-row bd-highlight" draggable = true>'
             + dragButton + checkmark + todoTask + progressbar + playButton + editButton);
         taskForm.reset();
@@ -67,25 +70,38 @@ function addTask (event) {
     taskInput.value = "";
 }
 
-function deleteCheck (event) {
-    const item = event.target; //getting which is being clicked
+function handleEdit (event) {
+    let element = event.target; //getting which is being clicked
+    let eleJob;
 
-    //Delete Todo
-    if (item.classList[0] === "edit-btn") {
-        const todo = item.parentElement;
-        //Animation
-        todo.classList.add("fall");
-
-        //TO DELETE ITEM IN LOCALSTORAGE
-        //removeLocalTodos(todo);
-
-        todo.addEventListener("transitionend", function (event) {
-            event.preventDefault();
-            todo.remove();
-        });
+    //job may be undefined
+    if(event.target.attributes.job){
+        eleJob = event.target.attributes.job.value;
     }
+    if(eleJob == "delete"){
+        deleteTask(element);
+    }
+  
+
+    // //Delete Todo
+    // if (item.classList[0] === "edit-btn") {
+    //     const todo = item.parentElement;
+    //     //Animation
+    //     todo.classList.add("fall");
+
+    //     //TO DELETE ITEM IN LOCALSTORAGE
+    //     //removeLocalTodos(todo);
+
+    //     todo.addEventListener("transitionend", function (event) {
+    //         event.preventDefault();
+    //         todo.remove();
+    //     });
+    //}
 }
 
+function deleteTask(element){
+    element.closest("ul").removeChild(element.closest("li"));
+}
 ///////// SECTION for Drag and Drop ////////
 var dropzone = document.getElementById("main-container");
 var nodes = document.getElementsByClassName("taskNode");

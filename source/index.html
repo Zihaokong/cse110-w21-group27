@@ -36,7 +36,7 @@
 
             <!-- This form will be integrated with "+ Add Task" button and modal -->
             <!-- --------------------- separate line ------------------------------------->
-            <center> <b>Welcome. Add a task to get started.</b></center>
+            <center> <span id = welcome-message><b>Welcome. Add a task to get started.</b></span></center>
 
             <ul id="main-container" class="task-container d-flex">
                 <!-- ToDo from JS will append here -->
@@ -58,7 +58,7 @@
                         
                         <div class="taskform-entry">
                             <label for="num-pomos">Estimated Pomos: </label>
-                            <input type = "number" class="num-pomos" placeholder="4" id="task-num" min=0 max=10 required> 
+                            <input type = "number" class="num-pomos" placeholder="4" id="task-num" min=1 max=10 required> 
                         </div>
     
                         <div class="taskform-entry">
