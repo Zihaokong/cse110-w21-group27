@@ -102,10 +102,14 @@ form button:hover {
  * Section for the text of task in task item
  */
 p.task-item {
-  padding: 0rem;
   margin: 0;
-  width: 25%;
+  /* width: 25%; */
+  white-space: nowrap;
+  /* min-width: 0%;
+  max-width: 50%; */
+  word-break: break-all;
   overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* Section for progress-bar */
