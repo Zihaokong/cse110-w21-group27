@@ -3,13 +3,16 @@
  */
 
 // Selectors for Task
-const taskInput = document.querySelector(".todo-input");
-const taskButton = document.querySelector(".todo-button");
+const taskInput = document.getElementById("task-name");
+//const taskButton = document.querySelector(".todo-button");
 const list = document.querySelector(".task-container");
+const taskForm = document.getElementById("taskform");
+
 
 /// Event Listeners for Task
-taskButton.addEventListener("click", addTask);
+taskForm.addEventListener("submit", addTask);
 list.addEventListener("click", deleteCheck);
+
 
 
 ///////// SECTION for Task function ////////
@@ -44,12 +47,18 @@ function addTask (event) {
                 <div class="dropdown-menu dropdown-menu-right " aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item" href="#">Edit</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Delete</a>
+                    <a class="dropdown-item" href="#" id="delete-btn">Delete</a>
                 </div>
             </div>`;
+
         list.insertAdjacentHTML(position, '<li id=' + uid + ', class="taskNode d-flex flex-row bd-highlight" draggable = true>'
             + dragButton + checkmark + todoTask + progressbar + playButton + editButton);
+        taskForm.reset();
+        closeModal();
     }
+    //handle delete
+
+
 
     //ADD TODO TO LOCALSTORAGE
     //   saveLocalTodos(taskInput.value);
