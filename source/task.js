@@ -31,7 +31,7 @@ function addTask (event) {
             </span>`;
         const todoTask = '<p class="p-2 flex-md-fill flex-wrap task-item dragzone ">' + taskName + '</p>';
         const progressbar = `
-            <div class=" flex-column w-50 progress">
+            <div class=" flex-column progress">
                 <div class="p-2 flex-column progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
             </div>
             `;
