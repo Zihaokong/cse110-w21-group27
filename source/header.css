@@ -1,0 +1,31 @@
+/* Styles for Header bar */
+.dot {
+  height: 10px;
+  width: 10px;
+  padding: 10px;
+  background-color: #e5e5e5;
+  border-radius: 77%;
+  border: 2px solid #ef7869;
+  display: inline-block;
+}
+
+.filled-dot {
+  height: 10px;
+  width: 10px;
+  padding: 10px;
+  background-color: #f2998e;
+  border-radius: 77%;
+  border: 2px solid #ef7869;
+  display: inline-block;
+}
+
+.top-nav {
+  background: #2e4756;
+  margin: 0;
+  padding-top: 1%;
+  padding-left: 50px;
+  padding-bottom: 5px;
+  width: 100%;
+  color: #e5e5e5;
+  font-size: 24px;
+}
