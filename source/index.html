@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
     <head>
@@ -36,41 +37,41 @@
 
             <!-- This form will be integrated with "+ Add Task" button and modal -->
             <!-- --------------------- separate line ------------------------------------->
-            <center> <span id = welcome-message><b>Welcome. Add a task to get started.</b></span></center>
+            <center> <span id="welcome-message"><b>Welcome. Add a task to get started.</b></span></center>
 
             <ul id="main-container" class="task-container d-flex">
                 <!-- ToDo from JS will append here -->
             </ul>
             <button id="add-task-btn-bottom" class="add-task-btn">+ Add Task</button>
-            <button id='back_to_top' onclick="window.scrollTo(0,0)">Top</button>
+            <button id="back-to-top" onclick="window.scrollTo(0,0)">Top</button>
         </main>
         <!-- Modal Goes here -->
         <div id="add-task-modal" class="modal">
             <!-- Modal content -->
             <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
+                <div class="modal-content ">
                     <span class="close"> &times;</span>
-                    <form id = "taskform">
+                    <form id="taskform" class="form-group">
                         <div class="taskform-entry">
                             <label for="taskname">Task: </label>
-                            <input type="text" class="taskname" placeholder="Task 1" id="task-name" required>
+                            <input type="text" class="taskname form-control" placeholder="Task 1" id="task-name" required>
                         </div>
-                        
+
                         <div class="taskform-entry">
                             <label for="num-pomos">Estimated Pomos: </label>
-                            <input type = "number" class="num-pomos" placeholder="4" id="task-num" min=1 max=10 required> 
+                            <input type="number" class="num-pomos form-control" placeholder="4" id="task-num" min=1 max=10 required>
                         </div>
-    
+
                         <div class="taskform-entry">
                             <label for="notes">Notes: </label>
                             <br>
-                            <textarea rows="4" cols="30" placeholder="Briefly describe your task." id="task-note"></textarea>
+                            <textarea rows="4" cols="30" placeholder="Briefly describe your task." id="task-note" class="form-control"></textarea>
                         </div>
-    
+
                         <div class="task-btns">
                             <button class="add-task-button" id="cancel-btn">Cancel</button>
                             <button class="add-task-button" id="save-btn" type="submit">Save</button>
-                        </div> 
+                        </div>
                     </form>
                 </div>
             </div>

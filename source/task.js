@@ -4,7 +4,6 @@
 
 // Selectors for Task
 const taskInput = document.getElementById("task-name");
-//const taskButton = document.querySelector(".todo-button");
 const list = document.querySelector(".task-container");
 const taskForm = document.getElementById("taskform");
 const welcome = document.getElementById("welcome-message");
@@ -12,7 +11,6 @@ const welcome = document.getElementById("welcome-message");
 /// Event Listeners for Task
 taskForm.addEventListener("submit", addTask);
 list.addEventListener("click", handleEdit);
-
 
 
 ///////// SECTION for Task function ////////
@@ -51,7 +49,7 @@ function addTask (event) {
                 </div>
             </div>`;
 
-        if(welcome){
+        if (welcome) {
             welcome.remove();
         }
         list.insertAdjacentHTML(position, '<li id=' + uid + ', class="taskNode d-flex flex-row bd-highlight" draggable = true>'
@@ -75,13 +73,13 @@ function handleEdit (event) {
     let eleJob;
 
     //job may be undefined
-    if(event.target.attributes.job){
+    if (event.target.attributes.job) {
         eleJob = event.target.attributes.job.value;
     }
-    if(eleJob == "delete"){
+    if (eleJob == "delete") {
         deleteTask(element);
     }
-  
+
 
     // //Delete Todo
     // if (item.classList[0] === "edit-btn") {
@@ -99,9 +97,11 @@ function handleEdit (event) {
     //}
 }
 
-function deleteTask(element){
+function deleteTask (element) {
     element.closest("ul").removeChild(element.closest("li"));
 }
+
+
 ///////// SECTION for Drag and Drop ////////
 var dropzone = document.getElementById("main-container");
 var nodes = document.getElementsByClassName("taskNode");
