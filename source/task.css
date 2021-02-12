@@ -163,10 +163,10 @@ p.task-item {
 /* Section for progress-bar */
 .progress {
   width: 25% !important;
-  margin-right: 3%;
 }
 
 .progress-bar {
+  /* width: 25% !important; */
   background-color: rgba(46, 71, 86, 0.75) !important;
 }
 

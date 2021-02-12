@@ -21,27 +21,27 @@ var allTasks;
  * When loading page, retrive previously stored task from 
  * local storage, and render it, delete welcome message
  */
-window.onload = function() { 
+window.onload = function () {
     var retrievedObject = localStorage.getItem("allTasks");
-    if(retrievedObject){
+    if (retrievedObject) {
         allTasks = JSON.parse(retrievedObject);
-        if(allTasks.length != 0){
+        if (allTasks.length != 0) {
             welcome.remove();
         }
-        
-        for(let i = 0; i<allTasks.length;i++){
+
+        for (let i = 0; i < allTasks.length; i++) {
             renderTask(allTasks[i]);
         }
 
-    } else{
+    } else {
         allTasks = [];
     }
-} 
+}
 
 /**
  * Closing page will save current task and update local storage
  */
-window.onbeforeunload = function(){
+window.onbeforeunload = function () {
     localStorage.setItem('allTasks', JSON.stringify(allTasks));
 }
 
@@ -63,7 +63,7 @@ function addTask (event) {
         name: taskInput.value,
         number: taskInputNum.value,
         current: 0,
-        note: taskInputNote.value  
+        note: taskInputNote.value
     }
     allTasks.push(newTask);
 
@@ -80,7 +80,7 @@ function addTask (event) {
  * render a task struct on page, display name and current progress
  * @param {*} newTask: the task struct to render 
  */
-function renderTask(newTask){
+function renderTask (newTask) {
     /*
         To-do: add real time progress bar percentage display
     */
@@ -96,7 +96,7 @@ function renderTask(newTask){
     const todoTask = '<p class="p-2 flex-md-fill text-nowrap task-item dragzone ">' + newTask.name + '</p>';
     const progressbar = `
         <div class=" flex-column progress">
-            <div class="p-2 flex-column progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="`+ newTask.number +`">25%</div>
+            <div class="p-2 flex-column progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="`+ newTask.number + `">25%</div>
         </div>
         `;
     const playButton = '<a class="p-2" href="https://www.google.com/"><span class="material-icons play-btn">play_circle</span></a>';
@@ -123,7 +123,7 @@ function renderTask(newTask){
  */
 function handleEdit (event) {
     //getting which is being clicked
-    let element = event.target; 
+    let element = event.target;
     let eleJob;
 
     //job may be undefined
@@ -131,10 +131,10 @@ function handleEdit (event) {
         eleJob = event.target.attributes.job.value;
     }
 
-    if(eleJob == "delete"){
+    if (eleJob == "delete") {
         deleteTask(element);
     }
-    else if(eleJob == "edit"){
+    else if (eleJob == "edit") {
         displayModal();
     }
 }
@@ -143,13 +143,13 @@ function handleEdit (event) {
  * Delete task
  * @param {*} element 
  */
-function deleteTask(element){
+function deleteTask (element) {
     element.closest("ul").removeChild(element.closest("li"));
     let name = element.closest("li").children[2].innerHTML;
     for (let i = 0; i < allTasks.length; i++) {
-        if (allTasks[i].name == name){
-            allTasks.splice(i,1);
-            
+        if (allTasks[i].name == name) {
+            allTasks.splice(i, 1);
+
             break;
         }
     }

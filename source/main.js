@@ -16,17 +16,17 @@ let spanClose = document.getElementsByClassName("close")[0];
 //add event listeners
 spanClose.addEventListener("click", closeModal);
 
-for(let i = 0; i < btns.length; ++i){
+for (let i = 0; i < btns.length; ++i) {
   btns[i].addEventListener("click", displayModal);
 }
 
 // When the user clicks the button, open the modal 
-function displayModal() {
+function displayModal () {
   modal.style.display = "block";
 }
 
 // When the user clicks on <span> (x), close the modal
-function closeModal(){
+function closeModal () {
   modal.style.display = "none";
 }
 
