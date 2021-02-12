@@ -36,10 +36,9 @@ hr {
 .add-task-btn {
   float: right;
   font-family: "Poppins", sans-serif;
-  font-weight: bold;
   color: #e5e5e5;
   font-size: 15px;
-
+  font-weight: 550;
   padding: 10px 15px;
   border-radius: 40px;
   background: #2e4756;
@@ -90,6 +89,15 @@ hr {
   padding: 20px;
   border: 1px solid #888;
   width: 80%;
+}
+
+form div{
+
+  padding-top: 10px;
+  padding-left: 20px;
+  margin:30px 10px;
+  font-family: "Poppins", sans-serif;
+  font-size: 1.5em;
 }
 
 /* The Close Button */

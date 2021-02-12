@@ -5,21 +5,28 @@
 
 ///////// SECTION for Modals////////
 // Get the modal
-var modal = document.getElementById("myModal");
+let modal = document.getElementById("add-task-modal");
 
 // Get the button that opens the modal
-var btn = document.getElementById("add-task-btn");
+let btns = document.getElementsByClassName("add-task-btn");
 
 // Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
+let spanClose = document.getElementsByClassName("close")[0];
+
+//add event listeners
+spanClose.addEventListener("click", closeModal);
+
+for(let i = 0; i < btns.length; ++i){
+  btns[i].addEventListener("click", displayModal);
+}
 
 // When the user clicks the button, open the modal 
-btn.onclick = function () {
+function displayModal() {
   modal.style.display = "block";
 }
 
 // When the user clicks on <span> (x), close the modal
-span.onclick = function () {
+function closeModal(){
   modal.style.display = "none";
 }
 
