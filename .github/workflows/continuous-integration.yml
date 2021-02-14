@@ -1,0 +1,22 @@
+# Basic workflow for maintaining pull-requests to the main branch
+#   by testing js.
+name: Continuous Integration
+ 
+on:
+  # Workflow is triggered on a pull_request to the main branch
+  pull_request:
+    branches: [ main ]
+    
+# Workflow of testing the code
+jobs:
+  test:
+   
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    steps:
+      # Gets source code into the virtual 
+      - uses: actions/checkout@v2
+      - name: Install modules
+        run: yarn
+      - name: Run tests
+        run: yarn test

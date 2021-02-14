@@ -1,0 +1,47 @@
+{
+  "name": "cse110-w21-group27",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "doc": "jsdoc -c jsdoc.json",
+    "test": "jest",
+    "docmd": "mkdir docs; jsdoc2md source/*.js > docs/source.md"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Zihaokong/cse110-w21-group27.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Zihaokong/cse110-w21-group27/issues"
+  },
+  "homepage": "https://github.com/Zihaokong/cse110-w21-group27#readme",
+  "devDependencies": {
+    "eslint": "^7.2.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^7.2.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jest": "^24.1.3",
+    "eslint-plugin-prettier": "^3.3.1",
+    "husky": "^4.3.8",
+    "jest": "^26.6.3",
+    "jsdoc": "^3.6.6",
+    "lint-staged": "^10.5.3",
+    "prettier": "^2.2.1"
+  },
+  "husky": {
+    "hooks": {
+      "precommit": "npx precommit",
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": "eslint --cache --fix"
+  },
+  "dependencies": {
+    "jsdoc-to-markdown": "^6.0.1"
+  }
+}
