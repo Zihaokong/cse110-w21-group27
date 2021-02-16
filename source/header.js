@@ -31,4 +31,3 @@ for (var i = 0; i < completedCycles; i++) {
 
 const cycleText = document.getElementById("completed-cycle");
 cycleText.innerText = "| Completed Cycles: " + completedCycles;
-
