@@ -29,17 +29,38 @@ for (let i = 0; i < btns.length; ++i) {
   btns[i].addEventListener("click", displayAddModal);
 }
 
+
+function scrollFunc() {
+  window.scrollTo(0, 0);
+}
+
+
 // When the user clicks the button, open the modal 
-function displayAddModal () {
+function displayAddModal() {
   modal.style.display = "block";
 }
 
+/**
+ * Section for Play Modal
+ */
 function displayPlayModal() {
-  playModal.style.display = "block";
+  playModal.style.display = 'block';
 }
 
+function showModalTask(element) {
+  const parentList = element.closest('li')
+  const targetP = element.closest("li").getElementsByTagName('p')
+  document.getElementById('timer-name').innerText = targetP[0].innerHTML
+
+
+
+}
+
+
+
+
 // When the user clicks on <span> (x), close the modal
-function closeModal () {
+function closeModal() {
   modal.style.display = "none";
   playModal.style.display = "none";
 }

@@ -23,7 +23,7 @@ var allTasks;
  */
 window.onload = function () {
     var retrievedObject = localStorage.getItem("allTasks");
-    if (retrievedObject) {
+    if (retrievedObject !== undefined || retrievedObject !== []) {
         allTasks = JSON.parse(retrievedObject);
         if (allTasks.length != 0) {
             welcome.remove();
@@ -51,7 +51,7 @@ window.onbeforeunload = function () {
  * Add a task to the page and to the global list.
  * @param event 
  */
-function addTask (event) {
+function addTask(event) {
     event.preventDefault();
     //acquire data from HTML form
     const taskInput = document.getElementById("task-name");
@@ -80,7 +80,7 @@ function addTask (event) {
  * render a task struct on page, display name and current progress
  * @param {*} newTask: the task struct to render 
  */
-function renderTask (newTask) {
+function renderTask(newTask) {
     /*
         To-do: add real time progress bar percentage display
     */
@@ -96,7 +96,7 @@ function renderTask (newTask) {
     const todoTask = '<p class="p-2 flex-md-fill text-nowrap task-item dragzone ">' + newTask.name + '</p>';
     const progressbar = `
         <div class=" flex-column progress">
-            <div class="p-2 flex-column progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="`+ newTask.number + `">25%</div>
+            <div class="p-2 flex-column progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="` + newTask.number + `">25%</div>
         </div>
         `;
     const playButton = '<a class="p-2" href="#"><span class="material-icons play-btn" job ="play">play_circle</span></a>';
@@ -111,8 +111,8 @@ function renderTask (newTask) {
                 <a class="dropdown-item" href="#" job="delete">Delete</a>
             </div>
         </div>`;
-    list.insertAdjacentHTML(position, '<li id=' + uid + ', class="taskNode d-flex flex-row bd-highlight" draggable = true>'
-        + dragButton + checkmark + todoTask + progressbar + playButton + editButton);
+    list.insertAdjacentHTML(position, '<li id=' + uid + ' class="taskNode d-flex flex-row bd-highlight" draggable = true>' +
+        dragButton + checkmark + todoTask + progressbar + playButton + editButton);
 
 }
 
@@ -121,7 +121,7 @@ function renderTask (newTask) {
  * Click more button, giving user edit and delete options
  * @param {*} event 
  */
-function handleEdit (event) {
+function handleEdit(event) {
     //getting which is being clicked
     let element = event.target;
     let eleJob;
@@ -132,17 +132,15 @@ function handleEdit (event) {
     }
 
     console.log(eleJob);
-    
+
 
     if (eleJob == "delete") {
         deleteTask(element);
-    }
-    else if (eleJob == "edit") {
+    } else if (eleJob == "edit") {
         displayAddModal();
-    }
-    else if(eleJob == "play"){
+    } else if (eleJob == "play") {
         displayPlayModal();
-
+        showModalTask(element);
     }
 }
 
@@ -150,7 +148,7 @@ function handleEdit (event) {
  * Delete task
  * @param {*} element 
  */
-function deleteTask (element) {
+function deleteTask(element) {
     element.closest("ul").removeChild(element.closest("li"));
     let name = element.closest("li").children[2].innerHTML;
     for (let i = 0; i < allTasks.length; i++) {
@@ -186,7 +184,7 @@ dropzone.addEventListener("drop", (event) => {
     dropzone.insertBefore(selectedNode, dropzone.children[selectedNodePos]);
 });
 
-function establishNodePositions () {
+function establishNodePositions() {
     for (var i = 0; i < nodes.length; i++) {
         var element = document.getElementById(nodes[i]["id"]);
         var position = element.getBoundingClientRect(); //info of the element position on the frame
@@ -197,7 +195,7 @@ function establishNodePositions () {
     }
 }
 
-function whereAmI (currentYPos) {
+function whereAmI(currentYPos) {
     establishNodePositions();
     for (var i = 0; i < nodes.length; i++) {
         if (nodes[i]["yPos"] < currentYPos) {
