@@ -116,3 +116,54 @@ form div {
   text-decoration: none;
   cursor: pointer;
 }
+
+
+/*
+ * Section for Modal content
+ */
+
+ form div {
+  padding-top: 10px;
+  padding-left: 20px;
+  margin: 30px 10px;
+  font-family: "Poppins", sans-serif;
+  font-size: 1.5em;
+}
+
+.submit-btn {
+  float: right;
+  font-family: "Poppins", sans-serif;
+  color: #ffffff;
+  font-size: 30px;
+  line-height: 45px;
+  font-weight: 550;
+  border-radius: 40px;
+  background: #2e4756;
+  width: 145px;
+  height: 61px;
+  margin-right: 23px;
+  align-items: center;
+  text-align: center;
+
+}
+
+.cancel-btn {
+  float: right;
+  font-family: "Poppins", sans-serif;
+  color: #ffffff;
+  font-size: 30px;
+  line-height: 45px;
+  font-weight: 550;
+  width: 145px;
+  height: 61px;
+  border-radius: 40px;
+  background: #c4c4c4;
+  align-items: center;
+  text-align: center;
+}
+
+.taskform-entry {
+  margin-bottom: 25px;
+  padding-bottom: 0px;
+}
+

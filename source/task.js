@@ -57,9 +57,10 @@ function addTask(event) {
     const taskInput = document.getElementById("task-name");
     const taskInputNum = document.getElementById("task-num");
     const taskInputNote = document.getElementById("task-note");
-
+    const elementID = Math.random().toString(16).slice(2);
     //create struct and append to global list
     const newTask = {
+        id: elementID,
         name: taskInput.value,
         number: taskInputNum.value,
         current: 0,
@@ -81,15 +82,11 @@ function addTask(event) {
  * @param {*} newTask: the task struct to render 
  */
 function renderTask(newTask) {
-    /*
-        To-do: add real time progress bar percentage display
-    */
-    var uid = Math.random().toString(16).slice(2);
+    //  To-do: add real time progress bar percentage display
     const position = "beforeend";
-
     const dragButton = `<span class="p-2 material-icons drag-btn">drag_indicator</span>`;
-    const checkmark = `
-        <span class="p-2 form-check form-check-inline">
+    const checkmark =
+        `<span class="p-2 form-check form-check-inline">
             <input class="form-check-input input-mysize large" type="checkbox" value="false">
             <label for="checkbox"></label>
         </span>`;
@@ -97,8 +94,7 @@ function renderTask(newTask) {
     const progressbar = `
         <div class=" flex-column progress">
             <div class="p-2 flex-column progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="` + newTask.number + `">25%</div>
-        </div>
-        `;
+        </div>`;
     const playButton = '<a class="p-2" href="#"><span class="material-icons play-btn" job ="play">play_circle</span></a>';
     const editButton =
         `<div class="p-2 bd-highlight btn-group dropright flex-right">
@@ -111,7 +107,7 @@ function renderTask(newTask) {
                 <a class="dropdown-item" href="#" job="delete">Delete</a>
             </div>
         </div>`;
-    list.insertAdjacentHTML(position, '<li id=' + uid + ' class="taskNode d-flex flex-row bd-highlight" draggable = true>' +
+    list.insertAdjacentHTML(position, '<li id=' + newTask.id + ' class="taskNode d-flex flex-row bd-highlight" draggable = true>' +
         dragButton + checkmark + todoTask + progressbar + playButton + editButton);
 
 }
@@ -154,7 +150,6 @@ function deleteTask(element) {
     for (let i = 0; i < allTasks.length; i++) {
         if (allTasks[i].name == name) {
             allTasks.splice(i, 1);
-
             break;
         }
     }

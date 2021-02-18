@@ -54,7 +54,10 @@
     <!-- Modal content -->
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
-        <span class="close"> &times;</span>
+        <div class="modal-header">
+          <button type="button" class="btn-close close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <!-- <span class="close">&times;</span> -->
+        </div>
         <form id="taskform">
           <div class="taskform-entry">
             <label for="taskname">Task: </label>
@@ -85,16 +88,15 @@
   <div id="play-modal" class="modal">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
-        <div class="modal-header">
+        <div class="modal-header text-center">
+          <h2 class="w-100">Ready to Start?</h2>
           <span class="close">&times;</span>
-          <h2>Ready to Start</h2>
         </div>
         <div class="modal-body">
           <form id="timerform" action="./timer_page/timer.html">
             <label for="taskname">Task: </label>
-            <p id="timer-name"></p>
-
-
+            <span id="timer-name"></span>
+            <br />
             <label for="notes">Notes: </label>
             <br>
             <textarea rows="4" cols="30" placeholder="Briefly describe your task." id="timer-note" class="form-control"
