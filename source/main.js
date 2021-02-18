@@ -48,12 +48,8 @@ function displayPlayModal() {
 }
 
 function showModalTask(element) {
-  const parentList = element.closest('li')
-  const targetP = element.closest("li").getElementsByTagName('p')
-  document.getElementById('timer-name').innerText = targetP[0].innerHTML
-
-
-
+  const targetP = element.closest("li").getElementsByTagName('p');
+  document.getElementById('timer-name').innerText = targetP[0].innerHTML;
 }
 
 

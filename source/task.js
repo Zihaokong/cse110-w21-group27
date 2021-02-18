@@ -23,7 +23,7 @@ var allTasks;
  */
 window.onload = function () {
     var retrievedObject = localStorage.getItem("allTasks");
-    if (retrievedObject !== undefined || retrievedObject !== []) {
+    if (retrievedObject) {
         allTasks = JSON.parse(retrievedObject);
         if (allTasks.length != 0) {
             welcome.remove();
