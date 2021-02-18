@@ -3,6 +3,9 @@
     "plugins": ["prettier", "jest"],
     "rules": {
         "no-unused-vars":"warn",
+        "no-plusplus":"off",
+        "no-use-before-define":"off",    
+
         "prettier/prettier": [
             "error",
             {
