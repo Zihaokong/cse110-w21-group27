@@ -56,7 +56,7 @@
                     <span class="close"> &times;</span>
                     <form id="taskform">
                         <div class="taskform-entry">
-                            <label for="taskname">Task: </label>
+                            <label for="taskname">Task: <p id="task-name"></p></label>
                             <input type="text" class="taskname form-control" placeholder="Task 1" id="task-name" required>
                         </div>
 
@@ -72,13 +72,42 @@
                         </div>
 
                         <div class="task-btns">
-                            <button class="add-task-button" id="cancel-btn">Cancel</button>
-                            <button class="add-task-button" id="save-btn" type="submit">Save</button>
+                            <button class="cancel-btn">Cancel</button>
+                            <button class="submit-btn" id="save-btn" type="submit">Save</button>
                         </div>
                     </form>
                 </div>
             </div>
+
         </div>
+
+        <div id="play-modal" class="modal">
+            <div class = "modal-dialog modal-dialog-centered" role="document">
+                <div class = "modal-content">
+                    <div class="modal-header">
+                        <span class="close">&times;</span>
+                        <h2>Ready to Start</h2>
+                      </div>
+                      <div class="modal-body">
+                        <form id="taskform" action=".\timer_page\timer.html">
+                            <label for="taskname">Task: </label>
+                            <p id="task-name"></p>
+    
+                   
+                            <label for="notes">Notes: </label>
+                            <br>
+                            <textarea rows="4" cols="30" placeholder="Briefly describe your task." id="task-note" class="form-control" disabled></textarea>
+    
+                            <div class="task-btns">
+                                <button class="cancel-btn">Cancel</button>
+                                <button class="submit-btn" id="start-btn" >Start</button>
+                            </div>
+                        </form>
+                      </div>
+                </div>
+            </div>        
+          
+          </div>
 
         <script src="main.js"></script>
         <script src="header.js"></script>

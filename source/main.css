@@ -68,6 +68,7 @@ hr {
   border-radius: 4px;
   font-family: "Poppins", sans-serif;
   font-size: 16px;
+}
 
 
 /* Styles for Modals */
@@ -84,7 +85,6 @@ hr {
   background-color: rgb(0, 0, 0); /* Fallback color */
   background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 }
-
 /* Modal Content */
 .modal-content {
   background-color: #fefefe;

@@ -43,7 +43,7 @@ form div {
   font-size: 1.5em;
 }
 
-#save-btn {
+.submit-btn {
   float: right;
   font-family: "Poppins", sans-serif;
   color: #ffffff;
@@ -59,7 +59,7 @@ form div {
   text-align: center;
 }
 
-#cancel-btn {
+.cancel-btn {
   float: right;
   font-family: "Poppins", sans-serif;
   color: #ffffff;

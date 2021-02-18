@@ -99,7 +99,7 @@ function renderTask (newTask) {
             <div class="p-2 flex-column progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="`+ newTask.number + `">25%</div>
         </div>
         `;
-    const playButton = '<a class="p-2" href="https://www.google.com/"><span class="material-icons play-btn">play_circle</span></a>';
+    const playButton = '<a class="p-2" href="#"><span class="material-icons play-btn" job ="play">play_circle</span></a>';
     const editButton =
         `<div class="p-2 bd-highlight btn-group dropright flex-right">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -125,17 +125,24 @@ function handleEdit (event) {
     //getting which is being clicked
     let element = event.target;
     let eleJob;
-
+    console.log(element);
     //job may be undefined
     if (event.target.attributes.job) {
         eleJob = event.target.attributes.job.value;
     }
 
+    console.log(eleJob);
+    
+
     if (eleJob == "delete") {
         deleteTask(element);
     }
     else if (eleJob == "edit") {
-        displayModal();
+        displayAddModal();
+    }
+    else if(eleJob == "play"){
+        displayPlayModal();
+
     }
 }
 

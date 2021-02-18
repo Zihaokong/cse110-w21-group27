@@ -6,28 +6,39 @@
 ///////// SECTION for Modals////////
 // Get the modal
 let modal = document.getElementById("add-task-modal");
+let playModal = document.getElementById("play-modal");
+let taskContent = document.getElementById("task-name");
 
 // Get the button that opens the modal
 let btns = document.getElementsByClassName("add-task-btn");
 
+
 // Get the <span> element that closes the modal
-let spanClose = document.getElementsByClassName("close")[0];
+let spanClose = document.getElementsByClassName("close");
 
 //add event listeners
-spanClose.addEventListener("click", closeModal);
+for (let i = 0; i < spanClose.length; ++i) {
+  spanClose[i].addEventListener("click", closeModal);
+}
+
 
 for (let i = 0; i < btns.length; ++i) {
-  btns[i].addEventListener("click", displayModal);
+  btns[i].addEventListener("click", displayAddModal);
 }
 
 // When the user clicks the button, open the modal 
-function displayModal () {
+function displayAddModal () {
   modal.style.display = "block";
+}
+
+function displayPlayModal() {
+  playModal.style.display = "block";
 }
 
 // When the user clicks on <span> (x), close the modal
 function closeModal () {
   modal.style.display = "none";
+  playModal.style.display = "none";
 }
 
 // When the user clicks anywhere outside of the modal, close it
