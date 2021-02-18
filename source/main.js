@@ -11,6 +11,7 @@ let taskContent = document.getElementById("task-name");
 
 // Get the button that opens the modal
 let btns = document.getElementsByClassName("add-task-btn");
+let cancelBtns = document.getElementsByClassName("cancel-btn");
 
 
 // Get the <span> element that closes the modal
@@ -19,6 +20,8 @@ let spanClose = document.getElementsByClassName("close");
 //add event listeners
 for (let i = 0; i < spanClose.length; ++i) {
   spanClose[i].addEventListener("click", closeModal);
+  cancelBtns[i].addEventListener("click", closeModal);
+
 }
 
 
