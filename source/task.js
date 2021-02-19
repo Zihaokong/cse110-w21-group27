@@ -23,7 +23,9 @@ var allTasks;
  */
 window.onload = function () {
     var retrievedObject = localStorage.getItem("allTasks");
-    if (retrievedObject) {
+    if (!retrievedObject || retrievedObject === "undefined") {
+        allTasks = [];
+    } else {
         allTasks = JSON.parse(retrievedObject);
         if (allTasks.length != 0) {
             welcome.remove();
@@ -32,9 +34,6 @@ window.onload = function () {
         for (let i = 0; i < allTasks.length; i++) {
             renderTask(allTasks[i]);
         }
-
-    } else {
-        allTasks = [];
     }
 }
 
@@ -46,7 +45,7 @@ window.onbeforeunload = function () {
 }
 
 
-
+///////// SECTION FOR TASKLIST {CREATE, RENDER, DELETE} /////////
 /**
  * Add a task to the page and to the global list.
  * @param event 
@@ -61,6 +60,7 @@ function addTask(event) {
     //create struct and append to global list
     const newTask = {
         id: elementID,
+        completed: false,
         name: taskInput.value,
         number: taskInputNum.value,
         current: 0,
@@ -121,15 +121,13 @@ function handleEdit(event) {
     //getting which is being clicked
     let element = event.target;
     let eleJob;
-    console.log(element);
+    // console.log(element);
     //job may be undefined
     if (event.target.attributes.job) {
         eleJob = event.target.attributes.job.value;
     }
 
-    console.log(eleJob);
-
-
+    // console.log(eleJob);
     if (eleJob == "delete") {
         deleteTask(element);
     } else if (eleJob == "edit") {
@@ -156,11 +154,17 @@ function deleteTask(element) {
 }
 
 ///////// SECTION for Drag and Drop ////////
+
+// getter for the list
 var dropzone = document.getElementById("main-container");
+//getter for the list items
 var nodes = document.getElementsByClassName("taskNode");
+// variable for the selected node to be dragged or moved
 var selectedNode;
+// variable for the position of selected node
 var selectedNodePos = 0;
 
+// Listener for the dragstart event
 dropzone.addEventListener(
     "dragstart",
     function (event) {
@@ -169,16 +173,21 @@ dropzone.addEventListener(
     false
 );
 
+// Listener for the dragover event
 dropzone.addEventListener("dragover", (event) => {
     event.preventDefault();
     whereAmI(event.clientY);
 });
 
+// Listener for the drop event
 dropzone.addEventListener("drop", (event) => {
     event.preventDefault();
     dropzone.insertBefore(selectedNode, dropzone.children[selectedNodePos]);
 });
 
+/**
+ * For measuring the selected node position from the list.
+ */
 function establishNodePositions() {
     for (var i = 0; i < nodes.length; i++) {
         var element = document.getElementById(nodes[i]["id"]);
@@ -190,6 +199,12 @@ function establishNodePositions() {
     }
 }
 
+/**
+ * For deciding which position the selected element goes to as measuring which 
+ * is the closest parent and closet children
+ * this function will call establishNodePositions() for selected node position. 
+ * @param {*} currentYPos 
+ */
 function whereAmI(currentYPos) {
     establishNodePositions();
     for (var i = 0; i < nodes.length; i++) {

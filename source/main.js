@@ -24,18 +24,23 @@ for (let i = 0; i < spanClose.length; ++i) {
 
 }
 
-
+// Listener for add task modal
 for (let i = 0; i < btns.length; ++i) {
   btns[i].addEventListener("click", displayAddModal);
 }
 
 
+/**
+ * For scroll to the top, used in Top button
+ */
 function scrollFunc() {
   window.scrollTo(0, 0);
 }
 
 
-// When the user clicks the button, open the modal 
+/**
+ * When the user clicks the button, open the modal 
+ */
 function displayAddModal() {
   modal.style.display = "block";
 }
@@ -47,9 +52,21 @@ function displayPlayModal() {
   playModal.style.display = 'block';
 }
 
+
+/**
+ * For showing the taks name, content on the modal
+ */
 function showModalTask(element) {
-  const targetP = element.closest("li").getElementsByTagName('p');
-  document.getElementById('timer-name').innerText = targetP[0].innerHTML;
+  // get the closest li from where we click and get the p tag in its children
+  const targetName = element.closest("li").getElementsByTagName('p');
+  // make the task name appear in the timer modal
+  document.getElementById('timer-name').innerText = targetName[0].innerHTML;
+  // Retrieving the note in Storage by getting its id
+  const targetID = element.closest("li").getAttribute("id");
+  // get the element Index in the object list
+  const taskStorageIndex = allTasks.findIndex(elem => elem.id === targetID);
+  // make the note from storage appear in the timer modal
+  document.getElementById('timer-note').innerText = allTasks[taskStorageIndex].note;
 }
 
 
