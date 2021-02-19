@@ -6,7 +6,7 @@
   "scripts": {
     "doc": "jsdoc -c jsdoc.json",
     "test": "jest --coverage",
-    "docmd": "jsdoc2md source/*.js > docs/source.md"
+    "docmd": "mkdir docs; jsdoc2md source/*.js > docs/source.md"
   },
 
   "jest": {
