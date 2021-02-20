@@ -1,39 +1,6 @@
 /* Styles for Task list */
 
 /*
- * Section for the form to add task 
- * Will be deleted once the modal of add task is completed.
-*/
-/* form {
-  min-height: 20vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-} */
-/* form input {
-  background-color: antiquewhite;
-}
-
-form input,
-form button {
-  padding: 0.5rem;
-  font-size: 2rem;
-  border: none;
-}
-form button {
-  color: #d88771;
-  background: white;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-form button:hover {
-  background: #d88771;
-  color: white;
-} */
-
-/* //////////////////////////////////////////////////////////////// */
-
-/*
  * Section for the task container
  */
 #main-container {
@@ -115,6 +82,8 @@ p.task-item {
 /* Section for progress-bar */
 .progress {
   width: 25% !important;
+  margin-left: 5%;
+  margin-right: 5%;
 }
 
 .progress-bar {
@@ -159,14 +128,26 @@ a > img {
 button {
   border: none;
   background: #00000000;
+  
 }
 
-.play-btn,
-.edit-btn {
-  background: 00000000;
+
+.btn{
+  padding-left: 0% !important;
+  padding-right: 0% !important;
+}
+.play-btn{
+  color: #2e4756;
   border: none;
   cursor: pointer;
-  transition: all 0.3s ease;
+  padding-top: 3px;
+  padding-bottom:0%;
+  text-shadow: none;
+  box-shadow: none;
+}
+
+.btn:focus, .btn:active {
+  box-shadow: none !important;
 }
 
 /* Section for the delete animation */
