@@ -42,7 +42,7 @@ Chosen option: "Miro", because
 * Voting system allow us to decide which direction or design to keep; no need to create polls on other platform.
 
 
-## 5. Consequences
+## Consequences
 We will host our scratch and brainstorming ideas on Miro. We can add comments on for further explanations and vote for the version of design that we want. 
 The major design and direction will be exported as image file and be added to wikis for future reference. 
 Our design team will take the ideas and scratch from Miro and integrate the designs on Figma for prototype of our projects. 
