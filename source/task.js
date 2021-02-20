@@ -87,10 +87,10 @@ function renderTask(newTask) {
     const dragButton = `<span class="p-2 material-icons drag-btn">drag_indicator</span>`;
     const checkmark =
         `<span class="p-2 form-check form-check-inline">
-            <input class="form-check-input input-mysize large" type="checkbox" value="false">
+            <input class="form-check-input input-mysize large" type="checkbox" job="check">
             <label for="checkbox"></label>
         </span>`;
-    const todoTask = '<p class="p-2 flex-md-fill text-nowrap task-item dragzone ">' + newTask.name + '</p>';
+    const todoTask = '<p class="p-2 flex-md-fill text-nowrap task-item">' + newTask.name + '</p>';
     const progressbar = `
         <div class=" flex-column progress">
             <div class="p-2 flex-column progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="` + newTask.number + `">25%</div>
@@ -109,9 +109,37 @@ function renderTask(newTask) {
         </div>`;
     list.insertAdjacentHTML(position, '<li id=' + newTask.id + ' class="taskNode d-flex flex-row bd-highlight" draggable = true>' +
         dragButton + checkmark + todoTask + progressbar + playButton + editButton);
-
+    renderCheckmark(newTask);
 }
 
+/**
+ * Update the checkmark status on the localStorage
+ * @param {*} newTask the task node just built from renderTask()
+ */
+function renderCheckmark(newTask) {
+    //setting checkmark
+    const newNode = document.getElementById(newTask.id);
+    //li: dragIcon -> span-checkmark; span: text -> actual checkbox
+    const checkbox = newNode.childNodes[1].childNodes[1];
+    checkbox.checked = newTask.completed;
+}
+
+
+
+/**
+ * Update the checkmark status on the array for localStorage
+ * @param {*} event 
+ */
+function handleCheck(element) {
+    // Retrieving the note in Storage by getting its id
+    const targetID = element.closest("li").getAttribute("id");
+    // get the element Index in the object list
+    const taskIndex = allTasks.findIndex(elem => elem.id === targetID);
+    allTasks[taskIndex].completed = !allTasks[taskIndex].completed;
+
+    //for testing 
+    // allTasks[taskIndex].completed = true;
+}
 
 /**
  * Click more button, giving user edit and delete options
@@ -135,6 +163,8 @@ function handleEdit(event) {
     } else if (eleJob == "play") {
         displayPlayModal();
         showModalTask(element);
+    } else if (eleJob == "check") {
+        handleCheck(element);
     }
 }
 

@@ -55,6 +55,7 @@ function displayPlayModal() {
 
 /**
  * For showing the taks name, content on the modal
+ * @param {*} element The target element that the user wants to start with
  */
 function showModalTask(element) {
   // get the closest li from where we click and get the p tag in its children
