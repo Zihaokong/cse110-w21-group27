@@ -34,7 +34,7 @@ Platforms:
   * [-] Does not have code-generation tool for web app designs.
   * [-] Unable to read the comments or design offline.
   
-## 4. Decision Outcome
+## Decision Outcome
 
 Chosen option: "Miro", because
 * Tools on Miro allow us to communicate effectively and are easy to use.
