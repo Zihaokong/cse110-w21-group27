@@ -1,6 +1,6 @@
 # 4. Pipeline Linting
 
-* Date: 2021-02-17 
+* Date: 2021-02-06 
 * Status [Accepted]
 
 ## Context and Problem Statement
