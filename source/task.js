@@ -82,37 +82,39 @@ function addTask(event) {
  * @param {*} newTask: the task struct to render 
  */
 function renderTask(newTask) {
-    //  To-do: add real time progress bar percentage display
-    const position = "beforeend";
-    const dragButton = `<span class="p-2 material-icons drag-btn">drag_indicator</span>`;
-    const checkmark =
-        `<span class="p-2 form-check form-check-inline">
-            <input class="form-check-input input-mysize large" type="checkbox" job="check">
-            <label for="checkbox"></label>
-        </span>`;
-    const todoTask = '<p class="p-2 flex-md-fill text-nowrap task-item">' + newTask.name + '</p>';
-    const progressbar = `
-        <div class=" flex-column progress">
-            <div class="p-2 flex-column progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="` + newTask.number + `">25%</div>
-        </div>`;
-    const playButton =
-        `<button class="p-2 bd-highlight btn  play-btn flex-right" type="button">
-            <span class="material-icons play-btn" job ="play">play_circle</span>
-        </button>`;
-    const editButton =
-        `<div class="p-2 bd-highlight btn-group dropright flex-right">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="material-icons edit-btn">more_horiz</span>
-            </button>
-            <div class="dropdown-menu dropdown-menu-right " aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#" job="edit">Edit</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#" job="delete">Delete</a>
-            </div>
-        </div>`;
-    list.insertAdjacentHTML(position, '<li id=' + newTask.id + ' class="taskNode d-flex flex-row bd-highlight" draggable = true>' +
-        dragButton + checkmark + todoTask + progressbar + playButton + editButton);
-    renderCheckmark(newTask);
+
+    // //  To-do: add real time progress bar percentage display
+    // const position = "beforeend";
+    // const dragButton = `<span class="p-2 inline material-icons drag-btn hide">drag_indicator</span>`;
+    // const checkmark =
+    //     `<span class="p-2 form-check form-check-inline">
+    //         <input class="form-check-input input-mysize large" type="checkbox" job="check">
+    //         <label for="checkbox"></label>
+    //     </span>`;
+    // const todoTask = '<p class="p-2 flex-md-fill text-nowrap task-item">' + newTask.name + '</p>';
+    // const progressbar = `
+    //     <div class=" flex-column progress">
+    //         <div class="p-2 flex-column progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="` + newTask.number + `">25%</div>
+    //     </div>`;
+    // const playButton =
+    //     `<button class="p-2 bd-highlight btn  play-btn flex-right " type="button">
+    //         <span class="material-icons play-btn hide" job ="play">play_circle</span>
+    //     </button>`;
+    // const editButton =
+    //     `<div class="p-2 bd-highlight btn-group dropright flex-right hide">
+    //         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    //             <span class="material-icons edit-btn hide">more_horiz</span>
+    //         </button>
+    //         <div class="dropdown-menu dropdown-menu-right " aria-labelledby="dropdownMenuButton">
+    //             <a class="dropdown-item" href="#" job="edit">Edit</a>
+    //             <div class="dropdown-divider"></div>
+    //             <a class="dropdown-item" href="#" job="delete">Delete</a>
+    //         </div>
+    //     </div>`;
+    // list.insertAdjacentHTML(position, '<li id=' + newTask.id + ' class="taskNode d-flex flex-row bd-highlight" draggable = true>' +
+    //     dragButton + checkmark + todoTask + progressbar + playButton + editButton);
+    list.appendChild(new TaskItem(newTask))
+    // renderCheckmark(newTask);
 }
 
 /**
@@ -139,9 +141,6 @@ function handleCheck(element) {
     // get the element Index in the object list
     const taskIndex = allTasks.findIndex(elem => elem.id === targetID);
     allTasks[taskIndex].completed = !allTasks[taskIndex].completed;
-
-    //for testing 
-    // allTasks[taskIndex].completed = true;
 }
 
 /**
