@@ -28,7 +28,9 @@ for (let i = 0; i < btns.length; ++i) {
   });
 }
 
-// When the user clicks on <span> (x), close the modal
+/**
+ * Close the Modal with X button or cancel button
+ */
 function closeModal() {
   modal.style.display = 'none';
   playModal.style.display = 'none';

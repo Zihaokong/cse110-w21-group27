@@ -45,7 +45,7 @@ window.onbeforeunload = function storeTask() {
 
 /**
  * Add a task to the page and to the global list.
- * @param {event} event: Javascript events
+ * @param {event} event Javascript events
  */
 function addTask(event) {
   event.preventDefault();
@@ -76,7 +76,7 @@ function addTask(event) {
 
 /**
  * render a task struct on page, display name and current progress
- * @param {newTask} newTask: the task struct to render
+ * @param {newTask} newTask the task struct to render
  */
 function renderTask(newTask) {
   //  To-do: add real time progress bar percentage display
@@ -125,7 +125,7 @@ function renderCheckmark(newTask) {
 
 /**
  * Update the checkmark status on the array for localStorage
- * @param {event.target} element: Javascript event.target
+ * @param {event.target} element Javascript event.target
  */
 function handleCheck(element) {
   // Retrieving the note in Storage by getting its id
@@ -137,7 +137,7 @@ function handleCheck(element) {
 
 /**
  * Click more button, giving user edit and delete options
- * @param {event} event: Javascript events.
+ * @param {event} event Javascript events.
  */
 function handleEdit(event) {
   // getting which is being clicked
@@ -164,7 +164,7 @@ function handleEdit(event) {
 
 /**
  * Delete task
- * @param {event.target} element: Javascript event.target
+ * @param {event.target} element Javascript event.target
  */
 function deleteTask(element) {
   element.closest('ul').removeChild(element.closest('li'));
@@ -180,7 +180,7 @@ function deleteTask(element) {
 
 /**
  * For showing the task name, content on the modal when going to timer page.
- * @param {event.target} element: The target element that the user wants to start with
+ * @param {event.target} element The target element that the user wants to start with
  */
 function showModalTask(element) {
   // get the closest li from where we click and get the p tag in its children
