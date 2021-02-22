@@ -2,26 +2,27 @@
  * This file defines functions and implements the behaviors of todo list.
  */
 
-//HTML List of all tasks on HTML page
-const list = document.querySelector(".task-container");
-list.addEventListener("click", handleEdit);
+// HTML List of all tasks on HTML page
+// eslint-disable-next-line no-undef
+const list = document.querySelector('.task-container');
+list.addEventListener('click', handleEdit);
 
-//HTML Task form for collecting data
-const taskForm = document.getElementById("taskform");
-taskForm.addEventListener("submit", addTask);
+// HTML Task form for collecting data
+const taskForm = document.getElementById('taskform');
+taskForm.addEventListener('submit', addTask);
 
-//HTML welcome message
-const welcome = document.getElementById("welcome-message");
+// HTML welcome message
+const welcome = document.getElementById('welcome-message');
 
-//Storing all tasks on current page.
-var allTasks;
+// Storing all tasks on current page.
+let allTasks;
 
-
-/** 
- * When loading page, retrive previously stored task from 
+/**
+ * When loading page, retrive previously stored task from
  * local storage, and render it, delete welcome message
  */
 window.onload = function () {
+
     var retrievedObject = localStorage.getItem("allTasks");
     if (!retrievedObject || retrievedObject === "undefined") {
         allTasks = [];
@@ -35,20 +36,19 @@ window.onload = function () {
             renderTask(allTasks[i]);
         }
     }
-}
+};
 
 /**
  * Closing page will save current task and update local storage
  */
 window.onbeforeunload = function () {
     localStorage.setItem('allTasks', JSON.stringify(allTasks));
-}
+};
 
 
-///////// SECTION FOR TASKLIST {CREATE, RENDER, DELETE} /////////
 /**
  * Add a task to the page and to the global list.
- * @param event 
+ * @param event
  */
 function addTask(event) {
     event.preventDefault();
@@ -79,7 +79,7 @@ function addTask(event) {
 
 /**
  * render a task struct on page, display name and current progress
- * @param {*} newTask: the task struct to render 
+ * @param {*} newTask: the task struct to render
  */
 function renderTask(newTask) {
     //  To-do: add real time progress bar percentage display
@@ -139,14 +139,12 @@ function handleCheck(element) {
     // get the element Index in the object list
     const taskIndex = allTasks.findIndex(elem => elem.id === targetID);
     allTasks[taskIndex].completed = !allTasks[taskIndex].completed;
-
-    //for testing 
-    // allTasks[taskIndex].completed = true;
 }
+
 
 /**
  * Click more button, giving user edit and delete options
- * @param {*} event 
+ * @param {*} event
  */
 function handleEdit(event) {
     //getting which is being clicked
@@ -173,7 +171,7 @@ function handleEdit(event) {
 
 /**
  * Delete task
- * @param {*} element 
+ * @param {*} element
  */
 function deleteTask(element) {
     element.closest("ul").removeChild(element.closest("li"));
@@ -197,13 +195,14 @@ var selectedNode;
 // variable for the position of selected node
 var selectedNodePos = 0;
 
+
 // Listener for the dragstart event
 dropzone.addEventListener(
-    "dragstart",
-    function (event) {
-        selectedNode = event.target;
-    },
-    false
+  'dragstart',
+  (event) => {
+    selectedNode = event.target;
+  },
+  false
 );
 
 // Listener for the dragover event
@@ -250,4 +249,9 @@ function whereAmI(currentYPos) {
     if (typeof nodeAbove === "undefined") {
         selectedNodePos = 0;
     }
+  }
+  // for the top of the list
+  if (typeof nodeAbove === 'undefined') {
+    selectedNodePos = 0;
+  }
 }

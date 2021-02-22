@@ -1,10 +1,12 @@
 /**
- * This file defines functions and implements the behaviors for pop-up modals 
+ * This file defines functions and implements the behaviors for pop-up modals
  * and other Modals for the main page.
  */
 
-///////// SECTION for Modals////////
+
+/// ////// SECTION for Modals////////
 // Get the modal
+
 let modal = document.getElementById("add-task-modal");
 let playModal = document.getElementById("play-modal");
 let taskContent = document.getElementById("task-name");
@@ -79,9 +81,16 @@ function closeModal() {
   playModal.style.display = "none";
 }
 
-// When the user clicks anywhere outside of the modal, close it
+
+
+/**
+ * Close the mocal
+ * @param {event} event: Javascript event
+ */
 window.onclick = function (event) {
   if (event.target == modal) {
-    modal.style.display = "none";
+    modal.style.display = 'none';
   }
-}
+};
+
+
