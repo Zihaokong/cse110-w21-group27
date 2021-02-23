@@ -1,6 +1,6 @@
 ### Describe the feature to implement:
 
-### Breakdown of what needs to be completed:
+### Closure Criteria:
 - [ ] Ex: Add styling to fail Pomo button
 
 ### Additional Context if applicable:
