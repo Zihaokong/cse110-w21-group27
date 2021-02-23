@@ -1,7 +1,15 @@
-### Describe the feature to implement:
+---
+name: Feature request
+about: Suggest an idea for this project
+title: ''
+labels: ''
+assignees: ''
 
-### Closure Criteria:
-- [ ] Ex: Add styling to fail Pomo button
+---
 
-### Additional Context if applicable:
-(E.g. screenshot which part of the design you will implement)
+##Describe the feature to implement
+
+##Breakdown of what needs to be completed
+- [ ] Ex. Add functionality styling to fail pomo button
+
+##Additional Context if Applicable
