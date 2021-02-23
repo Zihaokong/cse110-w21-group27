@@ -58,19 +58,17 @@ function displayPlayModal() {
  * @param {*} element The target element that the user wants to start with
  */
 function showModalTask(element) {
-  // get the closest li from where we click and get the p tag in its children
-  const targetName = element.closest("li").getElementsByTagName('p');
+  // get the closest task-item from where we click and get the p tag in its children
+  const targetName = element.closest("task-item").getElementsByTagName('p');
   // make the task name appear in the timer modal
   document.getElementById('timer-name').innerText = targetName[0].innerHTML;
   // Retrieving the note in Storage by getting its id
-  const targetID = element.closest("li").getAttribute("id");
+  const targetID = element.closest("task-item").getAttribute("id");
   // get the element Index in the object list
   const taskStorageIndex = allTasks.findIndex(elem => elem.id === targetID);
   // make the note from storage appear in the timer modal
   document.getElementById('timer-note').innerText = allTasks[taskStorageIndex].note;
 }
-
-
 
 
 // When the user clicks on <span> (x), close the modal

@@ -7,8 +7,7 @@ const list = document.querySelector(".task-container");
 list.addEventListener("click", handleEdit);
 
 //HTML Task form for collecting data
-const taskForm = document.getElementById("taskform");
-taskForm.addEventListener("submit", addTask);
+const taskForm = document.getElementById("taskform").addEventListener("submit", addTask);
 
 //HTML welcome message
 const welcome = document.getElementById("welcome-message");
@@ -52,19 +51,15 @@ window.onbeforeunload = function () {
  */
 function addTask(event) {
     event.preventDefault();
-    //acquire data from HTML form
-    const taskInput = document.getElementById("task-name");
-    const taskInputNum = document.getElementById("task-num");
-    const taskInputNote = document.getElementById("task-note");
-    const elementID = Math.random().toString(16).slice(2);
+
     //create struct and append to global list
     const newTask = {
-        id: elementID,
+        id: Math.random().toString(16).slice(2),
         completed: false,
-        name: taskInput.value,
-        number: taskInputNum.value,
+        name: document.getElementById("task-name").value,
+        number: document.getElementById("task-num").value,
         current: 0,
-        note: taskInputNote.value
+        note: document.getElementById("task-note").value
     }
     allTasks.push(newTask);
 
@@ -82,65 +77,30 @@ function addTask(event) {
  * @param {*} newTask: the task struct to render 
  */
 function renderTask(newTask) {
-
-    // //  To-do: add real time progress bar percentage display
-    // const position = "beforeend";
-    // const dragButton = `<span class="p-2 inline material-icons drag-btn hide">drag_indicator</span>`;
-    // const checkmark =
-    //     `<span class="p-2 form-check form-check-inline">
-    //         <input class="form-check-input input-mysize large" type="checkbox" job="check">
-    //         <label for="checkbox"></label>
-    //     </span>`;
-    // const todoTask = '<p class="p-2 flex-md-fill text-nowrap task-item">' + newTask.name + '</p>';
-    // const progressbar = `
-    //     <div class=" flex-column progress">
-    //         <div class="p-2 flex-column progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="` + newTask.number + `">25%</div>
-    //     </div>`;
-    // const playButton =
-    //     `<button class="p-2 bd-highlight btn  play-btn flex-right " type="button">
-    //         <span class="material-icons play-btn hide" job ="play">play_circle</span>
-    //     </button>`;
-    // const editButton =
-    //     `<div class="p-2 bd-highlight btn-group dropright flex-right hide">
-    //         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    //             <span class="material-icons edit-btn hide">more_horiz</span>
-    //         </button>
-    //         <div class="dropdown-menu dropdown-menu-right " aria-labelledby="dropdownMenuButton">
-    //             <a class="dropdown-item" href="#" job="edit">Edit</a>
-    //             <div class="dropdown-divider"></div>
-    //             <a class="dropdown-item" href="#" job="delete">Delete</a>
-    //         </div>
-    //     </div>`;
-    // list.insertAdjacentHTML(position, '<li id=' + newTask.id + ' class="taskNode d-flex flex-row bd-highlight" draggable = true>' +
-    //     dragButton + checkmark + todoTask + progressbar + playButton + editButton);
     list.appendChild(new TaskItem(newTask))
-    // renderCheckmark(newTask);
+    renderCheckmark(newTask);
 }
 
 /**
- * Update the checkmark status on the localStorage
- * @param {*} newTask the task node just built from renderTask()
+ * render the checkbox status according to localStorage
+ * @param {*} newTask the new object created from addTask()
  */
 function renderCheckmark(newTask) {
     //setting checkmark
-    const newNode = document.getElementById(newTask.id);
-    //li: dragIcon -> span-checkmark; span: text -> actual checkbox
-    const checkbox = newNode.childNodes[1].childNodes[1];
-    checkbox.checked = newTask.completed;
+    document.getElementById(newTask.id).checkmark.checked = newTask.completed;
 }
 
-
-
 /**
- * Update the checkmark status on the array for localStorage
+ * Retrieving the note in Storage by getting its id
+ * and update the checkmark status on the array 
  * @param {*} event 
  */
 function handleCheck(element) {
-    // Retrieving the note in Storage by getting its id
-    const targetID = element.closest("li").getAttribute("id");
+    let targetID = element.parentNode.parentNode.host.id;
     // get the element Index in the object list
-    const taskIndex = allTasks.findIndex(elem => elem.id === targetID);
-    allTasks[taskIndex].completed = !allTasks[taskIndex].completed;
+    const taskIdx = allTasks.findIndex(elem => elem.id === targetID);
+    allTasks[taskIdx].completed = !allTasks[taskIdx].completed;
+    // allTasks[taskIdx].completed = true;
 }
 
 /**
@@ -175,8 +135,10 @@ function handleEdit(event) {
  * @param {*} element 
  */
 function deleteTask(element) {
-    element.closest("ul").removeChild(element.closest("li"));
-    let name = element.closest("li").children[2].innerHTML;
+    // Delete item in the DOM
+    element.closest("task-item").remove();
+    // Delete item in allTasks array
+    let name = element.closest("task-item").taskName;
     for (let i = 0; i < allTasks.length; i++) {
         if (allTasks[i].name == name) {
             allTasks.splice(i, 1);
