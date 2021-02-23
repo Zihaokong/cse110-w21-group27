@@ -17,7 +17,8 @@
 
         <!--My CSS-->
         <link rel="stylesheet" href="./timer.css">
-
+        <link rel="stylesheet" href="./timer-modals.css">
+    
          <!--Font-->
          <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap" rel="stylesheet">  
 
@@ -55,9 +56,9 @@
 
             <!--Buttons-->
             <div class="button-container">
-                <button class="start" onclick="start()">Start</button>
+                <div></div>
                 <button class="distraction" id="distraction-btn" onclick="distractionCount()">Distraction : 5</button>
-                <button class="fail" id="fail-btn">Fail</button>
+                <button class="fail" id="fail-btn" onclick="displayFailModal()">Fail</button>
             </div>
         </div>
 
@@ -65,16 +66,33 @@
             <div class="modal-content-short_break">
                 <div class="modal-text">
                     <div class="heading-short_break">
-                        <img src="Party icon.png" alt="Party icon">
-                        <h3>Pomo Complete</h3>
-                        <img src="Party icon.png" alt="Party icon">
+                        <span><img id ="party-icon" src="../../images/Party icon.png" alt="Party icon"></span>
+                        <span><h3>Pomo Complete</h3></span>
+                        <span><img src="../../images/Party icon.png" alt="Party icon"></span>
                     </div>
-                    <hr>
+                    <hr style="border-width: 3px; color: #C4C4C4;">
                     <h2>Short Break</h2>
                     <h2>5:00</h2>
-                    <button id = "start-button">Start</button>
+                    <div id = "strt-button"><button id="start-button">Start</button></div>
                 </div>
                 
+            </div>
+        </div>
+
+        <div id="failModal" class="modal-break">
+            <div class="modal-content-short_break">
+                <div class="modal-text">
+                    <div class="heading-fail">
+                        Are you sure you want to fail this pomo session?
+                    </div>
+                    <div id="sad-face-container">
+                        <img id="sad-face" src="../../images/sad-face.png" alt="sad-face">
+                    </div>
+                    <div id="fail-button-container">
+                        <button class="fail-buttons" id="fail-button" onclick=failSession()>Fail</button>
+                        <button class="fail-buttons" id="cancel-button" onclick=quitFailModal()>Cancel</button>
+                    </div>
+                </div> 
             </div>
         </div>
 
