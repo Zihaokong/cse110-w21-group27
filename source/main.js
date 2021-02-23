@@ -1,31 +1,47 @@
 /**
- * This file defines functions and implements the behaviors for pop-up modals 
+ * This file defines functions and implements the behaviors for pop-up modals
  * and other Modals for the main page.
  */
 
-///////// SECTION for Modals////////
 // Get the modal
-var modal = document.getElementById("myModal");
+const modal = document.getElementById('add-task-modal');
+const playModal = document.getElementById('play-modal');
+// eslint-disable-next-line no-unused-vars
+const taskContent = document.getElementById('task-name');
 
 // Get the button that opens the modal
-var btn = document.getElementById("add-task-btn");
+const btns = document.getElementsByClassName('add-task-btn');
+const cancelBtns = document.getElementsByClassName('cancel-btn');
 
 // Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
+const spanClose = document.getElementsByClassName('close');
 
-// When the user clicks the button, open the modal 
-btn.onclick = function () {
-  modal.style.display = "block";
+// add event listeners
+for (let i = 0; i < spanClose.length; ++i) {
+  spanClose[i].addEventListener('click', closeModal);
+  cancelBtns[i].addEventListener('click', closeModal);
+}
+// Listener for add task modal
+for (let i = 0; i < btns.length; ++i) {
+  btns[i].addEventListener('click', () => {
+    modal.style.display = 'block';
+  });
 }
 
-// When the user clicks on <span> (x), close the modal
-span.onclick = function () {
-  modal.style.display = "none";
+/**
+ * Close the Modal with X button or cancel button
+ */
+function closeModal() {
+  modal.style.display = 'none';
+  playModal.style.display = 'none';
 }
 
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function (event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
+/**
+ * Close the modal
+ * @param {event} event: Javascript events
+ */
+window.onclick = function closeModal2(event) {
+  if (event.target === modal) {
+    modal.style.display = 'none';
   }
-}
+};

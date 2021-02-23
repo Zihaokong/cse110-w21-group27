@@ -1,4 +1,4 @@
-/* Styles for index.html */
+/* Styles for index.html and Modals */
 
 /* Body background and font */
 head,
@@ -27,6 +27,7 @@ hr {
 #todo-title {
   margin-top: 2%;
 }
+
 .center {
   margin: auto;
   text-align: center;
@@ -36,10 +37,9 @@ hr {
 .add-task-btn {
   float: right;
   font-family: "Poppins", sans-serif;
-  font-weight: bold;
   color: #e5e5e5;
   font-size: 15px;
-
+  font-weight: 550;
   padding: 10px 15px;
   border-radius: 40px;
   background: #2e4756;
@@ -48,6 +48,7 @@ hr {
   color: #e5e5e5;
   background: #64838c;
 }
+
 #add-task-btn-bottom {
   float: left;
   margin-top: 2%;
@@ -55,17 +56,20 @@ hr {
   margin-bottom: 2%;
 }
 
-#back_to_top {
+
+#back-to-top {
   position: fixed;
-  bottom: 30px;
-  right: 30px;
+  bottom: 2%;
+  right: 2%;
   z-index: 99;
-  font-size: 20px;
-  background-color: red;
+  background-color: #2e4756;
   color: white;
-  padding: 15px;
+  padding: 10px 10px;
   border-radius: 4px;
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
 }
+
 
 /* Styles for Modals */
 .modal {
@@ -85,11 +89,36 @@ hr {
 /* Modal Content */
 .modal-content {
   background-color: #fefefe;
+  font-size: 1.5rem;
+  font-family: "Poppins", sans-serif;
+
   margin: auto;
   padding: 20px;
   border: 1px solid #888;
   width: 80%;
+  
 }
+
+form div {
+  padding-top: 10px;
+  padding-left: 20px;
+  margin: 30px 10px;
+  font-family: "Poppins", sans-serif;
+  font-size: 1.5em;
+}
+
+/* Section for minor adjustment on each modal */
+#add-task-modal-header{
+  border-bottom: none;
+}
+#timer-name{
+  padding-left: 5%;
+}
+#timer-note{
+  background-color: #fefefe;
+  font-size: 1.5rem;
+}
+
 
 /* The Close Button */
 .close {
@@ -105,3 +134,42 @@ hr {
   text-decoration: none;
   cursor: pointer;
 }
+
+
+.submit-btn {
+  float: right;
+  font-family: "Poppins", sans-serif;
+  color: #ffffff;
+  font-size: 30px;
+  line-height: 45px;
+  font-weight: 550;
+  border-radius: 40px;
+  background: #2e4756;
+  width: 145px;
+  height: 61px;
+  margin-right: 23px;
+  align-items: center;
+  text-align: center;
+
+}
+
+.cancel-btn {
+  float: right;
+  font-family: "Poppins", sans-serif;
+  color: #ffffff;
+  font-size: 30px;
+  line-height: 45px;
+  font-weight: 550;
+  width: 145px;
+  height: 61px;
+  border-radius: 40px;
+  background: #c4c4c4;
+  align-items: center;
+  text-align: center;
+}
+
+.taskform-entry {
+  margin-bottom: 25px;
+  padding-bottom: 0px;
+}
+

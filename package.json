@@ -5,9 +5,14 @@
   "main": "index.js",
   "scripts": {
     "doc": "jsdoc -c jsdoc.json",
-    "test": "jest",
+    "test": "jest --coverage",
     "docmd": "mkdir docs; jsdoc2md source/*.js > docs/source.md"
   },
+
+  "jest": {
+    "testEnvironment" : "jsdom"
+  },
+
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Zihaokong/cse110-w21-group27.git"
