@@ -7,7 +7,8 @@ const list = document.querySelector(".task-container");
 list.addEventListener("click", handleEdit);
 
 //HTML Task form for collecting data
-const taskForm = document.getElementById("taskform").addEventListener("submit", addTask);
+const taskForm = document.getElementById("taskform")
+taskForm.addEventListener("submit", addTask);
 
 //HTML welcome message
 const welcome = document.getElementById("welcome-message");
@@ -139,8 +140,9 @@ function deleteTask(element) {
     element.closest("task-item").remove();
     // Delete item in allTasks array
     let name = element.closest("task-item").taskName;
+    console.log(name)
     for (let i = 0; i < allTasks.length; i++) {
-        if (allTasks[i].name == name) {
+        if (allTasks[i].name === name) {
             allTasks.splice(i, 1);
             break;
         }
