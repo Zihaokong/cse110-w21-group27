@@ -7,9 +7,9 @@ assignees: ''
 
 ---
 
-##Describe the feature to implement
+### Describe the feature to implement
 
-##Breakdown of what needs to be completed
+### Breakdown of what needs to be completed
 - [ ] Ex. Add functionality styling to fail pomo button
 
-##Additional Context if Applicable
+### Additional Context if Applicable
