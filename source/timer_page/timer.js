@@ -1,8 +1,22 @@
-var minutes = 25;
+var minutes = "25";
 var seconds = "00";
 let secs = 0;
 let totalsecs = 1500;
 let distractCounter = 0;
+let currentTaskId;
+let allTasks
+
+window.onload = function loadTask() {
+    let id = JSON.parse(localStorage.getItem('currentTask'));
+    allTasks = JSON.parse(localStorage.getItem("allTasks"));
+    for(let i = 0;i<allTasks.length;i++){
+      if(allTasks[i].id == id){
+        currentTaskId = i;
+        document.getElementById("currTask").innerHTML = allTasks[currentTaskId].name
+      }    
+    }
+  };
+
 
 function template(){
     document.getElementById("minutes").innerHTML = minutes;
@@ -12,8 +26,8 @@ function template(){
 }
 
 function start(){
-    minutes = 24;
-    seconds = 59;
+    minutes = 0;
+    seconds = 5;
 
     secs = secs + 1;
     perc = 100-(((totalsecs - secs)/totalsecs)*100);
@@ -47,6 +61,9 @@ function start(){
                 if(minutes == 0){
                     clearInterval(minutes_interval);
                     clearInterval(seconds_interval);
+                    allTasks[currentTaskId].current += 1;
+                    localStorage.setItem('allTasks', JSON.stringify(allTasks));
+                    alert("finish")
                 }
                 seconds = 60;
             }
@@ -62,5 +79,6 @@ function start(){
 function distractionCount(){
     distractCounter = distractCounter + 1;
     document.getElementById("distraction-btn").innerHTML = "Distraction : " + distractCounter;
+    
 }
 

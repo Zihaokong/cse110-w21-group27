@@ -64,7 +64,7 @@ function addTask(event) {
     note: taskInputNote.value,
   };
   allTasks.push(newTask);
-
+  localStorage.setItem('allTasks', JSON.stringify(allTasks));
   // render HTML on page.
   renderTask(newTask);
 
@@ -173,6 +173,7 @@ function deleteTask(element) {
     // eslint-disable-next-line eqeqeq
     if (allTasks[i].name == name) {
       allTasks.splice(i, 1);
+      localStorage.setItem('allTasks', JSON.stringify(allTasks));
       break;
     }
   }
@@ -194,6 +195,9 @@ function showModalTask(element) {
   // make the note from storage appear in the timer modal
   document.getElementById('timer-note').innerText =
     allTasks[taskStorageIndex].note;
+
+  const currentTask = element.closest('li').id;
+  localStorage.setItem('currentTask', JSON.stringify(currentTask));
 }
 
 // getter for the list
