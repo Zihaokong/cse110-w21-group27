@@ -50,7 +50,10 @@ function closeModal() {
   playModal.style.display = 'none';
 }
 
-// When the user clicks anywhere outside of the modal, close it
+/**
+ * Close the modal
+ * @param {event} event: Javascript events
+ */
 window.onclick = function closeModal2(event) {
   if (event.target === modal) {
     modal.style.display = 'none';

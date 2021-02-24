@@ -2,10 +2,10 @@
  * This file defines functions and implements the behaviors of todo list.
  */
 import TaskItem from './task-item';
+
 /**
  * Class constructor for <task-list>
  */
-
 customElements.define(
   'task-list',
   class extends HTMLElement {
@@ -64,7 +64,6 @@ window.onbeforeunload = function storeTask() {
  */
 function addTask(event) {
   event.preventDefault();
-
   // create struct and append to global list
   const newTask = {
     id: Math.random().toString(16).slice(2),
@@ -96,7 +95,7 @@ function renderTask(newTask) {
 
 /**
  * render the checkbox status according to localStorage
- * @param {*} newTask the new object created from addTask()
+ * @param newTask the new object created from addTask()
  */
 function renderCheckmark(newTask) {
   // setting checkmark
@@ -106,7 +105,7 @@ function renderCheckmark(newTask) {
 /**
  * Retrieving the note in Storage by getting its id
  * and update the checkmark status on the array
- * @param {*} event
+ * @param element the element that is being click which is passing from handleEdit()
  */
 function handleCheck(element) {
   const targetID = element.getRootNode().host.id;
@@ -116,8 +115,9 @@ function handleCheck(element) {
 }
 
 /**
- * Close the modal
- * @param {element}: Javascript events
+ * Retrieving the task name and notes that are stored in allTasks array
+ * and show on the Modal before starting the timer.
+ * @param element: the task-item that is being clicked
  */
 function showModalTask(element) {
   // get the closest task-item from where we click and get the p tag in its children
@@ -135,14 +135,14 @@ function showModalTask(element) {
 
 /**
  * Click more button, giving user edit and delete options
- * @param {event} event Javascript events.
+ * @param event the element that is being clicked
  */
 function handleEdit(event) {
   // getting which is being clicked
   const element = event.target;
-  let eleJob;
+  let eleJob; // variable for handling the functions of different button
 
-  // job may be undefined
+  // Handling the case of job may be undefined
   if (event.target.attributes.job) {
     eleJob = event.target.attributes.job.value;
   }
@@ -160,8 +160,8 @@ function handleEdit(event) {
 }
 
 /**
- * Delete task
- * @param {event.target} element Javascript event.target
+ * Delete task from allTasks array and the task-list
+ * @param element the element that is being clicked
  */
 function deleteTask(element) {
   // Delete item in the DOM
