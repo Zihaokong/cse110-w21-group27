@@ -55,7 +55,7 @@
             </div>
 
             <!--Buttons-->
-            <div class="button-container">
+            <div id="button-container">
                 <div></div>
                 <button class="distraction" id="distraction-btn" onclick="distractionCount()">Distraction : 5</button>
                 <button class="fail" id="fail-btn" onclick="displayFailModal()">Fail</button>
@@ -73,9 +73,41 @@
                     <hr style="border-width: 3px; color: #C4C4C4;">
                     <h2>Short Break</h2>
                     <h2>5:00</h2>
-                    <div id = "strt-button"><button id="start-button">Start</button></div>
+                    <div id = "strt-button"><button id="start-button" onclick="startShortBreak()">Start</button></div>
                 </div>
                 
+            </div>
+        </div>
+
+        <div id="longBreakModal" class="modal-break">
+            <div class="modal-content-short_break">
+                <div class="modal-text">
+                    <div class="heading-short_break">
+                        <span><img id ="party-icon" src="../../images/Party icon.png" alt="Party icon"></span>
+                        <span><h3>Cycle Complete</h3></span>
+                        <span><img src="../../images/Party icon.png" alt="Party icon"></span>
+                    </div>
+                    <hr style="border-width: 3px; color: #C4C4C4;">
+                    <h2>Long Break</h2>
+                    <h2>15:00</h2>
+                    <div id = "strt-button"><button id="start-button" onclick="startLongBreak()">Start</button></div>
+                </div>
+                
+            </div>
+        </div>
+
+        <div id="breakCompleteModal" class="modal-break">
+            <div class="modal-content-short_break">
+                <div class="modal-text">
+                    <div id="heading-break-complete">
+                        Break Complete
+                    </div>
+                    <hr style="border-width: 3px; color: #C4C4C4;">
+                    <div id="button-task-container">
+                        <div class="button-task-position"> <button class="button-task" id="continue-btn" onclick="continueTask()">Continue Task</button></div>
+                        <div class="button-task-position"> <button class="button-task" id="change-btn" onclick="changeTask()">Change Task</button></div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -98,5 +130,6 @@
 
         <script src="./timer.js"> </script>
         <script src="./progress.js"></script>
+        <script src="./break.js"></script>
     </body>
 </html>

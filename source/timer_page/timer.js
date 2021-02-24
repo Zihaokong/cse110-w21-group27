@@ -1,10 +1,9 @@
 let distractCounter = 0;
-let sessionCounter = 0;
-let isPomo = 0;
-localStorage.setItem('sessionCounter', 0);
-localStorage.setItem('isPomo', 0);
+let isPomo = false;
+localStorage.setItem('isPomo', 'false');
 
 function template(){
+    
     document.getElementById("minutes").innerHTML = "01";
     document.getElementById("seconds").innerHTML = "00";
     document.getElementById("distraction-btn").innerHTML = "Distraction : " + distractCounter;
@@ -14,6 +13,8 @@ function template(){
 }
 
 function start(minutes, seconds){
+    distractCounter = 0;
+    document.getElementById("distraction-btn").innerHTML = "Distraction : " + distractCounter;
     let secs = 0;
     let totalsecs = (minutes+1) * 60;
     //var progress_ring_interval = setInterval(updateProgressRing, 10);
@@ -67,18 +68,25 @@ function start(minutes, seconds){
                 if(minutes <= 0){
                     clearInterval(minutes_interval);
                     clearInterval(seconds_interval);
-                    let counter = localStorage.getItem('sessionCounter');
+                    resetProgressRing();
+                    let counter = Number(localStorage.getItem('sessionCounter'));
                     counter = counter+1;
+                    console.log(counter)
                     let pomo = localStorage.getItem('isPomo');
-                    if(pomo == 1){
-                        resetPomo();
+                    console.log(pomo);
+                    if(pomo == 'true'){
+                        localStorage.setItem('isPomo','false');
+                        displayBreakComplete();
                     }
                     else{
+                        localStorage.setItem('isPomo', 'true');
                         if(counter <= 3){
-                            startShortBreak();
+                            localStorage.setItem('sessionCounter', counter);
+                            displayShortBreak();
                         }
                         else if(counter == 4){
-                            startLongBreak();
+                            localStorage.setItem('sessionCounter',0);
+                            displayLongBreak();
                         }
                     }
                 }
@@ -102,12 +110,9 @@ function displayFailModal(){
     document.getElementById("failModal").style.display = 'block';
 }
 function failSession(){
+    document.getElementById("failModal").style.display = 'none';
     window.location.href="../index.html";
 }
 function quitFailModal(){
     document.getElementById("failModal").style.display = 'none';
-}
-
-function resetPomo(){
-    
 }
