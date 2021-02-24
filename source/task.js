@@ -6,20 +6,18 @@
 /**
  * Class constructor for <task-list>
  */
-customElements.define(
-  'task-list',
-  class extends HTMLElement {
-    constructor() {
-      super();
-      this.setAttribute('id', 'main-container');
-      this.setAttribute('class', 'task-container d-flex');
-    }
+class TaskList extends HTMLElement {
+  constructor() {
+    super();
+    this.setAttribute('id', 'main-container');
+    this.setAttribute('class', 'task-container d-flex');
   }
-);
+}
+customElements.define('task-list', TaskList);
 
 // HTML List of all tasks on HTML page
-const list = document.querySelector('.task-container');
-list.addEventListener('click', handleEdit);
+// const list = document.querySelector('.task-container');
+// list.addEventListener('click', handleEdit);
 
 // HTML Task form for collecting data
 const taskForm = document.getElementById('taskform');
@@ -248,4 +246,11 @@ function whereAmI(currentYPos) {
   if (typeof nodeAbove === 'undefined') {
     selectedNodePos = 0;
   }
+}
+
+if (typeof exports !== 'undefined') {
+  module.exports = {
+    addTask,
+    TaskList,
+  };
 }

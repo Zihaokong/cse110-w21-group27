@@ -221,3 +221,8 @@ class TaskItem extends HTMLElement {
 }
 
 customElements.define('task-item', TaskItem);
+if (typeof exports !== 'undefined') {
+  module.exports = {
+    TaskItem,
+  };
+}
