@@ -4,7 +4,7 @@
 
 /// ///// States ////////
 const breakState = false;
-const completedCycles = 2;
+const completedCycles = localStorage.getItem('sessionCounter');
 const cycleCount = 4 - completedCycles;
 
 /// ///// Section for header nav ////////

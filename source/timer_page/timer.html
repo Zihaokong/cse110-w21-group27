@@ -18,6 +18,7 @@
         <!--My CSS-->
         <link rel="stylesheet" href="./timer.css">
         <link rel="stylesheet" href="./timer-modals.css">
+        <link rel="stylesheet" href="../header.css" />
     
          <!--Font-->
          <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap" rel="stylesheet">  
@@ -25,6 +26,17 @@
          <title id="title_timer">Pomodoro Timer</title>
     </head>
     <body onload="template()">
+        <nav class="top-nav">
+            <h2 id="date">Today's date</h2>
+            <section id="cycle-count">
+              <span>
+                <h2 id="completed-cycle" style="display: inline; color:#C4C4C4">
+                  | Not yet completed
+                </h2>
+              </span>
+            </section>
+        </nav>
+
         <div class="container">
             <!--Task Heading-->
             <h1 class="text-center my-5" id="currTask">Task</h1>
@@ -131,5 +143,6 @@
         <script src="./timer.js"> </script>
         <script src="./progress.js"></script>
         <script src="./break.js"></script>
+        <script src="../header.js"></script>
     </body>
 </html>
