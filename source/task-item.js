@@ -169,8 +169,11 @@ class TaskItem extends HTMLElement {
     connectedCallback() {
         // Creating the dropdown in runtime
         this.innerHTML = dropdownMenu();
+        //this.playButton.setAttribute('onclick', 'handleEdit');
+        //this.checkmark.checked = newTask.completed;
         this.shadowRoot.querySelector('.play-btn').addEventListener('click', handleEdit);
         this.shadowRoot.querySelector('.form-check-input').addEventListener('click', handleEdit);
+
     }
     //Invoked when the custom element is disconnected from the document's DOM.
     disconnectedCallback() {

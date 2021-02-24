@@ -5,21 +5,65 @@
 /**
  * Class constructor for <task-list>
  */
-customElements.define('task-list', class extends HTMLElement {
+
+ var allTasks;
+
+ //Storing all tasks on current page.
+class TaskList extends HTMLElement {
+    
     constructor() {
-        super()
+        super();
+        var shadow = this.attachShadow({mode: 'open'});
+        this.list = document.createElement('ul');
+        shadow.append(this.list);
     }
-})
+
+    renderTask(newTask) {
+        console.log("HEREDOE")
+        console.log(this.list);
+
+        console.log(this.shadowRoot.children[0]);
+        this.shadowRoot.children[0].appendChild(new TaskItem(newTask));
+    }
+
+    addTask(event){
+        event.preventDefault();
+
+        //create struct and append to global list
+        const newTask = {
+            id: Math.random().toString(16).slice(2),
+            completed: false,
+            name: document.getElementById("task-name").value,
+            number: document.getElementById("task-num").value,
+            current: 0,
+            note: document.getElementById("task-note").value
+        }
+        allTasks.push(newTask);
+
+        console.log(this);
+        //render HTML on page.
+        this.renderTask(newTask);
+        console.log(this);
+
+        //everything else.
+        taskForm.reset();
+        welcome.remove();
+        closeModal();
+    }
+    
+
+
+}
+customElements.define('task-list', TaskList);
 
 //HTML Task form for collecting data
-const taskForm = document.getElementById("taskform")
-taskForm.addEventListener("submit", addTask);
+const taskForm = document.getElementById("taskform");
+
 
 //HTML welcome message
 const welcome = document.getElementById("welcome-message");
 
-//Storing all tasks on current page.
-var allTasks;
+
 
 
 /** 
@@ -28,6 +72,7 @@ var allTasks;
  */
 window.onload = function () {
     var retrievedObject = localStorage.getItem("allTasks");
+    let taskList = document.getElementById("main-container");
     if (!retrievedObject || retrievedObject === "undefined") {
         allTasks = [];
     } else {
@@ -37,9 +82,12 @@ window.onload = function () {
         }
 
         for (let i = 0; i < allTasks.length; i++) {
-            renderTask(allTasks[i]);
+            //taskList.renderTask(allTasks[i]);
         }
     }
+    
+    taskForm.addEventListener("submit", e => taskList.addTask(e) );
+
 }
 
 /**
@@ -55,57 +103,57 @@ window.onbeforeunload = function () {
  * Add a task to the page and to the global list.
  * @param event 
  */
-function addTask(event) {
-    event.preventDefault();
+// function addTask(event) {
+//     event.preventDefault();
 
-    //create struct and append to global list
-    const newTask = {
-        id: Math.random().toString(16).slice(2),
-        completed: false,
-        name: document.getElementById("task-name").value,
-        number: document.getElementById("task-num").value,
-        current: 0,
-        note: document.getElementById("task-note").value
-    }
-    allTasks.push(newTask);
+//     //create struct and append to global list
+//     const newTask = {
+//         id: Math.random().toString(16).slice(2),
+//         completed: false,
+//         name: document.getElementById("task-name").value,
+//         number: document.getElementById("task-num").value,
+//         current: 0,
+//         note: document.getElementById("task-note").value
+//     }
+//     allTasks.push(newTask);
 
-    //render HTML on page.
-    renderTask(newTask);
+//     //render HTML on page.
+//     renderTask(newTask);
 
-    //everything else.
-    taskForm.reset();
-    welcome.remove();
-    closeModal();
-}
+//     //everything else.
+//     taskForm.reset();
+//     welcome.remove();
+//     closeModal();
+// }
 
 /**
  * render a task struct on page, display name and current progress
  * @param {*} newTask: the task struct to render 
  */
-function renderTask(newTask) {
-    document.querySelector(".task-container").appendChild(new TaskItem(newTask))
-    renderCheckmark(newTask);
-}
+// function renderTask(newTask) {
+//     document.querySelector(".task-container").appendChild(new TaskItem(newTask))
+//     renderCheckmark(newTask);
+// }
 
 /**
  * render the checkbox status according to localStorage
  * @param {*} newTask the new object created from addTask()
  */
-function renderCheckmark(newTask) {
-    //setting checkmark
-    document.getElementById(newTask.id).checkmark.checked = newTask.completed;
-}
+// function renderCheckmark(newTask) {
+//     //setting checkmark
+//     document.getElementById(newTask.id).checkmark.checked = newTask.completed;
+// }
 
 /**
  * Retrieving the note in Storage by getting its id
  * and update the checkmark status on the array 
  * @param {*} event 
  */
-function handleCheck(element) {
+function setCheck(element) {
     let targetID = element.getRootNode().host.id;
     // get the element Index in the object list
-    const taskIdx = allTasks.findIndex(elem => elem.id === targetID);
-    allTasks[taskIdx].completed = !allTasks[taskIdx].completed;
+    const taskIndex = allTasks.findIndex(elem => elem.id === targetID);
+    allTasks[taskIndex].completed = !allTasks[taskIndex].completed;
 }
 
 /**
@@ -130,7 +178,7 @@ function handleEdit(event) {
         displayPlayModal();
         showModalTask(element);
     } else if (eleJob == "check") {
-        handleCheck(element);
+        setCheck(element);
     }
 }
 
@@ -139,17 +187,18 @@ function handleEdit(event) {
  * @param {*} element 
  */
 function deleteTask(element) {
-    // Delete item in the DOM
-    element.closest("task-item").remove();
     // Delete item in allTasks array
-    let name = element.closest("task-item").taskName;
-    console.log(name)
+    let itemToDelete = element.closest("task-item");
+    let name = itemToDelete.taskName;
     for (let i = 0; i < allTasks.length; i++) {
         if (allTasks[i].name === name) {
             allTasks.splice(i, 1);
             break;
         }
     }
+    // Delete item in the DOM
+    itemToDelete.remove();
+
 }
 
 ///////// SECTION for Drag and Drop ////////
