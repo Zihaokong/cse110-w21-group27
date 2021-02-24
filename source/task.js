@@ -1,24 +1,29 @@
 /**
  * This file defines functions and implements the behaviors of todo list.
  */
-
+import TaskItem from './task-item';
 /**
  * Class constructor for <task-list>
  */
-customElements.define('task-list', class extends HTMLElement {
-  constructor() {
-    super()
+
+customElements.define(
+  'task-list',
+  class extends HTMLElement {
+    constructor() {
+      super();
+      this.setAttribute('id', 'main-container');
+      this.setAttribute('class', 'task-container d-flex');
+    }
   }
-})
+);
 
 // HTML List of all tasks on HTML page
 const list = document.querySelector('.task-container');
 list.addEventListener('click', handleEdit);
 
-
-//HTML Task form for collecting data
-const taskForm = document.getElementById("taskform")
-taskForm.addEventListener("submit", addTask);
+// HTML Task form for collecting data
+const taskForm = document.getElementById('taskform');
+taskForm.addEventListener('submit', addTask);
 
 // HTML welcome message
 const welcome = document.getElementById('welcome-message');
@@ -60,15 +65,15 @@ window.onbeforeunload = function storeTask() {
 function addTask(event) {
   event.preventDefault();
 
-  //create struct and append to global list
+  // create struct and append to global list
   const newTask = {
     id: Math.random().toString(16).slice(2),
     completed: false,
-    name: document.getElementById("task-name").value,
-    number: document.getElementById("task-num").value,
+    name: document.getElementById('task-name').value,
+    number: document.getElementById('task-num').value,
     current: 0,
-    note: document.getElementById("task-note").value
-  }
+    note: document.getElementById('task-note').value,
+  };
   allTasks.push(newTask);
 
   // render HTML on page.
@@ -85,7 +90,7 @@ function addTask(event) {
  * @param {newTask} newTask the task struct to render
  */
 function renderTask(newTask) {
-  document.querySelector(".task-container").appendChild(new TaskItem(newTask))
+  document.querySelector('.task-container').appendChild(new TaskItem(newTask));
   renderCheckmark(newTask);
 }
 
@@ -94,20 +99,38 @@ function renderTask(newTask) {
  * @param {*} newTask the new object created from addTask()
  */
 function renderCheckmark(newTask) {
-  //setting checkmark
+  // setting checkmark
   document.getElementById(newTask.id).checkmark.checked = newTask.completed;
 }
 
 /**
  * Retrieving the note in Storage by getting its id
- * and update the checkmark status on the array 
- * @param {*} event 
+ * and update the checkmark status on the array
+ * @param {*} event
  */
 function handleCheck(element) {
-  let targetID = element.getRootNode().host.id;
+  const targetID = element.getRootNode().host.id;
   // get the element Index in the object list
-  const taskIdx = allTasks.findIndex(elem => elem.id === targetID);
+  const taskIdx = allTasks.findIndex((elem) => elem.id === targetID);
   allTasks[taskIdx].completed = !allTasks[taskIdx].completed;
+}
+
+/**
+ * Close the modal
+ * @param {element}: Javascript events
+ */
+function showModalTask(element) {
+  // get the closest task-item from where we click and get the p tag in its children
+  const targetTask = element.getRootNode().host;
+  // make the task name appear in the timer modal
+  document.getElementById('timer-name').innerText = targetTask.taskName;
+  // get the element Index in the object list
+  const taskStorageIndex = allTasks.findIndex(
+    (elem) => elem.id === targetTask.id
+  );
+  // make the note from storage appear in the timer modal
+  document.getElementById('timer-note').innerText =
+    allTasks[taskStorageIndex].note;
 }
 
 /**
@@ -115,23 +138,23 @@ function handleCheck(element) {
  * @param {event} event Javascript events.
  */
 function handleEdit(event) {
-  //getting which is being clicked
-  let element = event.target;
+  // getting which is being clicked
+  const element = event.target;
   let eleJob;
 
-  //job may be undefined
+  // job may be undefined
   if (event.target.attributes.job) {
     eleJob = event.target.attributes.job.value;
   }
 
-  if (eleJob == "delete") {
+  if (eleJob === 'delete') {
     deleteTask(element);
-  } else if (eleJob == "edit") {
+  } else if (eleJob === 'edit') {
     document.getElementById('add-task-modal').style.display = 'block';
-  } else if (eleJob == "play") {
+  } else if (eleJob === 'play') {
     document.getElementById('play-modal').style.display = 'block';
     showModalTask(element);
-  } else if (eleJob == "check") {
+  } else if (eleJob === 'check') {
     handleCheck(element);
   }
 }
@@ -142,10 +165,9 @@ function handleEdit(event) {
  */
 function deleteTask(element) {
   // Delete item in the DOM
-  element.closest("task-item").remove();
+  element.closest('task-item').remove();
   // Delete item in allTasks array
-  let name = element.closest("task-item").taskName;
-  console.log(name)
+  const name = element.closest('task-item').taskName;
   for (let i = 0; i < allTasks.length; i++) {
     if (allTasks[i].name === name) {
       allTasks.splice(i, 1);
@@ -154,25 +176,7 @@ function deleteTask(element) {
   }
 }
 
-
-/**
- * For showing the task name, content on the modal when going to timer page.
- * @param {event.target} element The target element that the user wants to start with
- */
-function showModalTask(element) {
-  // get the closest li from where we click and get the p tag in its children
-  const targetName = element.closest('li').getElementsByTagName('p');
-  // make the task name appear in the timer modal
-  document.getElementById('timer-name').innerText = targetName[0].innerHTML;
-  // Retrieving the note in Storage by getting its id
-  const targetID = element.closest('li').getAttribute('id');
-  // get the element Index in the object list
-  const taskStorageIndex = allTasks.findIndex((elem) => elem.id === targetID);
-  // make the note from storage appear in the timer modal
-  document.getElementById('timer-note').innerText =
-    allTasks[taskStorageIndex].note;
-}
-
+/// ////// SECTION for Drag and Drop ////////
 // getter for the list
 const dropzone = document.getElementById('main-container');
 // getter for the list items
