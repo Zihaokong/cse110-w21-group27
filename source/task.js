@@ -85,7 +85,7 @@ function addTask(event) {
 
 /**
  * render a task struct on page, display name and current progress
- * @param {newTask} newTask the task struct to render
+ * @param {object} newTask the task struct to render
  */
 function renderTask(newTask) {
   const newTaskItem = new TaskItem(newTask);
@@ -95,7 +95,7 @@ function renderTask(newTask) {
 
 /**
  * render the checkbox status according to localStorage
- * @param newTask the new object created from addTask()
+ * @param {object} newTask the new object created from addTask()
  */
 function renderCheckmark(newTask) {
   // setting checkmark
@@ -117,7 +117,7 @@ function handleCheck(element) {
 /**
  * Retrieving the task name and notes that are stored in allTasks array
  * and show on the Modal before starting the timer.
- * @param element: the task-item that is being clicked
+ * @param {Element} element: the task-item that is being clicked
  */
 function showModalTask(element) {
   // get the closest task-item from where we click and get the p tag in its children
@@ -131,11 +131,14 @@ function showModalTask(element) {
   // make the note from storage appear in the timer modal
   document.getElementById('timer-note').innerText =
     allTasks[taskStorageIndex].note;
+  // set the current task id to localStorage
+  const currentTask = targetTask.id
+  localStorage.setItem('currentTask', JSON.stringify(currentTask));
 }
 
 /**
  * Click more button, giving user edit and delete options
- * @param event the element that is being clicked
+ * @param {event} event the element that is being clicked
  */
 function handleEdit(event) {
   // getting which is being clicked
@@ -161,7 +164,7 @@ function handleEdit(event) {
 
 /**
  * Delete task from allTasks array and the task-list
- * @param element the element that is being clicked
+ * @param {Element} element the element that is being clicked
  */
 function deleteTask(element) {
   // Delete item in the DOM

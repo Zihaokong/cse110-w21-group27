@@ -30,7 +30,7 @@ const createCheckmark = () => {
 
 /** 
  * Method for creating task with the input todo task for the task-item
- * @param newTask the newly created task item from the task.js
+ * @param {object} newTask the newly created task item from the task.js
  */
 const createTask = (newTask) => {
     const todoTask = document.createElement('p');
@@ -41,7 +41,7 @@ const createTask = (newTask) => {
 
 /** 
  * Method for creating progress bar for the task-item
- * @param newTask the new task object created by task.js
+ * @param {object} newTask the new task object created by task.js
  */
 const createProgressBar = (newTask) => {
     // calculate the percentage of progress for the styles
@@ -74,7 +74,7 @@ const createProgressBar = (newTask) => {
 
 /** 
  * Method for creating text representing the finished pomo over the expect required pomo
- * @param newTask the new task object created by task.js
+ * @param {object} newTask the new task object created by task.js
  * @return the text element as described as p1 tag
  */
 const createProgressText = (newTask) => {
