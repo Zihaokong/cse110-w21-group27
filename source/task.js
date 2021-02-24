@@ -98,7 +98,7 @@ function renderTask(newTask) {
 
   let progressbar = `
         <div class=" flex-column progress">
-            <div class="p-2 flex-column progress-bar" role="progressbar" style="width: ${percent};" aria-valuenow="${newTask.current}" aria-valuemin="0" aria-valuemax="${newTask.number}">${percent}</div>
+            <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: ${percent};" aria-valuenow="${newTask.current}" aria-valuemin="0" aria-valuemax="${newTask.number}">${percent}</div>
         </div>`;
   if(newTask.current > newTask.number) {
     progressbar = `
