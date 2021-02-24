@@ -139,7 +139,7 @@ const styleSheets = () => {
  * TaskItem class which is the task-item component that containing all the 
  * buttons and the to-do task on the listed item
  */
-class TaskItem extends HTMLElement {
+export class TaskItem extends HTMLElement {
     /** 
      * Constructor for the TaskItem 
      * @param newTask the new created object from task.js

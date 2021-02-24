@@ -1,7 +1,7 @@
 /**
  * This file defines functions and implements the behaviors of todo list.
  */
-
+import TaskItem from './task-item'
 /**
  * Class constructor for <task-list>
  */
