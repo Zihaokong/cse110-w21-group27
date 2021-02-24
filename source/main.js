@@ -59,13 +59,11 @@ function displayPlayModal() {
  */
 function showModalTask(element) {
   // get the closest task-item from where we click and get the p tag in its children
-  const targetName = element.closest("task-item").getElementsByTagName('p');
+  const targetTask = element.getRootNode().host;
   // make the task name appear in the timer modal
-  document.getElementById('timer-name').innerText = targetName[0].innerHTML;
-  // Retrieving the note in Storage by getting its id
-  const targetID = element.closest("task-item").getAttribute("id");
+  document.getElementById('timer-name').innerText = targetTask.taskName;
   // get the element Index in the object list
-  const taskStorageIndex = allTasks.findIndex(elem => elem.id === targetID);
+  const taskStorageIndex = allTasks.findIndex(elem => elem.id === targetTask.id);
   // make the note from storage appear in the timer modal
   document.getElementById('timer-note').innerText = allTasks[taskStorageIndex].note;
 }

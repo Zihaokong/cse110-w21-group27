@@ -1,6 +1,7 @@
 /** 
  * Method for creating drag icon for the task-item
  */
+
 const createDrag = () => {
     const dragIcon = document.createElement('span');
     dragIcon.setAttribute('class', "p-2 inline material-icons drag-btn hide");
@@ -152,32 +153,26 @@ class TaskItem extends HTMLElement {
         shadow.appendChild(progressBar);
         shadow.appendChild(playButton);
         shadow.appendChild(editDiv);
-
-        function getRootID() {
-            return newTask.id;
-        }
     };
 
-    // Helper method for retrieving the <input> for checkmark
+    // Helper method for retrieving the <input> for checkmark from <task-item>
     get checkmark() {
-        return this.shadowRoot.childNodes[9].childNodes[0];
+        return this.shadowRoot.querySelector('input');
     }
 
-    // Helper method for retrieving the <p>'s content
+    // Helper method for retrieving the <p>'s content from <task-item>
     get taskName() {
-        return this.shadowRoot.childNodes[10].textContent;
+        return this.shadowRoot.querySelector('p').textContent;
     }
 
     // invoked each time the custom element is appended into a document-connected element
     connectedCallback() {
-        // const {
-        //     shadowRoot
-        // } = this;
         // Creating the dropdown in runtime
         this.innerHTML = dropdownMenu();
         this.shadowRoot.querySelector('.play-btn').addEventListener('click', handleEdit);
         this.shadowRoot.querySelector('.form-check-input').addEventListener('click', handleEdit);
     }
+    //Invoked when the custom element is disconnected from the document's DOM.
     disconnectedCallback() {
         this.shadowRoot.querySelector('.play-btn').removeEventListener('click', handleEdit);
         this.shadowRoot.querySelector('.form-check-input').addEventListener('click', handleEdit);

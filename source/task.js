@@ -2,9 +2,14 @@
  * This file defines functions and implements the behaviors of todo list.
  */
 
-//HTML List of all tasks on HTML page
-const list = document.querySelector(".task-container");
-list.addEventListener("click", handleEdit);
+/**
+ * Class constructor for <task-list>
+ */
+customElements.define('task-list', class extends HTMLElement {
+    constructor() {
+        super()
+    }
+})
 
 //HTML Task form for collecting data
 const taskForm = document.getElementById("taskform")
@@ -78,7 +83,7 @@ function addTask(event) {
  * @param {*} newTask: the task struct to render 
  */
 function renderTask(newTask) {
-    list.appendChild(new TaskItem(newTask))
+    document.querySelector(".task-container").appendChild(new TaskItem(newTask))
     renderCheckmark(newTask);
 }
 
@@ -97,11 +102,10 @@ function renderCheckmark(newTask) {
  * @param {*} event 
  */
 function handleCheck(element) {
-    let targetID = element.parentNode.parentNode.host.id;
+    let targetID = element.getRootNode().host.id;
     // get the element Index in the object list
     const taskIdx = allTasks.findIndex(elem => elem.id === targetID);
     allTasks[taskIdx].completed = !allTasks[taskIdx].completed;
-    // allTasks[taskIdx].completed = true;
 }
 
 /**
@@ -112,13 +116,12 @@ function handleEdit(event) {
     //getting which is being clicked
     let element = event.target;
     let eleJob;
-    // console.log(element);
+
     //job may be undefined
     if (event.target.attributes.job) {
         eleJob = event.target.attributes.job.value;
     }
 
-    // console.log(eleJob);
     if (eleJob == "delete") {
         deleteTask(element);
     } else if (eleJob == "edit") {
