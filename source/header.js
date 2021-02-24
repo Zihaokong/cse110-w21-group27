@@ -2,18 +2,24 @@
  * This file defines functions and implements the behaviors of todo list.
  */
 
-//////// States ////////
-let breakState = false;
-let completedCycles = 2;
-let cycleCount = 4 - completedCycles;
+/// ///// States ////////
+const breakState = false;
+const completedCycles = localStorage.getItem('sessionCounter');
+const cycleCount = 4 - completedCycles;
 
-//////// Section for header nav ////////
+/// ///// Section for header nav ////////
 const todayDate = new Date();
-const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+const options = {
+  weekday: 'long',
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+};
 const date = todayDate.toLocaleDateString('en-us', options);
-document.getElementById("date").innerHTML = date;
+// eslint-disable-next-line no-undef
+document.getElementById('date').innerHTML = date;
 
-//////// Section for Cycle count ////////
+/// ///// Section for Cycle count ////////
 
 // create unfilled circle for incomplete cycle
 for (var i = 0; i < cycleCount; i++) {

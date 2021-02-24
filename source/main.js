@@ -1,61 +1,52 @@
 /**
- * This file defines functions and implements the behaviors for pop-up modals 
+ * This file defines functions and implements the behaviors for pop-up modals
  * and other Modals for the main page.
  */
 
-///////// SECTION for Modals////////
 // Get the modal
-let modal = document.getElementById("add-task-modal");
-let playModal = document.getElementById("play-modal");
-let taskContent = document.getElementById("task-name");
+const modal = document.getElementById('add-task-modal');
+const playModal = document.getElementById('play-modal');
+// eslint-disable-next-line no-unused-vars
+const taskContent = document.getElementById('task-name');
 
 // Get the button that opens the modal
-let btns = document.getElementsByClassName("add-task-btn");
-let cancelBtns = document.getElementsByClassName("cancel-btn");
-
+const btns = document.getElementsByClassName('add-task-btn');
+const cancelBtns = document.getElementsByClassName('cancel-btn');
 
 // Get the <span> element that closes the modal
-let spanClose = document.getElementsByClassName("close");
+const spanClose = document.getElementsByClassName('close');
 
-//add event listeners
-for (let i = 0; i < spanClose.length; ++i) {
-  spanClose[i].addEventListener("click", closeModal);
-  cancelBtns[i].addEventListener("click", closeModal);
-
+//set counters for timer page
+let sessionCounter = Number(localStorage.getItem('sessionCounter'));
+if (sessionCounter == null) {
+  sessionCounter = 0;
 }
+localStorage.setItem('sessionCounter', sessionCounter);
 
+
+// add event listeners
+for (let i = 0; i < spanClose.length; ++i) {
+  spanClose[i].addEventListener('click', closeModal);
+  cancelBtns[i].addEventListener('click', closeModal);
+}
 // Listener for add task modal
 for (let i = 0; i < btns.length; ++i) {
-  btns[i].addEventListener("click", displayAddModal);
+  btns[i].addEventListener('click', () => {
+    modal.style.display = 'block';
+  });
 }
 
-
 /**
- * For scroll to the top, used in Top button
+ * Close the Modal with X button or cancel button
  */
-function scrollFunc() {
-  window.scrollTo(0, 0);
-}
-
-
-/**
- * When the user clicks the button, open the modal 
- */
-function displayAddModal() {
-  modal.style.display = "block";
+function closeModal() {
+  modal.style.display = 'none';
+  playModal.style.display = 'none';
 }
 
 /**
- * Section for Play Modal
- */
-function displayPlayModal() {
-  playModal.style.display = 'block';
-}
-
-
-/**
- * For showing the taks name, content on the modal
- * @param {*} element The target element that the user wants to start with
+ * Close the modal
+ * @param {event} event: Javascript events
  */
 function showModalTask(element) {
   // get the closest task-item from where we click and get the p tag in its children
@@ -76,8 +67,8 @@ function closeModal() {
 }
 
 // When the user clicks anywhere outside of the modal, close it
-window.onclick = function (event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
+window.onclick = function closeModal2(event) {
+  if (event.target === modal) {
+    modal.style.display = 'none';
   }
-}
+};
