@@ -1,6 +1,28 @@
+
+var minutes = "25";
+var seconds = "00";
+let secs = 0;
+let totalsecs = 1500;
 let distractCounter = 0;
 let isPomo = false;
 localStorage.setItem('isPomo', 'false');
+
+
+let currentTaskId;
+let allTasks;
+
+
+
+window.onload = function loadTask() {
+    let id = JSON.parse(localStorage.getItem('currentTask'));
+    allTasks = JSON.parse(localStorage.getItem("allTasks"));
+    for(let i = 0;i<allTasks.length;i++){
+      if(allTasks[i].id == id){
+        currentTaskId = i;
+        document.getElementById("currTask").innerHTML = allTasks[currentTaskId].name
+      }    
+    }
+  };
 
 function template(){
     
@@ -89,6 +111,9 @@ function start(minutes, seconds){
                             displayLongBreak();
                         }
                     }
+                    allTasks[currentTaskId].current += 1;
+                    localStorage.setItem('allTasks', JSON.stringify(allTasks));
+                    alert("finish")
                 }
                 seconds = 60;
             }
@@ -104,6 +129,7 @@ function start(minutes, seconds){
 function distractionCount(){
     distractCounter = distractCounter + 1;
     document.getElementById("distraction-btn").innerHTML = "Distraction : " + distractCounter;
+    
 }
 
 function displayFailModal(){

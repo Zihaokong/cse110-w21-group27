@@ -64,7 +64,7 @@ function addTask(event) {
     note: taskInputNote.value,
   };
   allTasks.push(newTask);
-
+  localStorage.setItem('allTasks', JSON.stringify(allTasks));
   // render HTML on page.
   renderTask(newTask);
 
@@ -87,10 +87,27 @@ function renderTask(newTask) {
             <label for="checkbox"></label>
         </span>`;
   const todoTask = `<p class="p-2 flex-md-fill text-nowrap task-item">${newTask.name}</p>`;
-  const progressbar = `
+  let percent = (newTask.current / newTask.number)*100;
+  if(percent >= 100) {
+    percent = "100%";
+  }
+  else {
+    percent = percent.toFixed(2) + "%";
+  }
+  let progressT = newTask.current + "/" + newTask.number;
+
+  let progressbar = `
         <div class=" flex-column progress">
-            <div class="p-2 flex-column progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="${newTask.number}">25%</div>
+            <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: ${percent};" aria-valuenow="${newTask.current}" aria-valuemin="0" aria-valuemax="${newTask.number}">${percent}</div>
         </div>`;
+  if(newTask.current > newTask.number) {
+    progressbar = `
+        <div class=" flex-column progress">
+            <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: ${percent};" aria-valuenow="${newTask.current}" aria-valuemin="0" aria-valuemax="${newTask.number}">${percent}</div>
+        </div>`;
+  }
+  const progressText = `
+        <p1 class="progress-text">${progressT}</p1>`
   const playButton = `<button class="p-2 bd-highlight btn  play-btn flex-right" type="button">
             <span class="material-icons play-btn" job ="play">play_circle</span>
         </button>`;
@@ -106,7 +123,7 @@ function renderTask(newTask) {
         </div>`;
   list.insertAdjacentHTML(
     position,
-    `<li id=${newTask.id} class="taskNode d-flex flex-row bd-highlight" draggable = true>${dragButton}${checkmark}${todoTask}${progressbar}${playButton}${editButton}`
+    `<li id=${newTask.id} class="taskNode d-flex flex-row bd-highlight" draggable = true>${dragButton}${checkmark}${todoTask}${progressbar}${progressText}${playButton}${editButton}`
   );
   renderCheckmark(newTask);
 }
@@ -173,6 +190,7 @@ function deleteTask(element) {
     // eslint-disable-next-line eqeqeq
     if (allTasks[i].name == name) {
       allTasks.splice(i, 1);
+      localStorage.setItem('allTasks', JSON.stringify(allTasks));
       break;
     }
   }
@@ -194,6 +212,9 @@ function showModalTask(element) {
   // make the note from storage appear in the timer modal
   document.getElementById('timer-note').innerText =
     allTasks[taskStorageIndex].note;
+
+  const currentTask = element.closest('li').id;
+  localStorage.setItem('currentTask', JSON.stringify(currentTask));
 }
 
 // getter for the list
