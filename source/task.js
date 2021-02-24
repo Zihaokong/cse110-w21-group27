@@ -1,7 +1,7 @@
 /**
  * This file defines functions and implements the behaviors of todo list.
  */
-import TaskItem from './task-item'
+import TaskItem from './task-item';
 /**
  * Class constructor for <task-list>
  */
@@ -132,7 +132,7 @@ function showModalTask(element) {
   document.getElementById('timer-note').innerText =
     allTasks[taskStorageIndex].note;
   // set the current task id to localStorage
-  const currentTask = targetTask.id
+  const currentTask = targetTask.id;
   localStorage.setItem('currentTask', JSON.stringify(currentTask));
 }
 
