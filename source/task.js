@@ -87,9 +87,17 @@ function renderTask(newTask) {
             <label for="checkbox"></label>
         </span>`;
   const todoTask = `<p class="p-2 flex-md-fill text-nowrap task-item">${newTask.name}</p>`;
+  let percent = (newTask.current / newTask.number)*100;
+  if(percent >= 100) {
+    percent = "100%";
+  }
+  else {
+    percent = percent.toFixed(2) + "%";
+  }
+
   const progressbar = `
         <div class=" flex-column progress">
-            <div class="p-2 flex-column progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="${newTask.number}">25%</div>
+            <div class="p-2 flex-column progress-bar" role="progressbar" style="width: ${percent};" aria-valuenow="${newTask.current}" aria-valuemin="0" aria-valuemax="${newTask.number}">${percent}</div>
         </div>`;
   const playButton = `<button class="p-2 bd-highlight btn  play-btn flex-right" type="button">
             <span class="material-icons play-btn" job ="play">play_circle</span>
