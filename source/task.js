@@ -1,7 +1,6 @@
 /**
  * This file defines functions and implements the behaviors of todo list.
  */
-import TaskItem from './task-item';
 
 /**
  * Class constructor for <task-list>
@@ -89,7 +88,8 @@ function addTask(event) {
  * @param {newTask} newTask the task struct to render
  */
 function renderTask(newTask) {
-  document.querySelector('.task-container').appendChild(new TaskItem(newTask));
+  const newTaskItem = new TaskItem(newTask);
+  document.querySelector('.task-container').appendChild(newTaskItem);
   renderCheckmark(newTask);
 }
 
