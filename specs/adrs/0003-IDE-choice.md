@@ -27,7 +27,7 @@ IDEs:
   * [-] Some configuration may seems confusing.
   
   
-## 4. Decision Outcome
+## Decision Outcome
 
 Chosen option: "VSCode", because
 * Recommended in the Lab assignment. 
@@ -36,6 +36,6 @@ Chosen option: "VSCode", because
 * The built-in terminal benefits development teams' practices. 
 
 
-## 5. Consequences
+## Consequences
 We will use VSCode as our main IDE for the project because it eliminates any other compatibility along working with different IDEs. 
 Every team members are expected to have VSCode installed with "Live Server" extension.
