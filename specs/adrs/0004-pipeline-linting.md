@@ -1,6 +1,6 @@
 # 4. Pipeline Linting
 
-* Date: 2021-02-17 
+* Date: 2021-02-06 
 * Status [Accepted]
 
 ## Context and Problem Statement
@@ -22,7 +22,7 @@ IDEs:
   * [-] Higher learning curve compared to JSLint
   * [-] Some configuration may seems confusing.
   
-## 4. Decision Outcome
+## Decision Outcome
 
 Chosen option: "ESLint", because
 * More configuration options to allow us to fine tune the linting to our needs.
@@ -30,7 +30,7 @@ Chosen option: "ESLint", because
 * Works well with Pretteir, which is a useful styling tool.
 
 
-## 5. Consequences
+## Consequences
 By using ESLint/Prettier as a team, our code will be uniform in appearance, 
 allowing for a much higher degree of readability. However, this means everyone 
 in the group must install the appropriapte extensions on the VSCode and install
