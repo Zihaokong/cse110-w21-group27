@@ -23,16 +23,16 @@ document.getElementById('date').innerHTML = date;
 
 // create unfilled circle for incomplete cycle
 for (var i = 0; i < cycleCount; i++) {
-    let newCyble = document.createElement('span');
-    newCyble.innerHTML = ' <span class="dot"></span>';
-    document.getElementById("cycle-count").prepend(newCyble);
+  let newCyble = document.createElement('span');
+  newCyble.innerHTML = ' <span class="dot"></span>';
+  document.getElementById("cycle-count").prepend(newCyble);
 }
 
 // create filled circle for completed cycle
 for (var i = 0; i < completedCycles; i++) {
-    let newCyble = document.createElement('span');
-    newCyble.innerHTML = ' <span class="filled-dot"></span>';
-    document.getElementById("cycle-count").prepend(newCyble);
+  let newCyble = document.createElement('span');
+  newCyble.innerHTML = ' <span class="filled-dot"></span>';
+  document.getElementById("cycle-count").prepend(newCyble);
 }
 
 const cycleText = document.getElementById("completed-cycle");

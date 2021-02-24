@@ -10,6 +10,6 @@ function setProgress(percent) {
   circle.style.strokeDashoffset = -offset;
 }
 
-function resetProgressRing(){
+function resetProgressRing() {
   circle.style.strokeDashoffset = 0;
 }

@@ -41,26 +41,53 @@ const createTask = (newTask) => {
 
 /** 
  * Method for creating progress bar for the task-item
+ * @param newTask the new task object created by task.js
  */
-const createProgressBar = () => {
+const createProgressBar = (newTask) => {
+    // calculate the percentage of progress for the styles
+    let percent = (newTask.current / newTask.number) * 100;
+    if (percent >= 100) {
+        percent = "100%";
+    } else {
+        percent = percent.toFixed(2) + "%";
+    }
+    // the outer div containng the progress-bar
     const progressBar = document.createElement('div');
     progressBar.setAttribute('class', 'flex-column progress');
+    // the inner div for the progress itserlf and uses the attribute from the newTask object
     const progress = document.createElement('div');
-    Object.assign(progress, {
-        className: "p-2 flex-column progress-bar",
-        role: "progressbar",
-        style: "width: 0%",
-    })
-    progress.setAttribute('aria-valuenow', '0');
-    progress.setAttribute('aria-valuemin', '0');
-    progress.setAttribute('aria-valuemin', '100');
-    progressBar.appendChild(progress);
-
+    if (newTask.current > newTask.number) {
+        progress.setAttribute('class', "progress-bar progress-bar-striped bg-danger");
+    } else {
+        progress.setAttribute('class', "progress-bar progress-bar-striped bg-success");
+    }
+    progress.setAttribute('role', "progressbar");
+    progress.setAttribute('style', `width: ${percent};`);
+    progress.setAttribute('aria-valuenow', `${newTask.current}`);
+    progress.setAttribute('aria-valuemin', 0);
+    progress.setAttribute('aria-valuemin', `${newTask.number}`);
+    progress.innerHTML = `${percent}`;
+    //append the inner div to outer div
+    progressBar.appendChild(progress)
     return progressBar;
 };
 
 /** 
+ * Method for creating text representing the finished pomo over the expect required pomo
+ * @param newTask the new task object created by task.js
+ * @return the text element as described as p1 tag
+ */
+const createProgressText = (newTask) => {
+    let progressT = newTask.current + "/" + newTask.number;
+    const progressText = document.createElement('p1');
+    progressText.setAttribute('class', 'progress-text')
+    progressText.innerHTML = `${progressT}`;
+    return progressText;
+}
+
+/** 
  * Method for creating the play-button to start the timer for the task-item
+ * @return the button element with the play-icon
  */
 const createPlayButton = () => {
     const playButton = document.createElement('button');
@@ -77,6 +104,7 @@ const createPlayButton = () => {
 /** 
  * Method for section code of dropdown menu for the task-item, 
  * this will be used to create the section dropdown in the light dom
+ * @return the section code as pre-defined dropdown element for creation in light dom
  */
 const dropdownMenu = () => {
     return (
@@ -89,7 +117,7 @@ const dropdownMenu = () => {
                     <a class="dropdown-item" href="#" job="edit" onclick='handleEdit(event)'>Edit</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#" job="delete" onclick='handleEdit(event)'>Delete</a>
-            </div>
+                </div>
             </div>
         </section>`);
 }
@@ -136,7 +164,8 @@ class TaskItem extends HTMLElement {
         const todoTask = createTask(newTask);
 
         // Creating the progress-bar
-        const progressBar = createProgressBar();
+        const progressBar = createProgressBar(newTask);
+        const progressText = createProgressText(newTask);
 
         // Creating the play-button
         const playButton = createPlayButton();
@@ -151,6 +180,7 @@ class TaskItem extends HTMLElement {
         shadow.appendChild(checkmark);
         shadow.appendChild(todoTask);
         shadow.appendChild(progressBar);
+        shadow.appendChild(progressText);
         shadow.appendChild(playButton);
         shadow.appendChild(editDiv);
     };
