@@ -9,3 +9,7 @@ function setProgress(percent) {
   const offset = (percent / 100) * circumference;
   circle.style.strokeDashoffset = -offset;
 }
+
+function resetProgressRing(){
+  circle.style.strokeDashoffset = 0;
+}

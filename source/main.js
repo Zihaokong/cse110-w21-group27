@@ -16,6 +16,14 @@ const cancelBtns = document.getElementsByClassName('cancel-btn');
 // Get the <span> element that closes the modal
 const spanClose = document.getElementsByClassName('close');
 
+//set counters for timer page
+let sessionCounter = Number(localStorage.getItem('sessionCounter'));
+if (sessionCounter == null){
+  sessionCounter =  0;
+}
+localStorage.setItem('sessionCounter', sessionCounter);
+
+
 // add event listeners
 for (let i = 0; i < spanClose.length; ++i) {
   spanClose[i].addEventListener('click', closeModal);
