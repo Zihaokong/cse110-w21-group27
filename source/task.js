@@ -13,17 +13,22 @@ class TaskList extends HTMLElement {
     
     constructor() {
         super();
+       
         var shadow = this.attachShadow({mode: 'open'});
-        this.list = document.createElement('ul');
-        shadow.append(this.list);
+        let list = document.createElement('ul');
+        list.setAttribute('id', 'main-list');
+        list.setAttribute('class', 'task-container d-flex');
+        shadow.innerHTML =         `<link rel="stylesheet" href="task.css"/>
+        <link rel="stylesheet" href="main.css"/>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous"/>`
+        shadow.append(list);
     }
 
     renderTask(newTask) {
         console.log("HEREDOE")
-        console.log(this.list);
 
-        console.log(this.shadowRoot.children[0]);
-        this.shadowRoot.children[0].appendChild(new TaskItem(newTask));
+        this.shadowRoot.children[4].appendChild(new TaskItem(newTask));
     }
 
     addTask(event){
