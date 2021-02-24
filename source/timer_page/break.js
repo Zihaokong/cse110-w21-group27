@@ -28,7 +28,7 @@ function startShortBreak(){
     document.body.style.backgroundImage = 'linear-gradient(to right,#74EBD5,#ACB6E5)';
     document.getElementById("currTask").innerHTML = "Short Break";
     document.getElementById("button-container").style.display = 'none';
-    start(0, 59);
+    start(0, 10);
 }
 
 function displayLongBreak(){
@@ -42,5 +42,5 @@ function startLongBreak(){
     document.body.style.backgroundImage = 'linear-gradient(to right,#ACB6E5,#74EBD5)';
     document.getElementById("currTask").innerHTML = "Long Break";
     document.getElementById("button-container").style.display = 'none';
-    start(0, 59);
+    start(0, 10);
 }

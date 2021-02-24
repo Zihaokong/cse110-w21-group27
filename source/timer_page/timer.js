@@ -1,40 +1,40 @@
-
-var minutes = "25";
-var seconds = "00";
-let secs = 0;
-let totalsecs = 1500;
+// number of distraction tracked
 let distractCounter = 0;
-let isPomo = false;
-localStorage.setItem('isPomo', 'false');
 
+// let isPomo = false;
 
 let currentTaskId;
 let allTasks;
 
-
-
-window.onload = function loadTask() {
-    let id = JSON.parse(localStorage.getItem('currentTask'));
-    allTasks = JSON.parse(localStorage.getItem("allTasks"));
-    for(let i = 0;i<allTasks.length;i++){
-      if(allTasks[i].id == id){
-        currentTaskId = i;
-        document.getElementById("currTask").innerHTML = allTasks[currentTaskId].name
-      }    
+window.onload = function template() {
+  // set variable denote current timer mode
+  localStorage.setItem('isPomo', 'false');
+  // render current task name to timer page
+  const id = JSON.parse(localStorage.getItem('currentTask'));
+  allTasks = JSON.parse(localStorage.getItem('allTasks'));
+  for (let i = 0; i < allTasks.length; i++) {
+    if (allTasks[i].id === id) {
+      currentTaskId = i;
+      document.getElementById('currTask').innerHTML =
+        allTasks[currentTaskId].name;
     }
-  };
+  }
 
-function template(){
-    
-    document.getElementById("minutes").innerHTML = "01";
-    document.getElementById("seconds").innerHTML = "00";
-    document.getElementById("distraction-btn").innerHTML = "Distraction : " + distractCounter;
-    document.getElementById("title_timer").innerHTML = "01:00" + "- Time To Work!";
-    //setTimeout(function(){ start(0, 59); }, 1000);
-    start(0,59);
-}
+  // render starting value of timer
+  document.getElementById('minutes').innerHTML = '01';
+  document.getElementById('seconds').innerHTML = '00';
+  document.getElementById("distraction-btn").innerHTML = "Distraction : " + distractCounter;
+  document.getElementById("title_timer").innerHTML = "01:00" + "- Time To Work!";
+  start(0, 10);
+};
 
+/**
+ * Set a timer that count down for 60 second.
+ * @param {integer} minutes minute of timer
+ * @param {integer} seconds second of timer
+ */
 function start(minutes, seconds){
+    // display correct distraction counter 
     distractCounter = 0;
     document.getElementById("distraction-btn").innerHTML = "Distraction : " + distractCounter;
     let secs = 0;
@@ -110,10 +110,11 @@ function start(minutes, seconds){
                             localStorage.setItem('sessionCounter',0);
                             displayLongBreak();
                         }
+
+                        // update progress for current task
+                        allTasks[currentTaskId].current += 1;
+                        localStorage.setItem('allTasks', JSON.stringify(allTasks));
                     }
-                    allTasks[currentTaskId].current += 1;
-                    localStorage.setItem('allTasks', JSON.stringify(allTasks));
-                    alert("finish")
                 }
                 seconds = 60;
             }
