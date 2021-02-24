@@ -94,11 +94,20 @@ function renderTask(newTask) {
   else {
     percent = percent.toFixed(2) + "%";
   }
+  let progressT = newTask.current + "/" + newTask.number;
 
-  const progressbar = `
+  let progressbar = `
         <div class=" flex-column progress">
             <div class="p-2 flex-column progress-bar" role="progressbar" style="width: ${percent};" aria-valuenow="${newTask.current}" aria-valuemin="0" aria-valuemax="${newTask.number}">${percent}</div>
         </div>`;
+  if(newTask.current > newTask.number) {
+    progressbar = `
+        <div class=" flex-column progress">
+            <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: ${percent};" aria-valuenow="${newTask.current}" aria-valuemin="0" aria-valuemax="${newTask.number}">${percent}</div>
+        </div>`;
+  }
+  const progressText = `
+        <p1 class="progress-text">${progressT}</p1>`
   const playButton = `<button class="p-2 bd-highlight btn  play-btn flex-right" type="button">
             <span class="material-icons play-btn" job ="play">play_circle</span>
         </button>`;
@@ -114,7 +123,7 @@ function renderTask(newTask) {
         </div>`;
   list.insertAdjacentHTML(
     position,
-    `<li id=${newTask.id} class="taskNode d-flex flex-row bd-highlight" draggable = true>${dragButton}${checkmark}${todoTask}${progressbar}${playButton}${editButton}`
+    `<li id=${newTask.id} class="taskNode d-flex flex-row bd-highlight" draggable = true>${dragButton}${checkmark}${todoTask}${progressbar}${progressText}${playButton}${editButton}`
   );
   renderCheckmark(newTask);
 }
