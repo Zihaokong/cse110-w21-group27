@@ -21,17 +21,20 @@ class TaskList extends HTMLElement {
         super();
        
         var shadow = this.attachShadow({mode: 'open'});
-        let list = document.createElement('ul');
-        list.setAttribute('id', 'main-list');
-        list.setAttribute('class', 'task-container d-flex');
+ 
+        
         shadow.innerHTML =         `<link rel="stylesheet" href="task.css"/>
         <link rel="stylesheet" href="main.css"/>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous"/>`
-        shadow.append(list);
+       
     }
 
     connectedCallback(){
+      let list = document.createElement('ul');
+      list.setAttribute('id', 'main-list');
+      list.setAttribute('class', 'task-container d-flex');
+      this.shadowRoot.append(list);
       var retrievedObject = localStorage.getItem("allTasks");
       console.log(retrievedObject);
       if (!retrievedObject || retrievedObject === "undefined") {
@@ -46,13 +49,11 @@ class TaskList extends HTMLElement {
             this.renderTask(allTasks[i]);
         }
       }
+
       
     }
 
-    disconnectedCallback(){
-      console.log("here");
-      localStorage.setItem('allTasks', JSON.stringify(allTasks));
-    }
+
 
     renderTask(newTask) {
         this.shadowRoot.querySelector('ul').appendChild(new TaskItem(newTask));
@@ -93,7 +94,7 @@ const taskForm = document.getElementById("taskform");
 
 
 let taskList = document.getElementById("main-container");
-taskForm.addEventListener("submit", e => taskList.addTask(e) );
+taskForm.addEventListener("submit", e => taskList.addTask(e));
 
 
 
@@ -125,9 +126,9 @@ taskForm.addEventListener("submit", e => taskList.addTask(e) );
 /**
  * Closing page will save current task and update local storage
  */
-// window.onbeforeunload = function storeTask() {
-//   localStorage.setItem('allTasks', JSON.stringify(allTasks));
-// };
+window.onbeforeunload = function storeTask() {
+  localStorage.setItem('allTasks', JSON.stringify(allTasks));
+};
 
 /**
  * Add a task to the page and to the global list.
