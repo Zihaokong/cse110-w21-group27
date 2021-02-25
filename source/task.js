@@ -88,7 +88,6 @@ function addTask(event) {
  * @param {object} newTask the task struct to render
  */
 function renderTask(newTask) {
-
   const newTaskItem = new TaskItem(newTask);
   document.querySelector('.task-container').appendChild(newTaskItem);
   renderCheckmark(newTask);
@@ -180,7 +179,6 @@ function deleteTask(element) {
     }
   }
 }
-
 
 /// ////// SECTION for Drag and Drop ////////
 

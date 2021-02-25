@@ -8,11 +8,11 @@
  *    is under the getter.
  */
 
-// Section for ESLint
 /* global handleEdit */
 
 /**
  * Method for creating drag icon for the task-item
+ * @return the drag icon of a task item.
  */
 const createDrag = () => {
   const dragIcon = document.createElement('span');
@@ -24,6 +24,7 @@ const createDrag = () => {
 
 /**
  * Method for creating checkbox icon for the task-item
+ * @return the check mark for a task item.
  */
 const createCheckmark = () => {
   const checkmark = document.createElement('span');
@@ -42,6 +43,7 @@ const createCheckmark = () => {
 /**
  * Method for creating task with the input todo task for the task-item
  * @param {object} newTask the newly created task item from the task.js
+ * @return p element storing current task name
  */
 const createTask = (newTask) => {
   const todoTask = document.createElement('p');
@@ -53,6 +55,7 @@ const createTask = (newTask) => {
 /**
  * Method for creating progress bar for the task-item
  * @param {object} newTask the new task object created by task.js
+ * @return a div element with progress bar.
  */
 const createProgressBar = (newTask) => {
   // calculate the percentage of progress for the styles
@@ -142,6 +145,7 @@ const dropdownMenu = () =>
 
 /**
  * Method for the styles sheets
+ * @return the section code for including stylesheet of bootstrap library
  */
 const styleSheets = () =>
   `<link rel="stylesheet" href="task.css"/>
