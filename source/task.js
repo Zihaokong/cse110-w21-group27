@@ -32,7 +32,6 @@ class TaskList extends HTMLElement {
     }
 
     connectedCallback(){
-      console.log("here");
       var retrievedObject = localStorage.getItem("allTasks");
       console.log(retrievedObject);
       if (!retrievedObject || retrievedObject === "undefined") {
@@ -43,7 +42,6 @@ class TaskList extends HTMLElement {
             welcome.remove();
         }
         for (let i = 0; i < allTasks.length; i++) {
-          console.log("heredoe");
 
             this.renderTask(allTasks[i]);
         }
@@ -51,8 +49,12 @@ class TaskList extends HTMLElement {
       
     }
 
+    disconnectedCallback(){
+      console.log("here");
+      localStorage.setItem('allTasks', JSON.stringify(allTasks));
+    }
+
     renderTask(newTask) {
-        console.log("HEREDOE");
         this.shadowRoot.querySelector('ul').appendChild(new TaskItem(newTask));
     }
 
@@ -90,6 +92,8 @@ customElements.define('task-list', TaskList);
 const taskForm = document.getElementById("taskform");
 
 
+let taskList = document.getElementById("main-container");
+taskForm.addEventListener("submit", e => taskList.addTask(e) );
 
 
 
@@ -97,33 +101,33 @@ const taskForm = document.getElementById("taskform");
  * When loading page, retrive previously stored task from
  * local storage, and render it, delete welcome message
  */
-window.onload = function () {
+// window.onload = function () {
 
-  let taskList = document.getElementById("main-container");
-    // let taskList = document.getElementById("main-container");
-    // if (!retrievedObject || retrievedObject === "undefined") {
-    //     allTasks = [];
-    // } else {
-    //     allTasks = JSON.parse(retrievedObject);
-    //     if (allTasks.length != 0) {
-    //         welcome.remove();
-    //     }
+//   let taskList = document.getElementById("main-container");
+//     // let taskList = document.getElementById("main-container");
+//     // if (!retrievedObject || retrievedObject === "undefined") {
+//     //     allTasks = [];
+//     // } else {
+//     //     allTasks = JSON.parse(retrievedObject);
+//     //     if (allTasks.length != 0) {
+//     //         welcome.remove();
+//     //     }
 
-    //     for (let i = 0; i < allTasks.length; i++) {
-    //         taskList.renderTask(allTasks[i]);
-    //     }
-    // }
+//     //     for (let i = 0; i < allTasks.length; i++) {
+//     //         taskList.renderTask(allTasks[i]);
+//     //     }
+//     // }
     
-    taskForm.addEventListener("submit", e => taskList.addTask(e) );
+//     taskForm.addEventListener("submit", e => taskList.addTask(e) );
 
-}
+// }
 
 /**
  * Closing page will save current task and update local storage
  */
-window.onbeforeunload = function storeTask() {
-  localStorage.setItem('allTasks', JSON.stringify(allTasks));
-};
+// window.onbeforeunload = function storeTask() {
+//   localStorage.setItem('allTasks', JSON.stringify(allTasks));
+// };
 
 /**
  * Add a task to the page and to the global list.
