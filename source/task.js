@@ -1,6 +1,7 @@
 /**
- * This file defines functions and implements the behaviors of todo list.
+ * This file defines functions and implements the behaviors of task list.
  */
+// Section for ESLint
 /* global TaskItem */
 
 /**
@@ -227,7 +228,7 @@ function establishNodePositions() {
  * For deciding which position the selected element goes to as measuring which
  * is the closest parent and closet children
  * this function will call establishNodePositions() for selected node position.
- * @param {event.clickY} currentYPos
+ * @param {event.clickY} currentYPos the y-axis value of the current click on window
  */
 function whereAmI(currentYPos) {
   establishNodePositions();
@@ -248,6 +249,7 @@ function whereAmI(currentYPos) {
   }
 }
 
+// Output module for testing
 if (typeof exports !== 'undefined') {
   module.exports = {
     addTask,

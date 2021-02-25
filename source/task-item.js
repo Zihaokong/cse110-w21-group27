@@ -1,3 +1,14 @@
+/**
+ * This file defines web component <task-item> and have helper methods
+ * for each small node that to be appended to the <task-item>.
+ * All the helper methods for childNodes are defined above line 152
+ * The class TaskItem and construdtor defines at line 152.
+ * There are getter as helper methods for retrieving childNodes from the shadow root
+ * There is callback function as eventlistener for the <task-item> which
+ *    is under the getter.
+ */
+
+// Section for ESLint
 /* global handleEdit */
 
 /**
@@ -220,6 +231,7 @@ class TaskItem extends HTMLElement {
   }
 }
 
+// Output module for testing
 customElements.define('task-item', TaskItem);
 if (typeof exports !== 'undefined') {
   module.exports = {
