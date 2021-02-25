@@ -1,3 +1,12 @@
+---
+name: Refactor
+about: Suggest an idea for this project
+title: ''
+labels: ''
+assignees: ''
+
+---
+
 ### Describe which part of the project code you are refactoring
 (Ex. The tasklist)
 ### What will be different about the refactored version?
