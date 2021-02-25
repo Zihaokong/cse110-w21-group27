@@ -9,6 +9,10 @@
  */
 
  var allTasks;
+ 
+ // HTML welcome message
+ const welcome = document.getElementById('welcome-message');
+
 
  //Storing all tasks on current page.
 class TaskList extends HTMLElement {
@@ -27,10 +31,29 @@ class TaskList extends HTMLElement {
         shadow.append(list);
     }
 
-    renderTask(newTask) {
-        console.log("HEREDOE")
+    connectedCallback(){
+      console.log("here");
+      var retrievedObject = localStorage.getItem("allTasks");
+      console.log(retrievedObject);
+      if (!retrievedObject || retrievedObject === "undefined") {
+        allTasks = [];
+      } else {
+        allTasks = JSON.parse(retrievedObject);
+        if (allTasks.length != 0) {
+            welcome.remove();
+        }
+        for (let i = 0; i < allTasks.length; i++) {
+          console.log("heredoe");
 
-        this.shadowRoot.children[4].appendChild(new TaskItem(newTask));
+            this.renderTask(allTasks[i]);
+        }
+      }
+      
+    }
+
+    renderTask(newTask) {
+        console.log("HEREDOE");
+        this.shadowRoot.querySelector('ul').appendChild(new TaskItem(newTask));
     }
 
     addTask(event){
@@ -68,8 +91,6 @@ const taskForm = document.getElementById("taskform");
 
 
 
-// HTML welcome message
-const welcome = document.getElementById('welcome-message');
 
 
 /**
@@ -77,20 +98,21 @@ const welcome = document.getElementById('welcome-message');
  * local storage, and render it, delete welcome message
  */
 window.onload = function () {
-    var retrievedObject = localStorage.getItem("allTasks");
-    let taskList = document.getElementById("main-container");
-    if (!retrievedObject || retrievedObject === "undefined") {
-        allTasks = [];
-    } else {
-        allTasks = JSON.parse(retrievedObject);
-        if (allTasks.length != 0) {
-            welcome.remove();
-        }
 
-        for (let i = 0; i < allTasks.length; i++) {
-            //taskList.renderTask(allTasks[i]);
-        }
-    }
+  let taskList = document.getElementById("main-container");
+    // let taskList = document.getElementById("main-container");
+    // if (!retrievedObject || retrievedObject === "undefined") {
+    //     allTasks = [];
+    // } else {
+    //     allTasks = JSON.parse(retrievedObject);
+    //     if (allTasks.length != 0) {
+    //         welcome.remove();
+    //     }
+
+    //     for (let i = 0; i < allTasks.length; i++) {
+    //         taskList.renderTask(allTasks[i]);
+    //     }
+    // }
     
     taskForm.addEventListener("submit", e => taskList.addTask(e) );
 
