@@ -9,6 +9,7 @@
  */
 
  var allTasks;
+ var dropzone;
  
  // HTML welcome message
  const welcome = document.getElementById('welcome-message');
@@ -49,6 +50,9 @@ class TaskList extends HTMLElement {
             this.renderTask(allTasks[i]);
         }
       }
+
+      dropzone = this.shadowRoot.querySelector('ul');
+
 
       
     }
@@ -232,9 +236,10 @@ function deleteTask(element) {
 
 }
 
+
 /// ////// SECTION for Drag and Drop ////////
 // getter for the list
-const dropzone = document.getElementById('main-container');
+
 // getter for the list items
 const nodes = document.getElementsByClassName('taskNode');
 // variable for the selected node to be dragged or moved
@@ -243,6 +248,7 @@ let selectedNode;
 let selectedNodePos = 0;
 
 // Listener for the dragstart event
+console.log(dropzone);
 dropzone.addEventListener(
   'dragstart',
   (event) => {
