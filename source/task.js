@@ -208,6 +208,14 @@ dropzone.addEventListener('dragover', (event) => {
 dropzone.addEventListener('drop', (event) => {
   event.preventDefault();
   dropzone.insertBefore(selectedNode, dropzone.children[selectedNodePos]);
+  const taskNodes = document.querySelectorAll('task-item');
+  const newArray = [];
+  for (let i = 0; i < taskNodes.length; i++) {
+    const targetID = taskNodes[i].id;
+    const taskInArray = allTasks.find((elem) => elem.id === targetID);
+    newArray.push(taskInArray);
+  }
+  allTasks = newArray;
 });
 
 /**
