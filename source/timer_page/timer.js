@@ -3,6 +3,7 @@ let distractCounter = 0;
 
 // let isPomo = false;
 
+
 let currentTaskId;
 let allTasks;
 
@@ -33,6 +34,7 @@ window.onload = function template() {
  * @param {integer} minutes minute of timer
  * @param {integer} seconds second of timer
  */
+
 function start(minutes, seconds) {
     // display correct distraction counter 
     distractCounter = 0;
@@ -124,7 +126,6 @@ function start(minutes, seconds) {
 function distractionCount() {
     distractCounter = distractCounter + 1;
     document.getElementById("distraction-btn").innerHTML = "Distraction : " + distractCounter;
-
 }
 
 function displayFailModal() {

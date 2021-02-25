@@ -238,6 +238,7 @@ function deleteTask(element) {
 
 
 /// ////// SECTION for Drag and Drop ////////
+
 // getter for the list
 
 // getter for the list items
