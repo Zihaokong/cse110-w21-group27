@@ -179,6 +179,30 @@ window.onbeforeunload = function storeTask() {
 //     document.getElementById(newTask.id).checkmark.checked = newTask.completed;
 // }
 
+
+/**
+ * Retrieving the task name and notes that are stored in allTasks array
+ * and show on the Modal before starting the timer.
+ * @param {Element} element: the task-item that is being clicked
+ */
+function showModalTask(element) {
+  // get the closest task-item from where we click and get the p tag in its children
+  const targetTask = element.getRootNode().host;
+  // make the task name appear in the timer modal
+  document.getElementById('timer-name').innerText = targetTask.taskName;
+  // get the element Index in the object list
+  const taskStorageIndex = allTasks.findIndex(
+    (elem) => elem.id === targetTask.id
+  );
+  // make the note from storage appear in the timer modal
+  document.getElementById('timer-note').innerText =
+    allTasks[taskStorageIndex].note;
+  // set the current task id to localStorage
+  const currentTask = targetTask.id;
+  localStorage.setItem('currentTask', JSON.stringify(currentTask));
+}
+
+
 /**
  * Retrieving the note in Storage by getting its id
  * and update the checkmark status on the array
