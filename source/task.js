@@ -73,7 +73,7 @@ function addTask(event) {
     note: document.getElementById('task-note').value,
   };
   allTasks.push(newTask);
-
+  localStorage.setItem('allTasks', JSON.stringify(allTasks));
   // render HTML on page.
   renderTask(newTask);
 
@@ -88,6 +88,7 @@ function addTask(event) {
  * @param {object} newTask the task struct to render
  */
 function renderTask(newTask) {
+
   const newTaskItem = new TaskItem(newTask);
   document.querySelector('.task-container').appendChild(newTaskItem);
   renderCheckmark(newTask);
@@ -174,12 +175,15 @@ function deleteTask(element) {
   for (let i = 0; i < allTasks.length; i++) {
     if (allTasks[i].name === name) {
       allTasks.splice(i, 1);
+      localStorage.setItem('allTasks', JSON.stringify(allTasks));
       break;
     }
   }
 }
 
+
 /// ////// SECTION for Drag and Drop ////////
+
 // getter for the list
 const dropzone = document.getElementById('main-container');
 // getter for the list items
