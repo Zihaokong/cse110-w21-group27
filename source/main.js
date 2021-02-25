@@ -16,13 +16,12 @@ const cancelBtns = document.getElementsByClassName('cancel-btn');
 // Get the <span> element that closes the modal
 const spanClose = document.getElementsByClassName('close');
 
-//set counters for timer page
+// set counters for timer page
 let sessionCounter = Number(localStorage.getItem('sessionCounter'));
-if (sessionCounter == null){
-  sessionCounter =  0;
+if (sessionCounter == null) {
+  sessionCounter = 0;
 }
 localStorage.setItem('sessionCounter', sessionCounter);
-
 
 // add event listeners
 for (let i = 0; i < spanClose.length; ++i) {
@@ -34,6 +33,13 @@ for (let i = 0; i < btns.length; ++i) {
   btns[i].addEventListener('click', () => {
     modal.style.display = 'block';
   });
+}
+
+/**
+ * For scroll to the top, used in Top button
+ */
+function scrollFunc() {
+  window.scrollTo(0, 0);
 }
 
 /**

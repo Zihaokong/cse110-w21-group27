@@ -1,10 +1,24 @@
 /**
- * This file defines functions and implements the behaviors of todo list.
+ * This file defines functions and implements the behaviors of task list.
  */
+// Section for ESLint
+/* global TaskItem */
+
+/**
+ * Class constructor for <task-list>
+ */
+class TaskList extends HTMLElement {
+  constructor() {
+    super();
+    this.setAttribute('id', 'main-container');
+    this.setAttribute('class', 'task-container d-flex');
+  }
+}
+customElements.define('task-list', TaskList);
 
 // HTML List of all tasks on HTML page
-const list = document.querySelector('.task-container');
-list.addEventListener('click', handleEdit);
+// const list = document.querySelector('.task-container');
+// list.addEventListener('click', handleEdit);
 
 // HTML Task form for collecting data
 const taskForm = document.getElementById('taskform');
@@ -49,19 +63,14 @@ window.onbeforeunload = function storeTask() {
  */
 function addTask(event) {
   event.preventDefault();
-  // acquire data from HTML form
-  const taskInput = document.getElementById('task-name');
-  const taskInputNum = document.getElementById('task-num');
-  const taskInputNote = document.getElementById('task-note');
-  const elementID = Math.random().toString(16).slice(2);
   // create struct and append to global list
   const newTask = {
-    id: elementID,
+    id: Math.random().toString(16).slice(2),
     completed: false,
-    name: taskInput.value,
-    number: taskInputNum.value,
+    name: document.getElementById('task-name').value,
+    number: document.getElementById('task-num').value,
     current: 0,
-    note: taskInputNote.value,
+    note: document.getElementById('task-note').value,
   };
   allTasks.push(newTask);
   localStorage.setItem('allTasks', JSON.stringify(allTasks));
@@ -76,97 +85,72 @@ function addTask(event) {
 
 /**
  * render a task struct on page, display name and current progress
- * @param {newTask} newTask the task struct to render
+ * @param {object} newTask the task struct to render
  */
 function renderTask(newTask) {
-  //  To-do: add real time progress bar percentage display
-  const position = 'beforeend';
-  const dragButton = `<span class="p-2 material-icons drag-btn">drag_indicator</span>`;
-  const checkmark = `<span class="p-2 form-check form-check-inline">
-            <input class="form-check-input input-mysize large" type="checkbox" job="check">
-            <label for="checkbox"></label>
-        </span>`;
-  const todoTask = `<p class="p-2 flex-md-fill text-nowrap task-item">${newTask.name}</p>`;
-  let percent = (newTask.current / newTask.number)*100;
-  if(percent >= 100) {
-    percent = "100%";
-  }
-  else {
-    percent = percent.toFixed(2) + "%";
-  }
-  let progressT = newTask.current + "/" + newTask.number;
 
-  let progressbar = `
-        <div class=" flex-column progress">
-            <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: ${percent};" aria-valuenow="${newTask.current}" aria-valuemin="0" aria-valuemax="${newTask.number}">${percent}</div>
-        </div>`;
-  if(newTask.current > newTask.number) {
-    progressbar = `
-        <div class=" flex-column progress">
-            <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: ${percent};" aria-valuenow="${newTask.current}" aria-valuemin="0" aria-valuemax="${newTask.number}">${percent}</div>
-        </div>`;
-  }
-  const progressText = `
-        <p1 class="progress-text">${progressT}</p1>`
-  const playButton = `<button class="p-2 bd-highlight btn  play-btn flex-right" type="button">
-            <span class="material-icons play-btn" job ="play">play_circle</span>
-        </button>`;
-  const editButton = `<div class="p-2 bd-highlight btn-group dropright flex-right">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="material-icons edit-btn">more_horiz</span>
-            </button>
-            <div class="dropdown-menu dropdown-menu-right " aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#" job="edit">Edit</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#" job="delete">Delete</a>
-            </div>
-        </div>`;
-  list.insertAdjacentHTML(
-    position,
-    `<li id=${newTask.id} class="taskNode d-flex flex-row bd-highlight" draggable = true>${dragButton}${checkmark}${todoTask}${progressbar}${progressText}${playButton}${editButton}`
-  );
+  const newTaskItem = new TaskItem(newTask);
+  document.querySelector('.task-container').appendChild(newTaskItem);
   renderCheckmark(newTask);
 }
 
 /**
- * Update the checkmark status on the localStorage
- * @param {newTask} newTask the task node just built from renderTask()
+ * render the checkbox status according to localStorage
+ * @param {object} newTask the new object created from addTask()
  */
 function renderCheckmark(newTask) {
   // setting checkmark
-  const newNode = document.getElementById(newTask.id);
-  // li: dragIcon -> span-checkmark; span: text -> actual checkbox
-  const checkbox = newNode.childNodes[1].childNodes[1];
-  checkbox.checked = newTask.completed;
+  document.getElementById(newTask.id).checkmark.checked = newTask.completed;
 }
 
 /**
- * Update the checkmark status on the array for localStorage
- * @param {event.target} element Javascript event.target
+ * Retrieving the note in Storage by getting its id
+ * and update the checkmark status on the array
+ * @param element the element that is being click which is passing from handleEdit()
  */
 function handleCheck(element) {
-  // Retrieving the note in Storage by getting its id
-  const targetID = element.closest('li').getAttribute('id');
+  const targetID = element.getRootNode().host.id;
   // get the element Index in the object list
-  const taskIndex = allTasks.findIndex((elem) => elem.id === targetID);
-  allTasks[taskIndex].completed = !allTasks[taskIndex].completed;
+  const taskIdx = allTasks.findIndex((elem) => elem.id === targetID);
+  allTasks[taskIdx].completed = !allTasks[taskIdx].completed;
+}
+
+/**
+ * Retrieving the task name and notes that are stored in allTasks array
+ * and show on the Modal before starting the timer.
+ * @param {Element} element: the task-item that is being clicked
+ */
+function showModalTask(element) {
+  // get the closest task-item from where we click and get the p tag in its children
+  const targetTask = element.getRootNode().host;
+  // make the task name appear in the timer modal
+  document.getElementById('timer-name').innerText = targetTask.taskName;
+  // get the element Index in the object list
+  const taskStorageIndex = allTasks.findIndex(
+    (elem) => elem.id === targetTask.id
+  );
+  // make the note from storage appear in the timer modal
+  document.getElementById('timer-note').innerText =
+    allTasks[taskStorageIndex].note;
+  // set the current task id to localStorage
+  const currentTask = targetTask.id;
+  localStorage.setItem('currentTask', JSON.stringify(currentTask));
 }
 
 /**
  * Click more button, giving user edit and delete options
- * @param {event} event Javascript events.
+ * @param {event} event the element that is being clicked
  */
 function handleEdit(event) {
   // getting which is being clicked
   const element = event.target;
-  let eleJob;
-  // console.log(element);
-  // job may be undefined
+  let eleJob; // variable for handling the functions of different button
+
+  // Handling the case of job may be undefined
   if (event.target.attributes.job) {
     eleJob = event.target.attributes.job.value;
   }
 
-  // console.log(eleJob);
   if (eleJob === 'delete') {
     deleteTask(element);
   } else if (eleJob === 'edit') {
@@ -180,15 +164,16 @@ function handleEdit(event) {
 }
 
 /**
- * Delete task
- * @param {event.target} element Javascript event.target
+ * Delete task from allTasks array and the task-list
+ * @param {Element} element the element that is being clicked
  */
 function deleteTask(element) {
-  element.closest('ul').removeChild(element.closest('li'));
-  const name = element.closest('li').children[2].innerHTML;
+  // Delete item in the DOM
+  element.closest('task-item').remove();
+  // Delete item in allTasks array
+  const name = element.closest('task-item').taskName;
   for (let i = 0; i < allTasks.length; i++) {
-    // eslint-disable-next-line eqeqeq
-    if (allTasks[i].name == name) {
+    if (allTasks[i].name === name) {
       allTasks.splice(i, 1);
       localStorage.setItem('allTasks', JSON.stringify(allTasks));
       break;
@@ -196,26 +181,8 @@ function deleteTask(element) {
   }
 }
 
-/**
- * For showing the task name, content on the modal when going to timer page.
- * @param {event.target} element The target element that the user wants to start with
- */
-function showModalTask(element) {
-  // get the closest li from where we click and get the p tag in its children
-  const targetName = element.closest('li').getElementsByTagName('p');
-  // make the task name appear in the timer modal
-  document.getElementById('timer-name').innerText = targetName[0].innerHTML;
-  // Retrieving the note in Storage by getting its id
-  const targetID = element.closest('li').getAttribute('id');
-  // get the element Index in the object list
-  const taskStorageIndex = allTasks.findIndex((elem) => elem.id === targetID);
-  // make the note from storage appear in the timer modal
-  document.getElementById('timer-note').innerText =
-    allTasks[taskStorageIndex].note;
 
-  const currentTask = element.closest('li').id;
-  localStorage.setItem('currentTask', JSON.stringify(currentTask));
-}
+/// ////// SECTION for Drag and Drop ////////
 
 // getter for the list
 const dropzone = document.getElementById('main-container');
@@ -245,6 +212,14 @@ dropzone.addEventListener('dragover', (event) => {
 dropzone.addEventListener('drop', (event) => {
   event.preventDefault();
   dropzone.insertBefore(selectedNode, dropzone.children[selectedNodePos]);
+  const taskNodes = document.querySelectorAll('task-item');
+  const newArray = [];
+  for (let i = 0; i < taskNodes.length; i++) {
+    const targetID = taskNodes[i].id;
+    const taskInArray = allTasks.find((elem) => elem.id === targetID);
+    newArray.push(taskInArray);
+  }
+  allTasks = newArray;
 });
 
 /**
@@ -265,7 +240,7 @@ function establishNodePositions() {
  * For deciding which position the selected element goes to as measuring which
  * is the closest parent and closet children
  * this function will call establishNodePositions() for selected node position.
- * @param {event.clickY} currentYPos
+ * @param {event.clickY} currentYPos the y-axis value of the current click on window
  */
 function whereAmI(currentYPos) {
   establishNodePositions();
@@ -284,4 +259,12 @@ function whereAmI(currentYPos) {
   if (typeof nodeAbove === 'undefined') {
     selectedNodePos = 0;
   }
+}
+
+// Output module for testing
+if (typeof exports !== 'undefined') {
+  module.exports = {
+    addTask,
+    TaskList,
+  };
 }
