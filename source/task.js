@@ -67,15 +67,10 @@ customElements.define('task-list', TaskList);
 const taskForm = document.getElementById("taskform");
 
 
-// HTML Task form for collecting data
-const taskForm = document.getElementById('taskform');
-taskForm.addEventListener('submit', addTask);
 
 // HTML welcome message
 const welcome = document.getElementById('welcome-message');
 
-// Storing all tasks on current page.
-let allTasks;
 
 /**
  * When loading page, retrive previously stored task from
