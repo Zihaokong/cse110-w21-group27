@@ -29,3 +29,22 @@
   color: #e5e5e5;
   font-size: 24px;
 }
+
+h2#date {
+  margin-top: 0;
+  display: inline; 
+  color:#C4C4C4;
+  font-size: 1.5em;
+  text-align: left;
+  font-weight: bold;
+}
+
+h2#completed-cycle{
+  margin-top: 0;
+  display: inline; 
+  color:#C4C4C4;
+  font-size: 1.5em;
+  text-align: left;
+  font-weight: bold;
+}
+

@@ -8,11 +8,9 @@
     "test": "jest --coverage",
     "docmd": "mkdir docs; jsdoc2md source/*.js > docs/source.md"
   },
-
   "jest": {
-    "testEnvironment" : "jsdom"
+    "testEnvironment": "jsdom"
   },
-
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Zihaokong/cse110-w21-group27.git"
@@ -48,5 +46,8 @@
   },
   "dependencies": {
     "jsdoc-to-markdown": "^6.0.1"
+  },
+  "directories": {
+    "test": "tests"
   }
 }

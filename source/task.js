@@ -1,6 +1,8 @@
 /**
- * This file defines functions and implements the behaviors of todo list.
+ * This file defines functions and implements the behaviors of task list.
  */
+// Section for ESLint
+/* global TaskItem */
 
 /**
  * Class constructor for <task-list>
@@ -65,14 +67,18 @@ customElements.define('task-list', TaskList);
 const taskForm = document.getElementById("taskform");
 
 
-//HTML welcome message
-const welcome = document.getElementById("welcome-message");
+// HTML Task form for collecting data
+const taskForm = document.getElementById('taskform');
+taskForm.addEventListener('submit', addTask);
 
+// HTML welcome message
+const welcome = document.getElementById('welcome-message');
 
+// Storing all tasks on current page.
+let allTasks;
 
-
-/** 
- * When loading page, retrive previously stored task from 
+/**
+ * When loading page, retrive previously stored task from
  * local storage, and render it, delete welcome message
  */
 window.onload = function () {
@@ -98,15 +104,13 @@ window.onload = function () {
 /**
  * Closing page will save current task and update local storage
  */
-window.onbeforeunload = function () {
-    localStorage.setItem('allTasks', JSON.stringify(allTasks));
-}
+window.onbeforeunload = function storeTask() {
+  localStorage.setItem('allTasks', JSON.stringify(allTasks));
+};
 
-
-///////// SECTION FOR TASKLIST {CREATE, RENDER, DELETE} /////////
 /**
  * Add a task to the page and to the global list.
- * @param event 
+ * @param {event} event Javascript events
  */
 // function addTask(event) {
 //     event.preventDefault();
@@ -133,7 +137,7 @@ window.onbeforeunload = function () {
 
 /**
  * render a task struct on page, display name and current progress
- * @param {*} newTask: the task struct to render 
+ * @param {object} newTask the task struct to render
  */
 // function renderTask(newTask) {
 //     document.querySelector(".task-container").appendChild(new TaskItem(newTask))
@@ -142,7 +146,7 @@ window.onbeforeunload = function () {
 
 /**
  * render the checkbox status according to localStorage
- * @param {*} newTask the new object created from addTask()
+ * @param {object} newTask the new object created from addTask()
  */
 // function renderCheckmark(newTask) {
 //     //setting checkmark
@@ -151,8 +155,8 @@ window.onbeforeunload = function () {
 
 /**
  * Retrieving the note in Storage by getting its id
- * and update the checkmark status on the array 
- * @param {*} event 
+ * and update the checkmark status on the array
+ * @param element the element that is being click which is passing from handleEdit()
  */
 function setCheck(element) {
     let targetID = element.getRootNode().host.id;
@@ -163,33 +167,33 @@ function setCheck(element) {
 
 /**
  * Click more button, giving user edit and delete options
- * @param {*} event 
+ * @param {event} event the element that is being clicked
  */
 function handleEdit(event) {
-    //getting which is being clicked
-    let element = event.target;
-    let eleJob;
+  // getting which is being clicked
+  const element = event.target;
+  let eleJob; // variable for handling the functions of different button
 
-    //job may be undefined
-    if (event.target.attributes.job) {
-        eleJob = event.target.attributes.job.value;
-    }
+  // Handling the case of job may be undefined
+  if (event.target.attributes.job) {
+    eleJob = event.target.attributes.job.value;
+  }
 
-    if (eleJob == "delete") {
-        deleteTask(element);
-    } else if (eleJob == "edit") {
-        displayAddModal();
-    } else if (eleJob == "play") {
-        displayPlayModal();
-        showModalTask(element);
-    } else if (eleJob == "check") {
-        setCheck(element);
-    }
+  if (eleJob === 'delete') {
+    deleteTask(element);
+  } else if (eleJob === 'edit') {
+    document.getElementById('add-task-modal').style.display = 'block';
+  } else if (eleJob === 'play') {
+    document.getElementById('play-modal').style.display = 'block';
+    showModalTask(element);
+  } else if (eleJob === 'check') {
+    setCheck(element);
+  }
 }
 
 /**
- * Delete task
- * @param {*} element 
+ * Delete task from allTasks array and the task-list
+ * @param {Element} element the element that is being clicked
  */
 function deleteTask(element) {
     // Delete item in allTasks array
@@ -206,68 +210,80 @@ function deleteTask(element) {
 
 }
 
-///////// SECTION for Drag and Drop ////////
-
+/// ////// SECTION for Drag and Drop ////////
 // getter for the list
-var dropzone = document.getElementById("main-container");
-//getter for the list items
-var nodes = document.getElementsByClassName("taskNode");
+const dropzone = document.getElementById('main-container');
+// getter for the list items
+const nodes = document.getElementsByClassName('taskNode');
 // variable for the selected node to be dragged or moved
-var selectedNode;
+let selectedNode;
 // variable for the position of selected node
-var selectedNodePos = 0;
+let selectedNodePos = 0;
 
 // Listener for the dragstart event
 dropzone.addEventListener(
-    "dragstart",
-    function (event) {
-        selectedNode = event.target;
-    },
-    false
+  'dragstart',
+  (event) => {
+    selectedNode = event.target;
+  },
+  false
 );
 
 // Listener for the dragover event
-dropzone.addEventListener("dragover", (event) => {
-    event.preventDefault();
-    whereAmI(event.clientY);
+dropzone.addEventListener('dragover', (event) => {
+  event.preventDefault();
+  whereAmI(event.clientY);
 });
 
 // Listener for the drop event
-dropzone.addEventListener("drop", (event) => {
-    event.preventDefault();
-    dropzone.insertBefore(selectedNode, dropzone.children[selectedNodePos]);
+dropzone.addEventListener('drop', (event) => {
+  event.preventDefault();
+  dropzone.insertBefore(selectedNode, dropzone.children[selectedNodePos]);
 });
 
 /**
  * For measuring the selected node position from the list.
  */
 function establishNodePositions() {
-    for (var i = 0; i < nodes.length; i++) {
-        var element = document.getElementById(nodes[i]["id"]);
-        var position = element.getBoundingClientRect(); //info of the element position on the frame
-        var yTop = position.top;
-        var yBottom = position.bottom;
-        //yCenter
-        nodes[i]["yPos"] = yTop + (yBottom - yTop) / 2;
-    }
+  for (let i = 0; i < nodes.length; i++) {
+    const element = document.getElementById(nodes[i].id);
+    const position = element.getBoundingClientRect(); // info of the element position on the frame
+    const yTop = position.top;
+    const yBottom = position.bottom;
+    // yCenter
+    nodes[i].yPos = yTop + (yBottom - yTop) / 2;
+  }
 }
 
 /**
- * For deciding which position the selected element goes to as measuring which 
+ * For deciding which position the selected element goes to as measuring which
  * is the closest parent and closet children
- * this function will call establishNodePositions() for selected node position. 
- * @param {*} currentYPos 
+ * this function will call establishNodePositions() for selected node position.
+ * @param {event.clickY} currentYPos the y-axis value of the current click on window
  */
 function whereAmI(currentYPos) {
-    establishNodePositions();
-    for (var i = 0; i < nodes.length; i++) {
-        if (nodes[i]["yPos"] < currentYPos) {
-            var nodeAbove = document.getElementById(nodes[i]["id"]);
-            selectedNodePos = i + 1;
-        }
+  establishNodePositions();
+  let nodeAbove;
+  for (let i = 0; i < nodes.length; i++) {
+    if (nodes[i].yPos < currentYPos) {
+      nodeAbove = document.getElementById(nodes[i].id);
+      selectedNodePos = i + 1;
     }
-    // for the top of the list
-    if (typeof nodeAbove === "undefined") {
-        selectedNodePos = 0;
-    }
+  }
+  // for the top of the list
+  if (typeof nodeAbove === 'undefined') {
+    selectedNodePos = 0;
+  }
+  // for the top of the list
+  if (typeof nodeAbove === 'undefined') {
+    selectedNodePos = 0;
+  }
+}
+
+// Output module for testing
+if (typeof exports !== 'undefined') {
+  module.exports = {
+    addTask,
+    TaskList,
+  };
 }

@@ -1,6 +1,6 @@
 # 5. Code Quality Tool
 
-* Date: 2021-02-17 
+* Date: 2021-02-06 
 * Status [Pending]
 
 ## Context and Problem Statement
@@ -23,9 +23,9 @@ IDEs:
   * [-] Higher learning curve
   * [-] Might complain about stylistic decisions
   
-## 4. Decision Outcome
+## Decision Outcome
 
 Chosen option:
 
 
-## 5. Consequences
+## Consequences

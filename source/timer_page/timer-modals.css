@@ -1,0 +1,128 @@
+.modal-break{
+    position:fixed;
+    display: none;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.25);
+}
+
+.modal-content-short_break{
+    background-color: #fefefe;
+    padding: 30px;
+    width: 40%;
+    height: 65%;
+    margin-top: 7.5%;
+    margin-left: 30%;
+    box-shadow: 0 5px 8px 0;
+}
+
+.heading-short_break{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.5rem;
+}
+h3{
+    font-size: 2.5rem;
+    color: #2E4756;
+}
+h2{
+    padding-top: 1.5rem;
+    text-align: center;
+    font-size: 3.5rem;
+    color: #2E4756;
+}
+
+#party-icon{
+    width: 80px;
+    height:70px;
+}
+
+#start-button{
+    font-family: "Poppins", sans-serif;
+    color: #ffffff;
+    font-size: 2.5rem;
+    font-weight: lighter;
+    width: 50%;
+    height: 30%;
+    border-radius: 40px;
+    background: #2E4756;
+    text-align: center;
+}
+
+#start-button:hover{
+    background: #64838c;
+}
+
+#strt-button{
+    padding-top: 2rem;
+    text-align: center;
+}
+
+.heading-fail{
+    font-size: 3.1rem;
+    color: #2E4756;
+    text-align: center;
+}
+
+#sad-face-container{
+    text-align: center;
+}
+
+#sad-face{
+    width: 120px;
+    height:120px;
+}
+
+.fail-buttons{
+    font-family: "Poppins", sans-serif;
+    color: #ffffff;
+    font-size: 2.5rem;
+    font-weight: lighter;
+    width: 33%;
+    height: 20%;
+    border-radius: 40px;
+    text-align: center;
+}
+
+#fail-button{
+    background: #EF7869;
+}
+
+#cancel-button{
+    background: #C4C4C4;
+}
+
+#fail-button-container{
+    display: flex;
+    justify-content: center;
+}
+
+#heading-break-complete{
+    font-size: 3.5rem;
+    color: #2E4756;
+    text-align: center;
+}
+
+#button-task-container{
+    text-align: center;
+}
+
+.button-task-position{
+    padding-top: 2rem;
+}
+.button-task{
+    font-family: "Poppins", sans-serif;
+    color: #ffffff;
+    font-size: 3rem;
+    font-weight: lighter;
+    width: 80%;
+    height: 60%;
+    border-radius: 50px;
+    text-align: center;
+    background: #2E4756;
+}
