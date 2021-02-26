@@ -2,105 +2,89 @@
  * This file defines functions and implements the behaviors of task list.
  */
 // Section for ESLint
-/* global TaskItem */
+/* global TaskItem closeModal */
 
 /**
  * Class constructor for <task-list>
  */
 
- var allTasks;
- var dropzone;
- 
- // HTML welcome message
- const welcome = document.getElementById('welcome-message');
+let allTasks;
+let dropzone;
 
+// HTML welcome message
+const welcome = document.getElementById('welcome-message');
 
- //Storing all tasks on current page.
+// Storing all tasks on current page.
 class TaskList extends HTMLElement {
-    
-    constructor() {
-        super();
-       
-        var shadow = this.attachShadow({mode: 'open'});
- 
-        
-        shadow.innerHTML =         `<link rel="stylesheet" href="task.css"/>
-        <link rel="stylesheet" href="main.css"/>
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous"/>`
-       
-    }
+  constructor() {
+    super();
 
-    connectedCallback(){
-      let list = document.createElement('ul');
-      list.setAttribute('id', 'main-list');
-      list.setAttribute('class', 'task-container d-flex');
-      this.shadowRoot.append(list);
-      var retrievedObject = localStorage.getItem("allTasks");
-      console.log(retrievedObject);
-      if (!retrievedObject || retrievedObject === "undefined") {
-        allTasks = [];
-      } else {
-        allTasks = JSON.parse(retrievedObject);
-        if (allTasks.length != 0) {
-            welcome.remove();
-        }
-        for (let i = 0; i < allTasks.length; i++) {
+    const shadow = this.attachShadow({ mode: 'open' });
 
-            this.renderTask(allTasks[i]);
-        }
-      }
+    shadow.innerHTML = `<link rel="stylesheet" href="task.css"/>
+      <link rel="stylesheet" href="main.css"/>
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous"/>`;
+  }
 
-      dropzone = this.shadowRoot.querySelector('ul');
-
-
-      
-    }
-
-
-
-    renderTask(newTask) {
-        this.shadowRoot.querySelector('ul').appendChild(new TaskItem(newTask));
-    }
-
-    addTask(event){
-        event.preventDefault();
-
-        //create struct and append to global list
-        const newTask = {
-            id: Math.random().toString(16).slice(2),
-            completed: false,
-            name: document.getElementById("task-name").value,
-            number: document.getElementById("task-num").value,
-            current: 0,
-            note: document.getElementById("task-note").value
-        }
-        allTasks.push(newTask);
-
-        console.log(this);
-        //render HTML on page.
-        this.renderTask(newTask);
-        console.log(this);
-
-        //everything else.
-        taskForm.reset();
+  connectedCallback() {
+    const list = document.createElement('ul');
+    list.setAttribute('id', 'main-list');
+    list.setAttribute('class', 'task-container d-flex');
+    this.shadowRoot.append(list);
+    const retrievedObject = localStorage.getItem('allTasks');
+    console.log(retrievedObject);
+    if (!retrievedObject || retrievedObject === 'undefined') {
+      allTasks = [];
+    } else {
+      allTasks = JSON.parse(retrievedObject);
+      if (allTasks.length !== 0) {
         welcome.remove();
-        closeModal();
+      }
+      for (let i = 0; i < allTasks.length; i++) {
+        this.renderTask(allTasks[i]);
+      }
     }
-    
 
+    dropzone = this.shadowRoot.querySelector('ul');
+  }
 
+  renderTask(newTask) {
+    this.shadowRoot.querySelector('ul').appendChild(new TaskItem(newTask));
+  }
+
+  addTask(event) {
+    event.preventDefault();
+
+    // create struct and append to global list
+    const newTask = {
+      id: Math.random().toString(16).slice(2),
+      completed: false,
+      name: document.getElementById('task-name').value,
+      number: document.getElementById('task-num').value,
+      current: 0,
+      note: document.getElementById('task-note').value,
+    };
+    allTasks.push(newTask);
+
+    console.log(this);
+    // render HTML on page.
+    this.renderTask(newTask);
+    console.log(this);
+
+    // everything else.
+    taskForm.reset();
+    welcome.remove();
+    closeModal();
+  }
 }
 customElements.define('task-list', TaskList);
 
-//HTML Task form for collecting data
-const taskForm = document.getElementById("taskform");
+// HTML Task form for collecting data
+const taskForm = document.getElementById('taskform');
 
-
-let taskList = document.getElementById("main-container");
-taskForm.addEventListener("submit", e => taskList.addTask(e));
-
-
+const taskList = document.getElementById('main-container');
+taskForm.addEventListener('submit', (e) => taskList.addTask(e));
 
 /**
  * When loading page, retrive previously stored task from
@@ -122,7 +106,7 @@ taskForm.addEventListener("submit", e => taskList.addTask(e));
 //     //         taskList.renderTask(allTasks[i]);
 //     //     }
 //     // }
-    
+
 //     taskForm.addEventListener("submit", e => taskList.addTask(e) );
 
 // }
@@ -179,7 +163,6 @@ window.onbeforeunload = function storeTask() {
 //     document.getElementById(newTask.id).checkmark.checked = newTask.completed;
 // }
 
-
 /**
  * Retrieving the task name and notes that are stored in allTasks array
  * and show on the Modal before starting the timer.
@@ -202,17 +185,16 @@ function showModalTask(element) {
   localStorage.setItem('currentTask', JSON.stringify(currentTask));
 }
 
-
 /**
  * Retrieving the note in Storage by getting its id
  * and update the checkmark status on the array
  * @param element the element that is being click which is passing from handleEdit()
  */
 function setCheck(element) {
-    let targetID = element.getRootNode().host.id;
-    // get the element Index in the object list
-    const taskIndex = allTasks.findIndex(elem => elem.id === targetID);
-    allTasks[taskIndex].completed = !allTasks[taskIndex].completed;
+  const targetID = element.getRootNode().host.id;
+  // get the element Index in the object list
+  const taskIndex = allTasks.findIndex((elem) => elem.id === targetID);
+  allTasks[taskIndex].completed = !allTasks[taskIndex].completed;
 }
 
 /**
@@ -246,20 +228,18 @@ function handleEdit(event) {
  * @param {Element} element the element that is being clicked
  */
 function deleteTask(element) {
-    // Delete item in allTasks array
-    let itemToDelete = element.closest("task-item");
-    let name = itemToDelete.taskName;
-    for (let i = 0; i < allTasks.length; i++) {
-        if (allTasks[i].name === name) {
-            allTasks.splice(i, 1);
-            break;
-        }
+  // Delete item in allTasks array
+  const itemToDelete = element.closest('task-item');
+  const name = itemToDelete.taskName;
+  for (let i = 0; i < allTasks.length; i++) {
+    if (allTasks[i].name === name) {
+      allTasks.splice(i, 1);
+      break;
     }
-    // Delete item in the DOM
-    itemToDelete.remove();
-
+  }
+  // Delete item in the DOM
+  itemToDelete.remove();
 }
-
 
 /// ////// SECTION for Drag and Drop ////////
 
@@ -344,7 +324,6 @@ function whereAmI(currentYPos) {
 // Output module for testing
 if (typeof exports !== 'undefined') {
   module.exports = {
-    addTask,
     TaskList,
   };
 }

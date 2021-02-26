@@ -22,18 +22,18 @@ document.getElementById('date').innerHTML = date;
 /// ///// Section for Cycle count ////////
 
 // create unfilled circle for incomplete cycle
-for (var i = 0; i < cycleCount; i++) {
-  let newCyble = document.createElement('span');
+for (let i = 0; i < cycleCount; i++) {
+  const newCyble = document.createElement('span');
   newCyble.innerHTML = ' <span class="dot"></span>';
-  document.getElementById("cycle-count").prepend(newCyble);
+  document.getElementById('cycle-count').prepend(newCyble);
 }
 
 // create filled circle for completed cycle
-for (var i = 0; i < completedCycles; i++) {
-  let newCyble = document.createElement('span');
+for (let i = 0; i < completedCycles; i++) {
+  const newCyble = document.createElement('span');
   newCyble.innerHTML = ' <span class="filled-dot"></span>';
-  document.getElementById("cycle-count").prepend(newCyble);
+  document.getElementById('cycle-count').prepend(newCyble);
 }
 
-const cycleText = document.getElementById("completed-cycle");
-cycleText.innerText = "| Completed Cycles: " + completedCycles;
+const cycleText = document.getElementById('completed-cycle');
+cycleText.innerText = `| Completed Cycles: ${completedCycles}`;
