@@ -8,6 +8,8 @@
  * Class constructor for <task-list>
  */
 
+let TaskItem;
+
 let allTasks;
 let dropzone;
 
@@ -84,7 +86,6 @@ customElements.define('task-list', TaskList);
 const taskForm = document.getElementById('taskform');
 
 const taskList = document.getElementById('main-container');
-taskForm.addEventListener('submit', (e) => taskList.addTask(e));
 
 /**
  * When loading page, retrive previously stored task from
@@ -252,36 +253,6 @@ let selectedNode;
 // variable for the position of selected node
 let selectedNodePos = 0;
 
-// Listener for the dragstart event
-console.log(dropzone);
-dropzone.addEventListener(
-  'dragstart',
-  (event) => {
-    selectedNode = event.target;
-  },
-  false
-);
-
-// Listener for the dragover event
-dropzone.addEventListener('dragover', (event) => {
-  event.preventDefault();
-  whereAmI(event.clientY);
-});
-
-// Listener for the drop event
-dropzone.addEventListener('drop', (event) => {
-  event.preventDefault();
-  dropzone.insertBefore(selectedNode, dropzone.children[selectedNodePos]);
-  const taskNodes = document.querySelectorAll('task-item');
-  const newArray = [];
-  for (let i = 0; i < taskNodes.length; i++) {
-    const targetID = taskNodes[i].id;
-    const taskInArray = allTasks.find((elem) => elem.id === targetID);
-    newArray.push(taskInArray);
-  }
-  allTasks = newArray;
-});
-
 /**
  * For measuring the selected node position from the list.
  */
@@ -323,7 +294,43 @@ function whereAmI(currentYPos) {
 
 // Output module for testing
 if (typeof exports !== 'undefined') {
+  // eslint-disable-next-line global-require
+  TaskItem = require('./task-item').TaskItem;
   module.exports = {
     TaskList,
   };
 }
+
+window.onload = () => {
+  taskForm.addEventListener('submit', (e) => taskList.addTask(e));
+
+  // Listener for the dragstart event
+  console.log(dropzone);
+  dropzone.addEventListener(
+    'dragstart',
+    (event) => {
+      selectedNode = event.target;
+    },
+    false
+  );
+
+  // Listener for the dragover event
+  dropzone.addEventListener('dragover', (event) => {
+    event.preventDefault();
+    whereAmI(event.clientY);
+  });
+
+  // Listener for the drop event
+  dropzone.addEventListener('drop', (event) => {
+    event.preventDefault();
+    dropzone.insertBefore(selectedNode, dropzone.children[selectedNodePos]);
+    const taskNodes = document.querySelectorAll('task-item');
+    const newArray = [];
+    for (let i = 0; i < taskNodes.length; i++) {
+      const targetID = taskNodes[i].id;
+      const taskInArray = allTasks.find((elem) => elem.id === targetID);
+      newArray.push(taskInArray);
+    }
+    allTasks = newArray;
+  });
+};

@@ -17,7 +17,6 @@ const options = {
 };
 const date = todayDate.toLocaleDateString('en-us', options);
 // eslint-disable-next-line no-undef
-document.getElementById('date').innerHTML = date;
 
 /// ///// Section for Cycle count ////////
 
@@ -37,3 +36,7 @@ for (let i = 0; i < completedCycles; i++) {
 
 const cycleText = document.getElementById('completed-cycle');
 cycleText.innerText = `| Completed Cycles: ${completedCycles}`;
+
+window.onload = () => {
+  document.getElementById('date').innerHTML = date;
+};
