@@ -1,4 +1,4 @@
-const tastItem = require('../source/task-item');
+const TaskItem = require('../source/task-item');
 
 describe('Pass in to constructor test', () => {
   test('New instance has the correct id and classes', () => {
@@ -10,7 +10,7 @@ describe('Pass in to constructor test', () => {
       current: 0,
       note: 'ThisIsNotes',
     };
-    const item = new tastItem.TaskItem(inputTask);
+    const item = new TaskItem.TaskItem(inputTask);
     expect(item.id).toBe('05023c2908555');
     expect(item.className).toMatch('taskNode d-flex flex-row bd-highlight');
     expect(item.draggable).toBe(true);
