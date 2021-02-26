@@ -25,6 +25,45 @@ describe('Pass in to constructor test', () => {
     expect(item.draggable).toBe(true);
   });
 
+  test('100% Instance is created', () => {
+    const inputTask = {
+      id: '05023c2908555',
+      completed: false,
+      name: 'ThisIsATestingTask',
+      number: 4,
+      current: 4,
+      note: 'ThisIsNotes',
+    };
+    const item = new TaskItem.TaskItem(inputTask);
+  });
+
+  test(' > 100% Instance is created', () => {
+    const inputTask = {
+      id: '05023c2908555',
+      completed: false,
+      name: 'ThisIsATestingTask',
+      number: 4,
+      current: 5,
+      note: 'ThisIsNotes',
+    };
+    const item = new TaskItem.TaskItem(inputTask);
+  });
+
+  test('getters are correct', () => {
+    const inputTask = {
+      id: '05023c2908555',
+      completed: false,
+      name: 'ThisIsATestingTask',
+      number: 4,
+      current: 5,
+      note: 'ThisIsNotes',
+    };
+    const item = new TaskItem.TaskItem(inputTask);
+    expect(item.checkmark.nodeName).toBe('INPUT');
+    expect(item.checkmark.getAttribute('job')).toBe('check');
+    expect(item.taskName).toBe(inputTask.name);
+  });
+
   test('Create task-item in document', () => {
     const inputTask = {
       id: '05023c2908555',
@@ -34,7 +73,6 @@ describe('Pass in to constructor test', () => {
       current: 0,
       note: 'ThisIsNotes',
     };
-
     const item = new TaskItem.TaskItem(inputTask);
     document.getElementById('test').appendChild(item);
   });
