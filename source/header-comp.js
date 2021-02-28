@@ -115,7 +115,6 @@ class HeaderComp extends HTMLElement {
     renderText(this);
   }
 }
-customElements.define('header-comp', HeaderComp);
 
 /**
  * create unfilled circle for cycles

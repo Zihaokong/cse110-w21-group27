@@ -317,7 +317,6 @@ window.onload = () => {
   });
 };
 
-customElements.define('task-list', TaskList);
 if (typeof exports !== 'undefined') {
   module.exports = {
     TaskList,
