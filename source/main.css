@@ -119,7 +119,7 @@ form div {
 }
 
 /* Section for minor adjustment on each modal */
-#add-task-modal-header{
+#add-task-modal-header, #delete-modal-header{
   border-bottom: none;
 }
 #timer-name{
@@ -146,8 +146,10 @@ form div {
   cursor: pointer;
 }
 
-
-.submit-btn {
+.confirm-btn{
+  background: #EF7869;
+}
+.submit-btn, .confirm-btn {
   float: right;
   font-family: "Poppins", sans-serif;
   color: #ffffff;

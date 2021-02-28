@@ -48,6 +48,7 @@ class TaskList extends HTMLElement {
 
   renderTask(newTask) {
     this.shadowRoot.querySelector('ul').appendChild(new TaskItem(newTask));
+    //render the checkbox status
     this.shadowRoot.getElementById(newTask.id).checkmark.checked =
       newTask.completed;
   }
@@ -75,35 +76,6 @@ class TaskList extends HTMLElement {
 }
 customElements.define('task-list', TaskList);
 
-// HTML Task form for collecting data
-const taskForm = document.getElementById('taskform');
-const taskList = document.getElementById('main-container');
-
-/**
- * When loading page, retrive previously stored task from
- * local storage, and render it, delete welcome message
- */
-// window.onload = function () {
-
-//   let taskList = document.getElementById("main-container");
-//     // let taskList = document.getElementById("main-container");
-//     // if (!retrievedObject || retrievedObject === "undefined") {
-//     //     allTasks = [];
-//     // } else {
-//     //     allTasks = JSON.parse(retrievedObject);
-//     //     if (allTasks.length != 0) {
-//     //         welcome.remove();
-//     //     }
-
-//     //     for (let i = 0; i < allTasks.length; i++) {
-//     //         taskList.renderTask(allTasks[i]);
-//     //     }
-//     // }
-
-//     taskForm.addEventListener("submit", e => taskList.addTask(e) );
-
-// }
-
 /**
  * Closing page will save current task and update local storage
  */
@@ -111,50 +83,12 @@ window.onbeforeunload = function storeTask() {
   localStorage.setItem('allTasks', JSON.stringify(allTasks));
 };
 
-/**
- * Add a task to the page and to the global list.
- * @param {event} event Javascript events
- */
-// function addTask(event) {
-//     event.preventDefault();
 
-//     //create struct and append to global list
-//     const newTask = {
-//         id: Math.random().toString(16).slice(2),
-//         completed: false,
-//         name: document.getElementById("task-name").value,
-//         number: document.getElementById("task-num").value,
-//         current: 0,
-//         note: document.getElementById("task-note").value
-//     }
-//     allTasks.push(newTask);
+// HTML Task form for collecting data
+const taskForm = document.getElementById('taskform');
+const taskList = document.getElementById('main-container');
 
-//     //render HTML on page.
-//     renderTask(newTask);
 
-//     //everything else.
-//     taskForm.reset();
-//     welcome.remove();
-//     closeModal();
-// }
-
-/**
- * render a task struct on page, display name and current progress
- * @param {object} newTask the task struct to render
- */
-// function renderTask(newTask) {
-//     document.querySelector(".task-container").appendChild(new TaskItem(newTask))
-//     renderCheckmark(newTask);
-// }
-
-/**
- * render the checkbox status according to localStorage
- * @param {object} newTask the new object created from addTask()
- */
-// function renderCheckmark(newTask) {
-//     //setting checkmark
-//     document.getElementById(newTask.id).checkmark.checked = newTask.completed;
-// }
 
 /**
  * Retrieving the task name and notes that are stored in allTasks array
@@ -176,6 +110,49 @@ function showModalTask(element) {
   // set the current task id to localStorage
   const currentTask = targetTask.id;
   localStorage.setItem('currentTask', JSON.stringify(currentTask));
+}
+
+
+/**
+ * Delete task from allTasks array and the task-list
+ * @param {Element} element the element that is being clicked
+ */
+function editTask(element) {
+  const targetID = element.getRootNode().host.id;
+  // get the element Index in the object list
+  const taskIndex = allTasks.findIndex((elem) => elem.id === targetID);
+  console.log(taskIndex);
+  document.getElementById('edit-save-btn').addEventListener('click', () => {
+    allTasks[taskIndex].name = document.getElementById('edit-name').value;
+    allTasks[taskIndex].number = document.getElementById('edit-num').value;
+    allTasks[taskIndex].note = document.getElementById('edit-note').value;
+  });
+}
+
+
+
+
+/**
+ * Delete task from allTasks array and the task-list
+ * @param {Element} element the element that is being clicked
+ */
+function deleteTask(element) {
+  // Delete item in the DOM
+  const itemToDelete = element.getRootNode().host;
+  // Delete item in allTasks array
+  const name = itemToDelete.taskName;
+  document.getElementById('task-delete').innerText = `[${name}]`;
+  document.getElementById('confirm-button').addEventListener('click', () => {
+    for (let i = 0; i < allTasks.length; i++) {
+      if (allTasks[i].name === name) {
+        allTasks.splice(i, 1);
+        break;
+      }
+    }
+    // Delete item in the DOM
+    itemToDelete.remove();
+    document.getElementById('delete-modal').style.display = 'none';
+  });
 }
 
 /**
@@ -205,9 +182,11 @@ function handleEdit(event) {
   }
 
   if (eleJob === 'delete') {
+    document.getElementById('delete-modal').style.display = 'block';
     deleteTask(element);
   } else if (eleJob === 'edit') {
-    document.getElementById('add-task-modal').style.display = 'block';
+    document.getElementById('edit-modal').style.display = 'block';
+    editTask(element);
   } else if (eleJob === 'play') {
     document.getElementById('play-modal').style.display = 'block';
     showModalTask(element);
@@ -216,24 +195,7 @@ function handleEdit(event) {
   }
 }
 
-/**
- * Delete task from allTasks array and the task-list
- * @param {Element} element the element that is being clicked
- */
-function deleteTask(element) {
-  // Delete item in the DOM
-  const itemToDelete = element.getRootNode().host;
-  // Delete item in allTasks array
-  const name = itemToDelete.taskName;
-  for (let i = 0; i < allTasks.length; i++) {
-    if (allTasks[i].name === name) {
-      allTasks.splice(i, 1);
-      break;
-    }
-  }
-  // Delete item in the DOM
-  itemToDelete.remove();
-}
+
 
 /// ////// SECTION for Drag and Drop ////////
 // getter for the list
@@ -315,6 +277,7 @@ window.onload = () => {
     allTasks = newArray;
   });
 };
+
 
 if (typeof exports !== 'undefined') {
   module.exports = {
