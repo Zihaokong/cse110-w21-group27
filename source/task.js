@@ -88,7 +88,6 @@ function addTask(event) {
  * @param {object} newTask the task struct to render
  */
 function renderTask(newTask) {
-
   const newTaskItem = new TaskItem(newTask);
   document.querySelector('.task-container').appendChild(newTaskItem);
   renderCheckmark(newTask);
@@ -169,9 +168,10 @@ function handleEdit(event) {
  */
 function deleteTask(element) {
   // Delete item in the DOM
-  element.closest('task-item').remove();
+  const targetElement = element.getRootNode().host;
+  targetElement.remove();
   // Delete item in allTasks array
-  const name = element.closest('task-item').taskName;
+  const name = targetElement.taskName;
   for (let i = 0; i < allTasks.length; i++) {
     if (allTasks[i].name === name) {
       allTasks.splice(i, 1);
@@ -181,9 +181,7 @@ function deleteTask(element) {
   }
 }
 
-
 /// ////// SECTION for Drag and Drop ////////
-
 // getter for the list
 const dropzone = document.getElementById('main-container');
 // getter for the list items

@@ -145,7 +145,7 @@ button {
   padding-left: 0% !important;
   padding-right: 0% !important;
 }
-.play-btn{
+.play-btn, .edit-btn, .delete-btn{
   color: #2e4756;
   border: none;
   cursor: pointer;

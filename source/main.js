@@ -6,6 +6,7 @@
 // Get the modal
 const modal = document.getElementById('add-task-modal');
 const playModal = document.getElementById('play-modal');
+const deleteModal = document.getElementById('delete-modal');
 // eslint-disable-next-line no-unused-vars
 const taskContent = document.getElementById('task-name');
 
