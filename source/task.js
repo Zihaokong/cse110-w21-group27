@@ -3,25 +3,22 @@
  */
 // Section for ESLint
 /* global TaskItem closeModal */
-
-/**
- * Class constructor for <task-list>
- */
-
-let TaskItem;
-
 let allTasks;
 let dropzone;
 
 // HTML welcome message
 const welcome = document.getElementById('welcome-message');
 
-// Storing all tasks on current page.
+/**
+ * Class constructor for <task-list>
+ */
 class TaskList extends HTMLElement {
   constructor() {
     super();
 
-    const shadow = this.attachShadow({ mode: 'open' });
+    const shadow = this.attachShadow({
+      mode: 'open',
+    });
 
     shadow.innerHTML = `<link rel="stylesheet" href="task.css"/>
       <link rel="stylesheet" href="main.css"/>
@@ -35,7 +32,6 @@ class TaskList extends HTMLElement {
     list.setAttribute('class', 'task-container d-flex');
     this.shadowRoot.append(list);
     const retrievedObject = localStorage.getItem('allTasks');
-    console.log(retrievedObject);
     if (!retrievedObject || retrievedObject === 'undefined') {
       allTasks = [];
     } else {
@@ -47,17 +43,17 @@ class TaskList extends HTMLElement {
         this.renderTask(allTasks[i]);
       }
     }
-
     dropzone = this.shadowRoot.querySelector('ul');
   }
 
   renderTask(newTask) {
     this.shadowRoot.querySelector('ul').appendChild(new TaskItem(newTask));
+    this.shadowRoot.getElementById(newTask.id).checkmark.checked =
+      newTask.completed;
   }
 
   addTask(event) {
     event.preventDefault();
-
     // create struct and append to global list
     const newTask = {
       id: Math.random().toString(16).slice(2),
@@ -69,11 +65,8 @@ class TaskList extends HTMLElement {
     };
     allTasks.push(newTask);
 
-    console.log(this);
     // render HTML on page.
     this.renderTask(newTask);
-    console.log(this);
-
     // everything else.
     taskForm.reset();
     welcome.remove();
@@ -84,7 +77,6 @@ customElements.define('task-list', TaskList);
 
 // HTML Task form for collecting data
 const taskForm = document.getElementById('taskform');
-
 const taskList = document.getElementById('main-container');
 
 /**
@@ -292,20 +284,10 @@ function whereAmI(currentYPos) {
   }
 }
 
-// Output module for testing
-if (typeof exports !== 'undefined') {
-  // eslint-disable-next-line global-require
-  TaskItem = require('./task-item').TaskItem;
-  module.exports = {
-    TaskList,
-  };
-}
-
 window.onload = () => {
   taskForm.addEventListener('submit', (e) => taskList.addTask(e));
-
   // Listener for the dragstart event
-  console.log(dropzone);
+  // console.log(dropzone);
   dropzone.addEventListener(
     'dragstart',
     (event) => {
@@ -334,3 +316,10 @@ window.onload = () => {
     allTasks = newArray;
   });
 };
+
+customElements.define('task-list', TaskList);
+if (typeof exports !== 'undefined') {
+  module.exports = {
+    TaskList,
+  };
+}

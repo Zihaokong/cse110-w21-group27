@@ -6,7 +6,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="main.css" />
-  <link rel="stylesheet" href="header.css" />
   <link rel="stylesheet" href="task.css" />
   <!-- Material Icons  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
@@ -21,16 +20,7 @@
 </head>
 
 <body>
-  <nav class="top-nav">
-    <h2 id="date">Today's date</h2>
-    <section id="cycle-count">
-      <span>
-        <h2 id="completed-cycle" style="display: inline; color: #c4c4c4">
-          | Not yet completed
-        </h2>
-      </span>
-    </section>
-  </nav>
+  <header-comp></header-comp>
   <main>
     <h1 id="todo-title">
       To-do List
@@ -45,7 +35,7 @@
       <span id="welcome-message"><b>Welcome. Add a task to get started.</b></span>
     </center>
 
-    <task-list id = "main-container">
+    <task-list id="main-container">
       <!-- ToDo from JS will append here -->
     </task-list>
     <button id="add-task-btn-bottom" class="add-task-btn ">+</button>
@@ -122,9 +112,9 @@
   </div>
 
   <script src="main.js"></script>
-  <script src="header.js"></script>
+  <script src="header-comp.js"></script>
   <script src="task-item.js"></script>
-  <script src="task.js"></script>
+  <script src="task.js" defer></script>
 
   <!-- Bootstrap -->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
