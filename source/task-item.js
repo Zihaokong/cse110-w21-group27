@@ -121,24 +121,35 @@ const createPlayButton = () => {
   return playButton;
 };
 
-/**
- * Method for section code of dropdown menu for the task-item,
- * this will be used to create the section dropdown in the light dom
- * @return the section code as pre-defined dropdown element for creation in light dom
- */
-const dropdownMenu = () =>
-  `<section slot="dropdown">   
-            <div class="p-2 bd-highlight btn-group dropright flex-right hide">     
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="material-icons edit-btn">more_horiz</span>
-                </button>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#" job="edit" onclick='handleEdit(event)'>Edit</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#" job="delete" onclick='handleEdit(event)'>Delete</a>
-                </div>
-            </div>
-        </section>`;
+const createEditButton = () => {
+  const editButton = document.createElement('button');
+  editButton.setAttribute(
+    'class',
+    'p-2 bd-highlight btn  edit-btn flex-right hide'
+  );
+  editButton.setAttribute('type', 'button');
+  const editIcon = document.createElement('span');
+  editIcon.setAttribute('class', 'material-icons edit-btn');
+  editIcon.setAttribute('job', 'edit');
+  editIcon.textContent = 'mode_edit';
+  editButton.appendChild(editIcon);
+  return editButton;
+};
+
+const createDeleteButton = () => {
+  const deleteButton = document.createElement('button');
+  deleteButton.setAttribute(
+    'class',
+    'p-2 bd-highlight btn  delete-btn flex-right hide'
+  );
+  deleteButton.setAttribute('type', 'button');
+  const deleteIcon = document.createElement('span');
+  deleteIcon.setAttribute('class', 'material-icons delete-btn');
+  deleteIcon.setAttribute('job', 'delete');
+  deleteIcon.textContent = 'delete';
+  deleteButton.appendChild(deleteIcon);
+  return deleteButton;
+};
 
 /**
  * Method for the styles sheets
@@ -185,6 +196,9 @@ class TaskItem extends HTMLElement {
     const playButton = createPlayButton();
 
     // Creating the edit-button
+    const editButton = createEditButton();
+    const deleteButton = createDeleteButton();
+
     const editDiv = document.createElement('slot');
     editDiv.setAttribute('name', 'dropdown');
 
@@ -195,7 +209,9 @@ class TaskItem extends HTMLElement {
     shadow.appendChild(progressBar);
     shadow.appendChild(progressText);
     shadow.appendChild(playButton);
-    shadow.appendChild(editDiv);
+    shadow.appendChild(editButton);
+    shadow.appendChild(deleteButton);
+    // shadow.appendChild(editDiv);
   }
 
   // Helper method for retrieving the <input> for checkmark from <task-item>
@@ -211,9 +227,15 @@ class TaskItem extends HTMLElement {
   // invoked each time the custom element is appended into a document-connected element
   connectedCallback() {
     // Creating the dropdown in runtime
-    this.innerHTML = dropdownMenu();
+    // this.innerHTML = dropdownMenu();
     this.shadowRoot
       .querySelector('.play-btn')
+      .addEventListener('click', handleEdit);
+    this.shadowRoot
+      .querySelector('.edit-btn')
+      .addEventListener('click', handleEdit);
+    this.shadowRoot
+      .querySelector('.delete-btn')
       .addEventListener('click', handleEdit);
     this.shadowRoot
       .querySelector('.form-check-input')
@@ -225,6 +247,12 @@ class TaskItem extends HTMLElement {
     this.shadowRoot
       .querySelector('.play-btn')
       .removeEventListener('click', handleEdit);
+    this.shadowRoot
+      .querySelector('.edit-btn')
+      .addEventListener('click', handleEdit);
+    this.shadowRoot
+      .querySelector('.delete-btn')
+      .addEventListener('click', handleEdit);
     this.shadowRoot
       .querySelector('.form-check-input')
       .addEventListener('click', handleEdit);

@@ -221,8 +221,9 @@ function handleEdit(event) {
  * @param {Element} element the element that is being clicked
  */
 function deleteTask(element) {
+  // Delete item in the DOM
+  const itemToDelete = element.getRootNode().host;
   // Delete item in allTasks array
-  const itemToDelete = element.closest('task-item');
   const name = itemToDelete.taskName;
   for (let i = 0; i < allTasks.length; i++) {
     if (allTasks[i].name === name) {
@@ -235,9 +236,7 @@ function deleteTask(element) {
 }
 
 /// ////// SECTION for Drag and Drop ////////
-
 // getter for the list
-
 // getter for the list items
 const nodes = document.getElementsByClassName('taskNode');
 // variable for the selected node to be dragged or moved
