@@ -114,7 +114,7 @@ const createPlayButton = () => {
   );
   playButton.setAttribute('type', 'button');
   const playIcon = document.createElement('span');
-  playIcon.setAttribute('class', 'material-icons play-btn');
+  playIcon.setAttribute('class', 'material-icons play-btn hide');
   playIcon.setAttribute('job', 'play');
   playIcon.textContent = 'play_circle';
   playButton.appendChild(playIcon);
@@ -133,7 +133,7 @@ const createEditButton = () => {
   );
   editButton.setAttribute('type', 'button');
   const editIcon = document.createElement('span');
-  editIcon.setAttribute('class', 'material-icons edit-btn');
+  editIcon.setAttribute('class', 'material-icons edit-btn hide');
   editIcon.setAttribute('job', 'edit');
   editIcon.textContent = 'mode_edit';
   editButton.appendChild(editIcon);
@@ -152,7 +152,7 @@ const createDeleteButton = () => {
   );
   deleteButton.setAttribute('type', 'button');
   const deleteIcon = document.createElement('span');
-  deleteIcon.setAttribute('class', 'material-icons delete-btn');
+  deleteIcon.setAttribute('class', 'material-icons delete-btn hide');
   deleteIcon.setAttribute('job', 'delete');
   deleteIcon.textContent = 'delete';
   deleteButton.appendChild(deleteIcon);

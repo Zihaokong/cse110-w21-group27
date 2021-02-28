@@ -9,12 +9,10 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-
-  min-width: 75%;
-  max-width: 75%;
+  width: 80%;
   max-height: 100%;
+  padding-left: 3.5%;
   margin: 0 auto;
-  padding: 10px;
 }
 
 /*
@@ -86,30 +84,15 @@ p.task-item {
 /* Section for progress-bar */
 .progress {
   width: 25% !important;
-  margin-left: 5%;
   margin-right: 5%;
 }
 
 .progress-bar {
-  /* width: 25% !important; */
   background-color: rgba(46, 71, 86, 0.75) !important;
 }
-
-/* Section for dropdown menu */
-/* .dropright {
-  background-color: #00000000;
+.progress-text{
+  padding-right: 2% !important;
 }
-.dropdown-toggle::after {
-  display: none !important;
-}
-#dropdownMenuButton {
-  background-color: #00000000;
-  color: rgba(46, 71, 86);
-  border: none;
-}
-#dropdownMenuButton:focus {
-  box-shadow: none;
-} */
 
 
 /* For material icon adjustment */
@@ -129,7 +112,7 @@ button {
   border: none;
   /* background:none; */
   opacity: 0;
-  transition: opacity 0.75s ease;
+  transition: opacity 0.75s ease !important;
 }
 
 :host(:hover) .hide {

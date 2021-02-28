@@ -119,7 +119,7 @@ form div {
 }
 
 /* Section for minor adjustment on each modal */
-#add-task-modal-header, #delete-modal-header{
+#add-task-modal-header,#edit-task-modal-header, #delete-modal-header{
   border-bottom: none;
 }
 #timer-name{
@@ -185,4 +185,3 @@ form div {
   margin-bottom: 25px;
   padding-bottom: 0px;
 }
-
