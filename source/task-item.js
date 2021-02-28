@@ -9,7 +9,7 @@
  */
 
 // Section for ESLint
-/* global handleEdit */
+/* global allTasks */
 
 /**
  * Method for creating drag icon for the task-item
@@ -121,6 +121,10 @@ const createPlayButton = () => {
   return playButton;
 };
 
+/**
+ * Method for creating edit button for the task-item
+ * @return The edit button show on the task-item
+ */
 const createEditButton = () => {
   const editButton = document.createElement('button');
   editButton.setAttribute(
@@ -136,6 +140,10 @@ const createEditButton = () => {
   return editButton;
 };
 
+/**
+ * Method for creating delete button for the task-item
+ * @return The delete button show on the task-item
+ */
 const createDeleteButton = () => {
   const deleteButton = document.createElement('button');
   deleteButton.setAttribute(
@@ -156,7 +164,6 @@ const createDeleteButton = () => {
  */
 const styleSheets = () =>
   `<link rel="stylesheet" href="task.css"/>
-        <link rel="stylesheet" href="main.css"/>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous"/>`;
 
@@ -197,10 +204,8 @@ class TaskItem extends HTMLElement {
 
     // Creating the edit-button
     const editButton = createEditButton();
+    // Creating the edit-button
     const deleteButton = createDeleteButton();
-
-    const editDiv = document.createElement('slot');
-    editDiv.setAttribute('name', 'dropdown');
 
     shadow.innerHTML = styleSheets();
     shadow.appendChild(dragIcon);
@@ -211,7 +216,6 @@ class TaskItem extends HTMLElement {
     shadow.appendChild(playButton);
     shadow.appendChild(editButton);
     shadow.appendChild(deleteButton);
-    // shadow.appendChild(editDiv);
   }
 
   // Helper method for retrieving the <input> for checkmark from <task-item>
@@ -227,43 +231,120 @@ class TaskItem extends HTMLElement {
   // invoked each time the custom element is appended into a document-connected element
   connectedCallback() {
     // Creating the dropdown in runtime
-    // this.innerHTML = dropdownMenu();
     this.shadowRoot
       .querySelector('.play-btn')
-      .addEventListener('click', handleEdit);
+      .addEventListener('click', showModalTask);
     this.shadowRoot
       .querySelector('.edit-btn')
-      .addEventListener('click', handleEdit);
+      .addEventListener('click', editTask);
     this.shadowRoot
       .querySelector('.delete-btn')
-      .addEventListener('click', handleEdit);
+      .addEventListener('click', deleteTask);
     this.shadowRoot
       .querySelector('.form-check-input')
-      .addEventListener('click', handleEdit);
+      .addEventListener('click', setCheck);
   }
 
   // Invoked when the custom element is disconnected from the document's DOM.
   disconnectedCallback() {
     this.shadowRoot
       .querySelector('.play-btn')
-      .removeEventListener('click', handleEdit);
+      .removeEventListener('click', showModalTask);
     this.shadowRoot
       .querySelector('.edit-btn')
-      .addEventListener('click', handleEdit);
+      .addEventListener('click', editTask);
     this.shadowRoot
       .querySelector('.delete-btn')
-      .addEventListener('click', handleEdit);
+      .addEventListener('click', deleteTask);
     this.shadowRoot
       .querySelector('.form-check-input')
-      .addEventListener('click', handleEdit);
+      .addEventListener('click', setCheck);
   }
 }
 
-// Output module for testing
+/**
+ * Retrieving the task name and notes that are stored in allTasks array
+ * and show on the Modal before starting the timer.
+ * @param {Element} element: the task-item that is being clicked
+ */
+function showModalTask(event) {
+  document.getElementById('play-modal').style.display = 'block';
+  const targetTask = event.target.getRootNode().host;
+  document.getElementById('timer-name').innerText = targetTask.taskName;
+  const taskStorageIndex = allTasks.findIndex(
+    (elem) => elem.id === targetTask.id
+  );
+  // make the note from storage appear in the timer modal
+  document.getElementById('timer-note').innerText =
+    allTasks[taskStorageIndex].note;
+  // set the current task id to localStorage
+  const currentTask = targetTask.id;
+  localStorage.setItem('currentTask', JSON.stringify(currentTask));
+}
 customElements.define('task-item', TaskItem);
 
+/**
+ * Edit task for the allTask array and suppose to refresh after edit-save-btn is click
+ * @param {Element} element the element that is being clicked
+ */
+function editTask(event) {
+  document.getElementById('edit-modal').style.display = 'block';
+  const targetID = event.target.getRootNode().host.id;
+  // get the element Index in the object list
+  const taskIndex = allTasks.findIndex((elem) => elem.id === targetID);
+  document.getElementById('edit-save-btn').addEventListener('click', () => {
+    allTasks[taskIndex].name = document.getElementById('edit-name').value;
+    allTasks[taskIndex].number = document.getElementById('edit-num').value;
+    allTasks[taskIndex].note = document.getElementById('edit-note').value;
+  });
+}
+
+/**
+ * Delete task from allTasks array and the task-list
+ * @param {Element} element the element that is being clicked
+ */
+function deleteTask(event) {
+  document.getElementById('delete-modal').style.display = 'block';
+  // Delete item in the DOM
+  const element = event.target;
+
+  const itemToDelete = element.getRootNode().host;
+  console.log(itemToDelete);
+  // Delete item in allTasks array
+  const name = itemToDelete.taskName;
+  document.getElementById('task-delete').innerText = `[${name}]`;
+  document.getElementById('confirm-button').addEventListener('click', () => {
+    for (let i = 0; i < allTasks.length; i++) {
+      if (allTasks[i].name === name) {
+        allTasks.splice(i, 1);
+        break;
+      }
+    }
+    // Delete item in the DOM
+    itemToDelete.remove();
+    document.getElementById('delete-modal').style.display = 'none';
+  });
+}
+
+/**
+ * Retrieving the note in Storage by getting its id
+ * and update the checkmark status on the array
+ * @param element the element that is being click which is passing from handleEdit()
+ */
+function setCheck(event) {
+  const targetID = event.target.getRootNode().host.id;
+  // get the element Index in the object list
+  const taskIndex = allTasks.findIndex((elem) => elem.id === targetID);
+  allTasks[taskIndex].completed = !allTasks[taskIndex].completed;
+}
+
+// Output module for testing
 if (typeof exports !== 'undefined') {
   module.exports = {
     TaskItem,
+    showModalTask,
+    editTask,
+    deleteTask,
+    setCheck,
   };
 }

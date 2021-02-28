@@ -96,7 +96,7 @@ p.task-item {
 }
 
 /* Section for dropdown menu */
-.dropright {
+/* .dropright {
   background-color: #00000000;
 }
 .dropdown-toggle::after {
@@ -109,7 +109,7 @@ p.task-item {
 }
 #dropdownMenuButton:focus {
   box-shadow: none;
-}
+} */
 
 
 /* For material icon adjustment */

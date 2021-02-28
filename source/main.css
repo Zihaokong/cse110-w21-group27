@@ -147,7 +147,7 @@ form div {
 }
 
 .confirm-btn{
-  background: #EF7869;
+  background: #EF7869 !important;
 }
 .submit-btn, .confirm-btn {
   float: right;
