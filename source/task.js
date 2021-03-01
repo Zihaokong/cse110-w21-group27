@@ -7,10 +7,10 @@ let allTasks;
 let dropzone;
 
 // HTML welcome message
-const welcome = document.getElementById('welcome-message');
+// const welcome = document.getElementById('welcome-message');
 
 // HTML Task form for collecting data
-const taskForm = document.getElementById('taskform');
+// const taskForm = document.getElementById('taskform');
 
 /**
  * Class constructor for <task-list>
@@ -39,7 +39,7 @@ class TaskList extends HTMLElement {
     } else {
       allTasks = JSON.parse(retrievedObject);
       if (allTasks.length !== 0) {
-        welcome.remove();
+        document.getElementById('welcome-message').remove();
       }
       for (let i = 0; i < allTasks.length; i++) {
         this.renderTask(allTasks[i]);
@@ -49,6 +49,8 @@ class TaskList extends HTMLElement {
   }
 
   renderTask(newTask) {
+    const newDiv = document.createElement('task-item');
+    this.shadowRoot.querySelector('ul').appendChild(newDiv);
     this.shadowRoot.querySelector('ul').appendChild(new TaskItem(newTask));
     // render the checkbox status
     this.shadowRoot.getElementById(newTask.id).checkmark.checked =
@@ -71,8 +73,8 @@ class TaskList extends HTMLElement {
     // render HTML on page.
     this.renderTask(newTask);
     // everything else.
-    taskForm.reset();
-    welcome.remove();
+    document.getElementById('taskform').reset();
+    document.getElementById('welcome-message').remove();
     closeModal();
   }
 }
@@ -86,9 +88,11 @@ window.onbeforeunload = function storeTask() {
 };
 
 window.onload = () => {
-  taskForm.addEventListener('submit', (e) =>
-    document.getElementById('main-container').addTask(e)
-  );
+  document
+    .getElementById('taskform')
+    .addEventListener('submit', (e) =>
+      document.getElementById('main-container').addTask(e)
+    );
   /// ////// SECTION for Drag and Drop ////////
   // getter for the list items
   const nodes = dropzone.getElementsByClassName('taskNode');
