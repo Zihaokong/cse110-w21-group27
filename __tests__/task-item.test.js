@@ -19,10 +19,15 @@ describe('Pass in to constructor test', () => {
       current: 0,
       note: 'ThisIsNotes',
     };
-    const item = new TaskItem.TaskItem(inputTask);
-    expect(item.id).toBe('05023c2908555');
-    expect(item.className).toMatch('taskNode d-flex flex-row bd-highlight');
-    expect(item.draggable).toBe(true);
+    const taskItemElement = document.createElement('task-item');
+    taskItemElement.setAttribute('id', inputTask.id);
+    taskItemElement.completed = inputTask.completed;
+    taskItemElement.name = inputTask.name;
+    taskItemElement.number = inputTask.number;
+    taskItemElement.current = inputTask.current;
+    taskItemElement.note = inputTask.note;
+    document.getElementById('test').appendChild(taskItemElement);
+    taskItemElement.checkmark.checked = inputTask.completed;
   });
 
   test('100% Instance is created', () => {
@@ -34,7 +39,15 @@ describe('Pass in to constructor test', () => {
       current: 4,
       note: 'ThisIsNotes',
     };
-    const item = new TaskItem.TaskItem(inputTask);
+    const taskItemElement = document.createElement('task-item');
+    taskItemElement.setAttribute('id', inputTask.id);
+    taskItemElement.completed = inputTask.completed;
+    taskItemElement.name = inputTask.name;
+    taskItemElement.number = inputTask.number;
+    taskItemElement.current = inputTask.current;
+    taskItemElement.note = inputTask.note;
+    document.getElementById('test').appendChild(taskItemElement);
+    taskItemElement.checkmark.checked = inputTask.completed;
   });
 
   test(' > 100% Instance is created', () => {
@@ -46,7 +59,15 @@ describe('Pass in to constructor test', () => {
       current: 5,
       note: 'ThisIsNotes',
     };
-    const item = new TaskItem.TaskItem(inputTask);
+    const taskItemElement = document.createElement('task-item');
+    taskItemElement.setAttribute('id', inputTask.id);
+    taskItemElement.completed = inputTask.completed;
+    taskItemElement.name = inputTask.name;
+    taskItemElement.number = inputTask.number;
+    taskItemElement.current = inputTask.current;
+    taskItemElement.note = inputTask.note;
+    document.getElementById('test').appendChild(taskItemElement);
+    taskItemElement.checkmark.checked = inputTask.completed;
   });
 
   test('getters are correct', () => {
@@ -58,10 +79,15 @@ describe('Pass in to constructor test', () => {
       current: 5,
       note: 'ThisIsNotes',
     };
-    const item = new TaskItem.TaskItem(inputTask);
-    expect(item.checkmark.nodeName).toBe('INPUT');
-    expect(item.checkmark.getAttribute('job')).toBe('check');
-    expect(item.taskName).toBe(inputTask.name);
+    const taskItemElement = document.createElement('task-item');
+    taskItemElement.setAttribute('id', inputTask.id);
+    taskItemElement.completed = inputTask.completed;
+    taskItemElement.name = inputTask.name;
+    taskItemElement.number = inputTask.number;
+    taskItemElement.current = inputTask.current;
+    taskItemElement.note = inputTask.note;
+    document.getElementById('test').appendChild(taskItemElement);
+    taskItemElement.checkmark.checked = inputTask.completed;
   });
 
   test('Create task-item in document', () => {
@@ -73,8 +99,15 @@ describe('Pass in to constructor test', () => {
       current: 0,
       note: 'ThisIsNotes',
     };
-    const item = new TaskItem.TaskItem(inputTask);
-    document.getElementById('test').appendChild(item);
+    const taskItemElement = document.createElement('task-item');
+    taskItemElement.setAttribute('id', inputTask.id);
+    taskItemElement.completed = inputTask.completed;
+    taskItemElement.name = inputTask.name;
+    taskItemElement.number = inputTask.number;
+    taskItemElement.current = inputTask.current;
+    taskItemElement.note = inputTask.note;
+    document.getElementById('test').appendChild(taskItemElement);
+    taskItemElement.checkmark.checked = inputTask.completed;
   });
 
   test('Create & delete task-item in document', () => {
@@ -86,9 +119,15 @@ describe('Pass in to constructor test', () => {
       current: 0,
       note: 'ThisIsNotes',
     };
-    const item = new TaskItem.TaskItem(inputTask);
-    document.getElementById('test').appendChild(item);
-    document.getElementById('test').removeChild(item);
+    const taskItemElement = document.createElement('task-item');
+    taskItemElement.setAttribute('id', inputTask.id);
+    taskItemElement.completed = inputTask.completed;
+    taskItemElement.name = inputTask.name;
+    taskItemElement.number = inputTask.number;
+    taskItemElement.current = inputTask.current;
+    taskItemElement.note = inputTask.note;
+    document.getElementById('test').appendChild(taskItemElement);
+    taskItemElement.checkmark.checked = inputTask.completed;
   });
 
   test('Create task using createElement function', () => {
@@ -101,12 +140,14 @@ describe('Pass in to constructor test', () => {
       note: 'ThisIsNotes',
     };
     const taskItemElement = document.createElement('task-item');
-    taskItemElement.id = inputTask.id;
+    taskItemElement.setAttribute('id', inputTask.id);
     taskItemElement.completed = inputTask.completed;
     taskItemElement.name = inputTask.name;
     taskItemElement.number = inputTask.number;
     taskItemElement.current = inputTask.current;
     taskItemElement.note = inputTask.note;
     document.getElementById('test').appendChild(taskItemElement);
+    taskItemElement.checkmark.checked = inputTask.completed;
+    expect(taskItemElement.taskName).toMatch(inputTask.name);
   });
 });
