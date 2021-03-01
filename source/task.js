@@ -2,15 +2,9 @@
  * This file defines functions and implements the behaviors of task list.
  */
 // Section for ESLint
-/* global TaskItem closeModal */
+/* global closeModal */
 let allTasks;
 let dropzone;
-
-// HTML welcome message
-// const welcome = document.getElementById('welcome-message');
-
-// HTML Task form for collecting data
-// const taskForm = document.getElementById('taskform');
 
 /**
  * Class constructor for <task-list>
@@ -49,9 +43,14 @@ class TaskList extends HTMLElement {
   }
 
   renderTask(newTask) {
-    const newDiv = document.createElement('task-item');
-    this.shadowRoot.querySelector('ul').appendChild(newDiv);
-    this.shadowRoot.querySelector('ul').appendChild(new TaskItem(newTask));
+    const taskItem = document.createElement('task-item');
+    taskItem.setAttribute('id', newTask.id);
+    taskItem.setAttribute('name', `${newTask.name}`);
+    taskItem.setAttribute('current', `${newTask.current}`);
+    taskItem.setAttribute('number', `${newTask.number}`);
+
+    // append the newly created <task-item> to ul
+    this.shadowRoot.querySelector('ul').appendChild(taskItem);
     // render the checkbox status
     this.shadowRoot.getElementById(newTask.id).checkmark.checked =
       newTask.completed;
@@ -74,7 +73,10 @@ class TaskList extends HTMLElement {
     this.renderTask(newTask);
     // everything else.
     document.getElementById('taskform').reset();
-    document.getElementById('welcome-message').remove();
+    const welcome = document.getElementById('welcome-message');
+    if (welcome) {
+      welcome.remove();
+    }
     closeModal();
   }
 }

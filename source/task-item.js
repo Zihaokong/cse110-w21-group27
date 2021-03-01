@@ -43,10 +43,10 @@ const createCheckmark = () => {
  * Method for creating task with the input todo task for the task-item
  * @param {object} newTask the newly created task item from the task.js
  */
-const createTask = (newTask) => {
+const createTask = (name) => {
   const todoTask = document.createElement('p');
   todoTask.setAttribute('class', 'p-2 flex-md-fill text-nowrap task-item');
-  todoTask.innerHTML = newTask.name;
+  todoTask.innerHTML = name;
   return todoTask;
 };
 
@@ -54,9 +54,9 @@ const createTask = (newTask) => {
  * Method for creating progress bar for the task-item
  * @param {object} newTask the new task object created by task.js
  */
-const createProgressBar = (newTask) => {
+const createProgressBar = (elem) => {
   // calculate the percentage of progress for the styles
-  let percent = (newTask.current / newTask.number) * 100;
+  let percent = (elem.current / elem.number) * 100;
   if (percent >= 100) {
     percent = '100%';
   } else {
@@ -67,7 +67,7 @@ const createProgressBar = (newTask) => {
   progressBar.setAttribute('class', 'flex-column progress');
   // the inner div for the progress itserlf and uses the attribute from the newTask object
   const progress = document.createElement('div');
-  if (newTask.current > newTask.number) {
+  if (elem.current > elem.number) {
     progress.setAttribute(
       'class',
       'progress-bar progress-bar-striped bg-danger'
@@ -80,9 +80,9 @@ const createProgressBar = (newTask) => {
   }
   progress.setAttribute('role', 'progressbar');
   progress.setAttribute('style', `width: ${percent};`);
-  progress.setAttribute('aria-valuenow', `${newTask.current}`);
+  progress.setAttribute('aria-valuenow', `${elem.current}`);
   progress.setAttribute('aria-valuemin', 0);
-  progress.setAttribute('aria-valuemin', `${newTask.number}`);
+  progress.setAttribute('aria-valuemin', `${elem.number}`);
   progress.innerHTML = `${percent}`;
   // append the inner div to outer div
   progressBar.appendChild(progress);
@@ -94,8 +94,8 @@ const createProgressBar = (newTask) => {
  * @param {object} newTask the new task object created by task.js
  * @return the text element as described as p1 tag
  */
-const createProgressText = (newTask) => {
-  const progressT = `${newTask.current}/${newTask.number}`;
+const createProgressText = (elem) => {
+  const progressT = `${elem.current}/${elem.number}`;
   const progressText = document.createElement('p1');
   progressText.setAttribute('class', 'progress-text');
   progressText.innerHTML = `${progressT}`;
@@ -174,48 +174,12 @@ const styleSheets = () =>
 class TaskItem extends HTMLElement {
   /**
    * Constructor for the TaskItem
-   * @param newTask the new created object from task.js
-   */
-  constructor(newTask) {
+s   */
+  constructor() {
     super();
-    const shadow = this.attachShadow({
+    this.attachShadow({
       mode: 'open',
     });
-    // component 'task-item' attributes
-    this.id = newTask.id;
-    this.className = 'taskNode d-flex flex-row bd-highlight';
-    this.draggable = 'true';
-
-    // Creating the drag icon
-    const dragIcon = createDrag();
-
-    // Creating the checkmark
-    const checkmark = createCheckmark();
-
-    // Creating p tag for task name
-    const todoTask = createTask(newTask);
-
-    // Creating the progress-bar
-    const progressBar = createProgressBar(newTask);
-    const progressText = createProgressText(newTask);
-
-    // Creating the play-button
-    const playButton = createPlayButton();
-
-    // Creating the edit-button
-    const editButton = createEditButton();
-    // Creating the edit-button
-    const deleteButton = createDeleteButton();
-
-    shadow.innerHTML = styleSheets();
-    shadow.appendChild(dragIcon);
-    shadow.appendChild(checkmark);
-    shadow.appendChild(todoTask);
-    shadow.appendChild(progressBar);
-    shadow.appendChild(progressText);
-    shadow.appendChild(playButton);
-    shadow.appendChild(editButton);
-    shadow.appendChild(deleteButton);
   }
 
   // Helper method for retrieving the <input> for checkmark from <task-item>
@@ -230,7 +194,40 @@ class TaskItem extends HTMLElement {
 
   // invoked each time the custom element is appended into a document-connected element
   connectedCallback() {
-    // Creating the dropdown in runtime
+    const shadow = this.shadowRoot;
+    this.setAttribute('class', 'taskNode d-flex flex-row bd-highlight');
+    this.setAttribute('draggable', 'true');
+
+    this.name = this.getAttribute('name');
+    this.current = this.getAttribute('current');
+    this.number = this.getAttribute('number');
+
+    // Creating the drag icon
+    const dragIcon = createDrag();
+    // Creating the checkmark
+    const checkmark = createCheckmark();
+    // Creating p tag for task name
+    const todoTask = createTask(this.name);
+    // Creating the progress-bar
+    const progressBar = createProgressBar(this);
+    const progressText = createProgressText(this);
+    // Creating the play-button
+    const playButton = createPlayButton();
+    // Creating the edit-button
+    const editButton = createEditButton();
+    // Creating the edit-button
+    const deleteButton = createDeleteButton();
+
+    shadow.innerHTML = styleSheets();
+    shadow.appendChild(dragIcon);
+    shadow.appendChild(checkmark);
+    shadow.appendChild(todoTask);
+    shadow.appendChild(progressBar);
+    shadow.appendChild(progressText);
+    shadow.appendChild(playButton);
+    shadow.appendChild(editButton);
+    shadow.appendChild(deleteButton);
+
     this.shadowRoot
       .querySelector('.play-btn')
       .addEventListener('click', showModalTask);
@@ -261,7 +258,6 @@ class TaskItem extends HTMLElement {
       .addEventListener('click', setCheck);
   }
 }
-
 customElements.define('task-item', TaskItem);
 
 /**
@@ -308,9 +304,7 @@ function deleteTask(event) {
   document.getElementById('delete-modal').style.display = 'block';
   // Delete item in the DOM
   const element = event.target;
-
   const itemToDelete = element.getRootNode().host;
-  console.log(itemToDelete);
   // Delete item in allTasks array
   const name = itemToDelete.taskName;
   document.getElementById('task-delete').innerText = `[${name}]`;
