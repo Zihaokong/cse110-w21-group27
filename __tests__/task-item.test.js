@@ -90,4 +90,23 @@ describe('Pass in to constructor test', () => {
     document.getElementById('test').appendChild(item);
     document.getElementById('test').removeChild(item);
   });
+
+  test('Create task using createElement function', () => {
+    const inputTask = {
+      id: '05023c2908555',
+      completed: false,
+      name: 'ThisIsATestingTask',
+      number: 4,
+      current: 0,
+      note: 'ThisIsNotes',
+    };
+    const taskItemElement = document.createElement('task-item');
+    taskItemElement.id = inputTask.id;
+    taskItemElement.completed = inputTask.completed;
+    taskItemElement.name = inputTask.name;
+    taskItemElement.number = inputTask.number;
+    taskItemElement.current = inputTask.current;
+    taskItemElement.note = inputTask.note;
+    document.getElementById('test').appendChild(taskItemElement);
+  });
 });
