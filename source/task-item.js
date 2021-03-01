@@ -262,6 +262,8 @@ class TaskItem extends HTMLElement {
   }
 }
 
+customElements.define('task-item', TaskItem);
+
 /**
  * Retrieving the task name and notes that are stored in allTasks array
  * and show on the Modal before starting the timer.
@@ -281,7 +283,6 @@ function showModalTask(event) {
   const currentTask = targetTask.id;
   localStorage.setItem('currentTask', JSON.stringify(currentTask));
 }
-customElements.define('task-item', TaskItem);
 
 /**
  * Edit task for the allTask array and suppose to refresh after edit-save-btn is click
