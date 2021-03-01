@@ -182,6 +182,36 @@ s   */
     });
   }
 
+  // setter for name attribute
+  set setName(newValue) {
+    this.setAttribute('name', newValue);
+  }
+
+  // setter for current attribute
+  set setCurrent(newValue) {
+    this.setAttribute('current', newValue);
+  }
+
+  // setter for number attribute
+  set setNumber(newValue) {
+    this.setAttribute('number', newValue);
+  }
+
+  // getter for name attribute
+  get getName() {
+    return this.getAttribute('name');
+  }
+
+  // getter for current attribute
+  get getCurrent() {
+    return this.getAttribute('current');
+  }
+
+  // getter for number attribute
+  get getNumber() {
+    return this.getAttribute('number');
+  }
+
   // Helper method for retrieving the <input> for checkmark from <task-item>
   get checkmark() {
     return this.shadowRoot.querySelector('input');
@@ -198,9 +228,9 @@ s   */
     this.setAttribute('class', 'taskNode d-flex flex-row bd-highlight');
     this.setAttribute('draggable', 'true');
 
-    this.name = this.getAttribute('name');
-    this.current = this.getAttribute('current');
-    this.number = this.getAttribute('number');
+    this.name = this.getName;
+    this.current = this.getCurrent;
+    this.number = this.getNumber;
 
     // Creating the drag icon
     const dragIcon = createDrag();

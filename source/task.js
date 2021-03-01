@@ -45,10 +45,9 @@ class TaskList extends HTMLElement {
   renderTask(newTask) {
     const taskItem = document.createElement('task-item');
     taskItem.setAttribute('id', newTask.id);
-    taskItem.setAttribute('name', `${newTask.name}`);
-    taskItem.setAttribute('current', `${newTask.current}`);
-    taskItem.setAttribute('number', `${newTask.number}`);
-
+    taskItem.setName = newTask.name;
+    taskItem.setCurrent = newTask.current;
+    taskItem.setNumber = newTask.number;
     // append the newly created <task-item> to ul
     this.shadowRoot.querySelector('ul').appendChild(taskItem);
     // render the checkbox status

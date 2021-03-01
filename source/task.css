@@ -85,6 +85,7 @@ p.task-item {
 .progress {
   width: 25% !important;
   margin-right: 5%;
+  margin-top: 0.25%;
 }
 
 .progress-bar {
