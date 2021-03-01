@@ -1,4 +1,4 @@
-const TaskItem = require('../source/task-item');
+require('../source/task-item');
 
 describe('Pass in to constructor test', () => {
   beforeEach(() => {

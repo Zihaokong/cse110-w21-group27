@@ -1,6 +1,6 @@
 const TaskList = require('../source/task');
 
-const TaskItem = require('../source/task-item');
+require('../source/task-item');
 
 describe('Test task-list that is initially null', () => {
   beforeEach(() => {
