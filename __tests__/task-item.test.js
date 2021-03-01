@@ -76,4 +76,18 @@ describe('Pass in to constructor test', () => {
     const item = new TaskItem.TaskItem(inputTask);
     document.getElementById('test').appendChild(item);
   });
+
+  test('Create & delete task-item in document', () => {
+    const inputTask = {
+      id: '05023c2908555',
+      completed: false,
+      name: 'ThisIsATestingTask',
+      number: 4,
+      current: 0,
+      note: 'ThisIsNotes',
+    };
+    const item = new TaskItem.TaskItem(inputTask);
+    document.getElementById('test').appendChild(item);
+    document.getElementById('test').removeChild(item);
+  });
 });
