@@ -96,7 +96,7 @@ window.onload = () => {
       document.getElementById('main-container').addTask(e)
     );
   /// ////// SECTION for Drag and Drop ////////
-  // getter for the list items
+  // getter for the list itejms
   const nodes = dropzone.getElementsByClassName('taskNode');
   // variable for the selected node to be dragged or moved
   let selectedNode;
