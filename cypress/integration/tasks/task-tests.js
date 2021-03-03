@@ -17,7 +17,7 @@ describe('Tasks tests', () => {
     cy.get('#add-task-modal').should('have.css', 'display', 'block');
   });
 
-  it('Add two tasks, edit them, complete them, and then delete them', () => {
+  it('Add two tasks', () => {
     cy.get('#add-task-btn').click();
     cy.get('#task-name').clear().type('testname1');
     cy.get('#task-num').clear().type('1');
@@ -54,5 +54,75 @@ describe('Tasks tests', () => {
         expect($el).to.have.attr('number', 2);
         expect($el).to.have.attr('current', 0);
       });
+  });
+
+  it('Should have tasks still on page after reload', () => {
+    cy.reload();
+    cy.get('#main-container')
+      .shadow()
+      .find('#main-list')
+      .find('[name="testname1"]')
+      .should('exist');
+    cy.get('#main-container')
+      .shadow()
+      .find('#main-list')
+      .find('[name="testname1"]')
+      .then(($el) => {
+        expect($el).to.have.attr('number', 1);
+        expect($el).to.have.attr('current', 0);
+      });
+    cy.get('#main-container')
+      .shadow()
+      .find('#main-list')
+      .find('[name="testname2"]')
+      .should('exist');
+    cy.get('#main-container')
+      .shadow()
+      .find('#main-list')
+      .find('[name="testname2"]')
+      .then(($el) => {
+        expect($el).to.have.attr('number', 2);
+        expect($el).to.have.attr('current', 0);
+      });
+  });
+
+  it('Edit first task, and then delete it', () => {
+    cy.get('#main-container')
+      .shadow()
+      .find('#main-list')
+      .find('[name="testname1"]')
+      .shadow()
+      .find('#edit-btn')
+      .click({ force: true });
+    cy.get('#edit-name').clear().type('testname1edit');
+    cy.get('#edit-num').clear().type('3');
+    cy.get('#edit-note').clear().type('Notes for testname1 edited');
+    cy.get('#edit-save-btn').click();
+    cy.get('#main-container')
+      .shadow()
+      .find('#main-list')
+      .find('[name="testname1edit"]')
+      .should('exist');
+    cy.get('#main-container')
+      .shadow()
+      .find('#main-list')
+      .find('[name="testname1edit"]')
+      .then(($el) => {
+        expect($el).to.have.attr('number', 3);
+        expect($el).to.have.attr('current', 0);
+      });
+    cy.get('#main-container')
+      .shadow()
+      .find('#main-list')
+      .find('[name="testname1edit"]')
+      .shadow()
+      .find('#delete-btn')
+      .click({ force: true });
+    cy.get('#confirm-button').click();
+    cy.get('#main-container')
+      .shadow()
+      .find('#main-list')
+      .find('[name="testname1edit"]')
+      .should('not.exist');
   });
 });

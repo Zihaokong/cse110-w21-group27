@@ -240,6 +240,7 @@ s   */
       'class',
       'p-2 bd-highlight btn  play-btn flex-right hide'
     );
+    playButton.setAttribute('id', `play-btn`);
     playButton.setAttribute('type', 'button');
     const playIcon = document.createElement('span');
     playIcon.setAttribute('class', 'material-icons play-btn hide');
@@ -259,6 +260,7 @@ s   */
       'class',
       'p-2 bd-highlight btn  edit-btn flex-right hide'
     );
+    editButton.setAttribute('id', `edit-btn`);
     editButton.setAttribute('type', 'button');
     const editIcon = document.createElement('span');
     editIcon.setAttribute('class', 'material-icons edit-btn hide');
@@ -278,6 +280,7 @@ s   */
       'class',
       'p-2 bd-highlight btn  delete-btn flex-right hide'
     );
+    deleteButton.setAttribute('id', `delete-btn`);
     deleteButton.setAttribute('type', 'button');
     const deleteIcon = document.createElement('span');
     deleteIcon.setAttribute('class', 'material-icons delete-btn hide');
