@@ -100,12 +100,12 @@ function start(minutes, seconds) {
                         displayBreakComplete();
                     } else {
                         localStorage.setItem('isPomo', 'true');
-                        if (counter <= 3) {
+                        if (counter%4 == 0) {
+                            localStorage.setItem('sessionCounter', counter);
+                            displayLongBreak();
+                        } else {
                             localStorage.setItem('sessionCounter', counter);
                             displayShortBreak();
-                        } else if (counter == 4) {
-                            localStorage.setItem('sessionCounter', 0);
-                            displayLongBreak();
                         }
 
                         // update progress for current task

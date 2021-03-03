@@ -80,7 +80,7 @@ class HeaderComp extends HTMLElement {
       mode: 'open',
     });
     this.completed = localStorage.getItem('sessionCounter');
-    this.count = 4 - this.completed;
+    this.count = 4 - this.completed%4;
     const nav = document.createElement('nav');
     nav.setAttribute('class', 'top-nav');
     const date = document.createElement('h2');
@@ -99,6 +99,7 @@ class HeaderComp extends HTMLElement {
     shadow.innerHTML = headerStyle();
     shadow.appendChild(nav);
   }
+
 
   get completedCycles() {
     return this.completed;
@@ -122,11 +123,21 @@ class HeaderComp extends HTMLElement {
  */
 function renderCounter(elem) {
   const shadow = elem.shadowRoot;
-  for (let i = 0; i < elem.cycleCount; i++) {
-    const newCycle = document.createElement('span');
-    newCycle.setAttribute('class', 'dot');
-    shadow.getElementById('cycle-count').prepend(newCycle);
+  if(elem.completedCycles == 0){
+    for (let i = 0; i < 4; i++) {
+      const newCycle = document.createElement('span');
+      newCycle.setAttribute('class', 'dot');
+      shadow.getElementById('cycle-count').prepend(newCycle);
+    }
   }
+  else if(elem.completedCycles%4 != 0){
+    for (let i = 0; i < elem.cycleCount; i++) {
+      const newCycle = document.createElement('span');
+      newCycle.setAttribute('class', 'dot');
+      shadow.getElementById('cycle-count').prepend(newCycle);
+    }
+  }
+  
 }
 
 /**
@@ -134,11 +145,20 @@ function renderCounter(elem) {
  * @param {object} elem the class object that it belongs to
  */
 function renderCompletedCount(elem) {
-  for (let i = 0; i < elem.completedCycles; i++) {
-    const newCycle = document.createElement('span');
-    newCycle.setAttribute('class', 'filled-dot');
-    elem.shadowRoot.getElementById('cycle-count').prepend(newCycle);
+  if(elem.completedCycles%4 == 0 && elem.completedCycles != 0){
+    for (let i = 0; i < 4; i++) {
+      const newCycle = document.createElement('span');
+      newCycle.setAttribute('class', 'filled-dot');
+      elem.shadowRoot.getElementById('cycle-count').prepend(newCycle);
+    }
   }
+  else{
+    for (let i = 0; i < elem.completedCycles%4; i++) {
+      const newCycle = document.createElement('span');
+      newCycle.setAttribute('class', 'filled-dot');
+      elem.shadowRoot.getElementById('cycle-count').prepend(newCycle);
+    }
+  };
 }
 
 /**
