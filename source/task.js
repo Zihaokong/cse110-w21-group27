@@ -100,16 +100,16 @@ window.onload = () => {
   const nodes = dropzone.getElementsByClassName('taskNode');
   // variable for the selected node to be dragged or moved
   let selectedNode;
+  let preNodePos = 0;
   // variable for the position of selected node
   let selectedNodePos = 0;
-
-  let boole = false;
-
+  let checked = false;
   dropzone.addEventListener(
     'dragstart',
     (event) => {
+      preNodePos = setNodePos(event.clientY, preNodePos);
       selectedNode = event.target;
-      boole = selectedNode.checkmark.checked;
+      checked = selectedNode.checkmark.checked;
     },
     false
   );
@@ -117,23 +117,33 @@ window.onload = () => {
   // Listener for the dragover event
   dropzone.addEventListener('dragover', (event) => {
     event.preventDefault();
-    whereAmI(event.clientY);
-  });
+    selectedNodePos = setNodePos(event.clientY, selectedNodePos);
+    if (preNodePos < selectedNodePos) {
+      preNodePos = setNodePos(event.clientY, preNodePos);
+      dropzone.insertBefore(
+        selectedNode,
+        dropzone.children[selectedNodePos + 1]
+      );
+      selectedNode.checkmark.checked = checked;
+    } else if (preNodePos > selectedNodePos) {
+      preNodePos = setNodePos(event.clientY, preNodePos);
+      dropzone.insertBefore(selectedNode, dropzone.children[selectedNodePos]);
+      selectedNode.checkmark.checked = checked;
+    }
 
-  // Listener for the drop event
-  dropzone.addEventListener('drop', (event) => {
-    event.preventDefault();
-    dropzone.insertBefore(selectedNode, dropzone.children[selectedNodePos]);
-    selectedNode.checkmark.checked = boole;
     // re-ordering item in localStorage
     const newArray = [];
     for (let i = 0; i < nodes.length; i++) {
       const targetID = nodes[i].id;
       const taskInArray = allTasks.find((elem) => elem.id === targetID);
-
       newArray.push(taskInArray);
     }
     allTasks = newArray;
+  });
+
+  // Listener for the drop event
+  dropzone.addEventListener('drop', (event) => {
+    event.preventDefault();
   });
 
   /**
@@ -145,7 +155,9 @@ window.onload = () => {
       const yTop = position.top;
       const yBottom = position.bottom;
       // yCenter
-      nodes[i].yPos = yTop + (yBottom - yTop) / 2;
+      // nodes[i].yPos = yTop + (yBottom - yTop) / 2;
+      nodes[i].yTop = yTop;
+      nodes[i].yBottom = yBottom;
     }
   }
 
@@ -155,19 +167,22 @@ window.onload = () => {
    * this function will call establishNodePositions() for selected node position.
    * @param {event.clickY} currentYPos the y-axis value of the current click on window
    */
-  function whereAmI(currentYPos) {
+  function setNodePos(currentYPos, nodePos) {
     establishNodePositions();
     let nodeAbove;
+    let currentNodePos = nodePos;
     for (let i = 0; i < nodes.length; i++) {
-      if (nodes[i].yPos < currentYPos) {
+      if (nodes[i].yTop < currentYPos && nodes[i].yBottom < currentYPos) {
         nodeAbove = nodes[i];
-        selectedNodePos = i + 1;
+        currentNodePos = i + 1;
       }
     }
     // for the top of the list
     if (typeof nodeAbove === 'undefined') {
-      selectedNodePos = 0;
+      currentNodePos = 0;
     }
+
+    return currentNodePos;
   }
 };
 
