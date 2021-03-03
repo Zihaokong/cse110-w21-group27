@@ -208,6 +208,7 @@ s   */
   static createDrag() {
     const dragIcon = document.createElement('span');
     dragIcon.setAttribute('class', 'p-2 inline material-icons drag-btn hide');
+    dragIcon.setAttribute('id', `drag`);
     // dragIcon.setAttribute('draggable', "true");
     dragIcon.textContent = 'drag_indicator';
     return dragIcon;
@@ -219,6 +220,7 @@ s   */
   static createCheckmark() {
     const checkmark = document.createElement('span');
     checkmark.setAttribute('class', 'p-2 form-check form-check-inline');
+    checkmark.setAttribute('id', `checkmark`);
     const checkmarkInput = document.createElement('input');
     checkmarkInput.setAttribute('class', 'form-check-input input-mysize large');
     checkmarkInput.setAttribute('type', 'checkbox');
