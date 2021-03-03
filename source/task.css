@@ -9,12 +9,10 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-
-  min-width: 75%;
-  max-width: 75%;
+  width: 80%;
   max-height: 100%;
+  padding-left: 3.5%;
   margin: 0 auto;
-  padding: 10px;
 }
 
 /*
@@ -86,29 +84,15 @@ p.task-item {
 /* Section for progress-bar */
 .progress {
   width: 25% !important;
-  margin-left: 5%;
   margin-right: 5%;
+  margin-top: 0.25%;
 }
 
 .progress-bar {
-  /* width: 25% !important; */
   background-color: rgba(46, 71, 86, 0.75) !important;
 }
-
-/* Section for dropdown menu */
-.dropright {
-  background-color: #00000000;
-}
-.dropdown-toggle::after {
-  display: none !important;
-}
-#dropdownMenuButton {
-  background-color: #00000000;
-  color: rgba(46, 71, 86);
-  border: none;
-}
-#dropdownMenuButton:focus {
-  box-shadow: none;
+.progress-text{
+  padding-right: 2% !important;
 }
 
 
@@ -129,7 +113,7 @@ button {
   border: none;
   /* background:none; */
   opacity: 0;
-  transition: opacity 0.75s ease;
+  transition: opacity 0.75s ease !important;
 }
 
 :host(:hover) .hide {
@@ -146,7 +130,7 @@ button {
   padding-left: 0% !important;
   padding-right: 0% !important;
 }
-.play-btn{
+.play-btn, .edit-btn, .delete-btn{
   color: #2e4756;
   border: none;
   cursor: pointer;

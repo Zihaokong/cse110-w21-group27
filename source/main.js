@@ -6,6 +6,9 @@
 // Get the modal
 const modal = document.getElementById('add-task-modal');
 const playModal = document.getElementById('play-modal');
+const editModal = document.getElementById('edit-modal');
+const deleteModal = document.getElementById('delete-modal');
+
 // eslint-disable-next-line no-unused-vars
 const taskContent = document.getElementById('task-name');
 
@@ -35,7 +38,7 @@ for (let i = 0; i < btns.length; ++i) {
   });
 }
 
-/**
+/*
  * For scroll to the top, used in Top button
  */
 function scrollFunc() {
@@ -48,6 +51,8 @@ function scrollFunc() {
 function closeModal() {
   modal.style.display = 'none';
   playModal.style.display = 'none';
+  editModal.style.display = 'none';
+  deleteModal.style.display = 'none';
 }
 
 /**
@@ -57,5 +62,6 @@ function closeModal() {
 window.onclick = function closeModal2(event) {
   if (event.target === modal) {
     modal.style.display = 'none';
+    deleteModal.style.display = 'none';
   }
 };
