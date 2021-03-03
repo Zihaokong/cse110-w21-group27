@@ -103,10 +103,13 @@ window.onload = () => {
   // variable for the position of selected node
   let selectedNodePos = 0;
 
+  let boole = false;
+
   dropzone.addEventListener(
     'dragstart',
     (event) => {
       selectedNode = event.target;
+      boole = selectedNode.checkmark.checked;
     },
     false
   );
@@ -121,11 +124,13 @@ window.onload = () => {
   dropzone.addEventListener('drop', (event) => {
     event.preventDefault();
     dropzone.insertBefore(selectedNode, dropzone.children[selectedNodePos]);
+    selectedNode.checkmark.checked = boole;
     // re-ordering item in localStorage
     const newArray = [];
     for (let i = 0; i < nodes.length; i++) {
       const targetID = nodes[i].id;
       const taskInArray = allTasks.find((elem) => elem.id === targetID);
+
       newArray.push(taskInArray);
     }
     allTasks = newArray;
