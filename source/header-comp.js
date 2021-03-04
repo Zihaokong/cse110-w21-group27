@@ -109,14 +109,15 @@ class HeaderComp extends HTMLElement {
     return this.count;
   }
 
+
   // the browser calls this method when an element is added to the document
   connectedCallback() {
     renderCounter(this);
     renderCompletedCount(this);
     renderText(this);
   }
-}
 
+}
 /**
  * create unfilled circle for cycles
  * @param {object} elem the class object that it belongs to
