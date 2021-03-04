@@ -118,14 +118,7 @@ window.onload = () => {
   dropzone.addEventListener('dragover', (event) => {
     event.preventDefault();
     selectedNodePos = setNodePos(event.clientY, selectedNodePos);
-    if (preNodePos < selectedNodePos) {
-      preNodePos = setNodePos(event.clientY, preNodePos);
-      dropzone.insertBefore(
-        selectedNode,
-        dropzone.children[selectedNodePos + 1]
-      );
-      selectedNode.checkmark.checked = checked;
-    } else if (preNodePos > selectedNodePos) {
+    if (preNodePos !== selectedNodePos) {
       preNodePos = setNodePos(event.clientY, preNodePos);
       dropzone.insertBefore(selectedNode, dropzone.children[selectedNodePos]);
       selectedNode.checkmark.checked = checked;
@@ -155,9 +148,9 @@ window.onload = () => {
       const yTop = position.top;
       const yBottom = position.bottom;
       // yCenter
-      // nodes[i].yPos = yTop + (yBottom - yTop) / 2;
-      nodes[i].yTop = yTop;
-      nodes[i].yBottom = yBottom;
+      nodes[i].yPos = yTop + (yBottom - yTop) / 2;
+      // nodes[i].yTop = yTop + (yBottom - yTop) / 2;
+      // nodes[i].yBottom = yBottom - (yBottom - yTop) / 2;
     }
   }
 
@@ -172,7 +165,7 @@ window.onload = () => {
     let nodeAbove;
     let currentNodePos = nodePos;
     for (let i = 0; i < nodes.length; i++) {
-      if (nodes[i].yTop < currentYPos && nodes[i].yBottom < currentYPos) {
+      if (nodes[i].yPos < currentYPos) {
         nodeAbove = nodes[i];
         currentNodePos = i + 1;
       }
