@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/Zihaokong/cse110-w21-group27#readme",
   "devDependencies": {
-    "cypress": "^6.5.0",
+    "cypress": "^6.6.0",
     "eslint": "^7.2.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-prettier": "^7.2.0",

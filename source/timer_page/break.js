@@ -9,7 +9,8 @@ function continueTask() {
     document.body.style.backgroundImage = 'linear-gradient(to right,#E0EAFC,#CFDEF3)';
     document.getElementById("currTask").innerHTML = "Task";
     document.getElementById("button-container").style.display = 'flex';
-    start(0, 59);
+    //start(0, 3);
+    window.location.reload();
 }
 
 function changeTask() {
@@ -28,7 +29,8 @@ function startShortBreak() {
     document.body.style.backgroundImage = 'linear-gradient(to right,#74EBD5,#ACB6E5)';
     document.getElementById("currTask").innerHTML = "Short Break";
     document.getElementById("button-container").style.display = 'none';
-    start(0, 10);
+    //start(0, 3);
+    window.location.reload();
 }
 
 function displayLongBreak() {
@@ -42,5 +44,6 @@ function startLongBreak() {
     document.body.style.backgroundImage = 'linear-gradient(to right,#ACB6E5,#74EBD5)';
     document.getElementById("currTask").innerHTML = "Long Break";
     document.getElementById("button-container").style.display = 'none';
-    start(0, 10);
+    //start(0, 5);
+    window.location.reload();
 }

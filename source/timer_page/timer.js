@@ -9,7 +9,7 @@ let allTasks;
 
 window.onload = function template() {
     // set variable denote current timer mode
-    localStorage.setItem('isPomo', 'false');
+    //localStorage.setItem('isPomo', 'false');
     // render current task name to timer page
     const id = JSON.parse(localStorage.getItem('currentTask'));
     allTasks = JSON.parse(localStorage.getItem('allTasks'));
@@ -20,13 +20,30 @@ window.onload = function template() {
                 allTasks[currentTaskId].name;
         }
     }
-
+    if(localStorage.getItem('ShortBreak') == 'true'){
+        document.getElementById('shortBreakModal').style.display = 'none';
+        document.body.style.backgroundImage = 'linear-gradient(to right,#74EBD5,#ACB6E5)';
+        document.getElementById("currTask").innerHTML = "Short Break";
+        document.getElementById("button-container").style.display = 'none';
+        start(0, 3);
+    }
+    else if(localStorage.getItem('LongBreak') == 'true'){
+        document.getElementById('longBreakModal').style.display = 'none';
+        document.body.style.backgroundImage = 'linear-gradient(to right,#ACB6E5,#74EBD5)';
+        document.getElementById("currTask").innerHTML = "Long Break";
+        document.getElementById("button-container").style.display = 'none';
+        start(0, 5);
+    }
+    else{
+        localStorage.setItem('isPomo', 'false');
+        document.getElementById('minutes').innerHTML = '01';
+        document.getElementById('seconds').innerHTML = '00';
+        document.getElementById("distraction-btn").innerHTML = "Distraction : " + distractCounter;
+        document.getElementById("title_timer").innerHTML = "01:00" + "- Time To Work!";
+        start(0, 3);
+    }
     // render starting value of timer
-    document.getElementById('minutes').innerHTML = '01';
-    document.getElementById('seconds').innerHTML = '00';
-    document.getElementById("distraction-btn").innerHTML = "Distraction : " + distractCounter;
-    document.getElementById("title_timer").innerHTML = "01:00" + "- Time To Work!";
-    start(0, 10);
+    
 };
 
 /**
@@ -36,6 +53,10 @@ window.onload = function template() {
  */
 
 function start(minutes, seconds) {
+    localStorage.setItem('ShortBreak','false');
+    localStorage.setItem('LongBreak','false');
+
+
     // display correct distraction counter 
     distractCounter = 0;
     document.getElementById("distraction-btn").innerHTML = "Distraction : " + distractCounter;
@@ -100,12 +121,14 @@ function start(minutes, seconds) {
                         displayBreakComplete();
                     } else {
                         localStorage.setItem('isPomo', 'true');
-                        if (counter <= 3) {
+                        if (counter%4 == 0) {
                             localStorage.setItem('sessionCounter', counter);
-                            displayShortBreak();
-                        } else if (counter == 4) {
-                            localStorage.setItem('sessionCounter', 0);
+                            localStorage.setItem('LongBreak', 'true');
                             displayLongBreak();
+                        } else {
+                            localStorage.setItem('sessionCounter', counter);
+                            localStorage.setItem('ShortBreak', 'true');
+                            displayShortBreak();
                         }
 
                         // update progress for current task

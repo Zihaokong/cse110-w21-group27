@@ -8,150 +8,8 @@
  *    is under the getter.
  */
 
-/* global handleEdit */
-
-/**
- * Method for creating drag icon for the task-item
- * @return the drag icon of a task item.
- */
-const createDrag = () => {
-  const dragIcon = document.createElement('span');
-  dragIcon.setAttribute('class', 'p-2 inline material-icons drag-btn hide');
-  // dragIcon.setAttribute('draggable', "true");
-  dragIcon.textContent = 'drag_indicator';
-  return dragIcon;
-};
-
-/**
- * Method for creating checkbox icon for the task-item
- * @return the check mark for a task item.
- */
-const createCheckmark = () => {
-  const checkmark = document.createElement('span');
-  checkmark.setAttribute('class', 'p-2 form-check form-check-inline');
-  const checkmarkInput = document.createElement('input');
-  checkmarkInput.setAttribute('class', 'form-check-input input-mysize large');
-  checkmarkInput.setAttribute('type', 'checkbox');
-  checkmarkInput.setAttribute('job', 'check');
-  const checkmarkLabel = document.createElement('label');
-  checkmarkLabel.setAttribute('for', 'checkbox');
-  checkmark.appendChild(checkmarkInput);
-  checkmark.appendChild(checkmarkLabel);
-  return checkmark;
-};
-
-/**
- * Method for creating task with the input todo task for the task-item
- * @param {object} newTask the newly created task item from the task.js
- * @return p element storing current task name
- */
-const createTask = (newTask) => {
-  const todoTask = document.createElement('p');
-  todoTask.setAttribute('class', 'p-2 flex-md-fill text-nowrap task-item');
-  todoTask.innerHTML = newTask.name;
-  return todoTask;
-};
-
-/**
- * Method for creating progress bar for the task-item
- * @param {object} newTask the new task object created by task.js
- * @return a div element with progress bar.
- */
-const createProgressBar = (newTask) => {
-  // calculate the percentage of progress for the styles
-  let percent = (newTask.current / newTask.number) * 100;
-  if (percent >= 100) {
-    percent = '100%';
-  } else {
-    percent = `${percent.toFixed(2)}%`;
-  }
-  // the outer div containng the progress-bar
-  const progressBar = document.createElement('div');
-  progressBar.setAttribute('class', 'flex-column progress');
-  // the inner div for the progress itserlf and uses the attribute from the newTask object
-  const progress = document.createElement('div');
-  if (newTask.current > newTask.number) {
-    progress.setAttribute(
-      'class',
-      'progress-bar progress-bar-striped bg-danger'
-    );
-  } else {
-    progress.setAttribute(
-      'class',
-      'progress-bar progress-bar-striped bg-success'
-    );
-  }
-  progress.setAttribute('role', 'progressbar');
-  progress.setAttribute('style', `width: ${percent};`);
-  progress.setAttribute('aria-valuenow', `${newTask.current}`);
-  progress.setAttribute('aria-valuemin', 0);
-  progress.setAttribute('aria-valuemin', `${newTask.number}`);
-  progress.innerHTML = `${percent}`;
-  // append the inner div to outer div
-  progressBar.appendChild(progress);
-  return progressBar;
-};
-
-/**
- * Method for creating text representing the finished pomo over the expect required pomo
- * @param {object} newTask the new task object created by task.js
- * @return the text element as described as p1 tag
- */
-const createProgressText = (newTask) => {
-  const progressT = `${newTask.current}/${newTask.number}`;
-  const progressText = document.createElement('p1');
-  progressText.setAttribute('class', 'progress-text');
-  progressText.innerHTML = `${progressT}`;
-  return progressText;
-};
-
-/**
- * Method for creating the play-button to start the timer for the task-item
- * @return the button element with the play-icon
- */
-const createPlayButton = () => {
-  const playButton = document.createElement('button');
-  playButton.setAttribute(
-    'class',
-    'p-2 bd-highlight btn  play-btn flex-right hide'
-  );
-  playButton.setAttribute('type', 'button');
-  const playIcon = document.createElement('span');
-  playIcon.setAttribute('class', 'material-icons play-btn');
-  playIcon.setAttribute('job', 'play');
-  playIcon.textContent = 'play_circle';
-  playButton.appendChild(playIcon);
-  return playButton;
-};
-
-/**
- * Method for section code of dropdown menu for the task-item,
- * this will be used to create the section dropdown in the light dom
- * @return the section code as pre-defined dropdown element for creation in light dom
- */
-const dropdownMenu = () =>
-  `<section slot="dropdown">   
-            <div class="p-2 bd-highlight btn-group dropright flex-right hide">     
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="material-icons edit-btn">more_horiz</span>
-                </button>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#" job="edit" onclick='handleEdit(event)'>Edit</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#" job="delete" onclick='handleEdit(event)'>Delete</a>
-                </div>
-            </div>
-        </section>`;
-
-/**
- * Method for the styles sheets
- * @return the section code for including stylesheet of bootstrap library
- */
-const styleSheets = () =>
-  `<link rel="stylesheet" href="task.css"/>
-        <link rel="stylesheet" href="main.css"/>
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous"/>`;
+// Section for ESLint
+/* global allTasks */
 
 /**
  * TaskItem class which is the task-item component that containing all the
@@ -160,46 +18,42 @@ const styleSheets = () =>
 class TaskItem extends HTMLElement {
   /**
    * Constructor for the TaskItem
-   * @param newTask the new created object from task.js
-   */
-  constructor(newTask) {
+s   */
+  constructor() {
     super();
-    const shadow = this.attachShadow({
+    this.attachShadow({
       mode: 'open',
     });
-    // component 'task-item' attributes
-    this.id = newTask.id;
-    this.className = 'taskNode d-flex flex-row bd-highlight';
-    this.draggable = 'true';
+  }
 
-    // Creating the drag icon
-    const dragIcon = createDrag();
+  // setter for name attribute
+  set name(newValue) {
+    this.setAttribute('name', newValue);
+  }
 
-    // Creating the checkmark
-    const checkmark = createCheckmark();
+  // setter for current attribute
+  set current(newValue) {
+    this.setAttribute('current', newValue);
+  }
 
-    // Creating p tag for task name
-    const todoTask = createTask(newTask);
+  // setter for number attribute
+  set number(newValue) {
+    this.setAttribute('number', newValue);
+  }
 
-    // Creating the progress-bar
-    const progressBar = createProgressBar(newTask);
-    const progressText = createProgressText(newTask);
+  // getter for name attribute
+  get name() {
+    return this.getAttribute('name');
+  }
 
-    // Creating the play-button
-    const playButton = createPlayButton();
+  // getter for current attribute
+  get current() {
+    return this.getAttribute('current');
+  }
 
-    // Creating the edit-button
-    const editDiv = document.createElement('slot');
-    editDiv.setAttribute('name', 'dropdown');
-
-    shadow.innerHTML = styleSheets();
-    shadow.appendChild(dragIcon);
-    shadow.appendChild(checkmark);
-    shadow.appendChild(todoTask);
-    shadow.appendChild(progressBar);
-    shadow.appendChild(progressText);
-    shadow.appendChild(playButton);
-    shadow.appendChild(editDiv);
+  // getter for number attribute
+  get number() {
+    return this.getAttribute('number');
   }
 
   // Helper method for retrieving the <input> for checkmark from <task-item>
@@ -214,29 +68,242 @@ class TaskItem extends HTMLElement {
 
   // invoked each time the custom element is appended into a document-connected element
   connectedCallback() {
-    // Creating the dropdown in runtime
-    this.innerHTML = dropdownMenu();
+    const shadow = this.shadowRoot;
+    this.setAttribute('class', 'taskNode d-flex flex-row bd-highlight');
+    this.setAttribute('draggable', 'true');
+
+    // this.name = this.name;
+    // this.current = this.current;
+    // this.number = this.number;
+
+    // Creating the drag icon
+    const dragIcon = TaskItem.createDrag();
+    // Creating the checkmark
+    const checkmark = TaskItem.createCheckmark();
+    // Creating p tag for task name
+    const todoTask = this.createTask();
+    // Creating the progress-bar
+    const progressBar = this.createProgressBar();
+    const progressText = this.createProgressText();
+    // Creating the play-button
+    const playButton = TaskItem.createPlayButton();
+    // Creating the edit-button
+    const editButton = TaskItem.createEditButton();
+    // Creating the edit-button
+    const deleteButton = TaskItem.createDeleteButton();
+
+    shadow.innerHTML = TaskItem.styleSheets();
+    shadow.appendChild(dragIcon);
+    shadow.appendChild(checkmark);
+    shadow.appendChild(todoTask);
+    shadow.appendChild(progressBar);
+    shadow.appendChild(progressText);
+    shadow.appendChild(playButton);
+    shadow.appendChild(editButton);
+    shadow.appendChild(deleteButton);
+
     this.shadowRoot
       .querySelector('.play-btn')
-      .addEventListener('click', handleEdit);
+      .addEventListener('click', this.showModalTask);
+    this.shadowRoot
+      .querySelector('.edit-btn')
+      .addEventListener('click', this.editTask);
+    this.shadowRoot
+      .querySelector('.delete-btn')
+      .addEventListener('click', this.deleteTask);
     this.shadowRoot
       .querySelector('.form-check-input')
-      .addEventListener('click', handleEdit);
+      .addEventListener('click', this.setCheck);
+  }
+
+  setFunctions(showModalTask, editTask, deleteTask, setCheck) {
+    this.showModalTask = showModalTask;
+    this.editTask = editTask;
+    this.deleteTask = deleteTask;
+    this.setCheck = setCheck;
   }
 
   // Invoked when the custom element is disconnected from the document's DOM.
   disconnectedCallback() {
     this.shadowRoot
       .querySelector('.play-btn')
-      .removeEventListener('click', handleEdit);
+      .removeEventListener('click', this.showModalTask);
+    this.shadowRoot
+      .querySelector('.edit-btn')
+      .addEventListener('click', this.editTask);
+    this.shadowRoot
+      .querySelector('.delete-btn')
+      .addEventListener('click', this.deleteTask);
     this.shadowRoot
       .querySelector('.form-check-input')
-      .addEventListener('click', handleEdit);
+      .addEventListener('click', this.setCheck);
+  }
+
+  /**
+   * Method for creating progress bar for the task-item
+   * @param {object} newTask the new task object created by task.js
+   */
+  createProgressBar() {
+    // calculate the percentage of progress for the styles
+    let percent = (this.current / this.number) * 100;
+    if (percent >= 100) {
+      percent = '100%';
+    } else {
+      percent = `${percent.toFixed(2)}%`;
+    }
+    // the outer div containng the progress-bar
+    const progressBar = document.createElement('div');
+    progressBar.setAttribute('class', 'flex-column progress');
+    // the inner div for the progress itserlf and uses the attribute from the newTask object
+    const progress = document.createElement('div');
+    if (this.current > this.number) {
+      progress.setAttribute(
+        'class',
+        'progress-bar progress-bar-striped bg-danger'
+      );
+    } else {
+      progress.setAttribute(
+        'class',
+        'progress-bar progress-bar-striped bg-success'
+      );
+    }
+    progress.setAttribute('role', 'progressbar');
+    progress.setAttribute('style', `width: ${percent};`);
+    progress.setAttribute('aria-valuenow', `${this.current}`);
+    progress.setAttribute('aria-valuemin', 0);
+    progress.setAttribute('aria-valuemin', `${this.number}`);
+    progress.innerHTML = `${percent}`;
+    // append the inner div to outer div
+    progressBar.appendChild(progress);
+    return progressBar;
+  }
+
+  /**
+   * Method for creating text representing the finished pomo over the expect required pomo
+   * @param {object} newTask the new task object created by task.js
+   * @return the text element as described as p1 tag
+   */
+  createProgressText() {
+    const progressT = `${this.current}/${this.number}`;
+    const progressText = document.createElement('p1');
+    progressText.setAttribute('class', 'progress-text');
+    progressText.innerHTML = `${progressT}`;
+    return progressText;
+  }
+
+  /**
+   * Method for creating task with the input todo task for the task-item
+   * @param {object} newTask the newly created task item from the task.js
+   */
+  createTask() {
+    const todoTask = document.createElement('p');
+    todoTask.setAttribute('class', 'p-2 flex-md-fill text-nowrap task-item');
+    todoTask.innerHTML = this.name;
+    return todoTask;
+  }
+
+  /**
+   * Method for creating drag icon for the task-item
+   */
+  static createDrag() {
+    const dragIcon = document.createElement('span');
+    dragIcon.setAttribute('class', 'p-2 inline material-icons drag-btn hide');
+    dragIcon.setAttribute('id', `drag`);
+    // dragIcon.setAttribute('draggable', "true");
+    dragIcon.textContent = 'drag_indicator';
+    return dragIcon;
+  }
+
+  /**
+   * Method for creating checkbox icon for the task-item
+   */
+  static createCheckmark() {
+    const checkmark = document.createElement('span');
+    checkmark.setAttribute('class', 'p-2 form-check form-check-inline');
+    checkmark.setAttribute('id', `checkmark`);
+    const checkmarkInput = document.createElement('input');
+    checkmarkInput.setAttribute('class', 'form-check-input input-mysize large');
+    checkmarkInput.setAttribute('type', 'checkbox');
+    checkmarkInput.setAttribute('job', 'check');
+    const checkmarkLabel = document.createElement('label');
+    checkmarkLabel.setAttribute('for', 'checkbox');
+    checkmark.appendChild(checkmarkInput);
+    checkmark.appendChild(checkmarkLabel);
+    return checkmark;
+  }
+
+  /**
+   * Method for creating the play-button to start the timer for the task-item
+   * @return the button element with the play-icon
+   */
+  static createPlayButton() {
+    const playButton = document.createElement('button');
+    playButton.setAttribute(
+      'class',
+      'p-2 bd-highlight btn  play-btn flex-right hide'
+    );
+    playButton.setAttribute('id', `play-btn`);
+    playButton.setAttribute('type', 'button');
+    const playIcon = document.createElement('span');
+    playIcon.setAttribute('class', 'material-icons play-btn hide');
+    playIcon.setAttribute('job', 'play');
+    playIcon.textContent = 'play_circle';
+    playButton.appendChild(playIcon);
+    return playButton;
+  }
+
+  /**
+   * Method for creating edit button for the task-item
+   * @return The edit button show on the task-item
+   */
+  static createEditButton() {
+    const editButton = document.createElement('button');
+    editButton.setAttribute(
+      'class',
+      'p-2 bd-highlight btn  edit-btn flex-right hide'
+    );
+    editButton.setAttribute('id', `edit-btn`);
+    editButton.setAttribute('type', 'button');
+    const editIcon = document.createElement('span');
+    editIcon.setAttribute('class', 'material-icons edit-btn hide');
+    editIcon.setAttribute('job', 'edit');
+    editIcon.textContent = 'mode_edit';
+    editButton.appendChild(editIcon);
+    return editButton;
+  }
+
+  /**
+   * Method for creating delete button for the task-item
+   * @return The delete button show on the task-item
+   */
+  static createDeleteButton() {
+    const deleteButton = document.createElement('button');
+    deleteButton.setAttribute(
+      'class',
+      'p-2 bd-highlight btn  delete-btn flex-right hide'
+    );
+    deleteButton.setAttribute('id', `delete-btn`);
+    deleteButton.setAttribute('type', 'button');
+    const deleteIcon = document.createElement('span');
+    deleteIcon.setAttribute('class', 'material-icons delete-btn hide');
+    deleteIcon.setAttribute('job', 'delete');
+    deleteIcon.textContent = 'delete';
+    deleteButton.appendChild(deleteIcon);
+    return deleteButton;
+  }
+
+  /**
+   * Method for the styles sheets
+   */
+  static styleSheets() {
+    return `<link rel="stylesheet" href="task.css"/>
+          <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+          <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous"/>`;
   }
 }
+customElements.define('task-item', TaskItem);
 
 // Output module for testing
-customElements.define('task-item', TaskItem);
 if (typeof exports !== 'undefined') {
   module.exports = {
     TaskItem,

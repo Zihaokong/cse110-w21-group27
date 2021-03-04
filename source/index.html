@@ -6,7 +6,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="main.css" />
-  <link rel="stylesheet" href="header.css" />
   <link rel="stylesheet" href="task.css" />
   <!-- Material Icons  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
@@ -21,31 +20,18 @@
 </head>
 
 <body>
-  <nav class="top-nav">
-    <h2 id="date">Today's date</h2>
-    <section id="cycle-count">
-      <span>
-        <h2 id="completed-cycle" style="display: inline; color: #c4c4c4">
-          | Not yet completed
-        </h2>
-      </span>
-    </section>
-  </nav>
+  <header-comp></header-comp>
   <main>
     <h1 id="todo-title">
       To-do List
       <button id="add-task-btn" class="add-task-btn">+ Add Task</button>
     </h1>
-
     <hr />
-
-    <!-- This form will be integrated with "+ Add Task" button and modal -->
-    <!-- --------------------- separate line ------------------------------------->
     <center>
       <span id="welcome-message"><b>Welcome. Add a task to get started.</b></span>
     </center>
 
-    <task-list>
+    <task-list id="main-container">
       <!-- ToDo from JS will append here -->
     </task-list>
     <button id="add-task-btn-bottom" class="add-task-btn ">+</button>
@@ -60,7 +46,6 @@
       <div class="modal-content">
         <div class="modal-header" id="add-task-modal-header">
           <button type="button" class="btn-close close" data-bs-dismiss="modal" aria-label="Close"></button>
-          <!-- <span class="close">&times;</span> -->
         </div>
         <form id="taskform">
           <div class="taskform-entry">
@@ -121,21 +106,72 @@
     </div>
   </div>
 
-  <script src="main.js"></script>
-  <script src="header.js"></script>
-  <script src="task-item.js"></script>
-  <script src="task.js"></script>
 
-  <!-- Bootstrap -->
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
-  </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
-  </script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
-  </script>
+  <div id="edit-modal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header" id="edit-task-modal-header">
+          <button type="button" class="btn-close close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form id="editform">
+          <div class="taskform-entry">
+            <label for="taskname">Task: </label>
+            <input type="text" class="taskname form-control" placeholder="Task 1" id="edit-name" required />
+          </div>
+
+          <div class="taskform-entry form-group">
+            <label for="num-pomos">Estimated Pomos: </label>
+            <input type="number" class="num-pomos form-control" placeholder="4" id="edit-num" min="1" max="10"
+              required />
+          </div>
+
+          <div class="taskform-entry">
+            <label for="notes">Notes: </label>
+            <br />
+            <textarea rows="4" cols="30" placeholder="Briefly describe your task." id="edit-note"
+              class="form-control"></textarea>
+          </div>
+
+          <div class="task-btns">
+            <button class="cancel-btn">Cancel</button>
+            <button class="submit-btn" id="edit-save-btn" type="submit">
+              Save
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+  <div id="delete-modal" class="modal">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header" id="add-task-modal-header">
+          <button type="button" class="btn-close close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="modal-text">
+            <div class="heading-delete">
+              Are you sure to delete task:<br />
+              <p id="task-delete"></p>
+            </div>
+            <div class="task-btns">
+              <button class="cancel-btn">Cancel</button>
+              <button class="confirm-btn" id="confirm-button">Delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="main.js"></script>
+  <script src="header-comp.js"></script>
+  <script src="task-item.js" defer></script>
+  <script src="task.js" defer></script>
 </body>
 
 </html>
