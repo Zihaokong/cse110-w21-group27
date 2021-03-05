@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "doc": "jsdoc -c jsdoc.json",
-    "test": "jest --coverage",
+    "jTest": "jest --coverage",
+    "cTest": "npx cypress run",
+    "test": "npm run cTest && npm run jTest",
     "docmd": "mkdir docs; jsdoc2md source/*.js > docs/source.md"
   },
   "jest": {
