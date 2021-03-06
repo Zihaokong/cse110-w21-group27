@@ -50,6 +50,6 @@
     "jsdoc-to-markdown": "^7.0.0"
   },
   "directories": {
-    "test": "tests"
+    "doc": "docs"
   }
 }
