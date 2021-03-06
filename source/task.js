@@ -140,15 +140,16 @@ class TaskList extends HTMLElement {
   renderTask(newTask) {
     const taskItem = document.createElement('task-item');
     taskItem.setAttribute('id', newTask.id);
-    taskItem.setAttribute('name', newTask.name);
+    taskItem.name = newTask.name;
     taskItem.current = newTask.current;
     taskItem.number = newTask.number;
+    taskItem.completed = newTask.completed;
     taskItem.setFunctions(this.showModalTask, this.deleteTask, this.editTask, this.setCheck);
     // append the newly created <task-item> to ul
     this.shadowRoot.querySelector('ul').appendChild(taskItem);
-    // render the checkbox status
-    this.shadowRoot.getElementById(newTask.id).checkmark.checked =
-      newTask.completed;
+    // // render the checkbox status
+    // this.shadowRoot.getElementById(newTask.id).checkmark.checked =
+    //   newTask.completed;
   }
 
   addTask(event) {
@@ -186,7 +187,7 @@ class TaskList extends HTMLElement {
     const element = event.target;
     const itemToDelete = element.getRootNode().host;
     // Delete item in allTasks array
-    const name = itemToDelete.taskName;
+    const name = itemToDelete.name;
     document.getElementById('task-delete').innerText = `[${name}]`;
     document.getElementById('confirm-button').addEventListener('click', () => {
       for (let i = 0; i < allTasks.length; i++) {
@@ -206,21 +207,26 @@ class TaskList extends HTMLElement {
  * @param {Element} element the element that is being clicked
  */
   editTask(event) {
-    const editModal = document.getElementById('edit-modal');
-    editModal.style.display = 'block';
     let editedTask = event.target.getRootNode().host;
     const targetID = editedTask.id;
-    console.log(editedTask);
+    const taskIndex = allTasks.findIndex((elem) => elem.id === targetID);
+    document.getElementById('edit-note').value = allTasks[taskIndex].note;
+    document.getElementById('edit-name').value = editedTask.name;
+    document.getElementById('edit-num').value = editedTask.number; 
+
+    const editModal = document.getElementById('edit-modal');
+    editModal.style.display = 'block';
     // get the element Index in the object list
     document.getElementById('editform').addEventListener('submit', function handleEdit(e) {
       e.preventDefault();
-      const taskIndex = allTasks.findIndex((elem) => elem.id === targetID);
-      console.log(taskIndex);
-      editedTask.name = document.getElementById('edit-name').value;
-      editedTask.number = document.getElementById('edit-num').value; 
-      allTasks[taskIndex].name = document.getElementById('edit-name').value;
-      allTasks[taskIndex].number = document.getElementById('edit-num').value;
-      allTasks[taskIndex].note = document.getElementById('edit-note').value;
+      let editTaskName =  document.getElementById('edit-name').value;
+      let editTaskNum = document.getElementById('edit-num').value;
+      let editTaskNote = document.getElementsByClassName('edit-note').value;
+      editedTask.name = editTaskName;
+      editedTask.number = editTaskNum; 
+      allTasks[taskIndex].name = editTaskName;
+      allTasks[taskIndex].number = editTaskNum;
+      allTasks[taskIndex].note = editTaskNote;
       editModal.style.display = 'none';
       this.removeEventListener('submit', handleEdit);
     });
@@ -233,7 +239,17 @@ class TaskList extends HTMLElement {
  * @param element the element that is being click which is passing from handleEdit()
  */
   setCheck(event) {
-    const targetID = event.target.getRootNode().host.id;
+    let editedTask = event.target.getRootNode().host;
+    const targetID = editedTask.id;
+
+    //change progress bar
+
+    if(editedTask.completed === 'true'){
+      editedTask.completed = 'false';
+    }
+    else{
+      editedTask.completed = 'true';
+    }
     // get the element Index in the object list
     const taskIndex = allTasks.findIndex((elem) => elem.id === targetID);
     allTasks[taskIndex].completed = !allTasks[taskIndex].completed;
@@ -247,7 +263,7 @@ class TaskList extends HTMLElement {
   showModalTask(event) {
     document.getElementById('play-modal').style.display = 'block';
     const targetTask = event.target.getRootNode().host;
-    document.getElementById('timer-name').innerText = targetTask.taskName;
+    document.getElementById('timer-name').innerText = targetTask.name;
     const taskStorageIndex = allTasks.findIndex(
       (elem) => elem.id === targetTask.id
     );
