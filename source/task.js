@@ -131,7 +131,6 @@ class TaskList extends HTMLElement {
     return currentNodePos;
   }
 
-  document.getElementById('confirm-button').addEventListener('click', this.deleteTask);
   }
 
   setCurrentTask(newTask){
@@ -181,6 +180,7 @@ class TaskList extends HTMLElement {
  * @param {Element} element the element that is being clicked
  */
   deleteTask(event) {
+    console.log("HERE");
     document.getElementById('delete-modal').style.display = 'block';
     // Delete item in the DOM
     const element = event.target;
@@ -212,17 +212,18 @@ class TaskList extends HTMLElement {
     const targetID = editedTask.id;
     console.log(editedTask);
     // get the element Index in the object list
-    document.getElementById('editform').addEventListener('submit', (e) => {
+    document.getElementById('editform').addEventListener('submit', function handleEdit(e) {
       e.preventDefault();
-      console.log("HERE");
       const taskIndex = allTasks.findIndex((elem) => elem.id === targetID);
       console.log(taskIndex);
-      editedTask.name = document.getElementById('edit-name').value; 
+      editedTask.name = document.getElementById('edit-name').value;
+      editedTask.number = document.getElementById('edit-num').value; 
       allTasks[taskIndex].name = document.getElementById('edit-name').value;
       allTasks[taskIndex].number = document.getElementById('edit-num').value;
       allTasks[taskIndex].note = document.getElementById('edit-note').value;
       editModal.style.display = 'none';
-    })
+      this.removeEventListener('submit', handleEdit);
+    });
 
   }
 

@@ -17,7 +17,7 @@
  */
 class TaskItem extends HTMLElement {
    static get observedAttributes(){
-     return ['name'];
+     return ['name', 'number'];
    }
   /**
    * Constructor for the TaskItem
@@ -143,11 +143,20 @@ s   */
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
+    console.log(this.shadowRoot.childNodes);
     if(name === 'name') {
       if(this.shadowRoot.childNodes[7]){
-        this.shadowRoot.childNodes[7].innerHTML = newValue;
+        this.shadowRoot.childNodes[7].innerText = newValue;
       }
     }
+    if(name === 'number'){
+      if(this.shadowRoot.childNodes[9]){
+        this.shadowRoot.childNodes[9].innerHTML = `${this.current}/${newValue}`;
+        const newProgressBar = this.createProgressBar();
+        this.shadowRoot.replaceChild(newProgressBar, this.shadowRoot.childNodes[8]);
+      }
+    }
+
   }
 
   /**
