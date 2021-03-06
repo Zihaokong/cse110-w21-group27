@@ -16,6 +16,9 @@
  * buttons and the to-do task on the listed item
  */
 class TaskItem extends HTMLElement {
+   static get observedAttributes(){
+     return ['name'];
+   }
   /**
    * Constructor for the TaskItem
 s   */
@@ -89,7 +92,7 @@ s   */
     const playButton = TaskItem.createPlayButton();
     // Creating the edit-button
     const editButton = TaskItem.createEditButton();
-    // Creating the edit-button
+    // Creating the delete-button
     const deleteButton = TaskItem.createDeleteButton();
 
     shadow.innerHTML = TaskItem.styleSheets();
@@ -116,10 +119,10 @@ s   */
       .addEventListener('click', this.setCheck);
   }
 
-  setFunctions(showModalTask, editTask, deleteTask, setCheck) {
+  setFunctions(showModalTask, deleteTask, editTask, setCheck) {
     this.showModalTask = showModalTask;
-    this.editTask = editTask;
     this.deleteTask = deleteTask;
+    this.editTask = editTask;
     this.setCheck = setCheck;
   }
 
@@ -137,6 +140,14 @@ s   */
     this.shadowRoot
       .querySelector('.form-check-input')
       .addEventListener('click', this.setCheck);
+  }
+
+  attributeChangedCallback(name, oldValue, newValue) {
+    if(name === 'name') {
+      if(this.shadowRoot.childNodes[7]){
+        this.shadowRoot.childNodes[7].innerHTML = newValue;
+      }
+    }
   }
 
   /**
