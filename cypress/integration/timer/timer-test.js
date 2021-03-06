@@ -37,9 +37,9 @@ describe('Test timer.js and functions)', () => {
     cy.visit('http://127.0.0.1:5501/source/timer_page/timer.html');
   });
 
-  after(() => {
-    cy.visit('http://127.0.0.1:5501/source/timer_page/timer.html');
-  });
+  // after(() => {
+  //   cy.visit('http://127.0.0.1:5501/source/timer_page/timer.html');
+  // });
 
 
   it('Timer page display current task name', () => {
@@ -48,7 +48,7 @@ describe('Test timer.js and functions)', () => {
     });
   });
 
-  it('short and long break model rendering', () => {
+  it('short and long break modal not rendering', () => {
     if(localStorage.getItem('ShortBreak') == 'true'){
       cy.get('#shortBreakModal').should('have.css', 'display', 'none');
       cy.get('#currTask').then(($el) => {
@@ -89,6 +89,47 @@ describe('Test timer.js and functions)', () => {
     cy.get('#fail-button').click();
   });
 
+  it('placeholder test that fails despite being the exact same as the next test', () => {
+    cy.clock();
+    localStorage.setItem('sessionCounter', '11');
+    cy.visit('http://127.0.0.1:5501/source/timer_page/timer.html');
+    cy.tick(3000);
+    cy.get('#longBreakModal').should('have.css', 'display', 'block');
+  });
+
+  it('long break modal shows up after a multiple of 4 pomos', () => {
+    cy.clock();
+    localStorage.setItem('sessionCounter', '11');
+    cy.visit('http://127.0.0.1:5501/source/timer_page/timer.html');
+    cy.tick(3000);
+    cy.get('#longBreakModal').should('have.css', 'display', 'block');
+  });
+
+  it('short break modal shows up after a non-multiple of 4 pomos', () => {
+    cy.clock();
+    localStorage.setItem('sessionCounter', '10');
+    cy.visit('http://127.0.0.1:5501/source/timer_page/timer.html');
+    cy.tick(3000);
+    cy.get('#shortBreakModal').should('have.css', 'display', 'block');
+  });
+
+  it('starting short break works properly', () => {
+    cy.clock();
+    localStorage.setItem('sessionCounter', '10');
+    cy.visit('http://127.0.0.1:5501/source/timer_page/timer.html');
+    cy.tick(3000);
+    cy.get('#start-button').click();
+    cy.get('#currTask').should('have.text', 'Short Break');
+  });
+
+  it('starting long break works properly', () => {
+    cy.clock();
+    localStorage.setItem('sessionCounter', '11');
+    cy.visit('http://127.0.0.1:5501/source/timer_page/timer.html');
+    cy.tick(3000);
+    cy.get('#longBreakModal > .modal-content-short_break > .modal-text > #strt-button > #start-button').click();
+    cy.get('#currTask').should('have.text', 'Long Break');
+  });
 
 
 });
