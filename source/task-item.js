@@ -81,10 +81,10 @@ s   */
     // Creating the checkmark
     const checkmark = TaskItem.createCheckmark();
     // Creating p tag for task name
-    const todoTask = this.createTask();
+    const todoTask = TaskItem.createTask(this.name);
     // Creating the progress-bar
-    const progressBar = this.createProgressBar();
-    const progressText = this.createProgressText();
+    const progressBar = TaskItem.createProgressBar(this.current, this.number);
+    const progressText = TaskItem.createProgressText(this.current, this.number);
     // Creating the play-button
     const playButton = TaskItem.createPlayButton();
     // Creating the edit-button
@@ -143,20 +143,27 @@ s   */
    * Method for creating progress bar for the task-item
    * @param {object} newTask the new task object created by task.js
    */
-  createProgressBar() {
+  static createProgressBar(current, number) {
     // calculate the percentage of progress for the styles
-    let percent = (this.current / this.number) * 100;
+    let percent;
+    if (number !== 0) {
+      percent = (current / number) * 100;
+    } else {
+      percent = undefined;
+    }
     if (percent >= 100) {
       percent = '100%';
-    } else {
+    } else if (percent !== undefined) {
       percent = `${percent.toFixed(2)}%`;
+    } else {
+      percent = `ERROR! Number of Pomos less than 1`;
     }
     // the outer div containng the progress-bar
     const progressBar = document.createElement('div');
     progressBar.setAttribute('class', 'flex-column progress');
     // the inner div for the progress itserlf and uses the attribute from the newTask object
     const progress = document.createElement('div');
-    if (this.current > this.number) {
+    if (current > number) {
       progress.setAttribute(
         'class',
         'progress-bar progress-bar-striped bg-danger'
@@ -169,9 +176,9 @@ s   */
     }
     progress.setAttribute('role', 'progressbar');
     progress.setAttribute('style', `width: ${percent};`);
-    progress.setAttribute('aria-valuenow', `${this.current}`);
+    progress.setAttribute('aria-valuenow', `${current}`);
     progress.setAttribute('aria-valuemin', 0);
-    progress.setAttribute('aria-valuemin', `${this.number}`);
+    progress.setAttribute('aria-valuemin', `${number}`);
     progress.innerHTML = `${percent}`;
     // append the inner div to outer div
     progressBar.appendChild(progress);
@@ -183,8 +190,8 @@ s   */
    * @param {object} newTask the new task object created by task.js
    * @return the text element as described as p1 tag
    */
-  createProgressText() {
-    const progressT = `${this.current}/${this.number}`;
+  static createProgressText(current, number) {
+    const progressT = `${current}/${number}`;
     const progressText = document.createElement('p1');
     progressText.setAttribute('class', 'progress-text');
     progressText.innerHTML = `${progressT}`;
@@ -195,10 +202,10 @@ s   */
    * Method for creating task with the input todo task for the task-item
    * @param {object} newTask the newly created task item from the task.js
    */
-  createTask() {
+  static createTask(name) {
     const todoTask = document.createElement('p');
     todoTask.setAttribute('class', 'p-2 flex-md-fill text-nowrap task-item');
-    todoTask.innerHTML = this.name;
+    todoTask.innerHTML = name;
     return todoTask;
   }
 
