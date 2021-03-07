@@ -16,6 +16,9 @@
  * buttons and the to-do task on the listed item
  */
 class TaskItem extends HTMLElement {
+   static get observedAttributes(){
+     return ['name', 'number', 'completed', 'current'];
+   }
   /**
    * Constructor for the TaskItem
 s   */
@@ -41,6 +44,11 @@ s   */
     this.setAttribute('number', newValue);
   }
 
+  set completed(newValue) {
+    this.setAttribute('completed', newValue);
+  }
+
+
   // getter for name attribute
   get name() {
     return this.getAttribute('name');
@@ -55,6 +63,11 @@ s   */
   get number() {
     return this.getAttribute('number');
   }
+
+  get completed() {
+    return this.getAttribute('completed');
+  }
+
 
   // Helper method for retrieving the <input> for checkmark from <task-item>
   get checkmark() {
@@ -79,17 +92,17 @@ s   */
     // Creating the drag icon
     const dragIcon = TaskItem.createDrag();
     // Creating the checkmark
-    const checkmark = TaskItem.createCheckmark();
+    const checkmark = this.createCheckmark();
     // Creating p tag for task name
     const todoTask = TaskItem.createTask(this.name);
     // Creating the progress-bar
     const progressBar = TaskItem.createProgressBar(this.current, this.number);
     const progressText = TaskItem.createProgressText(this.current, this.number);
     // Creating the play-button
-    const playButton = TaskItem.createPlayButton();
+    const playButton = this.createPlayButton();
     // Creating the edit-button
-    const editButton = TaskItem.createEditButton();
-    // Creating the edit-button
+    const editButton = this.createEditButton();
+    // Creating the delete-button
     const deleteButton = TaskItem.createDeleteButton();
 
     shadow.innerHTML = TaskItem.styleSheets();
@@ -116,10 +129,10 @@ s   */
       .addEventListener('click', this.setCheck);
   }
 
-  setFunctions(showModalTask, editTask, deleteTask, setCheck) {
+  setFunctions(showModalTask, deleteTask, editTask, setCheck) {
     this.showModalTask = showModalTask;
-    this.editTask = editTask;
     this.deleteTask = deleteTask;
+    this.editTask = editTask;
     this.setCheck = setCheck;
   }
 
@@ -139,6 +152,56 @@ s   */
       .addEventListener('click', this.setCheck);
   }
 
+  attributeChangedCallback(name, oldValue, newValue) {
+    if(name === 'name') {
+      if(this.shadowRoot.querySelector('p')){
+        this.shadowRoot.querySelector('p').textContent = newValue;
+      }
+    }
+    if(name === 'number'){
+      if(this.shadowRoot.querySelector('p1')){
+        this.shadowRoot.querySelector('p1').innerHTML= `${this.current}/${newValue}`;
+      }
+    }
+
+    if(name === 'completed'){
+      if(this.shadowRoot.childNodes[8]){
+        //change the progress bar
+        const newProgressBar = this.createProgressBar();
+        this.shadowRoot.replaceChild(newProgressBar, this.shadowRoot.childNodes[8]);
+
+        let playButton = this.shadowRoot.querySelector('.play-btn');
+        let editButton = this.shadowRoot.querySelector('.edit-btn');
+        if(newValue == "true"){
+          playButton.disabled = true;
+          playButton.firstChild.style.color =  '#c4c4c4';
+          editButton.disabled = true;
+          editButton.firstChild.style.color =  '#c4c4c4';
+        }
+        else {
+          playButton.disabled = false;
+          playButton.firstChild.style.color =  '#2e4756';
+
+          //re-enable edit only if no pomos are completed 
+          if(this.current == 0){
+            editButton.disabled = false;
+            editButton.firstChild.style.color =  '#2e4756';
+          }
+        }
+
+      }
+    }
+
+    if(name === 'current'){
+      let editButton = this.shadowRoot.querySelector('.edit-btn');
+      if(editButton && newValue > 0){
+        editButton.disabled = true;
+        editButton.firstChild.style.color =  '#c4c4c4';
+      }
+    }
+
+  }
+
   /**
    * Method for creating progress bar for the task-item
    * @param {object} newTask the new task object created by task.js
@@ -146,10 +209,17 @@ s   */
   static createProgressBar(current, number) {
     // calculate the percentage of progress for the styles
     let percent;
-    if (number !== 0) {
-      percent = (current / number) * 100;
-    } else {
-      percent = undefined;
+    let isCompleted = (this.completed == "true");
+    if(isCompleted){
+      percent = 100;
+    }
+    else{
+      percent = (this.current / this.number) * 100;
+      if (number !== 0) {
+        percent = (current / number) * 100;
+      } else {
+        percent = undefined;
+      }
     }
     if (percent >= 100) {
       percent = '100%';
@@ -166,12 +236,12 @@ s   */
     if (current > number) {
       progress.setAttribute(
         'class',
-        'progress-bar progress-bar-striped bg-danger'
+        'progress-bar progress-bar bg-danger'
       );
     } else {
       progress.setAttribute(
         'class',
-        'progress-bar progress-bar-striped bg-success'
+        'progress-bar progress-bar'
       );
     }
     progress.setAttribute('role', 'progressbar');
@@ -224,7 +294,7 @@ s   */
   /**
    * Method for creating checkbox icon for the task-item
    */
-  static createCheckmark() {
+  createCheckmark() {
     const checkmark = document.createElement('span');
     checkmark.setAttribute('class', 'p-2 form-check form-check-inline');
     checkmark.setAttribute('id', `checkmark`);
@@ -236,6 +306,9 @@ s   */
     checkmarkLabel.setAttribute('for', 'checkbox');
     checkmark.appendChild(checkmarkInput);
     checkmark.appendChild(checkmarkLabel);
+    //convert string to boolean
+    let isCompleted = (this.completed == "true");
+    checkmarkInput.checked = isCompleted;
     return checkmark;
   }
 
@@ -243,7 +316,7 @@ s   */
    * Method for creating the play-button to start the timer for the task-item
    * @return the button element with the play-icon
    */
-  static createPlayButton() {
+  createPlayButton() {
     const playButton = document.createElement('button');
     playButton.setAttribute(
       'class',
@@ -256,6 +329,10 @@ s   */
     playIcon.setAttribute('job', 'play');
     playIcon.textContent = 'play_circle';
     playButton.appendChild(playIcon);
+    if(this.completed === "true"){
+      playButton.disabled = "true";
+      playIcon.style.color = '#c4c4c4';
+    }
     return playButton;
   }
 
@@ -263,7 +340,7 @@ s   */
    * Method for creating edit button for the task-item
    * @return The edit button show on the task-item
    */
-  static createEditButton() {
+  createEditButton() {
     const editButton = document.createElement('button');
     editButton.setAttribute(
       'class',
@@ -276,6 +353,10 @@ s   */
     editIcon.setAttribute('job', 'edit');
     editIcon.textContent = 'mode_edit';
     editButton.appendChild(editIcon);
+    if(this.completed === "true" || this.current > 0){
+      editButton.disabled = "true";
+      editIcon.style.color = '#c4c4c4';
+    }
     return editButton;
   }
 
