@@ -172,21 +172,23 @@ class TaskList extends HTMLElement {
     editModal.style.display = 'block';
 
     // get the element Index in the object list
-    const oldElement = document.getElementById('editform');
-    oldElement.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const newElement = oldElement.cloneNode(true);
-      const editTaskName = document.getElementById('edit-name').value;
-      const editTaskNum = document.getElementById('edit-num').value;
-      const editTaskNote = document.getElementsByClassName('edit-note').value;
-      editedTask.name = editTaskName;
-      editedTask.number = editTaskNum;
-      this.allTasks[taskIndex].name = editTaskName;
-      this.allTasks[taskIndex].number = editTaskNum;
-      this.allTasks[taskIndex].note = editTaskNote;
-      editModal.style.display = 'none';
-      oldElement.parentNode.replaceChild(newElement, oldElement);
-    });
+    document.getElementById('editform').addEventListener(
+      'submit',
+      // eslint-disable-next-line no-shadow
+      (event) => {
+        event.preventDefault();
+        const editTaskName = document.getElementById('edit-name').value;
+        const editTaskNum = document.getElementById('edit-num').value;
+        const editTaskNote = document.getElementsByClassName('edit-note').value;
+        editedTask.name = editTaskName;
+        editedTask.number = editTaskNum;
+        this.allTasks[taskIndex].name = editTaskName;
+        this.allTasks[taskIndex].number = editTaskNum;
+        this.allTasks[taskIndex].note = editTaskNote;
+        editModal.style.display = 'none';
+      },
+      { once: true }
+    );
   }
 
   /**
