@@ -43,8 +43,10 @@ class TaskList extends HTMLElement {
     this.shadowRoot.append(list);
     const retrievedObject = localStorage.getItem('allTasks');
     if (!retrievedObject || retrievedObject === 'undefined') {
+      console.log("HERE");
       this.allTasks = [];
     } else {
+      console.log("ORHERE");
       this.allTasks = JSON.parse(retrievedObject);
       if (this.allTasks.length !== 0) {
         document.getElementById('welcome-message').remove();
@@ -52,7 +54,7 @@ class TaskList extends HTMLElement {
       for (let i = 0; i < this.allTasks.length; i++) {
         this.renderTask(this.allTasks[i]);
       }
-    }
+  }
     
     /// ////// SECTION for Drag and Drop ////////
     this.dropzone = this.shadowRoot.querySelector('ul');
@@ -64,11 +66,12 @@ class TaskList extends HTMLElement {
     // variable for the position of selected node
     //let selectedNodePos = 0;
     this.checked = false;
-  this.dropzone.addEventListener(
+    
+    this.dropzone.addEventListener(
     'dragstart',
     (event) => this.handleDragStart(event),
     false
-  );
+    );
 
   // Listener for the dragover event
   this.dropzone.addEventListener('dragover', (event) => this.handleDragOver(event));
@@ -76,7 +79,8 @@ class TaskList extends HTMLElement {
   // Listener for the drop event
   this.dropzone.addEventListener('drop', (event) => {
     event.preventDefault();
-  });
+    });
+
   }
 
   disconnectedCallback() {
@@ -94,7 +98,7 @@ class TaskList extends HTMLElement {
     taskItem.current = newTask.current;
     taskItem.number = newTask.number;
     taskItem.completed = newTask.completed;
-    taskItem.setFunctions(this.showModalTask, this.deleteTask, this.editTask, this.setCheck);
+    taskItem.setFunctions(this.showModalTask.bind(this), this.deleteTask.bind(this), this.editTask.bind(this), this.setCheck.bind(this));
     // append the newly created <task-item> to ul
     this.shadowRoot.querySelector('ul').appendChild(taskItem);
     // // render the checkbox status
@@ -131,16 +135,17 @@ class TaskList extends HTMLElement {
  * @param {Element} element the element that is being clicked
  */
   deleteTask(event) {
-    console.log("HERE");
+    console.log(this.allTasks);
     document.getElementById('delete-modal').style.display = 'block';
     // Delete item in the DOM
     const element = event.target;
     const itemToDelete = element.getRootNode().host;
+    console.log(itemToDelete.parentNode.allTasks);
     // Delete item in allTasks array
     const name = itemToDelete.name;
     document.getElementById('task-delete').innerText = `[${name}]`;
     document.getElementById('confirm-button').addEventListener('click', () => {
-      for (let i = 0; i < allTasks.length; i++) {
+      for (let i = 0; i < this.allTasks.length; i++) {
         if (this.allTasks[i].name === name) {
           this.allTasks.splice(i, 1);
           break;
@@ -160,7 +165,7 @@ class TaskList extends HTMLElement {
     let editedTask = event.target.getRootNode().host;
     const targetID = editedTask.id;
     const taskIndex = this.allTasks.findIndex((elem) => elem.id === targetID);
-    document.getElementById('edit-note').value = allTasks[taskIndex].note;
+    document.getElementById('edit-note').value = this.allTasks[taskIndex].note;
     document.getElementById('edit-name').value = editedTask.name;
     document.getElementById('edit-num').value = editedTask.number; 
 
@@ -178,8 +183,9 @@ class TaskList extends HTMLElement {
       this.allTasks[taskIndex].number = editTaskNum;
       this.allTasks[taskIndex].note = editTaskNote;
       editModal.style.display = 'none';
-      this.removeEventListener('submit', handleEdit);
-    });
+      document.getElementById('editform').removeEventListener('submit', handleEdit);
+    }.bind(this));
+    document.getElementById('editform').removeEventListener('submit', handleEdit);
 
   }
 

@@ -153,7 +153,6 @@ s   */
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
-    console.log(this.shadowRoot.childNodes);
     if(name === 'name') {
       if(this.shadowRoot.querySelector('p')){
         this.shadowRoot.querySelector('p').textContent = newValue;
@@ -209,7 +208,6 @@ s   */
    */
   createProgressBar() {
     // calculate the percentage of progress for the styles
-    console.log(typeof this.number);
     let percent;
     let isCompleted = (this.completed == "true");
     if(isCompleted){
