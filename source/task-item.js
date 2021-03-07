@@ -235,7 +235,7 @@ class TaskItem extends HTMLElement {
       progress.setAttribute('class', 'progress-bar progress-bar');
     }
     progress.setAttribute('role', 'progressbar');
-    progress.setAttribute('style', `width: ${this.percent};`);
+    progress.setAttribute('style', `width: ${percent};`);
     progress.setAttribute('aria-valuenow', `${this.current}`);
     progress.setAttribute('aria-valuemin', 0);
     progress.setAttribute('aria-valuemin', `${this.number}`);
