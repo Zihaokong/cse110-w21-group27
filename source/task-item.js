@@ -183,7 +183,7 @@ class TaskItem extends HTMLElement {
           playButton.firstChild.style.color = '#2e4756';
 
           // re-enable edit only if no pomos are completed
-          if (this.current === 0) {
+          if (this.current === '0') {
             editButton.disabled = false;
             editButton.firstChild.style.color = '#2e4756';
           }
@@ -207,8 +207,7 @@ class TaskItem extends HTMLElement {
   createProgressBar() {
     // calculate the percentage of progress for the styles
     let percent;
-    // eslint-disable-next-line eqeqeq
-    const isCompleted = this.completed == 'true';
+    const isCompleted = this.completed === 'true';
     if (isCompleted) {
       percent = 100;
     } else if (this.number !== 0) {
@@ -224,9 +223,11 @@ class TaskItem extends HTMLElement {
     } else {
       percent = `ERROR! Number of Pomos less than 1`;
     }
+
     // the outer div containng the progress-bar
     const progressBar = document.createElement('div');
     progressBar.setAttribute('class', 'flex-column progress');
+
     // the inner div for the progress itserlf and uses the attribute from the newTask object
     const progress = document.createElement('div');
     if (this.current > this.number) {
@@ -240,6 +241,7 @@ class TaskItem extends HTMLElement {
     progress.setAttribute('aria-valuemin', 0);
     progress.setAttribute('aria-valuemin', `${this.number}`);
     progress.innerHTML = `${percent}`;
+
     // append the inner div to outer div
     progressBar.appendChild(progress);
     return progressBar;
@@ -296,6 +298,7 @@ class TaskItem extends HTMLElement {
     checkmarkLabel.setAttribute('for', 'checkbox');
     checkmark.appendChild(checkmarkInput);
     checkmark.appendChild(checkmarkLabel);
+
     // convert string to boolean
     const isCompleted = this.completed === 'true';
     checkmarkInput.checked = isCompleted;
