@@ -18,6 +18,7 @@ class HeaderComp extends HTMLElement {
     const nav = document.createElement('nav');
     nav.setAttribute('class', 'top-nav');
     const date = document.createElement('h2');
+    date.setAttribute('id', 'date');
     date.innerText = HeaderComp.createDate()
       ? HeaderComp.createDate()
       : `Today's date`;
