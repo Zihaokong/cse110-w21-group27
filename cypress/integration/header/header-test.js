@@ -27,51 +27,13 @@ describe('Header Tests', () => {
       .should('have.length', 0);
   });
 
-  it('Test header after 1 cycle', () => {
+  it('Test header after 4 cycls', () => {
     cy.get('#add-task-btn').click();
     cy.get('#task-name').clear().type(firstName);
     cy.get('#task-num').clear().type(firstNum);
     cy.get('#task-note').clear().type(firstNotes);
     cy.get('#save-btn').click();
-    cy.get('#main-container')
-      .shadow()
-      .find('#main-list')
-      .find(`[name="${firstName}"]`)
-      .shadow()
-      .find('#play-btn')
-      .click({ force: true });
-    cy.get('#start-btn').click();
-    // eslint-disable-next-line cypress/no-unnecessary-waiting
-    cy.wait(4000);
-    cy.get('#start-button').click();
-    cy.get('#header')
-      .shadow()
-      .find('#completed-cycle')
-      .contains('| Completed Cycles: 1');
-    cy.get('#header')
-      .shadow()
-      .find('#cycle-count')
-      .children('.dot')
-      .should('have.length', 3);
-    cy.get('#header')
-      .shadow()
-      .find('#cycle-count')
-      .children('.filled-dot')
-      .should('have.length', 1);
-    // eslint-disable-next-line cypress/no-unnecessary-waiting
-    cy.wait(4000);
-    cy.get('#change-btn').click();
-    cy.get('#header')
-      .shadow()
-      .find('#cycle-count')
-      .children('.dot')
-      .should('have.length', 3);
-    cy.get('#header')
-      .shadow()
-      .find('#cycle-count')
-      .children('.filled-dot')
-      .should('have.length', 1);
-    for (let i = 1; i < 10; i++) {
+    for (let i = 0; i < 4; i++) {
       cy.get('#header')
         .shadow()
         .find('#completed-cycle')
@@ -80,12 +42,12 @@ describe('Header Tests', () => {
         .shadow()
         .find('#cycle-count')
         .children('.dot')
-        .should('have.length', 4 - (i % 4));
+        .should('have.length', 4 - i);
       cy.get('#header')
         .shadow()
         .find('#cycle-count')
         .children('.filled-dot')
-        .should('have.length', i % 4);
+        .should('have.length', i);
       cy.get('#main-container')
         .shadow()
         .find('#main-list')
@@ -96,21 +58,33 @@ describe('Header Tests', () => {
       cy.get('#start-btn').click();
       // eslint-disable-next-line cypress/no-unnecessary-waiting
       cy.wait(4000);
-      cy.get('#start-button').click();
+      if ((i + 1) % 4 === 0) {
+        cy.get('#start-button-long').click();
+      } else {
+        cy.get('#start-button').click();
+      }
       cy.get('#header')
         .shadow()
         .find('#completed-cycle')
-        .contains(`| Completed Cycles: ${i}`);
-      cy.get('#header')
-        .shadow()
-        .find('#cycle-count')
-        .children('.dot')
-        .should('have.length', 3);
+        .contains(`| Completed Cycles: ${i + 1}`);
+      if (i !== 3) {
+        cy.get('#header')
+          .shadow()
+          .find('#cycle-count')
+          .children('.dot')
+          .should('have.length', 3 - i);
+      } else {
+        cy.get('#header')
+          .shadow()
+          .find('#cycle-count')
+          .children('.dot')
+          .should('not.exist');
+      }
       cy.get('#header')
         .shadow()
         .find('#cycle-count')
         .children('.filled-dot')
-        .should('have.length', 1);
+        .should('have.length', i + 1);
       // eslint-disable-next-line cypress/no-unnecessary-waiting
       cy.wait(4000);
       cy.get('#change-btn').click();
@@ -118,12 +92,12 @@ describe('Header Tests', () => {
         .shadow()
         .find('#cycle-count')
         .children('.dot')
-        .should('have.length', 3);
+        .should('have.length', 3 - i);
       cy.get('#header')
         .shadow()
         .find('#cycle-count')
         .children('.filled-dot')
-        .should('have.length', 1);
+        .should('have.length', i + 1);
     }
   });
 });
