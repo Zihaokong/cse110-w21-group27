@@ -10,9 +10,21 @@
 class HeaderComp extends HTMLElement {
   constructor() {
     super();
-    const shadow = this.attachShadow({
+    this.attachShadow({
       mode: 'open',
     });
+  }
+
+  get completedCycles() {
+    return this.completed;
+  }
+
+  get cycleCount() {
+    return this.count;
+  }
+
+  // the browser calls this method when aheader-comp element is added to the document
+  connectedCallback() {
     this.completed = localStorage.getItem('sessionCounter');
     this.count = 4 - (this.completed % 4);
     const nav = document.createElement('nav');
@@ -30,23 +42,10 @@ class HeaderComp extends HTMLElement {
         | Not yet completed
       </h2>
     </span>`;
-
     nav.appendChild(date);
     nav.appendChild(section);
-    shadow.innerHTML = HeaderComp.headerStyle();
-    shadow.appendChild(nav);
-  }
-
-  get completedCycles() {
-    return this.completed;
-  }
-
-  get cycleCount() {
-    return this.count;
-  }
-
-  // the browser calls this method when aheader-comp element is added to the document
-  connectedCallback() {
+    this.shadowRoot.innerHTML = HeaderComp.headerStyle();
+    this.shadowRoot.appendChild(nav);
     this.renderCounter();
     this.renderCompletedCount();
     this.renderText();
@@ -57,8 +56,7 @@ class HeaderComp extends HTMLElement {
    */
   renderCounter() {
     const shadow = this.shadowRoot;
-    // eslint-disable-next-line eqeqeq
-    if (this.completedCycles == 0) {
+    if (this.completedCycles === '0') {
       for (let i = 0; i < 4; i++) {
         const newCycle = document.createElement('span');
         newCycle.setAttribute('class', 'dot');
@@ -77,7 +75,7 @@ class HeaderComp extends HTMLElement {
    * create filled circle for completed cycles
    */
   renderCompletedCount() {
-    if (this.completedCycles % 4 === 0 && this.completedCycles !== 0) {
+    if (this.completedCycles % 4 === 0 && this.completedCycles !== '0') {
       for (let i = 0; i < 4; i++) {
         const newCycle = document.createElement('span');
         newCycle.setAttribute('class', 'filled-dot');
