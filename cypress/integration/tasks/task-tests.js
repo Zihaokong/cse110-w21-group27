@@ -88,21 +88,85 @@ describe('Tasks tests', () => {
     cy.get('#task-delete').contains(`[${firstName}]`);
   });
 
-  // it('Moving Modal works', () => {
-  //   cy.get('#main-container')
-  //     .shadow()
-  //     .find('#main-list')
-  //     .find(`[name="${firstName}"]`)
-  //     .shadow()
-  //     .find('#drag')
-  //     .trigger('mousedown', { force: true });
-  //   cy.get('#main-container')
-  //     .shadow()
-  //     .find('#main-list')
-  //     .find(`[name="${secondName}"]`)
-  //     .trigger('mouseover')
-  //     .trigger('mouseup');
-  // });
+  it('Edit modal displays correct info', () => {
+    cy.get('#main-container')
+      .shadow()
+      .find('#main-list')
+      .find(`[name="${firstName}"]`)
+      .shadow()
+      .find('#edit-btn')
+      .click({ force: true });
+    cy.get('#edit-name').should('have.value', firstName);
+    cy.get('#edit-num').should('have.value', firstNum);
+    cy.get('#edit-note').should('have.value', firstNotes);
+  });
+
+  it('Checkmark disables play/edit button and fully completes task', () => {
+    cy.get('#main-container')
+      .shadow()
+      .find('#main-list')
+      .find(`[name="${firstName}"]`)
+      .shadow()
+      .find('#edit-btn')
+      .should('not.be.disabled');
+    cy.get('#main-container')
+      .shadow()
+      .find('#main-list')
+      .find(`[name="${firstName}"]`)
+      .shadow()
+      .find('#play-btn')
+      .should('not.be.disabled');
+    cy.get('#main-container')
+      .shadow()
+      .find('#main-list')
+      .find(`[name="${firstName}"]`)
+      .shadow()
+      .find('#delete-btn')
+      .should('not.be.disabled');
+    cy.get('#main-container')
+      .shadow()
+      .find('#main-list')
+      .find(`[name="${firstName}"]`)
+      .shadow()
+      .find('#progress-bar')
+      .should('have.attr', 'style', 'width: 0.00%;');
+    cy.get('#main-container')
+      .shadow()
+      .find('#main-list')
+      .find(`[name="${firstName}"]`)
+      .shadow()
+      .find('#checkmark')
+      .find('#checkmark-input')
+      .check();
+    cy.get('#main-container')
+      .shadow()
+      .find('#main-list')
+      .find(`[name="${firstName}"]`)
+      .shadow()
+      .find('#edit-btn')
+      .should('be.disabled');
+    cy.get('#main-container')
+      .shadow()
+      .find('#main-list')
+      .find(`[name="${firstName}"]`)
+      .shadow()
+      .find('#play-btn')
+      .should('be.disabled');
+    cy.get('#main-container')
+      .shadow()
+      .find('#main-list')
+      .find(`[name="${firstName}"]`)
+      .shadow()
+      .find('#delete-btn')
+      .should('not.be.disabled');
+    cy.get('#main-container')
+      .shadow()
+      .find('#main-list')
+      .find(`[name="${firstName}"]`)
+      .shadow()
+      .find('#progress-bar')
+      .should('have.attr', 'style', 'width: 100%;');
+  });
 
   it('Should have tasks still on page after reload', () => {
     cy.reload();

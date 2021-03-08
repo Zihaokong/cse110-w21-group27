@@ -6,11 +6,17 @@ describe('Test task-list that is initially null', () => {
   beforeEach(() => {
     document.body.innerHTML =
       '<div id = "welcome-message"> </div>' +
+      '<div id = "add-task-modal"> </div>' +
+      '<div id = "edit-model"> </div>' +
+      '<div id = "delete-modal"> </div>' +
       '<form id = "taskform"> </form>' +
       '<div id = "test"> <button id="button" />' +
       ' <input type="text" id="task-name">' +
       ' <input type="text" id="task-num">' +
       ' <input type="text" id="task-note">' +
+      ' <input type="text" id="edit-name">' +
+      ' <input type="text" id="edit-num">' +
+      ' <input type="text" id="edit-note">' +
       '</div>';
   });
 
@@ -35,11 +41,17 @@ describe('Test task-list that has pre-existing tasks', () => {
   beforeEach(() => {
     document.body.innerHTML =
       '<div id = "welcome-message"> </div>' +
+      '<div id = "add-task-modal"> </div>' +
+      '<div id = "edit-model"> </div>' +
+      '<div id = "delete-modal"> </div>' +
       '<form id = "taskform"> </form>' +
       '<div id = "test"> <button id="button" />' +
       ' <input type="text" id="task-name">' +
       ' <input type="text" id="task-num">' +
       ' <input type="text" id="task-note">' +
+      ' <input type="text" id="edit-name">' +
+      ' <input type="text" id="edit-num">' +
+      ' <input type="text" id="edit-note">' +
       '</div>';
 
     const allTasks = [];
