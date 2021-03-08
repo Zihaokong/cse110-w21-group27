@@ -230,6 +230,7 @@ class TaskItem extends HTMLElement {
 
     // the inner div for the progress itserlf and uses the attribute from the newTask object
     const progress = document.createElement('div');
+    progress.setAttribute('id', 'progress-bar');
     if (this.current > this.number) {
       progress.setAttribute('class', 'progress-bar progress-bar bg-danger');
     } else {
@@ -294,6 +295,7 @@ class TaskItem extends HTMLElement {
     checkmarkInput.setAttribute('class', 'form-check-input input-mysize large');
     checkmarkInput.setAttribute('type', 'checkbox');
     checkmarkInput.setAttribute('job', 'check');
+    checkmarkInput.setAttribute('id', 'checkmark-input');
     const checkmarkLabel = document.createElement('label');
     checkmarkLabel.setAttribute('for', 'checkbox');
     checkmark.appendChild(checkmarkInput);
