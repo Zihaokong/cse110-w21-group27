@@ -70,19 +70,10 @@ class TaskList extends HTMLElement {
     this.dropzone.addEventListener('dragover', (event) =>
       this.handleDragOver(event)
     );
-
-    // Listener for the drop event
-    this.dropzone.addEventListener('drop', (event) => {
-      event.preventDefault();
-    });
   }
 
   disconnectedCallback() {
     localStorage.setItem('allTasks', JSON.stringify(this.allTasks));
-  }
-
-  setCurrentTask(newTask) {
-    this.currentTask = newTask;
   }
 
   renderTask(newTask) {
@@ -236,17 +227,14 @@ class TaskList extends HTMLElement {
   }
 
   handleDragStart(event) {
-    this.preNodePos = this.setNodePos(event.clientY, this.preNodePos);
+    this.preNodePos = this.setNodePos(event.clientY);
     this.selectedNode = event.target;
     this.checked = this.selectedNode.checkmark.checked;
   }
 
   handleDragOver(event) {
     event.preventDefault();
-    const selectedNodePos = this.setNodePos(
-      event.clientY,
-      this.selectedNodePos
-    );
+    const selectedNodePos = this.setNodePos(event.clientY);
     if (this.preNodePos !== selectedNodePos) {
       this.preNodePos = this.setNodePos(event.clientY, this.preNodePos);
       this.dropzone.insertBefore(
@@ -285,19 +273,15 @@ class TaskList extends HTMLElement {
    * this function will call establishNodePositions() for selected node position.
    * @param {event.clickY} currentYPos the y-axis value of the current click on window
    */
-  setNodePos(currentYPos, nodePos) {
+  setNodePos(currentYPos) {
     this.establishNodePositions();
     let nodeAbove;
-    let currentNodePos = nodePos;
+    let currentNodePos = 0;
     for (let i = 0; i < this.nodes.length; i++) {
       if (this.nodes[i].yPos < currentYPos) {
         nodeAbove = this.nodes[i];
         currentNodePos = i + 1;
       }
-    }
-    // for the top of the list
-    if (typeof nodeAbove === 'undefined') {
-      currentNodePos = 0;
     }
 
     return currentNodePos;
