@@ -1,6 +1,14 @@
 require('../source/header-comp');
 
 describe('Header Testing', () => {
+  test('Create Header where completed = "0"', () => {
+    Storage.prototype.getItem = jest.fn(() => '0');
+    const header = document.createElement('header-comp');
+    document.body.appendChild(header);
+    expect(header.completedCycles).toBe('0');
+    expect(header.cycleCount).toBe(4);
+  });
+
   test('Create Header where completed = 0', () => {
     Storage.prototype.getItem = jest.fn(() => 0);
     const header = document.createElement('header-comp');
