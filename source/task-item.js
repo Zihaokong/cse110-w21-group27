@@ -210,18 +210,14 @@ class TaskItem extends HTMLElement {
     const isCompleted = this.completed === 'true';
     if (isCompleted) {
       percent = 100;
-    } else if (this.number !== 0) {
-      percent = (this.current / this.number) * 100;
     } else {
-      percent = undefined;
+      percent = (this.current / this.number) * 100;
     }
 
     if (percent >= 100) {
       percent = '100%';
-    } else if (percent !== undefined) {
-      percent = `${percent.toFixed(2)}%`;
     } else {
-      percent = `ERROR! Number of Pomos less than 1`;
+      percent = `${percent.toFixed(2)}%`;
     }
 
     // the outer div containng the progress-bar
@@ -327,6 +323,8 @@ class TaskItem extends HTMLElement {
     if (this.completed === 'true') {
       playButton.disabled = 'true';
       playIcon.style.color = '#c4c4c4';
+    } else {
+      playIcon.style.color = '#2e4756';
     }
     return playButton;
   }
@@ -351,6 +349,8 @@ class TaskItem extends HTMLElement {
     if (this.completed === 'true' || this.current > 0) {
       editButton.disabled = 'true';
       editIcon.style.color = '#c4c4c4';
+    } else {
+      editIcon.style.color = '#2e4756';
     }
     return editButton;
   }
