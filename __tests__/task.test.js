@@ -1,4 +1,4 @@
-const TaskList = require('../source/task');
+const { TaskList } = require('../source/task');
 
 require('../source/task-item');
 
@@ -21,19 +21,25 @@ describe('Test task-list that is initially null', () => {
   });
 
   test('Creating a task list where allTasks is null', () => {
-    const taskList = new TaskList.TaskList();
-    document.getElementById('test').appendChild(taskList);
-  });
-
-  test('Creating a task list where allTasks is null and adding', () => {
     const taskList = document.createElement('task-list');
     document.getElementById('test').appendChild(taskList);
-    const newButton = document.getElementById('button');
+    expect(
+      taskList.shadowRoot
+        .getElementById('main-list')
+        .querySelectorAll('task-item').length
+    ).toBe(0);
+  });
+
+  test('Creating a task list where allTasks is null and adding via form', () => {
+    const taskList = document.createElement('task-list');
+    document.getElementById('test').appendChild(taskList);
     document.getElementById('task-name').value = 'name';
     document.getElementById('task-num').value = 1;
     document.getElementById('task-note').value = 'note';
-    newButton.addEventListener('click', (e) => taskList.addTask(e));
-    newButton.click();
+    document.getElementById('taskform').submit();
+    expect(
+      taskList.shadowRoot.getElementById('main-list').children.length
+    ).toBe(1);
   });
 });
 
@@ -77,8 +83,13 @@ describe('Test task-list that has pre-existing tasks', () => {
   });
 
   test('Creating a task list with a task inside', () => {
-    const taskList = new TaskList.TaskList();
+    const taskList = new TaskList();
     document.getElementById('test').appendChild(taskList);
+    expect(
+      taskList.shadowRoot
+        .getElementById('main-list')
+        .querySelectorAll('task-item').length
+    ).toBe(2);
   });
 
   test('Adding a task-item to a task list with a task inside', () => {
@@ -90,5 +101,10 @@ describe('Test task-list that has pre-existing tasks', () => {
     document.getElementById('task-note').value = 'note';
     newButton.addEventListener('click', (e) => taskList.addTask(e));
     newButton.click();
+    expect(
+      taskList.shadowRoot
+        .getElementById('main-list')
+        .querySelectorAll('task-item').length
+    ).toBe(3);
   });
 });
