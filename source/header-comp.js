@@ -76,7 +76,7 @@ class HeaderComp extends HTMLElement {
    * create filled circle for completed cycles
    */
   renderCompletedCount() {
-    if (this.completedCycles % 4 === 0 && this.completedCycles !== 0) {
+    if (this.completedCycles % 4 === 0 && this.completedCycles !== '0') {
       for (let i = 0; i < 4; i++) {
         const newCycle = document.createElement('span');
         newCycle.setAttribute('class', 'filled-dot');
