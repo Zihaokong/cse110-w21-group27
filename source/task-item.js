@@ -139,13 +139,13 @@ class TaskItem extends HTMLElement {
       .removeEventListener('click', this.showModalTask);
     this.shadowRoot
       .querySelector('.edit-btn')
-      .addEventListener('click', this.editTask);
+      .removeEventListener('click', this.editTask);
     this.shadowRoot
       .querySelector('.delete-btn')
-      .addEventListener('click', this.deleteTask);
+      .removeEventListener('click', this.deleteTask);
     this.shadowRoot
       .querySelector('.form-check-input')
-      .addEventListener('click', this.setCheck);
+      .removeEventListener('click', this.setCheck);
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
