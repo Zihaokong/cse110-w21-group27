@@ -170,7 +170,7 @@ class TaskList extends HTMLElement {
         event.preventDefault();
         const editTaskName = document.getElementById('edit-name').value;
         const editTaskNum = document.getElementById('edit-num').value;
-        const editTaskNote = document.getElementsByClassName('edit-note').value;
+        const editTaskNote = document.getElementById('edit-note').value;
         editedTask.name = editTaskName;
         editedTask.number = editTaskNum;
         this.allTasks[taskIndex].name = editTaskName;
@@ -275,11 +275,9 @@ class TaskList extends HTMLElement {
    */
   setNodePos(currentYPos) {
     this.establishNodePositions();
-    let nodeAbove;
     let currentNodePos = 0;
     for (let i = 0; i < this.nodes.length; i++) {
       if (this.nodes[i].yPos < currentYPos) {
-        nodeAbove = this.nodes[i];
         currentNodePos = i + 1;
       }
     }
