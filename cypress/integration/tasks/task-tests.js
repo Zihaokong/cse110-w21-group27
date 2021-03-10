@@ -28,9 +28,12 @@ describe('Tasks tests', () => {
 
   it('Add two tasks', () => {
     cy.get('#add-task-btn').click();
-    cy.get('#task-name').clear().type(firstName);
-    cy.get('#task-num').clear().type(firstNum);
-    cy.get('#task-note').clear().type(firstNotes);
+    cy.get('#task-name').clear();
+    cy.get('#task-name').type(firstName);
+    cy.get('#task-num').clear();
+    cy.get('#task-num').type(firstNum);
+    cy.get('#task-note').clear();
+    cy.get('#task-note').type(firstNotes);
     cy.get('#save-btn').click();
     cy.get('#main-container')
       .shadow()
@@ -46,9 +49,12 @@ describe('Tasks tests', () => {
         expect($el).to.have.attr('current', 0);
       });
     cy.get('#add-task-btn').click();
-    cy.get('#task-name').clear().type(secondName);
-    cy.get('#task-num').clear().type(secondNum);
-    cy.get('#task-note').clear().type(secondNotes);
+    cy.get('#task-name').clear();
+    cy.get('#task-name').type(secondName);
+    cy.get('#task-num').clear();
+    cy.get('#task-num').type(secondNum);
+    cy.get('#task-note').clear();
+    cy.get('#task-note').type(secondNotes);
     cy.get('#save-btn').click();
     cy.get('#main-container')
       .shadow()
@@ -206,9 +212,12 @@ describe('Tasks tests', () => {
       .shadow()
       .find('#edit-btn')
       .click({ force: true });
-    cy.get('#edit-name').clear().type(firstNameEdited);
-    cy.get('#edit-num').clear().type(firstNumEdited);
-    cy.get('#edit-note').clear().type('Notes for testname1 edited');
+    cy.get('#edit-name').clear();
+    cy.get('#edit-name').type(firstNameEdited);
+    cy.get('#edit-num').clear();
+    cy.get('#edit-num').type(firstNumEdited);
+    cy.get('#edit-note').clear();
+    cy.get('#edit-note').type('Notes for testname1 edited');
     cy.get('#edit-save-btn').click();
     cy.get('#main-container')
       .shadow()
