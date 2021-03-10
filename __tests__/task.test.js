@@ -436,6 +436,8 @@ describe('Test task-list dragging', () => {
 
     // Before drag event has occured, expect it to be the same element
     expect(taskList.allTasks[0].id).toBe('1');
+
+    // Set up event.
     taskList.nodes[0].yPos = 1;
     taskList.nodes[1].yPos = 3;
     dragOverEvent.clientY = 4;
@@ -445,7 +447,6 @@ describe('Test task-list dragging', () => {
     expect(taskList.checked).toBe(false);
     expect(taskList.selectedNode).toBe(draggedTask);
     dropzone.dispatchEvent(dragOverEvent);
-    // After drag event has occured, test to ensure values have swapped
 
     // New First Child Testing
     // Test id
@@ -530,10 +531,213 @@ describe('Test task-list dragging', () => {
     expect(taskList.allTasks[1].note).toBe('note1');
   });
 
-  test('Test establish node positions', () => {
+  test('Test establishNodePositions function', () => {
     // Create and set task list element in document
     const taskList = document.createElement('task-list');
     document.getElementById('test').appendChild(taskList);
-    expect(taskList.allTasks[0].id).toBe('1');
+    taskList.nodes[0].getBoundingClientRect = jest.fn(() => ({
+      bottom: 2,
+      height: 0,
+      left: 0,
+      right: 0,
+      top: 0,
+      width: 0,
+    }));
+    taskList.nodes[1].getBoundingClientRect = jest.fn(() => ({
+      bottom: 4,
+      height: 0,
+      left: 0,
+      right: 0,
+      top: 2,
+      width: 0,
+    }));
+    taskList.establishNodePositions();
+    expect(taskList.nodes[0].yPos).toBe(1);
+    expect(taskList.nodes[1].yPos).toBe(3);
+  });
+});
+
+describe('Test other event functions', () => {
+  beforeEach(() => {
+    // Set up the inner HTML so that functions inside of Task can find elements
+    //  in the document they are looking for.
+    document.body.innerHTML =
+      '<div id = "welcome-message"> </div>' +
+      '<div id = "add-task-modal"> </div>' +
+      '<div id = "play-modal" > </div>' +
+      '<div id = "timer-name" > </div>' +
+      '<div id = "timer-note" > </div>' +
+      '<div id = "edit-modal" > </div>' +
+      '<div id = "delete-modal"> </div>' +
+      '<div id = "task-delete"> </div>' +
+      '<form id = "taskform"> </form>' +
+      '<form id = "editform"> </form>' +
+      '<div id = "test"> <button id="confirm-button" />' +
+      ' <input type="text" id="task-name">' +
+      ' <input type="text" id="task-num">' +
+      ' <input type="text" id="task-note">' +
+      ' <input type="text" id="edit-name">' +
+      ' <input type="text" id="edit-num">' +
+      ' <input type="text" id="edit-note">' +
+      '</div>';
+
+    const allTasks = [];
+
+    // Set up first task item to me inserted into the mock memory
+    const inputTask1 = {
+      id: '1',
+      completed: false,
+      name: 'name1',
+      number: 1,
+      current: 0,
+      note: 'note1',
+    };
+    allTasks.push(inputTask1);
+
+    // Set up second task item to me inserted into the mock memory
+    const inputTask2 = {
+      id: '2',
+      completed: true,
+      name: 'name2',
+      number: 2,
+      current: 1,
+      note: 'note2',
+    };
+    allTasks.push(inputTask2);
+
+    // Mock Storage
+    Storage.prototype.getItem = jest.fn(() => JSON.stringify(allTasks));
+  });
+
+  test('Test editTask event', () => {
+    // Create and set task list element in document
+    const taskList = document.createElement('task-list');
+    document.getElementById('test').appendChild(taskList);
+
+    // Get task item 1's button
+    const taskItem = taskList.shadowRoot.getElementById('1');
+    const taskItemButton = taskItem.shadowRoot.getElementById('edit-btn');
+
+    // Get edit form
+    const editForm = document.getElementById('editform');
+
+    // Define edit event
+    const editEvent = new Event('click');
+    Object.defineProperty(editEvent, 'target', {
+      writable: false,
+      value: taskItemButton,
+    });
+
+    // Define submit event
+    const submitEvent = new Event('submit');
+
+    // Run editTask
+    taskList.editTask(editEvent);
+
+    // Prime edit inputs.
+    document.getElementById('edit-name').value = 'testNameEdit';
+    document.getElementById('edit-num').value = 2;
+    document.getElementById('edit-note').value = 'note edit';
+
+    // submit changes
+    editForm.dispatchEvent(submitEvent);
+    expect(taskItem.name).toBe('testNameEdit');
+    expect(taskItem.number).toBe('2');
+    expect(taskList.allTasks[0].name).toBe('testNameEdit');
+    expect(taskList.allTasks[0].number).toBe('2');
+    expect(taskList.allTasks[0].note).toBe('note edit');
+  });
+
+  test('Test deleteTask event', () => {
+    // Create and set task list element in document
+    const taskList = document.createElement('task-list');
+    document.getElementById('test').appendChild(taskList);
+
+    // Get task item 1's button
+    const taskItem = taskList.shadowRoot.getElementById('1');
+    const taskItemButton = taskItem.shadowRoot.getElementById('delete-btn');
+
+    // Define delete event
+    const deleteEvent = new Event('click');
+    Object.defineProperty(deleteEvent, 'target', {
+      writable: false,
+      value: taskItemButton,
+    });
+
+    // Define submit event
+    const confirmEvent = new Event('click');
+
+    // Run deleteTask
+    taskList.deleteTask(deleteEvent);
+
+    // comfirm changes
+    document.getElementById('confirm-button').dispatchEvent(confirmEvent);
+    expect(taskList.contains(taskItem)).toBe(false);
+    expect(taskList.allTasks[0].id).toBe('2');
+  });
+
+  test('Test setCheck event', () => {
+    // Create and set task list element in document
+    const taskList = document.createElement('task-list');
+    document.getElementById('test').appendChild(taskList);
+
+    // Get task item 1's button
+    const taskItem = taskList.shadowRoot.getElementById('1');
+    const taskItemCheck = taskItem.shadowRoot.getElementById('checkmark');
+
+    // Define check event
+    const checkEvent = new Event('click');
+    Object.defineProperty(checkEvent, 'target', {
+      writable: false,
+      value: taskItemCheck,
+    });
+
+    // Run setCheck
+    taskList.setCheck(checkEvent);
+
+    // comfirm changes
+    expect(taskList.allTasks[0].completed).toBe(true);
+    expect(taskItem.completed).toBe('true');
+
+    // Run setCheck again
+    taskList.setCheck(checkEvent);
+
+    // comfirm changes
+    expect(taskList.allTasks[0].completed).toBe(false);
+    expect(taskItem.completed).toBe('false');
+  });
+
+  test('Test showModalTask even (aka play event)', () => {
+    // Create and set task list element in document
+    const taskList = document.createElement('task-list');
+    document.getElementById('test').appendChild(taskList);
+
+    // Get task item 1's button
+    const taskItem = taskList.shadowRoot.getElementById('1');
+    const taskItemPlayBtn = taskItem.shadowRoot.getElementById('play-btn');
+
+    // Define play event
+    const playEvent = new Event('click');
+    Object.defineProperty(playEvent, 'target', {
+      writable: false,
+      value: taskItemPlayBtn,
+    });
+
+    // Run showModalTask
+    taskList.showModalTask(playEvent);
+
+    // comfirm changes
+    expect(document.getElementById('play-modal').style.display).toBe('block');
+    expect(document.getElementById('timer-name').innerText).toBe('name1');
+    expect(document.getElementById('timer-note').innerText).toBe('note1');
+  });
+
+  test('Test window.onBeforeUnload', () => {
+    // Create and set task list element in document
+    const taskList = document.createElement('task-list');
+    taskList.id = 'main-container';
+    document.getElementById('test').appendChild(taskList);
+    window.onbeforeunload();
+    expect(document.getElementById('main-container')).toBe(null);
   });
 });
