@@ -27,7 +27,8 @@ describe('Header Tests', () => {
       .should('have.length', 0);
   });
 
-  it('Test header after 4 cycls', () => {
+  it('Test header after 4 cycles', () => {
+    cy.clock();
     cy.get('#add-task-btn').click();
     cy.get('#task-name').clear().type(firstName);
     cy.get('#task-num').clear().type(firstNum);
@@ -56,8 +57,7 @@ describe('Header Tests', () => {
         .find('#play-btn')
         .click({ force: true });
       cy.get('#start-btn').click();
-      // eslint-disable-next-line cypress/no-unnecessary-waiting
-      cy.wait(4000);
+      cy.tick(5000);
       if ((i + 1) % 4 === 0) {
         cy.get('#start-button-long').click();
       } else {
@@ -85,8 +85,7 @@ describe('Header Tests', () => {
         .find('#cycle-count')
         .children('.filled-dot')
         .should('have.length', i + 1);
-      // eslint-disable-next-line cypress/no-unnecessary-waiting
-      cy.wait(4000);
+      cy.tick(5000);
       cy.get('#change-btn').click();
       cy.get('#header')
         .shadow()
@@ -98,6 +97,105 @@ describe('Header Tests', () => {
         .find('#cycle-count')
         .children('.filled-dot')
         .should('have.length', i + 1);
+    }
+  });
+
+  it('Test header after 1000 cycles', () => {
+    cy.clock();
+    for (let i = 0; i < 200; i++) {
+      cy.get('#header')
+        .shadow()
+        .find('#completed-cycle')
+        .contains(`| Completed Cycles: ${i}`);
+      if (i < 5) {
+        cy.get('#header')
+          .shadow()
+          .find('#cycle-count')
+          .children('.dot')
+          .should('have.length', 4 - i);
+        cy.get('#header')
+          .shadow()
+          .find('#cycle-count')
+          .children('.filled-dot')
+          .should('have.length', i);
+      } else {
+        cy.get('#header')
+          .shadow()
+          .find('#cycle-count')
+          .children('.dot')
+          .should('have.length', 3 - ((i - 1) % 4));
+        cy.get('#header')
+          .shadow()
+          .find('#cycle-count')
+          .children('.filled-dot')
+          .should('have.length', ((i - 1) % 4) + 1);
+      }
+      cy.get('#main-container')
+        .shadow()
+        .find('#main-list')
+        .find(`[name="${firstName}"]`)
+        .shadow()
+        .find('#play-btn')
+        .click({ force: true });
+      cy.get('#start-btn').click();
+      cy.tick(5000);
+      if ((i + 1) % 4 === 0) {
+        cy.get('#start-button-long').click();
+      } else {
+        cy.get('#start-button').click();
+      }
+      cy.get('#header')
+        .shadow()
+        .find('#completed-cycle')
+        .contains(`| Completed Cycles: ${i + 1}`);
+      if (i < 4) {
+        cy.get('#header')
+          .shadow()
+          .find('#cycle-count')
+          .children('.dot')
+          .should('have.length', 3 - i);
+        cy.get('#header')
+          .shadow()
+          .find('#cycle-count')
+          .children('.filled-dot')
+          .should('have.length', i + 1);
+      } else {
+        cy.get('#header')
+          .shadow()
+          .find('#cycle-count')
+          .children('.dot')
+          .should('have.length', 3 - (i % 4));
+        cy.get('#header')
+          .shadow()
+          .find('#cycle-count')
+          .children('.filled-dot')
+          .should('have.length', (i % 4) + 1);
+      }
+      cy.tick(5000);
+      cy.get('#change-btn').click();
+      if (i < 4) {
+        cy.get('#header')
+          .shadow()
+          .find('#cycle-count')
+          .children('.dot')
+          .should('have.length', 3 - i);
+        cy.get('#header')
+          .shadow()
+          .find('#cycle-count')
+          .children('.filled-dot')
+          .should('have.length', i + 1);
+      } else {
+        cy.get('#header')
+          .shadow()
+          .find('#cycle-count')
+          .children('.dot')
+          .should('have.length', 3 - (i % 4));
+        cy.get('#header')
+          .shadow()
+          .find('#cycle-count')
+          .children('.filled-dot')
+          .should('have.length', (i % 4) + 1);
+      }
     }
   });
 });
