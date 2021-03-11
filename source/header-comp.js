@@ -10,30 +10,9 @@
 class HeaderComp extends HTMLElement {
   constructor() {
     super();
-    const shadow = this.attachShadow({
+    this.attachShadow({
       mode: 'open',
     });
-    this.completed = localStorage.getItem('sessionCounter');
-    this.count = 4 - (this.completed % 4);
-    const nav = document.createElement('nav');
-    nav.setAttribute('class', 'top-nav');
-    const date = document.createElement('h2');
-    date.innerText = HeaderComp.createDate()
-      ? HeaderComp.createDate()
-      : `Today's date`;
-    const section = document.createElement('section');
-    section.setAttribute('id', 'cycle-count');
-    section.innerHTML = `      
-    <span>
-      <h2 id="completed-cycle" style="display: inline; color: #c4c4c4">
-        | Not yet completed
-      </h2>
-    </span>`;
-
-    nav.appendChild(date);
-    nav.appendChild(section);
-    shadow.innerHTML = HeaderComp.headerStyle();
-    shadow.appendChild(nav);
   }
 
   get completedCycles() {
@@ -46,6 +25,27 @@ class HeaderComp extends HTMLElement {
 
   // the browser calls this method when aheader-comp element is added to the document
   connectedCallback() {
+    this.completed = localStorage.getItem('sessionCounter');
+    this.count = 4 - (this.completed % 4);
+    const nav = document.createElement('nav');
+    nav.setAttribute('class', 'top-nav');
+    const date = document.createElement('h2');
+    date.setAttribute('id', 'date');
+    date.innerText = HeaderComp.createDate()
+      ? HeaderComp.createDate()
+      : `Today's date`;
+    const section = document.createElement('section');
+    section.setAttribute('id', 'cycle-count');
+    section.innerHTML = `      
+    <span>
+      <h2 id="completed-cycle" style="display: inline; color: #c4c4c4">
+        | Not yet completed
+      </h2>
+    </span>`;
+    nav.appendChild(date);
+    nav.appendChild(section);
+    this.shadowRoot.innerHTML = HeaderComp.headerStyle();
+    this.shadowRoot.appendChild(nav);
     this.renderCounter();
     this.renderCompletedCount();
     this.renderText();
@@ -56,8 +56,7 @@ class HeaderComp extends HTMLElement {
    */
   renderCounter() {
     const shadow = this.shadowRoot;
-    // eslint-disable-next-line eqeqeq
-    if (this.completedCycles == 0) {
+    if (this.completedCycles === '0') {
       for (let i = 0; i < 4; i++) {
         const newCycle = document.createElement('span');
         newCycle.setAttribute('class', 'dot');
