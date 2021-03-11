@@ -72,13 +72,13 @@ statsList.forEach(function (arrayItem) {
 });
 
 document.getElementById("todayPomos").innerText = todayPomos;
-document.getElementById("todayAvgDistractions").innerText = todayDistractions / todayPomos;
+document.getElementById("todayAvgDistractions").innerText = todayDistractions / todayCompletedPomos;
 document.getElementById("todaySuccess").innerText = 100 * todayCompletedPomos / todayPomos + "%";
 
 document.getElementById("weekPomos").innerText = weekPomos;
-document.getElementById("weekAvgDistractions").innerText = weekDistractions / weekPomos;
+document.getElementById("weekAvgDistractions").innerText = weekDistractions / weekCompletedPomos;
 document.getElementById("weekSuccess").innerText = 100 * weekCompletedPomos / weekPomos + "%";
 
 document.getElementById("monthPomos").innerText = monthPomos;
-document.getElementById("monthAvgDistractions").innerText = monthDistractions / monthPomos;
+document.getElementById("monthAvgDistractions").innerText = monthDistractions / monthCompletedPomos;
 document.getElementById("monthSuccess").innerText = 100 * monthCompletedPomos / monthPomos + "%";
