@@ -90,3 +90,19 @@ document.getElementById("weekSuccess").innerText = (100 * weekCompletedPomos / w
 document.getElementById("monthPomos").innerText = monthPomos;
 document.getElementById("monthAvgDistractions").innerText = (monthDistractions / monthCompletedPomos).toFixed(1);
 document.getElementById("monthSuccess").innerText = (100 * monthCompletedPomos / monthPomos).toFixed(2) + "%";
+
+document.getElementById("reset").onclick = () => {
+    statsList = [];
+    localStorage.setItem('statsList', JSON.stringify(statsList));
+    document.getElementById("todayPomos").innerText = 0;
+    document.getElementById("todayAvgDistractions").innerText = 0;
+    document.getElementById("todaySuccess").innerText = "0%";
+
+    document.getElementById("weekPomos").innerText = 0;
+    document.getElementById("weekAvgDistractions").innerText = 0;
+    document.getElementById("weekSuccess").innerText = "0%";
+
+    document.getElementById("monthPomos").innerText = 0;
+    document.getElementById("monthAvgDistractions").innerText = 0;
+    document.getElementById("monthSuccess").innerText = "0%";
+};
