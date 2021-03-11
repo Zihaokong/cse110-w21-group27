@@ -17,6 +17,11 @@ h1 {
     margin-bottom: 0px;
 }
 
+h2{
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
 p {
     font-size: 30px;
     font-weight: bold;
@@ -24,16 +29,18 @@ p {
     margin-bottom: 0px;
 }
 
+.row{
+    margin-top: 2%;
+}
+
 .main-contents {
-    margin-left:3%;
-    margin-right:3%;
+    justify-content: center;
+    align-items: center;
 }
 
 .block-containers {
     float:left; 
-    height:0px; 
-    width: 10%; 
-    padding-bottom:10%; 
+  
     border-style:solid; 
     border-width: thin;
     border-color: grey;
@@ -44,6 +51,8 @@ p {
 }
 
 .block-contents {
+    padding-top: 10%;
+    padding-bottom: 10%;
     text-align: center;
 }
 
