@@ -741,3 +741,79 @@ describe('Test other event functions', () => {
     expect(document.getElementById('main-container')).toBe(null);
   });
 });
+
+describe('stress testing tasks', () => {
+  beforeEach(() => {
+    // Set up the inner HTML so that functions inside of Task can find elements
+    //  in the document they are looking for.
+    document.body.innerHTML =
+      '<div id = "welcome-message"> </div>' +
+      '<div id = "add-task-modal"> </div>' +
+      '<button id="button" />' +
+      '<div id = "play-modal" > </div>' +
+      '<div id = "timer-name" > </div>' +
+      '<div id = "timer-note" > </div>' +
+      '<div id = "edit-modal" > </div>' +
+      '<div id = "delete-modal"> </div>' +
+      '<div id = "task-delete"> </div>' +
+      '<form id = "taskform"> </form>' +
+      '<form id = "editform"> </form>' +
+      '<div id = "test"> <button id="confirm-button" />' +
+      ' <input type="text" id="task-name">' +
+      ' <input type="text" id="task-num">' +
+      ' <input type="text" id="task-note">' +
+      ' <input type="text" id="edit-name">' +
+      ' <input type="text" id="edit-num">' +
+      ' <input type="text" id="edit-note">' +
+      '</div>';
+    Storage.prototype.getItem = jest.fn(() => {});
+  });
+
+  test('Test creating 1000 events', () => {
+    const taskList = document.createElement('task-list');
+    document.getElementById('test').appendChild(taskList);
+    const newButton = document.getElementById('button');
+    newButton.addEventListener('click', (e) => taskList.addTask(e));
+    for (let i = 0; i < 1000; i++) {
+      // Create and set task list element in document
+      document.getElementById('task-name').value = `testName${i}`;
+      document.getElementById('task-num').value = 1 + (i % 10);
+      document.getElementById('task-note').value = `testNote${i}`;
+      newButton.click();
+    }
+    for (let i = 0; i < 1000; i++) {
+      // Test name
+      expect(
+        taskList.shadowRoot
+          .getElementById('main-list')
+          .children[i].getAttribute(`name`)
+      ).toBe(`testName${i}`);
+
+      // Test numumber
+      expect(
+        taskList.shadowRoot
+          .getElementById('main-list')
+          .children[i].getAttribute('number')
+      ).toBe(`${1 + (i % 10)}`);
+
+      // Test current
+      expect(
+        taskList.shadowRoot
+          .getElementById('main-list')
+          .children[i].getAttribute('current')
+      ).toBe('0');
+
+      // Test completed
+      expect(
+        taskList.shadowRoot
+          .getElementById('main-list')
+          .children[i].getAttribute('completed')
+      ).toBe('false');
+
+      // Test the allTasks values for the task item
+      expect(taskList.allTasks[i].name).toBe(`testName${i}`);
+      expect(taskList.allTasks[i].number).toBe(`${1 + (i % 10)}`);
+      expect(taskList.allTasks[i].note).toBe(`testNote${i}`);
+    }
+  });
+});
