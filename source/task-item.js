@@ -8,17 +8,18 @@
  *    is under the getter.
  */
 
-// Section for ESLint
-/* global allTasks */
-
 /**
  * TaskItem class which is the task-item component that containing all the
  * buttons and the to-do task on the listed item
  */
 class TaskItem extends HTMLElement {
+  static get observedAttributes() {
+    return ['name', 'number', 'completed', 'current'];
+  }
+
   /**
    * Constructor for the TaskItem
-s   */
+   */
   constructor() {
     super();
     this.attachShadow({
@@ -41,6 +42,10 @@ s   */
     this.setAttribute('number', newValue);
   }
 
+  set completed(newValue) {
+    this.setAttribute('completed', newValue);
+  }
+
   // getter for name attribute
   get name() {
     return this.getAttribute('name');
@@ -54,6 +59,10 @@ s   */
   // getter for number attribute
   get number() {
     return this.getAttribute('number');
+  }
+
+  get completed() {
+    return this.getAttribute('completed');
   }
 
   // Helper method for retrieving the <input> for checkmark from <task-item>
@@ -79,17 +88,17 @@ s   */
     // Creating the drag icon
     const dragIcon = TaskItem.createDrag();
     // Creating the checkmark
-    const checkmark = TaskItem.createCheckmark();
+    const checkmark = this.createCheckmark();
     // Creating p tag for task name
-    const todoTask = this.createTask();
+    const todoTask = TaskItem.createTask(this.name);
     // Creating the progress-bar
     const progressBar = this.createProgressBar();
-    const progressText = this.createProgressText();
+    const progressText = TaskItem.createProgressText(this.current, this.number);
     // Creating the play-button
-    const playButton = TaskItem.createPlayButton();
+    const playButton = this.createPlayButton();
     // Creating the edit-button
-    const editButton = TaskItem.createEditButton();
-    // Creating the edit-button
+    const editButton = this.createEditButton();
+    // Creating the delete-button
     const deleteButton = TaskItem.createDeleteButton();
 
     shadow.innerHTML = TaskItem.styleSheets();
@@ -116,10 +125,10 @@ s   */
       .addEventListener('click', this.setCheck);
   }
 
-  setFunctions(showModalTask, editTask, deleteTask, setCheck) {
+  setFunctions(showModalTask, deleteTask, editTask, setCheck) {
     this.showModalTask = showModalTask;
-    this.editTask = editTask;
     this.deleteTask = deleteTask;
+    this.editTask = editTask;
     this.setCheck = setCheck;
   }
 
@@ -130,13 +139,65 @@ s   */
       .removeEventListener('click', this.showModalTask);
     this.shadowRoot
       .querySelector('.edit-btn')
-      .addEventListener('click', this.editTask);
+      .removeEventListener('click', this.editTask);
     this.shadowRoot
       .querySelector('.delete-btn')
-      .addEventListener('click', this.deleteTask);
+      .removeEventListener('click', this.deleteTask);
     this.shadowRoot
       .querySelector('.form-check-input')
-      .addEventListener('click', this.setCheck);
+      .removeEventListener('click', this.setCheck);
+  }
+
+  attributeChangedCallback(name, oldValue, newValue) {
+    if (name === 'name') {
+      if (this.shadowRoot.querySelector('p')) {
+        this.shadowRoot.querySelector('p').textContent = newValue;
+      }
+    }
+    if (name === 'number') {
+      if (this.shadowRoot.querySelector('p1')) {
+        this.shadowRoot.querySelector(
+          'p1'
+        ).innerHTML = `${this.current}/${newValue}`;
+      }
+    }
+
+    if (name === 'completed') {
+      if (this.shadowRoot.childNodes[8]) {
+        // change the progress bar
+        const newProgressBar = this.createProgressBar();
+        this.shadowRoot.replaceChild(
+          newProgressBar,
+          this.shadowRoot.childNodes[8]
+        );
+
+        const playButton = this.shadowRoot.querySelector('.play-btn');
+        const editButton = this.shadowRoot.querySelector('.edit-btn');
+        if (newValue === 'true') {
+          playButton.disabled = true;
+          playButton.firstChild.style.color = '#c4c4c4';
+          editButton.disabled = true;
+          editButton.firstChild.style.color = '#c4c4c4';
+        } else {
+          playButton.disabled = false;
+          playButton.firstChild.style.color = '#2e4756';
+
+          // re-enable edit only if no pomos are completed
+          if (this.current === '0') {
+            editButton.disabled = false;
+            editButton.firstChild.style.color = '#2e4756';
+          }
+        }
+      }
+    }
+
+    if (name === 'current') {
+      const editButton = this.shadowRoot.querySelector('.edit-btn');
+      if (editButton && newValue > 0) {
+        editButton.disabled = true;
+        editButton.firstChild.style.color = '#c4c4c4';
+      }
+    }
   }
 
   /**
@@ -145,27 +206,31 @@ s   */
    */
   createProgressBar() {
     // calculate the percentage of progress for the styles
-    let percent = (this.current / this.number) * 100;
+    let percent;
+    const isCompleted = this.completed === 'true';
+    if (isCompleted) {
+      percent = 100;
+    } else {
+      percent = (this.current / this.number) * 100;
+    }
+
     if (percent >= 100) {
       percent = '100%';
     } else {
       percent = `${percent.toFixed(2)}%`;
     }
+
     // the outer div containng the progress-bar
     const progressBar = document.createElement('div');
     progressBar.setAttribute('class', 'flex-column progress');
+
     // the inner div for the progress itserlf and uses the attribute from the newTask object
     const progress = document.createElement('div');
+    progress.setAttribute('id', 'progress-bar');
     if (this.current > this.number) {
-      progress.setAttribute(
-        'class',
-        'progress-bar progress-bar-striped bg-danger'
-      );
+      progress.setAttribute('class', 'progress-bar progress-bar bg-danger');
     } else {
-      progress.setAttribute(
-        'class',
-        'progress-bar progress-bar-striped bg-success'
-      );
+      progress.setAttribute('class', 'progress-bar progress-bar');
     }
     progress.setAttribute('role', 'progressbar');
     progress.setAttribute('style', `width: ${percent};`);
@@ -173,6 +238,7 @@ s   */
     progress.setAttribute('aria-valuemin', 0);
     progress.setAttribute('aria-valuemin', `${this.number}`);
     progress.innerHTML = `${percent}`;
+
     // append the inner div to outer div
     progressBar.appendChild(progress);
     return progressBar;
@@ -183,8 +249,8 @@ s   */
    * @param {object} newTask the new task object created by task.js
    * @return the text element as described as p1 tag
    */
-  createProgressText() {
-    const progressT = `${this.current}/${this.number}`;
+  static createProgressText(current, number) {
+    const progressT = `${current}/${number}`;
     const progressText = document.createElement('p1');
     progressText.setAttribute('class', 'progress-text');
     progressText.innerHTML = `${progressT}`;
@@ -195,10 +261,10 @@ s   */
    * Method for creating task with the input todo task for the task-item
    * @param {object} newTask the newly created task item from the task.js
    */
-  createTask() {
+  static createTask(name) {
     const todoTask = document.createElement('p');
     todoTask.setAttribute('class', 'p-2 flex-md-fill text-nowrap task-item');
-    todoTask.innerHTML = this.name;
+    todoTask.innerHTML = name;
     return todoTask;
   }
 
@@ -217,7 +283,7 @@ s   */
   /**
    * Method for creating checkbox icon for the task-item
    */
-  static createCheckmark() {
+  createCheckmark() {
     const checkmark = document.createElement('span');
     checkmark.setAttribute('class', 'p-2 form-check form-check-inline');
     checkmark.setAttribute('id', `checkmark`);
@@ -225,10 +291,15 @@ s   */
     checkmarkInput.setAttribute('class', 'form-check-input input-mysize large');
     checkmarkInput.setAttribute('type', 'checkbox');
     checkmarkInput.setAttribute('job', 'check');
+    checkmarkInput.setAttribute('id', 'checkmark-input');
     const checkmarkLabel = document.createElement('label');
     checkmarkLabel.setAttribute('for', 'checkbox');
     checkmark.appendChild(checkmarkInput);
     checkmark.appendChild(checkmarkLabel);
+
+    // convert string to boolean
+    const isCompleted = this.completed === 'true';
+    checkmarkInput.checked = isCompleted;
     return checkmark;
   }
 
@@ -236,7 +307,7 @@ s   */
    * Method for creating the play-button to start the timer for the task-item
    * @return the button element with the play-icon
    */
-  static createPlayButton() {
+  createPlayButton() {
     const playButton = document.createElement('button');
     playButton.setAttribute(
       'class',
@@ -249,6 +320,12 @@ s   */
     playIcon.setAttribute('job', 'play');
     playIcon.textContent = 'play_circle';
     playButton.appendChild(playIcon);
+    if (this.completed === 'true') {
+      playButton.disabled = 'true';
+      playIcon.style.color = '#c4c4c4';
+    } else {
+      playIcon.style.color = '#2e4756';
+    }
     return playButton;
   }
 
@@ -256,7 +333,7 @@ s   */
    * Method for creating edit button for the task-item
    * @return The edit button show on the task-item
    */
-  static createEditButton() {
+  createEditButton() {
     const editButton = document.createElement('button');
     editButton.setAttribute(
       'class',
@@ -269,6 +346,12 @@ s   */
     editIcon.setAttribute('job', 'edit');
     editIcon.textContent = 'mode_edit';
     editButton.appendChild(editIcon);
+    if (this.completed === 'true' || this.current > 0) {
+      editButton.disabled = 'true';
+      editIcon.style.color = '#c4c4c4';
+    } else {
+      editIcon.style.color = '#2e4756';
+    }
     return editButton;
   }
 

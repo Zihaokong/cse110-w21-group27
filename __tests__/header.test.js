@@ -40,4 +40,14 @@ describe('Header Testing', () => {
     expect(header.completedCycles).toBe(5);
     expect(header.cycleCount).toBe(3);
   });
+
+  test('Create Header where completed = 3 - 1000', () => {
+    for (let i = 5; i < 1000; i++) {
+      Storage.prototype.getItem = jest.fn(() => i);
+      const header = document.createElement('header-comp');
+      document.body.appendChild(header);
+      expect(header.completedCycles).toBe(i);
+      expect(header.cycleCount).toBe(4 - (this.completed % i));
+    }
+  });
 });

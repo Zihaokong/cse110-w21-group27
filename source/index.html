@@ -45,7 +45,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header" id="add-task-modal-header">
-          <button type="button" class="btn-close close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button type="button" class="btn-close close" data-dismiss="modal" aria-label="Close"></button>
         </div>
         <form id="taskform">
           <div class="taskform-entry">
@@ -67,7 +67,7 @@
           </div>
 
           <div class="task-btns">
-            <button class="cancel-btn">Cancel</button>
+            <button class="cancel-btn" data-bs-dismiss="modal">Cancel</button>
             <button class="submit-btn" id="save-btn" type="submit">
               Save
             </button>
@@ -82,7 +82,7 @@
       <div class="modal-content">
         <div class="modal-header text-center">
           <h2 class="w-100">Ready to Start?</h2>
-          <span class="close">&times;</span>
+          <button type="button" class="btn-close close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <form id="timerform" action="./timer_page/timer.html">
@@ -95,7 +95,7 @@
               disabled></textarea>
 
             <div class="task-btns">
-              <button class="cancel-btn" type="button">Cancel</button>
+              <button class="cancel-btn" type="button" data-bs-dismiss="modal">Cancel</button>
               <button class="submit-btn" id="start-btn" type="submit">
                 Start
               </button>
@@ -134,7 +134,7 @@
           </div>
 
           <div class="task-btns">
-            <button class="cancel-btn">Cancel</button>
+            <button class="cancel-btn" data-bs-dismiss="modal">Cancel</button>
             <button class="submit-btn" id="edit-save-btn" type="submit">
               Save
             </button>
@@ -158,7 +158,7 @@
               <p id="task-delete"></p>
             </div>
             <div class="task-btns">
-              <button class="cancel-btn">Cancel</button>
+              <button class="cancel-btn" data-bs-dismiss="modal">Cancel</button>
               <button class="confirm-btn" id="confirm-button">Delete</button>
             </div>
           </div>
