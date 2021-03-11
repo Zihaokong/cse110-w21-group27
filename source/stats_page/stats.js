@@ -26,6 +26,14 @@ if (!retrievedObject || retrievedObject === 'undefined') {
     statsList = JSON.parse(retrievedObject);
 }
 
+statsList = [
+    {date: 1, distractions: 5, passOrNot: 1},
+    {date: 30, distractions: 5, passOrNot: 1},
+    {date: 35, distractions: 5, passOrNot: 0},
+    {date: 48, distractions: 3, passOrNot: 1},
+    {date: 65, distractions: 5, passOrNot: 0},
+    {date: 69, distractions: 5, passOrNot: 1}]
+
 var startingDate = new Date('01/01/2021');
 var today = new Date();
 var diffTime = Math.abs(today - startingDate);
@@ -46,39 +54,39 @@ statsList.forEach(function (arrayItem) {
     var y = arrayItem.distractions;
     var z = arrayItem.passOrNot;
     //today section
-    if(x == diffDays) {
+    if(diffDays - x == 0) {
         todayPomos++;
-        todayDistractions = todayDistractions + y;
         if(z == 1) {
+            todayDistractions = todayDistractions + y;
             todayCompletedPomos++;
         }
     }
     //last 7 days section
     if(diffDays - x <= 7) {
         weekPomos++;
-        weekDistractions = weekDistractions + y;
         if(z == 1) {
+            weekDistractions = weekDistractions + y;
             weekCompletedPomos++;
         }
     }
     //last 30 days section
     if(diffDays - x <= 30) {
         monthPomos++;
-        monthDistractions = monthDistractions + y;
         if(z == 1) {
+            monthDistractions = monthDistractions + y;
             monthCompletedPomos++;
         }
     }
 });
 
 document.getElementById("todayPomos").innerText = todayPomos;
-document.getElementById("todayAvgDistractions").innerText = todayDistractions / todayCompletedPomos;
-document.getElementById("todaySuccess").innerText = 100 * todayCompletedPomos / todayPomos + "%";
+document.getElementById("todayAvgDistractions").innerText = (todayDistractions / todayCompletedPomos).toFixed(1);
+document.getElementById("todaySuccess").innerText = (100 * todayCompletedPomos / todayPomos).toFixed(2) + "%";
 
 document.getElementById("weekPomos").innerText = weekPomos;
-document.getElementById("weekAvgDistractions").innerText = weekDistractions / weekCompletedPomos;
-document.getElementById("weekSuccess").innerText = 100 * weekCompletedPomos / weekPomos + "%";
+document.getElementById("weekAvgDistractions").innerText = (weekDistractions / weekCompletedPomos).toFixed(1);
+document.getElementById("weekSuccess").innerText = (100 * weekCompletedPomos / weekPomos).toFixed(2) + "%";
 
 document.getElementById("monthPomos").innerText = monthPomos;
-document.getElementById("monthAvgDistractions").innerText = monthDistractions / monthCompletedPomos;
-document.getElementById("monthSuccess").innerText = 100 * monthCompletedPomos / monthPomos + "%";
+document.getElementById("monthAvgDistractions").innerText = (monthDistractions / monthCompletedPomos).toFixed(1);
+document.getElementById("monthSuccess").innerText = (100 * monthCompletedPomos / monthPomos).toFixed(2) + "%";
