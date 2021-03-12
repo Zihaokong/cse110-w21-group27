@@ -2,12 +2,55 @@
  * This file defines functions and implements the behaviors for pop-up modals
  * and other Modals for the main page.
  */
-// Get the modal
-const modal = document.getElementById('add-task-modal');
-const playModal = document.getElementById('play-modal');
-const editModal = document.getElementById('edit-modal');
-const deleteModal = document.getElementById('delete-modal');
+let statsList;
+const retrievedStats = localStorage.getItem('statsList');
+if (!retrievedStats || retrievedStats === 'undefined') {
+  statsList = [];
+} else {
+  statsList = JSON.parse(retrievedStats);
+  // testList();
+  determineSessionDate();
+}
 
+/**
+ * To determine the current date when the user accessing to the index.html.
+ * Calculate the difference of days since the last visit. If it is not the same
+ * work day, create the new object with the current number in counters and add
+ * to the list. Reset the counters current work day.
+ */
+function determineSessionDate() {
+  // get the last visit date from local Storage and pass as Date object
+  const lastVisit = new Date(JSON.parse(localStorage.getItem('lastVisit')));
+  // create current Date object
+  const currentDate = new Date();
+  // The difference in day
+  const diffDays = Math.floor(
+    Math.abs(currentDate - lastVisit) / (1000 * 60 * 60 * 24)
+  );
+  // if the last visit and current are not the same day
+  if (diffDays !== 0) {
+    const todayPomos = Number(localStorage.getItem('todayPomo'));
+    const todayDistractions = Number(localStorage.getItem('distractCounter'));
+    const todayCompletedPomos = Number(localStorage.getItem('sessionCounter'));
+    // create the new object contains the elements of the current stats
+    const newStats = {
+      day: lastVisit.toLocaleDateString('en-US'),
+      pomoCount: todayPomos,
+      distractions: todayDistractions,
+      completedPomos: todayCompletedPomos,
+    };
+    // adding the latest stat to the head of the list
+    statsList.unshift(newStats);
+    // reseting all the counters for current day
+    localStorage.setItem('todayPomo', 0);
+    localStorage.setItem('distractCounter', 0);
+    localStorage.setItem('sessionCounter', 0);
+    // adding the list with new stat to localStorage
+    localStorage.setItem('statsList', JSON.stringify(statsList));
+  }
+}
+// Get the add-task-modal
+const modal = document.getElementById('add-task-modal');
 // Get the button that opens the modal
 const btns = document.getElementsByClassName('add-task-btn');
 // Get the cancel button that close the modal
@@ -39,9 +82,9 @@ function scrollFunc() {
  */
 function closeModal() {
   modal.style.display = 'none';
-  playModal.style.display = 'none';
-  editModal.style.display = 'none';
-  deleteModal.style.display = 'none';
+  document.getElementById('play-modal').style.display = 'none';
+  document.getElementById('edit-modal').style.display = 'none';
+  document.getElementById('delete-modal').style.display = 'none';
 }
 
 /**
@@ -51,56 +94,16 @@ function closeModal() {
 window.onclick = function closeModal2(event) {
   if (event.target === modal) {
     modal.style.display = 'none';
-    deleteModal.style.display = 'none';
+    document.getElementById('delete-modal').style.display = 'none';
   }
 };
 
-let statsList;
-const retrievedStats = localStorage.getItem('statsList');
-if (!retrievedStats || retrievedStats === 'undefined') {
-  statsList = [];
-} else {
-  statsList = JSON.parse(retrievedStats);
-  // testList();
-  determineSessionDate();
-}
-
 /**
- * Handle if the user log-on differnet date
- */
-function determineSessionDate() {
-  // get the last visit date from local Storage and pass as Date object
-  const lastVisit = new Date(JSON.parse(localStorage.getItem('lastVisit')));
-  // create current Date object
-  const currentDate = new Date();
-  // The difference in day
-  const diffDays = Math.floor(
-    Math.abs(currentDate - lastVisit) / (1000 * 60 * 60 * 24)
-  );
-  // if the last visit and current are not the same day
-  if (diffDays !== 0) {
-    const todayPomos = Number(localStorage.getItem('todayPomo'));
-    const todayDistractions = Number(localStorage.getItem('distractCounter'));
-    const todayCompletedPomos = Number(localStorage.getItem('sessionCounter'));
-    const newStats = {
-      day: lastVisit.toLocaleDateString('en-US'),
-      pomoCount: todayPomos,
-      distractions: todayDistractions,
-      completedPomos: todayCompletedPomos,
-    };
-    statsList.unshift(newStats);
-    localStorage.setItem('todayPomo', 0);
-    localStorage.setItem('distractCounter', 0);
-    localStorage.setItem('sessionCounter', 0);
-    localStorage.setItem('statsList', JSON.stringify(statsList));
-  }
-}
-
-/**
- * Closing page will remove the TaskList object and log the currentDate time
+ * Closing or leaving page will remove the TaskList object,
+ * trigger determineSessionDate(), and log the currentDate time
  */
 window.onbeforeunload = function handleUnload() {
-  // call incase the date has changed before the next pomo
+  // call in case the date has changed before the next pomo
   determineSessionDate();
   // create current Date object
   const current = new Date();
@@ -111,6 +114,10 @@ window.onbeforeunload = function handleUnload() {
   document.getElementById('main-container').remove();
 };
 
+/**
+ * Use for testing in development, need to set the date of local machine
+ * as the same aslastVisit
+ */
 function testList() {
   /// / Code for testing ////
   statsList = [

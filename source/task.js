@@ -50,7 +50,7 @@ class TaskList extends HTMLElement {
       .getElementById('taskform')
       .addEventListener('submit', (e) => this.addTask(e));
 
-    // Create and Appened a liSt container the task-list to house task-items
+    // Create and Appened a list container the task-list to house task-items
     const list = document.createElement('ul');
     list.setAttribute('id', 'main-list');
     list.setAttribute('class', 'task-container d-flex');
