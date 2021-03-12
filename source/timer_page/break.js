@@ -9,6 +9,8 @@ function continueTask() {
     document.body.style.backgroundImage = 'linear-gradient(to right,#E0EAFC,#CFDEF3)';
     document.getElementById("currTask").innerHTML = "Task";
     document.getElementById("button-container").style.display = 'flex';
+    document.getElementById("start-btn").style.display = 'block';
+    document.getElementById("button-container").style.paddingLeft = '0px';
     //start(0, 3);
     window.location.reload();
 }
@@ -21,29 +23,31 @@ function changeTask() {
 function displayShortBreak() {
     let audio1 = new Audio("../../media/work-tune.mp3");
     audio1.play();
-    document.getElementById('shortBreakModal').style.display = 'block';
+    setTimeout(function(){ 
+        window.location.reload(); 
+    }, 2000);
 }
 
-function startShortBreak() {
-    document.getElementById('shortBreakModal').style.display = 'none';
-    document.body.style.backgroundImage = 'linear-gradient(to right,#74EBD5,#ACB6E5)';
-    document.getElementById("currTask").innerHTML = "Short Break";
-    document.getElementById("button-container").style.display = 'none';
-    //start(0, 3);
-    window.location.reload();
+function startShortBreak(){
+    document.getElementById("container-short").style.display = 'none';
+    start(0,59);
 }
 
 function displayLongBreak() {
     let audio2 = new Audio("../../media/work-tune.mp3");
     audio2.play();
-    document.getElementById('longBreakModal').style.display = 'block';
+    setTimeout(function(){ 
+        window.location.reload(); 
+    }, 2000);
 }
 
 function startLongBreak() {
-    document.getElementById('longBreakModal').style.display = 'none';
-    document.body.style.backgroundImage = 'linear-gradient(to right,#ACB6E5,#74EBD5)';
-    document.getElementById("currTask").innerHTML = "Long Break";
-    document.getElementById("button-container").style.display = 'none';
-    //start(0, 5);
-    window.location.reload();
+    document.getElementById("container-long").style.display = 'none';
+    start(0,59);
+}
+
+function startTimer(){
+    document.getElementById("start-btn").style.display = 'none';
+    document.getElementById("button-container").style.paddingLeft = '150px';
+    start(0,59);
 }

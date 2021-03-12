@@ -21,18 +21,20 @@ window.onload = function template() {
         }
     }
     if(localStorage.getItem('ShortBreak') == 'true'){
-        document.getElementById('shortBreakModal').style.display = 'none';
         document.body.style.backgroundImage = 'linear-gradient(to right,#74EBD5,#ACB6E5)';
+        document.getElementById('minutes').innerHTML = '01';
+        document.getElementById('seconds').innerHTML = '00';
         document.getElementById("currTask").innerHTML = "Short Break";
         document.getElementById("button-container").style.display = 'none';
-        start(0, 3);
+        document.getElementById("container-short").style.display = 'block';
     }
     else if(localStorage.getItem('LongBreak') == 'true'){
-        document.getElementById('longBreakModal').style.display = 'none';
         document.body.style.backgroundImage = 'linear-gradient(to right,#ACB6E5,#74EBD5)';
+        document.getElementById('minutes').innerHTML = '01';
+        document.getElementById('seconds').innerHTML = '00';
         document.getElementById("currTask").innerHTML = "Long Break";
         document.getElementById("button-container").style.display = 'none';
-        start(0, 5);
+        document.getElementById("container-long").style.display = 'block';
     }
     else{
         localStorage.setItem('isPomo', 'false');
@@ -40,7 +42,8 @@ window.onload = function template() {
         document.getElementById('seconds').innerHTML = '00';
         document.getElementById("distraction-btn").innerHTML = "Distraction : " + distractCounter;
         document.getElementById("title_timer").innerHTML = "01:00" + "- Time To Work!";
-        start(0, 3);
+        document.getElementById("start-btn").style.display = 'block';
+        document.getElementById("button-container").style.paddingLeft = '0px';
     }
     // render starting value of timer
     
