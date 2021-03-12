@@ -227,7 +227,7 @@ class TaskItem extends HTMLElement {
     // the inner div for the progress itserlf and uses the attribute from the newTask object
     const progress = document.createElement('div');
     progress.setAttribute('id', 'progress-bar');
-    if (this.current > this.number) {
+    if (parseInt(this.current, 10) > parseInt(this.number, 10)) {
       progress.setAttribute('class', 'progress-bar progress-bar bg-danger');
     } else {
       progress.setAttribute('class', 'progress-bar progress-bar');
@@ -346,7 +346,7 @@ class TaskItem extends HTMLElement {
     editIcon.setAttribute('job', 'edit');
     editIcon.textContent = 'mode_edit';
     editButton.appendChild(editIcon);
-    if (this.completed === 'true' || this.current > 0) {
+    if (this.completed === 'true' || parseInt(this.current, 10) > 0) {
       editButton.disabled = 'true';
       editIcon.style.color = '#c4c4c4';
     } else {

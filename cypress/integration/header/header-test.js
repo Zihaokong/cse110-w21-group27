@@ -100,35 +100,35 @@ describe('Header Tests', () => {
     }
   });
 
-  it('Test header after 1000 cycles', () => {
+  it('Test header after 100 cycles', () => {
     cy.clock();
-    for (let i = 0; i < 200; i++) {
+    for (let session = 0; session < 100; session++) {
       cy.get('#header')
         .shadow()
         .find('#completed-cycle')
-        .contains(`| Completed Cycles: ${i}`);
-      if (i < 5) {
+        .contains(`| Completed Cycles: ${session}`);
+      if (session < 5) {
         cy.get('#header')
           .shadow()
           .find('#cycle-count')
           .children('.dot')
-          .should('have.length', 4 - i);
+          .should('have.length', 4 - session);
         cy.get('#header')
           .shadow()
           .find('#cycle-count')
           .children('.filled-dot')
-          .should('have.length', i);
+          .should('have.length', session);
       } else {
         cy.get('#header')
           .shadow()
           .find('#cycle-count')
           .children('.dot')
-          .should('have.length', 3 - ((i - 1) % 4));
+          .should('have.length', 3 - ((session - 1) % 4));
         cy.get('#header')
           .shadow()
           .find('#cycle-count')
           .children('.filled-dot')
-          .should('have.length', ((i - 1) % 4) + 1);
+          .should('have.length', ((session - 1) % 4) + 1);
       }
       cy.get('#main-container')
         .shadow()
@@ -139,7 +139,7 @@ describe('Header Tests', () => {
         .click({ force: true });
       cy.get('#start-btn').click();
       cy.tick(5000);
-      if ((i + 1) % 4 === 0) {
+      if ((session + 1) % 4 === 0) {
         cy.get('#start-button-long').click();
       } else {
         cy.get('#start-button').click();
@@ -147,54 +147,54 @@ describe('Header Tests', () => {
       cy.get('#header')
         .shadow()
         .find('#completed-cycle')
-        .contains(`| Completed Cycles: ${i + 1}`);
-      if (i < 4) {
+        .contains(`| Completed Cycles: ${session + 1}`);
+      if (session < 4) {
         cy.get('#header')
           .shadow()
           .find('#cycle-count')
           .children('.dot')
-          .should('have.length', 3 - i);
+          .should('have.length', 3 - session);
         cy.get('#header')
           .shadow()
           .find('#cycle-count')
           .children('.filled-dot')
-          .should('have.length', i + 1);
+          .should('have.length', session + 1);
       } else {
         cy.get('#header')
           .shadow()
           .find('#cycle-count')
           .children('.dot')
-          .should('have.length', 3 - (i % 4));
+          .should('have.length', 3 - (session % 4));
         cy.get('#header')
           .shadow()
           .find('#cycle-count')
           .children('.filled-dot')
-          .should('have.length', (i % 4) + 1);
+          .should('have.length', (session % 4) + 1);
       }
       cy.tick(5000);
       cy.get('#change-btn').click();
-      if (i < 4) {
+      if (session < 4) {
         cy.get('#header')
           .shadow()
           .find('#cycle-count')
           .children('.dot')
-          .should('have.length', 3 - i);
+          .should('have.length', 3 - session);
         cy.get('#header')
           .shadow()
           .find('#cycle-count')
           .children('.filled-dot')
-          .should('have.length', i + 1);
+          .should('have.length', session + 1);
       } else {
         cy.get('#header')
           .shadow()
           .find('#cycle-count')
           .children('.dot')
-          .should('have.length', 3 - (i % 4));
+          .should('have.length', 3 - (session % 4));
         cy.get('#header')
           .shadow()
           .find('#cycle-count')
           .children('.filled-dot')
-          .should('have.length', (i % 4) + 1);
+          .should('have.length', (session % 4) + 1);
       }
     }
   });
