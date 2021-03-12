@@ -54,7 +54,8 @@ const headerStyle = () =>
       padding-bottom: 5px;
       width: 100%;
       color: #e5e5e5;
-      font-size: 24px;
+      font-size: 1em;
+      font-weight: 5;
     }
     
     h2 {

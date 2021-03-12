@@ -59,12 +59,13 @@ function start(minutes, seconds) {
     localStorage.setItem('ShortBreak','false');
     localStorage.setItem('LongBreak','false');
 
-
+    let startTime = +new Date();
+    console.log(startTime);
     // display correct distraction counter 
     distractCounter = 0;
     document.getElementById("distraction-btn").innerHTML = "Distraction : " + distractCounter;
     let secs = 0;
-    let totalsecs = (minutes + 1) * 60;
+    let totalsecs = (minutes) * 60 + seconds;
     //var progress_ring_interval = setInterval(updateProgressRing, 10);
     if (minutes < 10) {
         document.getElementById("minutes").innerHTML = "0" + minutes;
@@ -79,11 +80,8 @@ function start(minutes, seconds) {
         document.getElementById("title_timer").innerHTML = minutes + ":" + seconds + "- Time To Work!";
     }
 
-    var minutes_interval = setInterval(minutesTimer, 60000);
-    var seconds_interval = setInterval(secondsTimer, 1000);
-    secs = secs + 1;
-    perc = 100 - (((totalsecs - secs) / totalsecs) * 100);
-    setProgress(perc);
+    //var minutes_interval = setInterval(minutesTimer, 60000);
+    var seconds_interval = setInterval(secondsTimer, 500);
 
     /*function updateProgressRing(){
         secs = secs + 1;
@@ -92,26 +90,37 @@ function start(minutes, seconds) {
         console.log("123");
     }*/
 
-    function minutesTimer() {
+    /*function minutesTimer() {
         minutes = minutes - 1;
         if (minutes < 10) {
             document.getElementById("minutes").innerHTML = "0" + minutes;
         } else {
             document.getElementById("minutes").innerHTML = minutes;
         }
-    }
+    }*/
 
     function secondsTimer() {
-        seconds = seconds - 1;
-        secs = secs + 1;
-        perc = 100 - (((totalsecs - secs) / totalsecs) * 100);
+        let currTime = +new Date();
+        console.log((currTime - startTime)/1000);
+        let elapsed = Math.floor((currTime - startTime)/1000);
+        let timeLeft = totalsecs - elapsed;
+        minutes = Math.floor(timeLeft/60);
+        seconds = timeLeft % 60;
+        //seconds = seconds - 1;
+        //secs = secs + 1;
+        perc = 100 - (((timeLeft) / totalsecs) * 100);
         setProgress(perc);
+        if (minutes < 10) {
+            document.getElementById("minutes").innerHTML = "0" + minutes;
+        } else {
+            document.getElementById("minutes").innerHTML = minutes;
+        }
         if (seconds < 10) {
             document.getElementById("seconds").innerHTML = "0" + seconds;
             document.getElementById("title_timer").innerHTML = minutes + ":0" + seconds + "- Time To Work!";
             if (seconds == 0) {
                 if (minutes <= 0) {
-                    clearInterval(minutes_interval);
+                    //clearInterval(minutes_interval);
                     clearInterval(seconds_interval);
                     resetProgressRing();
                     let counter = Number(localStorage.getItem('sessionCounter'));
@@ -139,7 +148,6 @@ function start(minutes, seconds) {
                         localStorage.setItem('allTasks', JSON.stringify(allTasks));
                     }
                 }
-                seconds = 60;
             }
         } else {
             document.getElementById("seconds").innerHTML = seconds;
