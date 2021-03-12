@@ -8,6 +8,9 @@
  * this represents the current date and completed cycles count
  */
 class HeaderComp extends HTMLElement {
+  /**
+   * Constructor which attaches a shadow root to this element in open mode
+   */
   constructor() {
     super();
     this.attachShadow({
@@ -15,25 +18,40 @@ class HeaderComp extends HTMLElement {
     });
   }
 
+  /**
+   * Gets the amount of completed cycles.
+   */
   get completedCycles() {
     return this.completed;
   }
 
+  /**
+   * Gets the cycle count.
+   */
   get cycleCount() {
     return this.count;
   }
 
-  // the browser calls this method when aheader-comp element is added to the document
+  /**
+   * Called when the header is applied to the DOM; Sets up the header.
+   */
   connectedCallback() {
+    // Get the session counter from storage.
     this.completed = localStorage.getItem('sessionCounter');
     this.count = 4 - (this.completed % 4);
+
+    // Creates the nav element which houses the info of the header
     const nav = document.createElement('nav');
     nav.setAttribute('class', 'top-nav');
+
+    // Creat the date text.
     const date = document.createElement('h2');
     date.setAttribute('id', 'date');
     date.innerText = HeaderComp.createDate()
       ? HeaderComp.createDate()
       : `Today's date`;
+
+    // Create the cycle counter section of the header.
     const section = document.createElement('section');
     section.setAttribute('id', 'cycle-count');
     section.innerHTML = `      
@@ -42,17 +60,23 @@ class HeaderComp extends HTMLElement {
         | Not yet completed
       </h2>
     </span>`;
+
+    // Append the date and section to the nav element
     nav.appendChild(date);
     nav.appendChild(section);
+
+    // Appened the nav and styling to the shadow root.
     this.shadowRoot.innerHTML = HeaderComp.headerStyle();
     this.shadowRoot.appendChild(nav);
+
+    // Setup and render the circles in the cycle counter as well as the date.
     this.renderCounter();
     this.renderCompletedCount();
     this.renderText();
   }
 
   /**
-   * create unfilled circle for cycles
+   * Create unfilled circle for cycles.
    */
   renderCounter() {
     const shadow = this.shadowRoot;
@@ -72,7 +96,7 @@ class HeaderComp extends HTMLElement {
   }
 
   /**
-   * create filled circle for completed cycles
+   * Create filled circle for completed cycles.
    */
   renderCompletedCount() {
     if (this.completedCycles % 4 === 0 && this.completedCycles !== '0') {
@@ -91,7 +115,7 @@ class HeaderComp extends HTMLElement {
   }
 
   /**
-   * Render the text shown on header
+   * Render the text shown on header.
    */
   renderText() {
     const cycleText = this.shadowRoot.getElementById('completed-cycle');
@@ -99,8 +123,8 @@ class HeaderComp extends HTMLElement {
   }
 
   /**
-   * Method for creating styles for this component
-   * @return the styles tag with css embedded code
+   * Method for creating styles for this component.
+   * @returns {string} The styles tag with css embedded code.
    */
   static headerStyle() {
     return `<style>
@@ -152,7 +176,7 @@ class HeaderComp extends HTMLElement {
 
   /**
    * Method for creating Date object and get the local current Date
-   * @return today's date
+   * @returns {string} today's date
    */
   static createDate() {
     const todayDate = new Date();
