@@ -106,3 +106,11 @@ document.getElementById("reset").onclick = () => {
     document.getElementById("monthAvgDistractions").innerText = 0;
     document.getElementById("monthSuccess").innerText = "0%";
 };
+
+function closeInfoModal(){
+    document.getElementById("infoModal").style.display = 'none';
+}
+
+function openInfoModal(){
+    document.getElementById("infoModal").style.display = 'block';
+}

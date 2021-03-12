@@ -22,8 +22,15 @@
 
     <div class="main-contents container">
 
-        <h1>Statistics: <span><button id="reset">Reset</button></span></h1>
-        <hr>
+        <div id="heading-container">
+            <h1>Statistics:</h1>
+            <div id="btns">
+                <div id="reset-container"><button id="reset">Reset</button></div>
+                <div id="info-container"><button id="info" onclick="openInfoModal()">?</button></div>
+            </div>
+        </div>
+
+        <hr style="height:2px ;color: #282828;">
 
         <div class="row">
             <h2>Today</h2>
@@ -99,6 +106,28 @@
             </div>
         </div>
     </div>
+
+    <div id="infoModal" class="modal-info">
+        <div class="modal-content-info">
+            <div class="modal-text">
+                <input id="close-btn" type="image" src="./close.png" onclick="closeInfoModal()"/>
+                <div class="heading-info">
+                    <h3>Information</h3>
+                </div>
+                <hr style="height:2px ;color: #282828;">
+                <p>
+                    <b>Completed Pomos: </b>Total number of completed pomos
+                </p>
+                <p>
+                    <b>Average Distractions Per Pomo: </b>Ratio of total number of distractions to total number of completed pomos
+                </p>
+                <p>
+                    <b>Pomo Success Rate: </b>Ratio of total number of completed pomos to total number of attempted pomos (including failed pomos)
+                </p>
+            </div>
+        </div>
+    </div>
+
 
     <script src="../header-comp.js"></script>
     <script src="./stats.js"> </script>
