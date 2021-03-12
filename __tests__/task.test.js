@@ -707,7 +707,7 @@ describe('Test other event functions', () => {
     expect(taskItem.completed).toBe('false');
   });
 
-  test('Test showModalTask even (aka play event)', () => {
+  test('Test playTask even (aka play event)', () => {
     // Create and set task list element in document
     const taskList = document.createElement('task-list');
     document.getElementById('test').appendChild(taskList);
@@ -723,8 +723,8 @@ describe('Test other event functions', () => {
       value: taskItemPlayBtn,
     });
 
-    // Run showModalTask
-    taskList.showModalTask(playEvent);
+    // Run playTask
+    taskList.playTask(playEvent);
 
     // comfirm changes
     expect(document.getElementById('play-modal').style.display).toBe('block');
