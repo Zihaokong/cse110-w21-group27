@@ -7,7 +7,7 @@
     "doc": "jsdoc -c jsdoc.json",
     "jTest": "jest --coverage",
     "cTest": "npx cypress run",
-    "test": "npm run cTest && npm run jTest",
+    "test": "npm run jTest",
     "docmd": "mkdir docs; jsdoc2md source/*.js > docs/source.md"
   },
   "jest": {
