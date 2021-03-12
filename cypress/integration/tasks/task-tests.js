@@ -22,7 +22,7 @@ describe('Tasks tests', () => {
 
   it('Add task modal appears when add-task-btn-bot is clicked', () => {
     cy.get('#add-task-modal').should('have.css', 'display', 'none');
-    cy.get('#add-task-btn-bot').click();
+    cy.get('#add-task-btn-bottom').click();
     cy.get('#add-task-modal').should('have.css', 'display', 'block');
   });
 
