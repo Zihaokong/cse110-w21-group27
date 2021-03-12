@@ -30,7 +30,7 @@ function displayShortBreak() {
 
 function startShortBreak(){
     document.getElementById("container-short").style.display = 'none';
-    start(1,00);
+    start(0,3);
 }
 
 function displayLongBreak() {
@@ -43,11 +43,11 @@ function displayLongBreak() {
 
 function startLongBreak() {
     document.getElementById("container-long").style.display = 'none';
-    start(1,00);
+    start(0,5);
 }
 
 function startTimer(){
     document.getElementById("start-btn").style.display = 'none';
     document.getElementById("button-container").style.paddingLeft = '150px';
-    start(1,00);
+    start(0,3);
 }
