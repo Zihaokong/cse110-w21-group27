@@ -37,11 +37,12 @@ jobs:
     - name: copy index file from source to build
       run: |
         cp source/index.html build/index.html
+        cp source/timer_page/timer.html build/timer.html
     - name: create timer_page directory structure
       run: |
         cd build
         mkdir timer_page
-        cp break.js progress.js timer-modals.css timer.css timer.html timer.js timer_page
+        mv break.js progress.js timer-modals.css timer.css timer.js timer.html timer_page
     - name: commit files
       run: |
         git add .a
