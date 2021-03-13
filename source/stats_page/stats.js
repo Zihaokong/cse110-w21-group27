@@ -77,7 +77,6 @@ statsList = [
   },
 ];
 
-// var lastVisit = localStorage.getItem('lastVisit');
 const lastVisit = new Date('3/11/2021');
 const today = new Date();
 const diffTime = Math.abs(today - lastVisit);
@@ -94,16 +93,6 @@ let weekDistractions = 0;
 let monthPomos = 0;
 let monthCompletedPomos = 0;
 let monthDistractions = 0;
-
-// if (diffDays === 1) {
-//     const work = {
-//         day: lastVisit,
-//         pomoCounts: 4,
-//         distractions: 5,
-//         completedPomos: 7
-//     };
-//     statsList.unshift(work);
-// }
 
 for (let i = 0; i < statsList.length; i++) {
   const itemDay = new Date(statsList[i].day);
@@ -203,7 +192,3 @@ function openInfoModal() {
 function scrollFunc() {
   window.scrollTo(0, 0);
 }
-
-window.onbeforeunload = () => {
-  localStorage.setItem('lastVisit', JSON.stringify(today));
-};
