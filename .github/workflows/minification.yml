@@ -33,7 +33,7 @@ jobs:
     - name: add minfied files to build directory
       run: |
         mkdir build
-        cp -a /minified/. /build
+        cp -a minified/. /build
     - name: copy index file from source to build
       run: |
         cp source/index.html build/index.html
