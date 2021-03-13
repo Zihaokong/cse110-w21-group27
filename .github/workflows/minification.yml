@@ -11,10 +11,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: remove previous files
-      run: |
-        rm -r build/*
-        rm -r minified/*
+    # - name: remove previous files
+    #   run: |
+    #     rm -r build/*
+    #     rm -r minified/*
 
     - name: Auto Minify
       uses: nizarmah/auto-minify@master
