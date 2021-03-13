@@ -33,7 +33,7 @@ jobs:
     - name: rename minified files
       run: |
         cd ./minified
-        sudo for file in *.min.* ; do mv $file ${file//min./} ; done
+        for file in *.min.* ; do sudo mv $file ${file//min./} ; done
         cd ..
     - name: add minfied files to build directory
       run: |
