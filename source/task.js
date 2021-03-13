@@ -1,15 +1,16 @@
 /**
  * This file defines functions and implements the behaviors of task list.
  */
-// Section for ESLint
-/* global closeModal */
-let allTasks;
-let dropzone;
 
 /**
- * Class constructor for <task-list>
+ * Class to define the task-list web component.
  */
 class TaskList extends HTMLElement {
+  /**
+   * Constructor which attaches a shadow root to this element in open mode.
+   * Additionally, initializes properties of the TaskList and sets up the inner
+   * HTML (styling)
+   */
   constructor() {
     super();
 
@@ -17,47 +18,117 @@ class TaskList extends HTMLElement {
       mode: 'open',
     });
 
+    this.allTasks = null;
+
+    // variables for drag and drop functions
+    this.dropzone = null;
+    this.checked = false;
+    this.selectedNode = null;
+    this.nodes = null;
+    this.preNodePos = null;
+
+    // set styles for shadow elements
     shadow.innerHTML = `<link rel="stylesheet" href="task.css"/>
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous"/>`;
   }
 
+  /**
+   * Invoked each time the task-list is appeneded into a document-connected
+   * element; sets up the list and reads localstorage to set up saved
+   * task-items.
+   */
   connectedCallback() {
+    // Add an event listener to the taskform such that when the form is
+    // submitted, it creates a task.
+    document
+      .getElementById('taskform')
+      .addEventListener('submit', (e) => this.addTask(e));
+
+    // Create and Appened a liSt container the task-list to house task-items
     const list = document.createElement('ul');
     list.setAttribute('id', 'main-list');
     list.setAttribute('class', 'task-container d-flex');
     this.shadowRoot.append(list);
+
+    // Get tasks from localStorage and, if they exist, create and append them
+    // to the task-list.
     const retrievedObject = localStorage.getItem('allTasks');
     if (!retrievedObject || retrievedObject === 'undefined') {
-      allTasks = [];
+      this.allTasks = [];
     } else {
-      allTasks = JSON.parse(retrievedObject);
-      if (allTasks.length !== 0) {
+      this.allTasks = JSON.parse(retrievedObject);
+      if (this.allTasks.length !== 0) {
         document.getElementById('welcome-message').remove();
       }
-      for (let i = 0; i < allTasks.length; i++) {
-        this.renderTask(allTasks[i]);
+      for (let i = 0; i < this.allTasks.length; i++) {
+        this.renderTask(this.allTasks[i]);
       }
     }
-    dropzone = this.shadowRoot.querySelector('ul');
+
+    // Drag and drop functionality
+    this.dropzone = this.shadowRoot.querySelector('ul');
+
+    // getter for the list items
+    this.nodes = this.dropzone.getElementsByClassName('taskNode');
+
+    // variable for the selected node to be dragged or moved
+    this.selectedNode = null;
+    this.preNodePos = 0;
+    this.checked = false;
+    this.dropzone.addEventListener(
+      'dragstart',
+      (event) => this.handleDragStart(event),
+      false
+    );
+
+    // Listener for the dragover event
+    this.dropzone.addEventListener('dragover', (event) =>
+      this.handleDragOver(event)
+    );
   }
 
-  renderTask(newTask) {
+  /**
+   * When the task-list is disconnected (basically before the page is exited),
+   * save the tasks in the task-list to localStorage.
+   */
+  disconnectedCallback() {
+    localStorage.setItem('allTasks', JSON.stringify(this.allTasks));
+  }
+
+  /**
+   * Set up and render a task-item element and then append it to the task-list.
+   * @param {Object} taskInfo Info about the task being created.
+   * @param {string} taskInfo.id Randomly generated id of the pomo.
+   * @param {string} taskInfo.name Name of the task.
+   * @param {string} taskInfo.current Current number of completed pomo tasks.
+   * @param {string} taskInfo.number Estimated number of pomos for the task.
+   * @param {string} taskInfo.completed If the pomo completed.
+   */
+  renderTask(taskInfo) {
     const taskItem = document.createElement('task-item');
-    taskItem.setAttribute('id', newTask.id);
-    taskItem.name = newTask.name;
-    taskItem.current = newTask.current;
-    taskItem.number = newTask.number;
-    taskItem.setFunctions(showModalTask, editTask, deleteTask, setCheck);
+    taskItem.setAttribute('id', taskInfo.id);
+    taskItem.name = taskInfo.name;
+    taskItem.current = taskInfo.current;
+    taskItem.number = taskInfo.number;
+    taskItem.completed = taskInfo.completed;
+    taskItem.setFunctions(
+      this.playTask.bind(this),
+      this.deleteTask.bind(this),
+      this.editTask.bind(this),
+      this.setCheck.bind(this)
+    );
     // append the newly created <task-item> to ul
     this.shadowRoot.querySelector('ul').appendChild(taskItem);
-    // render the checkbox status
-    this.shadowRoot.getElementById(newTask.id).checkmark.checked =
-      newTask.completed;
   }
 
+  /**
+   * Create a task-item in the shadow DOM and append it to allTasks.
+   * @param {Event} event Event which triggered this function.
+   */
   addTask(event) {
     event.preventDefault();
+
     // create struct and append to global list
     const newTask = {
       id: Math.random().toString(16).slice(2),
@@ -67,90 +138,193 @@ class TaskList extends HTMLElement {
       current: 0,
       note: document.getElementById('task-note').value,
     };
-    allTasks.push(newTask);
+    this.allTasks.push(newTask);
 
     // render HTML on page.
     this.renderTask(newTask);
+
     // everything else.
     document.getElementById('taskform').reset();
     const welcome = document.getElementById('welcome-message');
     if (welcome) {
       welcome.remove();
     }
-    closeModal();
+    document.getElementById('add-task-modal').style.display = 'none';
   }
-}
-customElements.define('task-list', TaskList);
 
-/**
- * Closing page will save current task and update local storage
- */
-window.onbeforeunload = function storeTask() {
-  localStorage.setItem('allTasks', JSON.stringify(allTasks));
-};
+  /**
+   * Delete task from allTasks array and the task-list
+   * @param {Event} event the event which triggered this function; it's target
+   *                      should be the button of the task to be deleted.
+   */
+  deleteTask(event) {
+    document.getElementById('delete-modal').style.display = 'block';
 
-window.onload = () => {
-  document
-    .getElementById('taskform')
-    .addEventListener('submit', (e) =>
-      document.getElementById('main-container').addTask(e)
+    // Delete item in the DOM
+    const element = event.target;
+    const itemToDelete = element.getRootNode().host;
+
+    // Delete item in allTasks array
+    const { name } = itemToDelete;
+    document.getElementById('task-delete').innerText = `[${name}]`;
+    document.getElementById('confirm-button').addEventListener('click', () => {
+      for (let i = 0; i < this.allTasks.length; i++) {
+        if (this.allTasks[i].name === name) {
+          this.allTasks.splice(i, 1);
+          break;
+        }
+      }
+
+      // Delete item in the DOM
+      itemToDelete.remove();
+      document.getElementById('delete-modal').style.display = 'none';
+    });
+  }
+
+  /**
+   * Edit task with respect to allTasks array and the task-list
+   * @param {Event} event the event which triggered this function; it's target
+   *                      should be the button of the task to be edited.
+   */
+  editTask(event) {
+    const editedTask = event.target.getRootNode().host;
+    const targetID = editedTask.id;
+    const taskIndex = this.allTasks.findIndex((elem) => elem.id === targetID);
+
+    // Show the selected task's info in the modal.
+    document.getElementById('edit-note').value = this.allTasks[taskIndex].note;
+    document.getElementById('edit-name').value = editedTask.name;
+    document.getElementById('edit-num').value = editedTask.number;
+
+    // Display the Modal.
+    const editModal = document.getElementById('edit-modal');
+    editModal.style.display = 'block';
+
+    // Create an event listener to the editform so that when it is submitted,
+    // the changes are applied.
+    document.getElementById('editform').addEventListener(
+      'submit',
+      // eslint-disable-next-line no-shadow
+      (event) => {
+        event.preventDefault();
+        const editTaskName = document.getElementById('edit-name').value;
+        const editTaskNum = document.getElementById('edit-num').value;
+        const editTaskNote = document.getElementById('edit-note').value;
+        editedTask.name = editTaskName;
+        editedTask.number = editTaskNum;
+        this.allTasks[taskIndex].name = editTaskName;
+        this.allTasks[taskIndex].number = editTaskNum;
+        this.allTasks[taskIndex].note = editTaskNote;
+        editModal.style.display = 'none';
+      },
+      { once: true }
     );
-  /// ////// SECTION for Drag and Drop ////////
-  // getter for the list items
-  const nodes = dropzone.getElementsByClassName('taskNode');
-  // variable for the selected node to be dragged or moved
-  let selectedNode;
-  let preNodePos = 0;
-  // variable for the position of selected node
-  let selectedNodePos = 0;
-  let checked = false;
-  dropzone.addEventListener(
-    'dragstart',
-    (event) => {
-      preNodePos = setNodePos(event.clientY, preNodePos);
-      selectedNode = event.target;
-      checked = selectedNode.checkmark.checked;
-    },
-    false
-  );
+  }
 
-  // Listener for the dragover event
-  dropzone.addEventListener('dragover', (event) => {
-    event.preventDefault();
-    selectedNodePos = setNodePos(event.clientY, selectedNodePos);
-    if (preNodePos !== selectedNodePos) {
-      preNodePos = setNodePos(event.clientY, preNodePos);
-      dropzone.insertBefore(selectedNode, dropzone.children[selectedNodePos]);
-      selectedNode.checkmark.checked = checked;
+  /**
+   * Retrieving the note in Storage by getting its id
+   * and update the checkmark status on the array
+   * @param {Event} event the event which triggered this function; it's target
+   *                      should be the checkmark of the task being set.
+   */
+  setCheck(event) {
+    const editedTask = event.target.getRootNode().host;
+    const targetID = editedTask.id;
+
+    // change progress bar
+    if (editedTask.completed === 'true') {
+      editedTask.completed = 'false';
+    } else {
+      editedTask.completed = 'true';
     }
 
-    // re-ordering item in localStorage
-    const newArray = [];
-    for (let i = 0; i < nodes.length; i++) {
-      const targetID = nodes[i].id;
-      const taskInArray = allTasks.find((elem) => elem.id === targetID);
-      newArray.push(taskInArray);
-    }
-    allTasks = newArray;
-  });
+    // get the element Index in the object list
+    const taskIndex = this.allTasks.findIndex((elem) => elem.id === targetID);
+    this.allTasks[taskIndex].completed = !this.allTasks[taskIndex].completed;
+  }
 
-  // Listener for the drop event
-  dropzone.addEventListener('drop', (event) => {
+  /**
+   * Retrieving the task name and notes that are stored in allTasks array
+   * and show on the Modal before starting the timer.
+   * @param {Event} event the event which triggered this function; it's target
+   *                      should be the button of the task to be played.
+   */
+  playTask(event) {
+    // Display the play modal for the task.
+    document.getElementById('play-modal').style.display = 'block';
+    const targetTask = event.target.getRootNode().host;
+    document.getElementById('timer-name').innerText = targetTask.name;
+    const taskStorageIndex = this.allTasks.findIndex(
+      (elem) => elem.id === targetTask.id
+    );
+
+    // make the note from storage appear in the timer modal
+    document.getElementById('timer-note').innerText = this.allTasks[
+      taskStorageIndex
+    ].note;
+
+    // set the current task id to localStorage
+    const currentTask = targetTask.id;
+    localStorage.setItem('currentTask', JSON.stringify(currentTask));
+  }
+
+  /**
+   * When a task is first dragged, this function is called with the given event.
+   * Will set the current task node being dragged for future reference as well
+   * as if it was checked.
+   * @param {Event} event The event which triggered the task to be dragged;
+   *                      it's targer should be the task-item that is going
+   *                      to be dragged.
+   */
+  handleDragStart(event) {
+    this.preNodePos = this.setNodePos(event.clientY);
+    this.selectedNode = event.target;
+    this.checked = this.selectedNode.checkmark.checked;
+  }
+
+  /**
+   * While the task is being activly dragged, this function is called;
+   * Notes the current position and swaps with another task when the client
+   * moves the task over a certain threshhold.
+   * @param {Event} event Event which triggers the dragging. Used to get the
+   *                      client's current y position.
+   */
+  handleDragOver(event) {
     event.preventDefault();
-  });
+    const currentNodePos = this.setNodePos(event.clientY);
+
+    // If the currentNodePos changes from the previousNodePos, set the previous
+    //  to the current and swap the selected task with the task associated with
+    //  the currentPosition.
+    if (this.preNodePos !== currentNodePos) {
+      this.preNodePos = currentNodePos;
+      this.dropzone.insertBefore(
+        this.selectedNode,
+        this.dropzone.children[currentNodePos]
+      );
+      this.selectedNode.checkmark.checked = this.checked;
+
+      // re-ordering item in localStorage
+      const newArray = [];
+      for (let i = 0; i < this.nodes.length; i++) {
+        const targetID = this.nodes[i].id;
+        const taskInArray = this.allTasks.find((elem) => elem.id === targetID);
+        newArray.push(taskInArray);
+      }
+      this.allTasks = newArray;
+    }
+  }
 
   /**
    * For measuring the selected node position from the list.
    */
-  function establishNodePositions() {
-    for (let i = 0; i < nodes.length; i++) {
-      const position = nodes[i].getBoundingClientRect(); // info of the element position on the frame
+  establishNodePositions() {
+    for (let i = 0; i < this.nodes.length; i++) {
+      // info of the element position on the frame
+      const position = this.nodes[i].getBoundingClientRect();
       const yTop = position.top;
       const yBottom = position.bottom;
-      // yCenter
-      nodes[i].yPos = yTop + (yBottom - yTop) / 2;
-      // nodes[i].yTop = yTop + (yBottom - yTop) / 2;
-      // nodes[i].yBottom = yBottom - (yBottom - yTop) / 2;
+      this.nodes[i].yPos = yTop + (yBottom - yTop) / 2;
     }
   }
 
@@ -158,99 +332,30 @@ window.onload = () => {
    * For deciding which position the selected element goes to as measuring which
    * is the closest parent and closet children
    * this function will call establishNodePositions() for selected node position.
-   * @param {event.clickY} currentYPos the y-axis value of the current click on window
+   * @param {number} currentYPos the y-axis value of the current click on window
+   * @returns {number} the node position which is associated with the given y
+   *                   position.
    */
-  function setNodePos(currentYPos, nodePos) {
-    establishNodePositions();
-    let nodeAbove;
-    let currentNodePos = nodePos;
-    for (let i = 0; i < nodes.length; i++) {
-      if (nodes[i].yPos < currentYPos) {
-        nodeAbove = nodes[i];
+  setNodePos(currentYPos) {
+    this.establishNodePositions();
+    let currentNodePos = 0;
+    for (let i = 0; i < this.nodes.length; i++) {
+      if (this.nodes[i].yPos < currentYPos) {
         currentNodePos = i + 1;
       }
-    }
-    // for the top of the list
-    if (typeof nodeAbove === 'undefined') {
-      currentNodePos = 0;
     }
 
     return currentNodePos;
   }
+}
+customElements.define('task-list', TaskList);
+
+/**
+ * Closing page will save current task and update local storage
+ */
+window.onbeforeunload = function removeTaskList() {
+  document.getElementById('main-container').remove();
 };
-
-/**
- * Retrieving the task name and notes that are stored in allTasks array
- * and show on the Modal before starting the timer.
- * @param {Element} element: the task-item that is being clicked
- */
-function showModalTask(event) {
-  document.getElementById('play-modal').style.display = 'block';
-  const targetTask = event.target.getRootNode().host;
-  document.getElementById('timer-name').innerText = targetTask.taskName;
-  const taskStorageIndex = allTasks.findIndex(
-    (elem) => elem.id === targetTask.id
-  );
-  // make the note from storage appear in the timer modal
-  document.getElementById('timer-note').innerText =
-    allTasks[taskStorageIndex].note;
-  // set the current task id to localStorage
-  const currentTask = targetTask.id;
-  localStorage.setItem('currentTask', JSON.stringify(currentTask));
-}
-
-/**
- * Edit task for the allTask array and suppose to refresh after edit-save-btn is click
- * @param {Element} element the element that is being clicked
- */
-function editTask(event) {
-  document.getElementById('edit-modal').style.display = 'block';
-  const targetID = event.target.getRootNode().host.id;
-  // get the element Index in the object list
-  const taskIndex = allTasks.findIndex((elem) => elem.id === targetID);
-  document.getElementById('edit-save-btn').addEventListener('click', () => {
-    allTasks[taskIndex].name = document.getElementById('edit-name').value;
-    allTasks[taskIndex].number = document.getElementById('edit-num').value;
-    allTasks[taskIndex].note = document.getElementById('edit-note').value;
-  });
-}
-
-/**
- * Delete task from allTasks array and the task-list
- * @param {Element} element the element that is being clicked
- */
-function deleteTask(event) {
-  document.getElementById('delete-modal').style.display = 'block';
-  // Delete item in the DOM
-  const element = event.target;
-  const itemToDelete = element.getRootNode().host;
-  // Delete item in allTasks array
-  const name = itemToDelete.taskName;
-  document.getElementById('task-delete').innerText = `[${name}]`;
-  document.getElementById('confirm-button').addEventListener('click', () => {
-    for (let i = 0; i < allTasks.length; i++) {
-      if (allTasks[i].name === name) {
-        allTasks.splice(i, 1);
-        break;
-      }
-    }
-    // Delete item in the DOM
-    itemToDelete.remove();
-    document.getElementById('delete-modal').style.display = 'none';
-  });
-}
-
-/**
- * Retrieving the note in Storage by getting its id
- * and update the checkmark status on the array
- * @param element the element that is being click which is passing from handleEdit()
- */
-function setCheck(event) {
-  const targetID = event.target.getRootNode().host.id;
-  // get the element Index in the object list
-  const taskIndex = allTasks.findIndex((elem) => elem.id === targetID);
-  allTasks[taskIndex].completed = !allTasks[taskIndex].completed;
-}
 
 if (typeof exports !== 'undefined') {
   module.exports = {
