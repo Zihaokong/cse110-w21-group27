@@ -67,7 +67,6 @@ hr {
   padding-left: 1%;
 }
 
-
 #back-to-top {
   position: fixed;
   bottom: 2%;
@@ -81,6 +80,23 @@ hr {
   font-size: 16px;
 }
 
+#stats-btn{
+  background: #E5E5E5;
+  color: #2e4756 !important;
+  position: absolute;
+  top: 2%;
+  right: 2%;
+  z-index: 99;
+  padding-top: 2px;
+  border-radius: 55%;
+  box-shadow: none;
+  vertical-align:center;
+  justify-content: center;
+}
+
+#stats-btn > span{
+ padding: 2px 5px;
+}
 
 /* Styles for Modals */
 .modal {

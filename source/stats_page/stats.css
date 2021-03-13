@@ -1,17 +1,10 @@
+body{
+    font-family: "Poppins", sans-serif;
+    font-size: 12px;
+}
 img {
     margin-top:    15px;
     margin-bottom:  0px;
-}
-
-#heading-container{
-    padding-top: 2em;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-#btns{
-    display: flex;
 }
 
 hr{
@@ -31,15 +24,15 @@ button {
     border: none;
     height: 2.5em;
     width: 5em;
-
 }
 
-#info{
-    width: 2.5em;
-    background-color: #828282;
-    font-size: 20px;
-    font-weight: 500;
-    color: #ffffff;
+p {
+    font-size: 30px;
+    font-weight: bold;
+    margin-top :  15px;
+    margin-bottom: 0px;
+    font-weight: 400;
+    padding-bottom: 0.2em;
 }
 
 h1 {
@@ -52,11 +45,68 @@ h2{
     margin-bottom: 2%;
 }
 
-p {
-    font-size: 30px;
-    font-weight: bold;
-    margin-top :  15px;
-    margin-bottom: 0px;
+h3{
+    font-size: 2.5em;
+    color: #2e4756;
+}
+
+
+#info{
+    width: 2.5em;
+    background-color: #828282;
+    font-size: 20px;
+    font-weight: 500;
+    color: #ffffff;
+}
+#heading-container{
+    padding-top: 2em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#heading-container-btns{
+    display: flex;
+}
+
+
+/* For material icon adjustment */
+.material-icons {
+    font-size: 48px !important;
+}  
+
+#stats-btn{
+    background: #E5E5E5;
+    color: #2e4756 !important;
+    position: absolute;
+    top: 2%;
+    right: 2%;
+    z-index: 99;
+    padding-top: 2px;
+    border-radius: 55%;
+    box-shadow: none;
+    vertical-align:center;
+    justify-content: center;
+}
+
+#stats-btn > span{
+    padding: 2px 5px;
+}
+   
+#back-to-top {
+  position: fixed;
+  bottom: 2%;
+  right: 2%;
+  z-index: 5;
+  background-color: #2e4756;
+  color: white;
+  padding: 0px 0px;
+  border-radius: 5px;
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  margin: 0  0 ;
+  height: 2.5em;
+  width: 3.5em;
 }
 
 .row{
@@ -116,12 +166,3 @@ p {
     overflow: auto;
 }
 
-h3{
-    font-size: 2.5em;
-    color: #2e4756;
-}
-
-p{
-    font-weight: 400;
-    padding-bottom: 0.2em;
-}

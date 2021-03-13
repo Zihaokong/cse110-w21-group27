@@ -14,17 +14,20 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous" />
     <link rel="stylesheet" href="./stats.css">
-    <title>Stats Page</title>
+    <title>Pomodoro Timer</title>
 </head>
 
 <body>
     <header-comp></header-comp>
-
+    <a id="stats-btn" href="../index.html"><span class="material-icons">
+            format_list_bulleted
+        </span></a>
+    <button id="back-to-top" onclick="scrollFunc()">Top</button>
     <div class="main-contents container">
 
         <div id="heading-container">
             <h1>Statistics:</h1>
-            <div id="btns">
+            <div id="heading-container-btns">
                 <div id="reset-container"><button id="reset">Reset</button></div>
                 <div id="info-container"><button id="info" onclick="openInfoModal()">?</button></div>
             </div>
@@ -110,7 +113,7 @@
     <div id="infoModal" class="modal-info">
         <div class="modal-content-info">
             <div class="modal-text">
-                <input id="close-btn" type="image" src="./close.png" onclick="closeInfoModal()"/>
+                <input id="close-btn" type="image" src="./close.png" onclick="closeInfoModal()" />
                 <div class="heading-info">
                     <h3>Information</h3>
                 </div>
@@ -119,10 +122,12 @@
                     <b>Completed Pomos: </b>Total number of completed pomos
                 </p>
                 <p>
-                    <b>Average Distractions Per Pomo: </b>Ratio of total number of distractions to total number of completed pomos
+                    <b>Average Distractions Per Pomo: </b>Ratio of total number of distractions to total number of
+                    completed pomos
                 </p>
                 <p>
-                    <b>Pomo Success Rate: </b>Ratio of total number of completed pomos to total number of attempted pomos (including failed pomos)
+                    <b>Pomo Success Rate: </b>Ratio of total number of completed pomos to total number of attempted
+                    pomos (including failed pomos)
                 </p>
             </div>
         </div>

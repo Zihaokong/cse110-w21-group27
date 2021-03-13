@@ -9,7 +9,6 @@ let allTasks;
 
 window.onload = function template() {
     // set variable denote current timer mode
-    //localStorage.setItem('isPomo', 'false');
     // render current task name to timer page
     const id = JSON.parse(localStorage.getItem('currentTask'));
     allTasks = JSON.parse(localStorage.getItem('allTasks'));
@@ -20,21 +19,19 @@ window.onload = function template() {
                 allTasks[currentTaskId].name;
         }
     }
-    if(localStorage.getItem('ShortBreak') == 'true'){
+    if (localStorage.getItem('ShortBreak') == 'true') {
         document.getElementById('shortBreakModal').style.display = 'none';
         document.body.style.backgroundImage = 'linear-gradient(to right,#74EBD5,#ACB6E5)';
         document.getElementById("currTask").innerHTML = "Short Break";
         document.getElementById("button-container").style.display = 'none';
         start(0, 3);
-    }
-    else if(localStorage.getItem('LongBreak') == 'true'){
+    } else if (localStorage.getItem('LongBreak') == 'true') {
         document.getElementById('longBreakModal').style.display = 'none';
         document.body.style.backgroundImage = 'linear-gradient(to right,#ACB6E5,#74EBD5)';
         document.getElementById("currTask").innerHTML = "Long Break";
         document.getElementById("button-container").style.display = 'none';
         start(0, 5);
-    }
-    else{
+    } else {
         localStorage.setItem('isPomo', 'false');
         document.getElementById('minutes').innerHTML = '01';
         document.getElementById('seconds').innerHTML = '00';
@@ -43,7 +40,7 @@ window.onload = function template() {
         start(0, 3);
     }
     // render starting value of timer
-    
+
 };
 
 /**
@@ -53,10 +50,8 @@ window.onload = function template() {
  */
 
 function start(minutes, seconds) {
-    localStorage.setItem('ShortBreak','false');
-    localStorage.setItem('LongBreak','false');
-
-
+    localStorage.setItem('ShortBreak', 'false');
+    localStorage.setItem('LongBreak', 'false');
     // display correct distraction counter 
     distractCounter = 0;
     document.getElementById("distraction-btn").innerHTML = "Distraction : " + distractCounter;
@@ -112,16 +107,16 @@ function start(minutes, seconds) {
                     clearInterval(seconds_interval);
                     resetProgressRing();
                     let counter = Number(localStorage.getItem('sessionCounter'));
-                    counter = counter + 1;
-                    console.log(counter)
+                    counter++;
+
                     let pomo = localStorage.getItem('isPomo');
-                    console.log(pomo);
+
                     if (pomo == 'true') {
                         localStorage.setItem('isPomo', 'false');
                         displayBreakComplete();
                     } else {
                         localStorage.setItem('isPomo', 'true');
-                        if (counter%4 == 0) {
+                        if (counter % 4 == 0) {
                             localStorage.setItem('sessionCounter', counter);
                             localStorage.setItem('LongBreak', 'true');
                             displayLongBreak();
