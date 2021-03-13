@@ -13,8 +13,8 @@ jobs:
 
     - name: remove previous files
       run: |
-        rm -r build
-        rm -r minified
+        rm -r build/*
+        rm -r minified/*
 
     - name: Auto Minify
       uses: nizarmah/auto-minify@master
