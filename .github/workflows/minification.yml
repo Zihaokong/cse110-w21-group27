@@ -40,6 +40,7 @@ jobs:
     - name: create timer_page directory structure
       run: |
         cd build
+        ls
         mkdir timer_page
         cp break.js progress.js timer-modals.css timer.css timer.html timer.js timer_page
     - name: commit files
