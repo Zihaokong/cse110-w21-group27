@@ -1,9 +1,5 @@
 // number of distraction tracked
 let distractCounter = 0;
-
-// let isPomo = false;
-
-
 let currentTaskId;
 let allTasks;
 
@@ -74,15 +70,8 @@ function start(minutes, seconds) {
     var minutes_interval = setInterval(minutesTimer, 60000);
     var seconds_interval = setInterval(secondsTimer, 1000);
     secs = secs + 1;
-    perc = 100 - (((totalsecs - secs) / totalsecs) * 100);
+    var perc = 100 - (((totalsecs - secs) / totalsecs) * 100);
     setProgress(perc);
-
-    /*function updateProgressRing(){
-        secs = secs + 1;
-        perc = 100-(((totalsecs - secs)/totalsecs)*100);
-        setProgress(perc);
-        console.log("123");
-    }*/
 
     function minutesTimer() {
         minutes = minutes - 1;
@@ -106,26 +95,28 @@ function start(minutes, seconds) {
                     clearInterval(minutes_interval);
                     clearInterval(seconds_interval);
                     resetProgressRing();
-                    let counter = Number(localStorage.getItem('sessionCounter'));
-                    counter++;
-
                     let pomo = localStorage.getItem('isPomo');
-
+                    // check whether it is break session or pomo
                     if (pomo == 'true') {
                         localStorage.setItem('isPomo', 'false');
                         displayBreakComplete();
                     } else {
+                        let counter = Number(localStorage.getItem('sessionCounter'));
+                        let todayDistract = Number(localStorage.getItem('distractCounter'));
+                        // update counters
+                        counter++;
+                        todayDistract += distractCounter;
+                        // set the updated value to localStorage
                         localStorage.setItem('isPomo', 'true');
+                        localStorage.setItem('distractCounter', todayDistract);
+                        localStorage.setItem('sessionCounter', counter);
                         if (counter % 4 == 0) {
-                            localStorage.setItem('sessionCounter', counter);
                             localStorage.setItem('LongBreak', 'true');
                             displayLongBreak();
                         } else {
-                            localStorage.setItem('sessionCounter', counter);
                             localStorage.setItem('ShortBreak', 'true');
                             displayShortBreak();
                         }
-
                         // update progress for current task
                         allTasks[currentTaskId].current += 1;
                         localStorage.setItem('allTasks', JSON.stringify(allTasks));

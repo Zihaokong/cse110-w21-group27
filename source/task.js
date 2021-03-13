@@ -165,7 +165,9 @@ class TaskList extends HTMLElement {
     const itemToDelete = element.getRootNode().host;
 
     // Delete item in allTasks array
-    const { name } = itemToDelete;
+    const {
+      name
+    } = itemToDelete;
     document.getElementById('task-delete').innerText = `[${name}]`;
     document.getElementById('confirm-button').addEventListener('click', () => {
       for (let i = 0; i < this.allTasks.length; i++) {
@@ -216,8 +218,9 @@ class TaskList extends HTMLElement {
         this.allTasks[taskIndex].number = editTaskNum;
         this.allTasks[taskIndex].note = editTaskNote;
         editModal.style.display = 'none';
-      },
-      { once: true }
+      }, {
+        once: true
+      }
     );
   }
 
@@ -266,6 +269,7 @@ class TaskList extends HTMLElement {
     // set the current task id to localStorage
     const currentTask = targetTask.id;
     localStorage.setItem('currentTask', JSON.stringify(currentTask));
+    localStorage.setItem('todayPomo', Number(localStorage.getItem('todayPomo')) + 1);
   }
 
   /**
@@ -351,7 +355,7 @@ class TaskList extends HTMLElement {
 customElements.define('task-list', TaskList);
 
 /**
- * Closing page will save current task and update local storage
+ * Closing page will remove the TaskList object
  */
 window.onbeforeunload = function removeTaskList() {
   document.getElementById('main-container').remove();

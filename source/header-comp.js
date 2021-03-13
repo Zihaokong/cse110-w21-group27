@@ -47,9 +47,9 @@ class HeaderComp extends HTMLElement {
     // Creat the date text.
     const date = document.createElement('h2');
     date.setAttribute('id', 'date');
-    date.innerText = HeaderComp.createDate()
-      ? HeaderComp.createDate()
-      : `Today's date`;
+    date.innerText = HeaderComp.createDate() ?
+      HeaderComp.createDate() :
+      `Today's date`;
 
     // Create the cycle counter section of the header.
     const section = document.createElement('section');
