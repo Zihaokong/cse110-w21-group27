@@ -25,17 +25,28 @@ jobs:
         commit_message: "Github Action: Auto Minified JS and CSS files"
         branch: ${{ github.ref }}
 
-    - name: generate build files
+    - name: rename minified files
       run: |
         cd ./minified
         for file in *.min.* ; do mv $file ${file//min./} ; done
         cd ..
+    - name: add minfied files to build directory
+      run: |
         mkdir build
         cp -r minified build
+    - name: copy index file from source to build
+      run: |
         cp source/index.html build/index.html
+    - name: create timer_page directory structure
+      run: |
         cd build
         mkdir timer_page
         cp break.js progress.js timer-modals.css timer.css timer.html timer.js timer_page
+    - name: commit files
+      run: |
+        git add .a
+        git commit -m "build creates"
+    
     
     - name: deploying to gh-pages branch
       uses: JamesIves/github-pages-deploy-action@4.1.0
