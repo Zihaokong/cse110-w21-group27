@@ -96,12 +96,11 @@ document.getElementById('monthSuccess').innerText =
 document.getElementById('reset').onclick = () => {
   statsList = [];
   localStorage.setItem('statsList', JSON.stringify(statsList));
-
   localStorage.setItem('distractCounter', 0);
   localStorage.setItem('sessionCounter', 0);
 
   document.getElementById('todayPomos').innerText = 0;
-  document.getElementById('todayAvgDistractions').innerText = '0';
+  document.getElementById('todayAvgDistractions').innerText = 0;
   document.getElementById('todaySuccess').innerText = '0%';
 
   document.getElementById('weekPomos').innerText = 0;

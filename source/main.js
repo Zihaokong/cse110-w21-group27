@@ -17,11 +17,11 @@ const cancelBtns = document.getElementsByClassName('cancel-btn');
 const spanClose = document.getElementsByClassName('close');
 
 // set counters for timer page
-let sessionCounter = Number(localStorage.getItem('sessionCounter'));
-if (sessionCounter == null) {
-  sessionCounter = 0;
-}
-localStorage.setItem('sessionCounter', sessionCounter);
+// let sessionCounter = Number(localStorage.getItem('sessionCounter'));
+// if (sessionCounter == null) {
+//   sessionCounter = 0;
+// }
+// localStorage.setItem('sessionCounter', sessionCounter);
 
 // add event listeners
 for (let i = 0; i < spanClose.length; ++i) {
@@ -71,93 +71,80 @@ if (!retrievedStats || retrievedStats === 'undefined') {
   statsList = JSON.parse(retrievedStats);
 }
 
-function testAdvance() {
-  // statsList = [{
-  //     day: '2021-03-11T00:00:00.000Z',
-  //     pomoCount: 4,
-  //     distractions: 5,
-  //     completedPomos: 2,
-  //   },
-  //   {
-  //     day: '2021-03-10T00:00:00.000Z',
-  //     pomoCount: 5,
-  //     distractions: 5,
-  //     completedPomos: 2,
-  //   },
-  //   {
-  //     day: '2021-03-09T00:00:00.000Z',
-  //     pomoCount: 6,
-  //     distractions: 5,
-  //     completedPomos: 2,
-  //   },
-  //   {
-  //     day: '2021-03-08T00:00:00.000Z',
-  //     pomoCount: 7,
-  //     distractions: 5,
-  //     completedPomos: 2,
-  //   },
-  //   {
-  //     day: '2021-03-07T00:00:00.000Z',
-  //     pomoCount: 8,
-  //     distractions: 5,
-  //     completedPomos: 2,
-  //   }, // longer than 7 days
-  //   {
-  //     day: '2021-03-06T00:00:00.000Z',
-  //     pomoCount: 5,
-  //     distractions: 5,
-  //     completedPomos: 5,
-  //   },
-  //   {
-  //     day: '2021-03-05T00:00:00.000Z',
-  //     pomoCount: 5,
-  //     distractions: 5,
-  //     completedPomos: 5,
-  //   },
-  //   {
-  //     day: '2021-03-04T00:00:00.000Z',
-  //     pomoCount: 5,
-  //     distractions: 5,
-  //     completedPomos: 5,
-  //   },
-  //   {
-  //     day: '2021-03-03T00:00:00.000Z',
-  //     pomoCount: 5,
-  //     distractions: 5,
-  //     completedPomos: 5,
-  //   },
-  //   {
-  //     day: '2021-03-02T00:00:00.000Z',
-  //     pomoCount: 5,
-  //     distractions: 5,
-  //     completedPomos: 5,
-  //   },
-  //   {
-  //     day: '2021-03-01T00:00:00.000Z',
-  //     pomoCount: 5,
-  //     distractions: 5,
-  //     completedPomos: 5,
-  //   },
-  //   {
-  //     day: '2021-02-28T00:00:00.000Z',
-  //     pomoCount: 5,
-  //     distractions: 5,
-  //     completedPomos: 5,
-  //   },
-  //   // more than 31 day
-  //   {
-  //     day: '2021-01-07T00:00:00.000Z',
-  //     pomoCount: 99,
-  //     distractions: 50,
-  //     completedPomos: 20,
-  //   },
-  // ];
-  // localStorage.setItem('statsList', JSON.stringify(statsList));
-  // localStorage.setItem('lastVisit', JSON.stringify(new Date('3/12/2021')));
-  // localStorage.setItem('todayPomo', 5);
-  // localStorage.setItem('distractCounter', 5);
-  // localStorage.setItem('sessionCounter', 5);
-}
+// statsList = [{
+//     day: "3/10/2021",
+//     pomoCount: 6,
+//     distractions: 5,
+//     completedPomos: 2,
+//   },
+//   {
+//     day: "3/9/2021",
+//     pomoCount: 7,
+//     distractions: 5,
+//     completedPomos: 2,
+//   },
+//   {
+//     day: "3/8/2021",
+//     pomoCount: 8,
+//     distractions: 5,
+//     completedPomos: 2,
+//   }, // longer than 7 days
+//   {
+//     day: "2/27/2021",
+//     pomoCount: 5,
+//     distractions: 5,
+//     completedPomos: 5,
+//   },
+//   {
+//     day: "2/26/2021",
+//     pomoCount: 5,
+//     distractions: 5,
+//     completedPomos: 5,
+//   },
+//   {
+//     day: "2/25/2021",
+//     pomoCount: 5,
+//     distractions: 5,
+//     completedPomos: 5,
+//   },
+//   {
+//     day: "2/24/2021",
+//     pomoCount: 5,
+//     distractions: 5,
+//     completedPomos: 5,
+//   },
+//   {
+//     day: "2/23/2021",
+//     pomoCount: 5,
+//     distractions: 5,
+//     completedPomos: 5,
+//   },
+//   {
+//     day: "2/22/2021",
+//     pomoCount: 5,
+//     distractions: 5,
+//     completedPomos: 5,
+//   },
+//   {
+//     day: "2/20/2021",
+//     pomoCount: 5,
+//     distractions: 5,
+//     completedPomos: 5,
+//   },
+//   // more than 31 day
+//   {
+//     day: "1/11/2021",
+//     pomoCount: 99,
+//     distractions: 50,
+//     completedPomos: 20,
+//   },
+// ];
+// localStorage.setItem('statsList', JSON.stringify(statsList));
+// const testDate = new Date('3/11/2021')
+// localStorage.setItem('lastVisit', JSON.stringify(testDate.toLocaleDateString('en-US')));
+// localStorage.setItem('todayPomo', 5);
+// localStorage.setItem('distractCounter', 5);
+// localStorage.setItem('sessionCounter', 5);
 
 /**
  * Handle if the user log-on differnet date
@@ -167,13 +154,15 @@ const current = new Date();
 const diffDays = Math.floor(
   Math.abs(current - lastVisit) / (1000 * 60 * 60 * 24)
 );
+// not the same day
+console.log(diffDays);
 if (diffDays !== 0) {
   console.log('Reset Today');
   const todayPomos = Number(localStorage.getItem('todayPomo'));
   const todayCompletedPomos = Number(localStorage.getItem('sessionCounter'));
   const todayDistractions = Number(localStorage.getItem('distractCounter'));
   const newStats = {
-    day: lastVisit.toString(),
+    day: lastVisit.toLocaleDateString('en-US'),
     pomoCount: todayPomos,
     distractions: todayCompletedPomos,
     completedPomos: todayDistractions,
@@ -189,6 +178,9 @@ if (diffDays !== 0) {
  * Closing page will remove the TaskList object and log the current time
  */
 window.onbeforeunload = function removeTaskList() {
-  localStorage.setItem('lastVisit', JSON.stringify(new Date()));
+  localStorage.setItem(
+    'lastVisit',
+    JSON.stringify(current.toLocaleDateString('en-US'))
+  );
   document.getElementById('main-container').remove();
 };
