@@ -1,49 +1,81 @@
 // method getting data for stats page content
 let statsList;
-const retrievedObject = localStorage.getItem('statsList');
-if (!retrievedObject || retrievedObject === 'undefined') {
-  statsList = [];
-} else {
-  statsList = JSON.parse(retrievedObject);
-}
+// const retrievedObject = localStorage.getItem('statsList');
+// if (!retrievedObject || retrievedObject === 'undefined') {
+//     statsList = [];
+// } else {
+//     statsList = JSON.parse(retrievedObject);
+// }
 
-// statsList = [{
-//         day: '2021-03-01T00:00:00.000Z',
-//         pomoCount: 2,
-//         distractions: 5,
-//         completedPomos: 5
-//     },
-//     {
-//         day: '2021-03-12T00:00:00.000Z',
-//         pomoCount: 3,
-//         distractions: 5,
-//         completedPomos: 5
-//     },
-//     {
-//         day: '2021-03-10T00:00:00.000Z',
-//         pomoCount: 5,
-//         distractions: 5,
-//         completedPomos: 2
-//     },
-//     {
-//         day: '2021-01-25T00:00:00.000Z',
-//         pomoCount: 6,
-//         distractions: 5,
-//         completedPomos: 3
-//     },
-//     {
-//         day: '2021-02-10T00:00:00.000Z',
-//         pomoCount: 4,
-//         distractions: 5,
-//         completedPomos: 7
-//     },
-//     {
-//         day: '2021-02-15T00:00:00.000Z',
-//         pomoCount: 15,
-//         distractions: 5,
-//         completedPomos: 2
-//     }
-// ]
+statsList = [
+  {
+    day: '2021-03-12T00:00:00.000Z',
+    pomoCount: 3,
+    distractions: 5,
+    completedPomos: 2,
+  },
+  {
+    day: '2021-03-11T00:00:00.000Z',
+    pomoCount: 4,
+    distractions: 5,
+    completedPomos: 2,
+  },
+  {
+    day: '2021-03-10T00:00:00.000Z',
+    pomoCount: 5,
+    distractions: 5,
+    completedPomos: 2,
+  },
+  {
+    day: '2021-03-09T00:00:00.000Z',
+    pomoCount: 6,
+    distractions: 5,
+    completedPomos: 2,
+  },
+  {
+    day: '2021-03-08T00:00:00.000Z',
+    pomoCount: 7,
+    distractions: 5,
+    completedPomos: 2,
+  },
+  {
+    day: '2021-03-07T00:00:00.000Z',
+    pomoCount: 8,
+    distractions: 5,
+    completedPomos: 2,
+  }, // longer than 7 days
+  {
+    day: '2021-03-06T00:00:00.000Z',
+    pomoCount: 5,
+    distractions: 5,
+    completedPomos: 5,
+  },
+  {
+    day: '2021-03-05T00:00:00.000Z',
+    pomoCount: 5,
+    distractions: 5,
+    completedPomos: 5,
+  },
+  {
+    day: '2021-03-04T00:00:00.000Z',
+    pomoCount: 5,
+    distractions: 5,
+    completedPomos: 5,
+  },
+  {
+    day: '2021-03-03T00:00:00.000Z',
+    pomoCount: 5,
+    distractions: 5,
+    completedPomos: 5,
+  },
+  // more than 31 day
+  {
+    day: '2021-01-07T00:00:00.000Z',
+    pomoCount: 99,
+    distractions: 50,
+    completedPomos: 20,
+  },
+];
 
 // var lastVisit = localStorage.getItem('lastVisit');
 const lastVisit = new Date('3/11/2021');
@@ -55,18 +87,13 @@ const todayPomos = Number(localStorage.getItem('todayPomo'));
 const todayCompletedPomos = localStorage.getItem('sessionCounter');
 const todayDistractions = localStorage.getItem('distractCounter');
 
-const weekPomos = 0;
-const weekCompletedPomos = 0;
-const weekDistractions = 0;
+let weekPomos = 0;
+let weekCompletedPomos = 0;
+let weekDistractions = 0;
 
-const monthPomos = 0;
-const monthCompletedPomos = 0;
-const monthDistractions = 0;
-
-// var Person = function(name) {
-//     this.name = name;
-//     this.canTalk = true;
-//   };
+let monthPomos = 0;
+let monthCompletedPomos = 0;
+let monthDistractions = 0;
 
 // if (diffDays === 1) {
 //     const work = {
@@ -78,31 +105,42 @@ const monthDistractions = 0;
 //     statsList.unshift(work);
 // }
 
-// statsList.forEach(function (item) {
-//     let itemDay = item.day;
-//     let itemPomo = item.pomoCounts;
-//     let itemDistract = item.distractions;
-//     let itemCompleted = item.completedPomos;
+for (let i = 0; i < statsList.length; i++) {
+  const itemDay = new Date(statsList[i].day);
+  const itemPomo = statsList[i].pomoCount;
+  const itemDistract = statsList[i].distractions;
+  const itemCompleted = statsList[i].completedPomos;
 
-//     //today section
-//     let dayPassed = Math.ceil((Math.abs(itemDay - diffDays) / (1000 * 60 * 60 * 24)));
-//     if (diffDays - x === 0) {
-//         todayPomos++;
-//         if (z === 1) {
-//             todayDistractions = todayDistractions + y;
-//             todayCompletedPomos++;
-//         }
-//     }
-//     //last 7 days section
-//     if (diffDays - x <= 7) {
-//         weekPomos++;
-//         if (z === 1) {
-//             weekDistractions = weekDistractions + y;
-//             weekCompletedPomos++;
-//         }
-//     }
+  const dayPassed = Math.floor(
+    Math.abs(today - itemDay) / (1000 * 60 * 60 * 24)
+  );
+  console.log(dayPassed);
+  // today section
+  // if (diffDays - x === 0) {
+  //     todayPomos++;
+  //     if (z === 1) {
+  //         todayDistractions = todayDistractions + y;
+  //         todayCompletedPomos++;
+  //     }
+  // }
 
-// });
+  // last 7 days section
+  if (dayPassed > 0 && dayPassed <= 7) {
+    weekPomos += itemPomo;
+    weekDistractions += itemDistract;
+    weekCompletedPomos += itemCompleted;
+  }
+  // last 30 days section
+  if (dayPassed > 0 && dayPassed < 31) {
+    monthPomos += itemPomo;
+    monthCompletedPomos += itemDistract;
+    monthDistractions += itemCompleted;
+  }
+  // remove item that 30 days old
+  if (dayPassed > 30) {
+    statsList.splice(i, 1);
+  }
+}
 
 document.getElementById('todayPomos').innerText = todayCompletedPomos;
 document.getElementById('todayAvgDistractions').innerText =
@@ -114,7 +152,7 @@ document.getElementById('todaySuccess').innerText =
     ? '0%'
     : `${((100 * todayCompletedPomos) / todayPomos).toFixed(2)}%`;
 
-document.getElementById('weekPomos').innerText = weekPomos;
+document.getElementById('weekPomos').innerText = weekCompletedPomos;
 document.getElementById('weekAvgDistractions').innerText = (
   weekDistractions / weekCompletedPomos
 ).toFixed(1);
@@ -123,7 +161,7 @@ document.getElementById('weekSuccess').innerText = `${(
   weekPomos
 ).toFixed(2)}%`;
 
-document.getElementById('monthPomos').innerText = monthPomos;
+document.getElementById('monthPomos').innerText = monthCompletedPomos;
 document.getElementById('monthAvgDistractions').innerText = (
   monthDistractions / monthCompletedPomos
 ).toFixed(1);
