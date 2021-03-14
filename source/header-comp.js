@@ -96,6 +96,8 @@ class HeaderComp extends HTMLElement {
     if(name === 'completedcycles'){
       this.cycleCount = 4-(newValue % 4);
       let circleSection = this.shadowRoot.querySelector('section');
+
+      //check if section is loaded
       if(circleSection){
         //reset the section
         circleSection.innerHTML = `      
