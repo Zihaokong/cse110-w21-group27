@@ -41,7 +41,6 @@
   },
   "husky": {
     "hooks": {
-      "precommit": "npx precommit",
       "pre-commit": "lint-staged"
     }
   },
