@@ -1,7 +1,7 @@
 # 5. Code Quality Tool
 
 * Date: 2021-02-06 
-* Status [Pending]
+* Status [Superseded]
 
 ## Context and Problem Statement
 
@@ -25,7 +25,8 @@ IDEs:
   
 ## Decision Outcome
 
-Chosen option:
+Chosen option: N/A
 
 
 ## Consequences
+We cannot find the alternative free code quality tool for private GitHub project. We have decided to maintain the code quality via human review.

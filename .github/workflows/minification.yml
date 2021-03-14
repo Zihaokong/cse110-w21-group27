@@ -1,6 +1,9 @@
 name: Minification
 
-on: push
+on:
+  push:
+      branches:
+        - main
 
 jobs:
 
@@ -10,6 +13,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+
+    # - name: remove previous files
+    #   run: |
+    #     rm -r build/*
+    #     rm -r minified/*
 
     - name: Auto Minify
       uses: nizarmah/auto-minify@master
@@ -24,3 +32,36 @@ jobs:
       with:
         commit_message: "Github Action: Auto Minified JS and CSS files"
         branch: ${{ github.ref }}
+
+    - name: rename minified files
+      run: |
+        cd ./minified
+        for file in *.min.* ; do sudo mv $file ${file//min./} ; done
+        cd ..
+    - name: add minfied files to build directory
+      run: |
+        rm -r build/*
+        rmdir build
+        mkdir build
+        cp -a minified/. build
+    - name: copy index file from source to build
+      run: |
+        cp source/index.html build/index.html
+        cp source/timer_page/timer.html build/timer.html
+    - name: create timer_page directory structure
+      run: |
+        cd build
+        mkdir timer_page
+        mv break.js progress.js timer-modals.css timer.css timer.js timer.html timer_page
+    - name: commit build files
+      uses: stefanzweifel/git-auto-commit-action@v3.0.0
+      with:
+        commit_message: "Github Action: Build Files"
+        branch: ${{ github.ref }}
+      
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./build
+        

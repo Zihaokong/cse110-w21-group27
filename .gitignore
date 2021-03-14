@@ -3,3 +3,5 @@ docs
 coverage
 .eslintcache
 minified
+cypress/screenshots
+cypress/videos
