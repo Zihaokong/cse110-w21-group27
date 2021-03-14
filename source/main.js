@@ -26,6 +26,9 @@ if (sessionCounter == null) {
 }
 localStorage.setItem('sessionCounter', sessionCounter);
 
+// set flag for LongBreak
+localStorage.setItem('LongBreak', 'false');
+
 // add event listeners
 for (let i = 0; i < spanClose.length; ++i) {
   spanClose[i].addEventListener('click', closeModal);

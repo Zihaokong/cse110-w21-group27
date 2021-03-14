@@ -80,6 +80,7 @@ class HeaderComp extends HTMLElement {
     const shadow = this.attachShadow({
       mode: 'open',
     });
+    this.longBreak = localStorage.getItem('LongBreak');
     this.completed = localStorage.getItem('sessionCounter');
     this.count = 4 - this.completed%4;
     const nav = document.createElement('nav');
@@ -110,6 +111,9 @@ class HeaderComp extends HTMLElement {
     return this.count;
   }
 
+  get completedLongBreak(){
+    return this.longBreak;
+  }
 
   // the browser calls this method when an element is added to the document
   connectedCallback() {
@@ -125,7 +129,7 @@ class HeaderComp extends HTMLElement {
  */
 function renderCounter(elem) {
   const shadow = elem.shadowRoot;
-  if(elem.completedCycles == 0){
+  if(elem.completedCycles%4 == 0 && elem.completedLongBreak == 'false'){
     for (let i = 0; i < 4; i++) {
       const newCycle = document.createElement('span');
       newCycle.setAttribute('class', 'dot');
@@ -147,7 +151,7 @@ function renderCounter(elem) {
  * @param {object} elem the class object that it belongs to
  */
 function renderCompletedCount(elem) {
-  if(elem.completedCycles%4 == 0 && elem.completedCycles != 0){
+  if(elem.completedCycles%4 == 0 && elem.completedLongBreak == 'true'){
     for (let i = 0; i < 4; i++) {
       const newCycle = document.createElement('span');
       newCycle.setAttribute('class', 'filled-dot');

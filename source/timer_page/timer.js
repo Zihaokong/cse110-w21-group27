@@ -20,6 +20,7 @@ window.onload = function template() {
                 allTasks[currentTaskId].name;
         }
     }
+    resetProgressRing();
     if(localStorage.getItem('ShortBreak') == 'true'){
         document.body.style.backgroundImage = 'linear-gradient(to right,#74EBD5,#ACB6E5)';
         document.getElementById('minutes').innerHTML = '05';
@@ -124,7 +125,7 @@ function start(minutes, seconds) {
                 if (minutes <= 0) {
                     //clearInterval(minutes_interval);
                     clearInterval(seconds_interval);
-                    resetProgressRing();
+                    
                     let counter = Number(localStorage.getItem('sessionCounter'));
                     counter = counter + 1;
                     console.log(counter)
