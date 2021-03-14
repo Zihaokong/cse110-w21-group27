@@ -11,8 +11,13 @@ function continueTask() {
     document.getElementById("button-container").style.display = 'flex';
     document.getElementById("start-btn").style.display = 'block';
     document.getElementById("button-container").style.paddingLeft = '0px';
+    resetProgressRing();
+    document.getElementById("distraction-btn").innerHTML = "Distraction : " + distractCounter;
+    document.getElementById("title_timer").innerHTML = "01:00" + "- Time To Work!";
+    document.getElementById('minutes').innerHTML = '01';
+    document.getElementById('seconds').innerHTML = '00';
     //start(0, 3);
-    window.location.reload();
+    //window.location.reload();
 }
 
 function changeTask() {
@@ -23,8 +28,15 @@ function changeTask() {
 function displayShortBreak() {
     let audio1 = new Audio("../../media/work-tune.mp3");
     audio1.play();
-    setTimeout(function(){ 
-        window.location.reload(); 
+    setTimeout(function(){
+        resetProgressRing();
+        document.body.style.backgroundImage = 'linear-gradient(to right,#74EBD5,#ACB6E5)';
+        document.getElementById('minutes').innerHTML = '01';
+        document.getElementById('seconds').innerHTML = '00';
+        document.getElementById("currTask").innerHTML = "Short Break";
+        document.getElementById("button-container").style.display = 'none';
+        document.getElementById("container-short").style.display = 'block';
+        //window.location.reload(); 
     }, 2000);
 }
 
@@ -36,8 +48,15 @@ function startShortBreak(){
 function displayLongBreak() {
     let audio2 = new Audio("../../media/work-tune.mp3");
     audio2.play();
-    setTimeout(function(){ 
-        window.location.reload(); 
+    setTimeout(function(){
+        resetProgressRing();
+        document.body.style.backgroundImage = 'linear-gradient(to right,#ACB6E5,#74EBD5)';
+        document.getElementById('minutes').innerHTML = '01';
+        document.getElementById('seconds').innerHTML = '00';
+        document.getElementById("currTask").innerHTML = "Long Break";
+        document.getElementById("button-container").style.display = 'none';
+        document.getElementById("container-long").style.display = 'block';
+        //window.location.reload(); 
     }, 2000);
 }
 

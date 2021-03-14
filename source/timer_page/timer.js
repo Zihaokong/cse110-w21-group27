@@ -57,8 +57,8 @@ window.onload = function template() {
  */
 
 function start(minutes, seconds) {
-    localStorage.setItem('ShortBreak','false');
-    localStorage.setItem('LongBreak','false');
+    //localStorage.setItem('ShortBreak','false');
+    //localStorage.setItem('LongBreak','false');
 
     let startTime = +new Date();
     console.log(startTime);
@@ -131,16 +131,20 @@ function start(minutes, seconds) {
                     console.log(pomo);
                     if (pomo == 'true') {
                         localStorage.setItem('isPomo', 'false');
+                        localStorage.setItem('ShortBreak','false');
+                        localStorage.setItem('LongBreak','false');
                         displayBreakComplete();
                     } else {
                         localStorage.setItem('isPomo', 'true');
                         if (counter%4 == 0) {
                             localStorage.setItem('sessionCounter', counter);
                             localStorage.setItem('LongBreak', 'true');
+                            localStorage.setItem('ShortBreak','false');
                             displayLongBreak();
                         } else {
                             localStorage.setItem('sessionCounter', counter);
                             localStorage.setItem('ShortBreak', 'true');
+                            localStorage.setItem('LongBreak','false');
                             displayShortBreak();
                         }
 
