@@ -8,6 +8,9 @@
  * this represents the current date and completed cycles count
  */
 class HeaderComp extends HTMLElement {
+  static get observedAttributes() {
+    return ['completedcycles', 'cyclecount'];
+  }
   /**
    * Constructor which attaches a shadow root to this element in open mode
    */
@@ -19,17 +22,31 @@ class HeaderComp extends HTMLElement {
   }
 
   /**
+   * sets the amount of completed cycles
+   */
+  set completedCycles(newValue) {
+    this.setAttribute('completedcycles', newValue);
+  }
+
+  /**
+   * Sets the cycle count
+   */
+  set cycleCount(newValue) {
+    this.setAttribute('cyclecount', newValue);
+  }
+
+  /**
    * Gets the amount of completed cycles.
    */
   get completedCycles() {
-    return this.completed;
+    return this.getAttribute('completedcycles');
   }
 
   /**
    * Gets the cycle count.
    */
   get cycleCount() {
-    return this.count;
+    return this.getAttribute('cyclecount');
   }
 
   /**
@@ -37,8 +54,8 @@ class HeaderComp extends HTMLElement {
    */
   connectedCallback() {
     // Get the session counter from storage.
-    this.completed = localStorage.getItem('sessionCounter');
-    this.count = 4 - (this.completed % 4);
+    this.completedCycles = localStorage.getItem('sessionCounter');
+    this.cycleCount = 4 - (this.completedCycles % 4);
 
     // Creates the nav element which houses the info of the header
     const nav = document.createElement('nav');
@@ -75,11 +92,34 @@ class HeaderComp extends HTMLElement {
     this.renderText();
   }
 
+  attributeChangedCallback(name, oldValue, newValue) {
+    if(name === 'completedcycles'){
+      this.cycleCount = 4-(newValue % 4);
+      let circleSection = this.shadowRoot.querySelector('section');
+      if(circleSection){
+        //reset the section
+        circleSection.innerHTML = `      
+        <span>
+          <h2 id="completed-cycle" style="display: inline; color: #c4c4c4">
+            | Not yet completed
+          </h2>
+        </span>`;
+  
+        this.renderCounter();
+        this.renderCompletedCount();
+        this.renderText();
+      }
+
+    }
+  }
+
   /**
    * Create unfilled circle for cycles.
    */
   renderCounter() {
     const shadow = this.shadowRoot;
+    console.log("HERE");
+    console.log(this.completedCycles);
     if (this.completedCycles === '0') {
       for (let i = 0; i < 4; i++) {
         const newCycle = document.createElement('span');

@@ -137,11 +137,13 @@ function start(minutes, seconds) {
                     } else {
                         localStorage.setItem('isPomo', 'true');
                         if (counter%4 == 0) {
+                            document.getElementById('header').completedCycles = counter;
                             localStorage.setItem('sessionCounter', counter);
                             localStorage.setItem('LongBreak', 'true');
                             localStorage.setItem('ShortBreak','false');
                             displayLongBreak();
                         } else {
+                            document.getElementById('header').completedCycles = counter;
                             localStorage.setItem('sessionCounter', counter);
                             localStorage.setItem('ShortBreak', 'true');
                             localStorage.setItem('LongBreak','false');
