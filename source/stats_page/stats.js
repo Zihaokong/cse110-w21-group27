@@ -1,4 +1,13 @@
-// method getting data for stats page content
+/**
+ * This file defines functions and implements the behaviors of Stats page.
+ * It will calculate the Statistics for the pomos, completed-pomo,
+ * and distraction of the day. The statistics also hold up to the last 30 days.
+ * The users can observate the statistics for today, last 7 days, and last 30 days.
+ */
+
+/**
+ *  variable holds the List of Statistic for the last 30 days.
+ */
 let statsList;
 const retrievedStats = localStorage.getItem('statsList');
 if (!retrievedStats || retrievedStats === 'undefined') {
@@ -7,36 +16,39 @@ if (!retrievedStats || retrievedStats === 'undefined') {
   statsList = JSON.parse(retrievedStats);
 }
 
+// Date object for the date of today
 const today = new Date();
+// today's pomo variables
 const todayPomos = Number(localStorage.getItem('todayPomo'));
 const todayCompletedPomos = Number(localStorage.getItem('sessionCounter'));
 const todayDistractions = Number(localStorage.getItem('distractCounter'));
-
+// last 7 days' pomo variables
 let weekPomos = 0;
 let weekCompletedPomos = 0;
 let weekDistractions = 0;
-
+// last 30 days' pomo variables
 let monthPomos = 0;
 let monthCompletedPomos = 0;
 let monthDistractions = 0;
 
 for (let i = 0; i < statsList.length; i++) {
+  // properties of the statistic object in the statsList
   const itemDay = new Date(statsList[i].day);
   const itemPomo = statsList[i].pomoCount;
   const itemDistract = statsList[i].distractions;
   const itemCompleted = statsList[i].completedPomos;
-
+  // determine how many day has passed
   const dayPassed = Math.floor(
     Math.abs(today - itemDay) / (1000 * 60 * 60 * 24)
   );
 
-  // last 7 days section
+  // last 7 days section if the stats is within 7 days before
   if (dayPassed > 0 && dayPassed <= 7) {
     weekPomos += itemPomo;
     weekDistractions += itemDistract;
     weekCompletedPomos += itemCompleted;
   }
-  // last 30 days section
+  // last 30 days section if the stats is within 30 days before
   if (dayPassed > 0 && dayPassed < 31) {
     monthPomos += itemPomo;
     monthDistractions += itemDistract;
@@ -81,12 +93,17 @@ document.getElementById('monthSuccess').innerText =
     ? '0%'
     : `${((100 * monthCompletedPomos) / monthPomos).toFixed(2)}%`;
 
-// Reset Statistic
+/**
+ *  EventHandler when the 'reset' button is being click.
+ *  It will set statsList to be empty list, and reset all the counters.
+ */
 document.getElementById('reset').onclick = () => {
   statsList = [];
   localStorage.setItem('statsList', JSON.stringify(statsList));
-  localStorage.setItem('distractCounter', 0);
+
+  localStorage.setItem('todayPomo', 0);
   localStorage.setItem('sessionCounter', 0);
+  localStorage.setItem('distractCounter', 0);
 
   document.getElementById('todayPomos').innerText = 0;
   document.getElementById('todayAvgDistractions').innerText = 0;
@@ -101,14 +118,19 @@ document.getElementById('reset').onclick = () => {
   document.getElementById('monthSuccess').innerText = '0%';
 };
 
+/**
+ * Change the display of the infoModal modal
+ */
 const spanClose = document.getElementsByClassName('close');
-// add event listeners
 for (let i = 0; i < spanClose.length; ++i) {
   spanClose[i].addEventListener('click', () => {
     document.getElementById('infoModal').style.display = 'none';
   });
 }
 
+/**
+ * Change the display of the infoModal modal
+ */
 function openInfoModal() {
   document.getElementById('infoModal').style.display = 'block';
 }
@@ -120,6 +142,9 @@ function scrollFunc() {
   window.scrollTo(0, 0);
 }
 
+/**
+ * Closing or leaving the page will add the modified statsList into localStorage
+ */
 window.onbeforeunload = () => {
   localStorage.setItem('statsList', JSON.stringify(statsList));
 };
