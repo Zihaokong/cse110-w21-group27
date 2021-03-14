@@ -1,87 +1,14 @@
 // method getting data for stats page content
+
 let statsList;
-// const retrievedObject = localStorage.getItem('statsList');
-// if (!retrievedObject || retrievedObject === 'undefined') {
-//     statsList = [];
-// } else {
-//     statsList = JSON.parse(retrievedObject);
-// }
+const retrievedStats = localStorage.getItem('statsList');
+if (!retrievedStats || retrievedStats === 'undefined') {
+  statsList = [];
+} else {
+  statsList = JSON.parse(retrievedStats);
+}
 
-statsList = [
-  {
-    day: '2021-03-12T00:00:00.000Z',
-    pomoCount: 3,
-    distractions: 5,
-    completedPomos: 2,
-  },
-  {
-    day: '2021-03-11T00:00:00.000Z',
-    pomoCount: 4,
-    distractions: 5,
-    completedPomos: 2,
-  },
-  {
-    day: '2021-03-10T00:00:00.000Z',
-    pomoCount: 5,
-    distractions: 5,
-    completedPomos: 2,
-  },
-  {
-    day: '2021-03-09T00:00:00.000Z',
-    pomoCount: 6,
-    distractions: 5,
-    completedPomos: 2,
-  },
-  {
-    day: '2021-03-08T00:00:00.000Z',
-    pomoCount: 7,
-    distractions: 5,
-    completedPomos: 2,
-  },
-  {
-    day: '2021-03-07T00:00:00.000Z',
-    pomoCount: 8,
-    distractions: 5,
-    completedPomos: 2,
-  }, // longer than 7 days
-  {
-    day: '2021-03-06T00:00:00.000Z',
-    pomoCount: 5,
-    distractions: 5,
-    completedPomos: 5,
-  },
-  {
-    day: '2021-03-05T00:00:00.000Z',
-    pomoCount: 5,
-    distractions: 5,
-    completedPomos: 5,
-  },
-  {
-    day: '2021-03-04T00:00:00.000Z',
-    pomoCount: 5,
-    distractions: 5,
-    completedPomos: 5,
-  },
-  {
-    day: '2021-03-03T00:00:00.000Z',
-    pomoCount: 5,
-    distractions: 5,
-    completedPomos: 5,
-  },
-  // more than 31 day
-  {
-    day: '2021-01-07T00:00:00.000Z',
-    pomoCount: 99,
-    distractions: 50,
-    completedPomos: 20,
-  },
-];
-
-const lastVisit = new Date('3/11/2021');
 const today = new Date();
-const diffTime = Math.abs(today - lastVisit);
-const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
 const todayPomos = Number(localStorage.getItem('todayPomo'));
 const todayCompletedPomos = localStorage.getItem('sessionCounter');
 const todayDistractions = localStorage.getItem('distractCounter');
@@ -103,15 +30,6 @@ for (let i = 0; i < statsList.length; i++) {
   const dayPassed = Math.floor(
     Math.abs(today - itemDay) / (1000 * 60 * 60 * 24)
   );
-  console.log(dayPassed);
-  // today section
-  // if (diffDays - x === 0) {
-  //     todayPomos++;
-  //     if (z === 1) {
-  //         todayDistractions = todayDistractions + y;
-  //         todayCompletedPomos++;
-  //     }
-  // }
 
   // last 7 days section
   if (dayPassed > 0 && dayPassed <= 7) {
@@ -192,3 +110,7 @@ function openInfoModal() {
 function scrollFunc() {
   window.scrollTo(0, 0);
 }
+
+window.onbeforeunload = () => {
+  localStorage.setItem('statsList', JSON.stringify(statsList));
+};

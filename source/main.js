@@ -9,9 +9,6 @@ const playModal = document.getElementById('play-modal');
 const editModal = document.getElementById('edit-modal');
 const deleteModal = document.getElementById('delete-modal');
 
-// eslint-disable-next-line no-unused-vars
-const taskContent = document.getElementById('task-name');
-
 // Get the button that opens the modal
 const btns = document.getElementsByClassName('add-task-btn');
 const cancelBtns = document.getElementsByClassName('cancel-btn');
@@ -65,3 +62,106 @@ window.onclick = function closeModal2(event) {
     deleteModal.style.display = 'none';
   }
 };
+
+let statsList;
+const retrievedStats = localStorage.getItem('statsList');
+if (!retrievedStats || retrievedStats === 'undefined') {
+  statsList = [];
+} else {
+  statsList = JSON.parse(retrievedStats);
+}
+// statsList = [{
+//     day: '2021-03-12T00:00:00.000Z',
+//     pomoCount: 3,
+//     distractions: 5,
+//     completedPomos: 2,
+//   },
+//   {
+//     day: '2021-03-11T00:00:00.000Z',
+//     pomoCount: 4,
+//     distractions: 5,
+//     completedPomos: 2,
+//   },
+//   {
+//     day: '2021-03-10T00:00:00.000Z',
+//     pomoCount: 5,
+//     distractions: 5,
+//     completedPomos: 2,
+//   },
+//   {
+//     day: '2021-03-09T00:00:00.000Z',
+//     pomoCount: 6,
+//     distractions: 5,
+//     completedPomos: 2,
+//   },
+//   {
+//     day: '2021-03-08T00:00:00.000Z',
+//     pomoCount: 7,
+//     distractions: 5,
+//     completedPomos: 2,
+//   },
+//   {
+//     day: '2021-03-07T00:00:00.000Z',
+//     pomoCount: 8,
+//     distractions: 5,
+//     completedPomos: 2,
+//   }, // longer than 7 days
+//   {
+//     day: '2021-03-06T00:00:00.000Z',
+//     pomoCount: 5,
+//     distractions: 5,
+//     completedPomos: 5,
+//   },
+//   {
+//     day: '2021-03-05T00:00:00.000Z',
+//     pomoCount: 5,
+//     distractions: 5,
+//     completedPomos: 5,
+//   },
+//   {
+//     day: '2021-03-04T00:00:00.000Z',
+//     pomoCount: 5,
+//     distractions: 5,
+//     completedPomos: 5,
+//   },
+//   {
+//     day: '2021-03-03T00:00:00.000Z',
+//     pomoCount: 5,
+//     distractions: 5,
+//     completedPomos: 5,
+//   },
+//   // more than 31 day
+//   {
+//     day: '2021-01-07T00:00:00.000Z',
+//     pomoCount: 99,
+//     distractions: 50,
+//     completedPomos: 20,
+//   },
+// ];
+// localStorage.setItem('statsList', JSON.stringify(statsList));
+
+/**
+ * Handle if the user logon differnet date
+ */
+const lastVisit = new Date('3/13/2021');
+// const lastVisit = localStorage.getItem('lastVisit');
+const today = new Date();
+const diffTime = Math.abs(today - lastVisit);
+const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+console.log(diffDays);
+if (diffDays !== 0) {
+  const todayPomos = Number(localStorage.getItem('todayPomo'));
+  const todayCompletedPomos = localStorage.getItem('sessionCounter');
+  const todayDistractions = localStorage.getItem('distractCounter');
+  const newStats = {
+    day: lastVisit.toString(),
+    pomoCount: todayPomos,
+    distractions: todayCompletedPomos,
+    completedPomos: todayDistractions,
+  };
+  statsList.unshift(newStats);
+  localStorage.setItem('todayPomo', 0);
+  localStorage.setItem('distractCounter', 0);
+  localStorage.setItem('sessionCounter', 0);
+  localStorage.setItem('statsList', JSON.stringify(statsList));
+}
