@@ -22,26 +22,28 @@ window.onload = function template() {
     }
     if(localStorage.getItem('ShortBreak') == 'true'){
         document.body.style.backgroundImage = 'linear-gradient(to right,#74EBD5,#ACB6E5)';
-        document.getElementById('minutes').innerHTML = '01';
+        document.getElementById('minutes').innerHTML = '05';
         document.getElementById('seconds').innerHTML = '00';
         document.getElementById("currTask").innerHTML = "Short Break";
+        document.getElementById("title_timer").innerHTML = "5:00";
         document.getElementById("button-container").style.display = 'none';
         document.getElementById("container-short").style.display = 'block';
     }
     else if(localStorage.getItem('LongBreak') == 'true'){
         document.body.style.backgroundImage = 'linear-gradient(to right,#ACB6E5,#74EBD5)';
-        document.getElementById('minutes').innerHTML = '01';
+        document.getElementById('minutes').innerHTML = '15';
         document.getElementById('seconds').innerHTML = '00';
         document.getElementById("currTask").innerHTML = "Long Break";
+        document.getElementById("title_timer").innerHTML = "15:00";
         document.getElementById("button-container").style.display = 'none';
         document.getElementById("container-long").style.display = 'block';
     }
     else{
         localStorage.setItem('isPomo', 'false');
-        document.getElementById('minutes').innerHTML = '01';
+        document.getElementById('minutes').innerHTML = '25';
         document.getElementById('seconds').innerHTML = '00';
         document.getElementById("distraction-btn").innerHTML = "Distraction : " + distractCounter;
-        document.getElementById("title_timer").innerHTML = "01:00" + "- Time To Work!";
+        document.getElementById("title_timer").innerHTML = "25:00";
         document.getElementById("start-btn").style.display = 'block';
         document.getElementById("button-container").style.paddingLeft = '0px';
     }
@@ -74,10 +76,10 @@ function start(minutes, seconds) {
     }
     if (seconds < 10) {
         document.getElementById("seconds").innerHTML = "0" + seconds;
-        document.getElementById("title_timer").innerHTML = minutes + ":0" + seconds + "- Time To Work!";
+        document.getElementById("title_timer").innerHTML = minutes + ":0" + seconds;
     } else {
         document.getElementById("seconds").innerHTML = seconds;
-        document.getElementById("title_timer").innerHTML = minutes + ":" + seconds + "- Time To Work!";
+        document.getElementById("title_timer").innerHTML = minutes + ":" + seconds;
     }
 
     //var minutes_interval = setInterval(minutesTimer, 60000);
@@ -117,7 +119,7 @@ function start(minutes, seconds) {
         }
         if (seconds < 10) {
             document.getElementById("seconds").innerHTML = "0" + seconds;
-            document.getElementById("title_timer").innerHTML = minutes + ":0" + seconds + "- Time To Work!";
+            document.getElementById("title_timer").innerHTML = minutes + ":0" + seconds;
             if (seconds == 0) {
                 if (minutes <= 0) {
                     //clearInterval(minutes_interval);
@@ -151,7 +153,7 @@ function start(minutes, seconds) {
             }
         } else {
             document.getElementById("seconds").innerHTML = seconds;
-            document.getElementById("title_timer").innerHTML = minutes + ":" + seconds + "- Time To Work!";
+            document.getElementById("title_timer").innerHTML = minutes + ":" + seconds;
         }
 
     }
