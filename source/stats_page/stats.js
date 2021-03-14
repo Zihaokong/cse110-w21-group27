@@ -40,8 +40,8 @@ for (let i = 0; i < statsList.length; i++) {
   // last 30 days section
   if (dayPassed > 0 && dayPassed < 31) {
     monthPomos += itemPomo;
-    monthCompletedPomos += itemDistract;
-    monthDistractions += itemCompleted;
+    monthDistractions += itemDistract;
+    monthCompletedPomos += itemCompleted;
   }
   // remove item that 30 days old
   if (dayPassed > 30) {
@@ -76,6 +76,17 @@ document.getElementById('monthSuccess').innerText = `${(
   (100 * monthCompletedPomos) /
   monthPomos
 ).toFixed(2)}%`;
+
+console.log(
+  `todayCompletedPomos ${todayCompletedPomos}, todayPomos ${todayPomos}, todayDistractions ${todayDistractions}`
+);
+console.log(
+  `weekCompletedPomos ${weekCompletedPomos}, weekPomos ${weekPomos}, weekDistractions ${weekDistractions}`
+);
+console.log(
+  `monthCompletedPomos ${monthCompletedPomos}, monthPomos ${monthPomos}, monthDistractions ${monthDistractions}`
+);
+console.log(statsList);
 
 document.getElementById('reset').onclick = () => {
   statsList = [];
