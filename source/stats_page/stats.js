@@ -32,12 +32,14 @@ for (let i = 0; i < statsList.length; i++) {
 
   // last 7 days section
   if (dayPassed > 0 && dayPassed <= 7) {
+    console.log('YEs');
     weekPomos += itemPomo;
     weekDistractions += itemDistract;
     weekCompletedPomos += itemCompleted;
   }
   // last 30 days section
   if (dayPassed > 0 && dayPassed < 31) {
+    console.log('Yes 31');
     monthPomos += itemPomo;
     monthDistractions += itemDistract;
     monthCompletedPomos += itemCompleted;
@@ -112,8 +114,12 @@ document.getElementById('reset').onclick = () => {
   document.getElementById('monthSuccess').innerText = '0%';
 };
 
-function closeInfoModal() {
-  document.getElementById('infoModal').style.display = 'none';
+const spanClose = document.getElementsByClassName('close');
+// add event listeners
+for (let i = 0; i < spanClose.length; ++i) {
+  spanClose[i].addEventListener('click', () => {
+    document.getElementById('infoModal').style.display = 'none';
+  });
 }
 
 function openInfoModal() {

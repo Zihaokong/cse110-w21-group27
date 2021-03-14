@@ -16,13 +16,6 @@ const cancelBtns = document.getElementsByClassName('cancel-btn');
 // Get the <span> element that closes the modal
 const spanClose = document.getElementsByClassName('close');
 
-// set counters for timer page
-// let sessionCounter = Number(localStorage.getItem('sessionCounter'));
-// if (sessionCounter == null) {
-//   sessionCounter = 0;
-// }
-// localStorage.setItem('sessionCounter', sessionCounter);
-
 // add event listeners
 for (let i = 0; i < spanClose.length; ++i) {
   spanClose[i].addEventListener('click', closeModal);
@@ -70,6 +63,8 @@ if (!retrievedStats || retrievedStats === 'undefined') {
 } else {
   statsList = JSON.parse(retrievedStats);
 }
+
+/// / Code for testing ////
 
 // statsList = [{
 //     day: "3/10/2021",
@@ -155,17 +150,16 @@ const diffDays = Math.floor(
   Math.abs(current - lastVisit) / (1000 * 60 * 60 * 24)
 );
 // not the same day
-console.log(diffDays);
 if (diffDays !== 0) {
   console.log('Reset Today');
   const todayPomos = Number(localStorage.getItem('todayPomo'));
-  const todayCompletedPomos = Number(localStorage.getItem('sessionCounter'));
   const todayDistractions = Number(localStorage.getItem('distractCounter'));
+  const todayCompletedPomos = Number(localStorage.getItem('sessionCounter'));
   const newStats = {
     day: lastVisit.toLocaleDateString('en-US'),
     pomoCount: todayPomos,
-    distractions: todayCompletedPomos,
-    completedPomos: todayDistractions,
+    distractions: todayDistractions,
+    completedPomos: todayCompletedPomos,
   };
   statsList.unshift(newStats);
   localStorage.setItem('todayPomo', 0);

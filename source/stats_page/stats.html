@@ -110,25 +110,33 @@
         </div>
     </div>
 
-    <div id="infoModal" class="modal-info">
-        <div class="modal-content-info">
-            <div class="modal-text">
-                <input id="close-btn" type="image" src="./close.png" onclick="closeInfoModal()" />
-                <div class="heading-info">
-                    <h3>Information</h3>
+
+
+
+
+    <div id="infoModal" class="modal modal-info">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header" id="add-task-modal-header">
+                    <button type="button" class="btn-close close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <hr style="height:2px ;color: #282828;">
-                <p>
-                    <b>Completed Pomos: </b>Total number of completed pomos
-                </p>
-                <p>
-                    <b>Average Distractions Per Pomo: </b>Ratio of total number of distractions to total number of
-                    completed pomos
-                </p>
-                <p>
-                    <b>Pomo Success Rate: </b>Ratio of total number of completed pomos to total number of attempted
-                    pomos (including failed pomos)
-                </p>
+                <div class="modal-body">
+                    <div class="modal-text">
+                        <p>
+                            <b>Completed Pomos: </b>Total number of completed pomos
+                        </p>
+                        <p>
+                            <b>Average Distractions Per Pomo: </b>Ratio of total number of distractions to total number
+                            of
+                            completed pomos
+                        </p>
+                        <p>
+                            <b>Pomo Success Rate: </b>Ratio of total number of completed pomos to total number of
+                            attempted
+                            pomos (including failed pomos)
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
