@@ -3,7 +3,12 @@
  */
 
 /**
- * Class to define the task-list web component.
+ * The component which acts as the manager for tasks. It has the ability to
+ * create tasks, change ordering of tasks in the list, and houses functionality
+ * to play, edit, delete, and complete tasks, which the task item references in
+ * their event listeners. Keeps track of task items and stores/loads their info
+ * for local storage. Additionally, keeps track of the task item to be played
+ * and stores it into local storage for the timer.
  */
 class TaskList extends HTMLElement {
   /**

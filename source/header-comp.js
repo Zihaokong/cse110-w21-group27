@@ -4,8 +4,9 @@
  */
 
 /**
- * HeaderComp is the web component of custom header;
- * this represents the current date and completed cycles count
+ * Shows the current date and the current amount of cycles completed.
+ * Gets completed cycle count from local storage, if it exists. Increments and
+ * saves cycle count to local storage after every completed session.
  */
 class HeaderComp extends HTMLElement {
   /**

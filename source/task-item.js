@@ -9,8 +9,9 @@
  */
 
 /**
- * TaskItem class which is the task-item component that containing all the
- * buttons and the to-do task on the listed item.
+ * The component that represents an individual task. Houses the task's
+ * information and contains event listeners for play, edit,  delete, and
+ * complete, which it gets from the task list.
  */
 class TaskItem extends HTMLElement {
   static get observedAttributes() {
