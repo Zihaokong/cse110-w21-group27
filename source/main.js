@@ -151,7 +151,6 @@ const diffDays = Math.floor(
 );
 // not the same day
 if (diffDays !== 0) {
-  console.log('Reset Today');
   const todayPomos = Number(localStorage.getItem('todayPomo'));
   const todayDistractions = Number(localStorage.getItem('distractCounter'));
   const todayCompletedPomos = Number(localStorage.getItem('sessionCounter'));

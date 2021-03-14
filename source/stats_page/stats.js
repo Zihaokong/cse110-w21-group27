@@ -32,14 +32,12 @@ for (let i = 0; i < statsList.length; i++) {
 
   // last 7 days section
   if (dayPassed > 0 && dayPassed <= 7) {
-    console.log('YEs');
     weekPomos += itemPomo;
     weekDistractions += itemDistract;
     weekCompletedPomos += itemCompleted;
   }
   // last 30 days section
   if (dayPassed > 0 && dayPassed < 31) {
-    console.log('Yes 31');
     monthPomos += itemPomo;
     monthDistractions += itemDistract;
     monthCompletedPomos += itemCompleted;
@@ -82,17 +80,6 @@ document.getElementById('monthSuccess').innerText =
   monthCompletedPomos === 0
     ? '0%'
     : `${((100 * monthCompletedPomos) / monthPomos).toFixed(2)}%`;
-
-// console.log(
-//   `todayCompletedPomos ${todayCompletedPomos}, todayPomos ${todayPomos}, todayDistractions ${todayDistractions}`
-// );
-// console.log(
-//   `weekCompletedPomos ${weekCompletedPomos}, weekPomos ${weekPomos}, weekDistractions ${weekDistractions}`
-// );
-// console.log(
-//   `monthCompletedPomos ${monthCompletedPomos}, monthPomos ${monthPomos}, monthDistractions ${monthDistractions}`
-// );
-// console.log(statsList);
 
 // Reset Statistic
 document.getElementById('reset').onclick = () => {
