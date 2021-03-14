@@ -9,7 +9,7 @@
  */
 class HeaderComp extends HTMLElement {
   static get observedAttributes() {
-    return ['completedcycles', 'cyclecount'];
+    return ['completedcycles'];
   }
   /**
    * Constructor which attaches a shadow root to this element in open mode

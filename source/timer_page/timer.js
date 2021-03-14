@@ -131,6 +131,7 @@ function start(minutes, seconds) {
                     console.log(pomo);
                     if (pomo == 'true') {
                         localStorage.setItem('isPomo', 'false');
+                        //clear all circles for work session following longbreak
                         localStorage.setItem('ShortBreak','false');
                         localStorage.setItem('LongBreak','false');
                         displayBreakComplete();
