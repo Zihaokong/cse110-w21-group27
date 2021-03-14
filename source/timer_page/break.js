@@ -30,11 +30,7 @@ function displayShortBreak() {
 
 function startShortBreak(){
     document.getElementById("container-short").style.display = 'none';
-<<<<<<< HEAD
     start(5,00);
-=======
-    start(0,3);
->>>>>>> 59601d6e285eb3ea04cd4706734b5354e889c745
 }
 
 function displayLongBreak() {
@@ -47,19 +43,11 @@ function displayLongBreak() {
 
 function startLongBreak() {
     document.getElementById("container-long").style.display = 'none';
-<<<<<<< HEAD
     start(15,00);
-=======
-    start(0,5);
->>>>>>> 59601d6e285eb3ea04cd4706734b5354e889c745
 }
 
 function startTimer(){
     document.getElementById("start-btn").style.display = 'none';
     document.getElementById("button-container").style.paddingLeft = '150px';
-<<<<<<< HEAD
     start(25,00);
-=======
-    start(0,3);
->>>>>>> 59601d6e285eb3ea04cd4706734b5354e889c745
 }
