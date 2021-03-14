@@ -16,6 +16,7 @@ function continueTask() {
     document.getElementById("title_timer").innerHTML = "01:00" + "- Time To Work!";
     document.getElementById('minutes').innerHTML = '01';
     document.getElementById('seconds').innerHTML = '00';
+    document.getElementById('currTask').innerHTML = allTasks[currentTaskId].name;
     //start(0, 3);
     //window.location.reload();
 }

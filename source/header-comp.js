@@ -75,6 +75,7 @@ const headerStyle = () =>
  * this represents the current date and completed cycles count
  */
 class HeaderComp extends HTMLElement {
+  
   constructor() {
     super();
     const shadow = this.attachShadow({
