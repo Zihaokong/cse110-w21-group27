@@ -1,5 +1,4 @@
 // method getting data for stats page content
-
 let statsList;
 const retrievedStats = localStorage.getItem('statsList');
 if (!retrievedStats || retrievedStats === 'undefined') {
@@ -10,8 +9,8 @@ if (!retrievedStats || retrievedStats === 'undefined') {
 
 const today = new Date();
 const todayPomos = Number(localStorage.getItem('todayPomo'));
-const todayCompletedPomos = localStorage.getItem('sessionCounter');
-const todayDistractions = localStorage.getItem('distractCounter');
+const todayCompletedPomos = Number(localStorage.getItem('sessionCounter'));
+const todayDistractions = Number(localStorage.getItem('distractCounter'));
 
 let weekPomos = 0;
 let weekCompletedPomos = 0;
@@ -49,48 +48,55 @@ for (let i = 0; i < statsList.length; i++) {
   }
 }
 
+// Display stats for today
 document.getElementById('todayPomos').innerText = todayCompletedPomos;
 document.getElementById('todayAvgDistractions').innerText =
-  todayCompletedPomos === '0'
+  todayCompletedPomos === 0
     ? '0'
     : (todayDistractions / todayCompletedPomos).toFixed(1);
 document.getElementById('todaySuccess').innerText =
-  todayCompletedPomos === '0'
+  todayCompletedPomos === 0
     ? '0%'
     : `${((100 * todayCompletedPomos) / todayPomos).toFixed(2)}%`;
 
+// Display stats for week
 document.getElementById('weekPomos').innerText = weekCompletedPomos;
-document.getElementById('weekAvgDistractions').innerText = (
-  weekDistractions / weekCompletedPomos
-).toFixed(1);
-document.getElementById('weekSuccess').innerText = `${(
-  (100 * weekCompletedPomos) /
-  weekPomos
-).toFixed(2)}%`;
+document.getElementById('weekAvgDistractions').innerText =
+  weekCompletedPomos === 0
+    ? 0
+    : (weekDistractions / weekCompletedPomos).toFixed(1);
+document.getElementById('weekSuccess').innerText =
+  weekCompletedPomos === 0
+    ? '0%'
+    : `${((100 * weekCompletedPomos) / weekPomos).toFixed(2)}%`;
 
+// Display stats for month
 document.getElementById('monthPomos').innerText = monthCompletedPomos;
-document.getElementById('monthAvgDistractions').innerText = (
-  monthDistractions / monthCompletedPomos
-).toFixed(1);
-document.getElementById('monthSuccess').innerText = `${(
-  (100 * monthCompletedPomos) /
-  monthPomos
-).toFixed(2)}%`;
+document.getElementById('monthAvgDistractions').innerText =
+  monthCompletedPomos === 0
+    ? 0
+    : (monthDistractions / monthCompletedPomos).toFixed(1);
+document.getElementById('monthSuccess').innerText =
+  monthCompletedPomos === 0
+    ? '0%'
+    : `${((100 * monthCompletedPomos) / monthPomos).toFixed(2)}%`;
 
-console.log(
-  `todayCompletedPomos ${todayCompletedPomos}, todayPomos ${todayPomos}, todayDistractions ${todayDistractions}`
-);
-console.log(
-  `weekCompletedPomos ${weekCompletedPomos}, weekPomos ${weekPomos}, weekDistractions ${weekDistractions}`
-);
-console.log(
-  `monthCompletedPomos ${monthCompletedPomos}, monthPomos ${monthPomos}, monthDistractions ${monthDistractions}`
-);
-console.log(statsList);
+// console.log(
+//   `todayCompletedPomos ${todayCompletedPomos}, todayPomos ${todayPomos}, todayDistractions ${todayDistractions}`
+// );
+// console.log(
+//   `weekCompletedPomos ${weekCompletedPomos}, weekPomos ${weekPomos}, weekDistractions ${weekDistractions}`
+// );
+// console.log(
+//   `monthCompletedPomos ${monthCompletedPomos}, monthPomos ${monthPomos}, monthDistractions ${monthDistractions}`
+// );
+// console.log(statsList);
 
+// Reset Statistic
 document.getElementById('reset').onclick = () => {
   statsList = [];
   localStorage.setItem('statsList', JSON.stringify(statsList));
+
   localStorage.setItem('distractCounter', 0);
   localStorage.setItem('sessionCounter', 0);
 

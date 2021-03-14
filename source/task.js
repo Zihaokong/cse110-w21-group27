@@ -356,14 +356,6 @@ class TaskList extends HTMLElement {
 }
 customElements.define('task-list', TaskList);
 
-/**
- * Closing page will remove the TaskList object and log the current time
- */
-window.onbeforeunload = function removeTaskList() {
-  localStorage.setItem('lastVisit', JSON.stringify(new Date()));
-  document.getElementById('main-container').remove();
-};
-
 if (typeof exports !== 'undefined') {
   module.exports = {
     TaskList,
