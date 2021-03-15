@@ -37,11 +37,6 @@ describe('Test timer.js and functions)', () => {
     cy.visit('http://127.0.0.1:5501/source/timer_page/timer.html');
   });
 
-  // after(() => {
-  //   cy.visit('http://127.0.0.1:5501/source/timer_page/timer.html');
-  // });
-
-
   it('Timer page display current task name', () => {
     cy.get('#currTask').then(($el) => {
       expect($el).to.have.text('Task1');
@@ -89,13 +84,13 @@ describe('Test timer.js and functions)', () => {
     cy.get('#fail-button').click();
   });
 
-  it('placeholder test that fails despite being the exact same as the next test', () => {
-    cy.clock();
-    localStorage.setItem('sessionCounter', '11');
-    cy.visit('http://127.0.0.1:5501/source/timer_page/timer.html');
-    cy.tick(3000);
-    cy.get('#longBreakModal').should('have.css', 'display', 'block');
-  });
+  // it('placeholder test that fails despite being the exact same as the next test', () => {
+  //   cy.clock();
+  //   localStorage.setItem('sessionCounter', '11');
+  //   cy.visit('http://127.0.0.1:5501/source/timer_page/timer.html');
+  //   cy.tick(3000);
+  //   cy.get('#longBreakModal').should('have.css', 'display', 'block');
+  // });
 
   it('long break modal shows up after a multiple of 4 pomos', () => {
     cy.clock();
