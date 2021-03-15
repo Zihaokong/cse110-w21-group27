@@ -1,7 +1,6 @@
 {
     "extends": ["airbnb-base", "prettier"],
     "plugins": ["prettier", "jest"],
-    "ignorePatterns": ["build/*"],
     "rules": {
         "no-unused-vars":"warn",
         "no-plusplus":"off",

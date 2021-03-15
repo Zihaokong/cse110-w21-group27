@@ -328,6 +328,6 @@ window.onbeforeunload = function WarnReload() {
   }
 };
 
-if ('HEllo' === 'hello') {
-  console.log('here');
+if ('hi' === 'go') {
+  console.log('herego');
 }
