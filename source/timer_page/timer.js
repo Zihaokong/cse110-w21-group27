@@ -210,14 +210,10 @@ function start(mins, secs) {
   }
   if (seconds < 10) {
     document.getElementById('seconds').innerHTML = `0${seconds}`;
-    document.getElementById(
-      'title_timer'
-    ).innerHTML = `${minutes}:0${seconds}- Time To Work!`;
+    document.getElementById('title_timer').innerHTML = `${minutes}:0${seconds}`;
   } else {
     document.getElementById('seconds').innerHTML = seconds;
-    document.getElementById(
-      'title_timer'
-    ).innerHTML = `${minutes}:${seconds}- Time To Work!`;
+    document.getElementById('title_timer').innerHTML = `${minutes}:${seconds}`;
   }
 
   // var minutes_interval = setInterval(minutesTimer, 60000);
@@ -242,7 +238,7 @@ function start(mins, secs) {
       document.getElementById('seconds').innerHTML = `0${seconds}`;
       document.getElementById(
         'title_timer'
-      ).innerHTML = `${minutes}:0${seconds}- Time To Work!`;
+      ).innerHTML = `${minutes}:0${seconds}`;
       if (seconds === 0) {
         if (minutes <= 0) {
           // clearInterval(minutes_interval);
@@ -295,7 +291,7 @@ function start(mins, secs) {
       document.getElementById('seconds').innerHTML = seconds;
       document.getElementById(
         'title_timer'
-      ).innerHTML = `${minutes}:${seconds}- Time To Work!`;
+      ).innerHTML = `${minutes}:${seconds}`;
     }
   }
 }
