@@ -68,3 +68,11 @@ window.onclick = function closeModal2(event) {
     deleteModal.style.display = 'none';
   }
 };
+
+function closeInfoModal() {
+  document.getElementById('infoModal').style.display = 'none';
+}
+
+function openInfoModal() {
+  document.getElementById('infoModal').style.display = 'block';
+}
