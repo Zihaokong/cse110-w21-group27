@@ -39,6 +39,9 @@ class TaskList extends HTMLElement {
    * task-items.
    */
   connectedCallback() {
+    // set the timer state back to a work session
+    localStorage.setItem('ShortBreak', 'false');
+    localStorage.setItem('LongBreak', 'false');
     // Add an event listener to the taskform such that when the form is
     // submitted, it creates a task.
     document
@@ -166,7 +169,7 @@ class TaskList extends HTMLElement {
 
     // Delete item in allTasks array
     const { name } = itemToDelete;
-    document.getElementById('task-delete').innerText = `[${name}]`;
+    document.getElementById('task-delete').innerText = `${name}?`;
     document.getElementById('confirm-button').addEventListener('click', () => {
       for (let i = 0; i < this.allTasks.length; i++) {
         if (this.allTasks[i].name === name) {

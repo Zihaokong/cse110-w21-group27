@@ -8,6 +8,10 @@
  * this represents the current date and completed cycles count
  */
 class HeaderComp extends HTMLElement {
+  static get observedAttributes() {
+    return ['completedcycles', 'isnewcycle'];
+  }
+
   /**
    * Constructor which attaches a shadow root to this element in open mode
    */
@@ -19,17 +23,31 @@ class HeaderComp extends HTMLElement {
   }
 
   /**
-   * Gets the amount of completed cycles.
+   * sets the amount of completed cycles
    */
-  get completedCycles() {
-    return this.completed;
+  set completedCycles(newValue) {
+    this.setAttribute('completedcycles', newValue);
   }
 
   /**
-   * Gets the cycle count.
+   * Set isnewcycle
    */
-  get cycleCount() {
-    return this.count;
+  set isNewCycle(newValue) {
+    this.setAttribute('isnewcycle', newValue);
+  }
+
+  /**
+   * Gets the amount of completed cycles.
+   */
+  get completedCycles() {
+    return this.getAttribute('completedcycles');
+  }
+
+  /**
+   * Gets whether it is newcycle.
+   */
+  get isNewCycle() {
+    return this.getAttribute('isnewcycle');
   }
 
   /**
@@ -37,14 +55,13 @@ class HeaderComp extends HTMLElement {
    */
   connectedCallback() {
     // Get the session counter from storage.
-    this.completed = localStorage.getItem('sessionCounter');
-    this.count = 4 - (this.completed % 4);
-
+    this.completedCycles = localStorage.getItem('sessionCounter');
+    this.isNewCycle = this.completedCycles % 4 === 0 ? 'true' : 'false';
     // Creates the nav element which houses the info of the header
     const nav = document.createElement('nav');
     nav.setAttribute('class', 'top-nav');
 
-    // Creat the date text.
+    // Create the date text.
     const date = document.createElement('h2');
     date.setAttribute('id', 'date');
     date.innerText = HeaderComp.createDate()
@@ -75,22 +92,62 @@ class HeaderComp extends HTMLElement {
     this.renderText();
   }
 
+  attributeChangedCallback(name, oldValue, newValue) {
+    if (name === 'completedcycles') {
+      const circleSection = this.shadowRoot.querySelector('section');
+
+      // check if section is loaded
+      if (circleSection) {
+        // reset the section
+        circleSection.innerHTML = `      
+        <span>
+          <h2 id="completed-cycle" style="display: inline; color: #c4c4c4">
+            | Not yet completed
+          </h2>
+        </span>`;
+
+        this.renderCounter();
+        this.renderCompletedCount();
+        this.renderText();
+      }
+    }
+
+    if (name === 'isnewcycle') {
+      if (newValue === 'true') {
+        const circleSection = this.shadowRoot.querySelector('section');
+        // check if section is loaded
+        if (circleSection) {
+          // reset the section
+          circleSection.innerHTML = `      
+          <span>
+            <h2 id="completed-cycle" style="display: inline; color: #c4c4c4">
+              | Not yet completed
+            </h2>
+          </span>`;
+
+          this.renderCounter();
+          this.renderCompletedCount();
+          this.renderText();
+        }
+      }
+    }
+  }
+
   /**
    * Create unfilled circle for cycles.
    */
   renderCounter() {
-    const shadow = this.shadowRoot;
-    if (this.completedCycles === '0') {
+    if (this.completedCycles === '0' || this.isNewCycle === 'true') {
       for (let i = 0; i < 4; i++) {
         const newCycle = document.createElement('span');
         newCycle.setAttribute('class', 'dot');
-        shadow.getElementById('cycle-count').prepend(newCycle);
+        this.shadowRoot.getElementById('cycle-count').prepend(newCycle);
       }
     } else if (this.completedCycles % 4 !== 0) {
-      for (let i = 0; i < this.cycleCount; i++) {
+      for (let i = 0; i < 4 - (this.completedCycles % 4); i++) {
         const newCycle = document.createElement('span');
         newCycle.setAttribute('class', 'dot');
-        shadow.getElementById('cycle-count').prepend(newCycle);
+        this.shadowRoot.getElementById('cycle-count').prepend(newCycle);
       }
     }
   }
@@ -99,7 +156,11 @@ class HeaderComp extends HTMLElement {
    * Create filled circle for completed cycles.
    */
   renderCompletedCount() {
-    if (this.completedCycles % 4 === 0 && this.completedCycles !== '0') {
+    if (
+      this.completedCycles % 4 === 0 &&
+      this.completedCycles !== '0' &&
+      this.isNewCycle === 'false'
+    ) {
       for (let i = 0; i < 4; i++) {
         const newCycle = document.createElement('span');
         newCycle.setAttribute('class', 'filled-dot');
