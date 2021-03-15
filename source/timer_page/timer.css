@@ -66,6 +66,38 @@ button{
     align-items: center;
 }
 
+#container-short{
+    padding-top: 20px;
+    display: none;
+    align-items: center;
+    padding-left: 38%;
+}
+
+#container-long{
+    padding-top: 20px;
+    display: none;
+    align-items: center;
+    padding-left: 38%;
+}
+
+#start-short-btn{
+    color:white;
+    background-color: #2E4756;
+    border-radius: 70px;
+    height:70px ; 
+    width:270px;
+    align-self: center;
+}
+
+.start-break-btn{
+    color:white;
+    background-color: #2E4756;
+    border-radius: 70px;
+    height:70px ; 
+    width:270px;
+    align-self: center;
+}
+
 #distraction-btn{
     color:white;
     background-color: #2E4756;
@@ -81,4 +113,13 @@ button{
     border-radius: 70px;
     height:70px ; 
     width:130px;
+}
+
+#start-btn{
+    color:white;
+    background-color: #2E4756;
+    border-radius: 70px;
+    height:70px ; 
+    width:150px;
+    align-self: center;
 }

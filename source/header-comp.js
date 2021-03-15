@@ -9,6 +9,10 @@
  * saves cycle count to local storage after every completed session.
  */
 class HeaderComp extends HTMLElement {
+  static get observedAttributes() {
+    return ['completedcycles', 'isnewcycle'];
+  }
+
   /**
    * Constructor which attaches a shadow root to this element in open mode
    */
@@ -20,17 +24,45 @@ class HeaderComp extends HTMLElement {
   }
 
   /**
+   * sets the amount of completed cycles
+   */
+  set completedCycles(newValue) {
+    this.setAttribute('completedcycles', newValue);
+  }
+
+  /**
+   * Sets the cycle count
+   */
+  set cycleCount(newValue) {
+    this.setAttribute('cyclecount', newValue);
+  }
+
+  /**
+   * Set isnewcycle
+   */
+  set isNewCycle(newValue) {
+    this.setAttribute('isnewcycle', newValue);
+  }
+
+  /**
    * Gets the amount of completed cycles.
    */
   get completedCycles() {
-    return this.completed;
+    return this.getAttribute('completedcycles');
   }
 
   /**
    * Gets the cycle count.
    */
   get cycleCount() {
-    return this.count;
+    return this.getAttribute('cyclecount');
+  }
+
+  /**
+   * Gets whether it is newcycle.
+   */
+  get isNewCycle() {
+    return this.getAttribute('isnewcycle');
   }
 
   /**
@@ -38,9 +70,9 @@ class HeaderComp extends HTMLElement {
    */
   connectedCallback() {
     // Get the session counter from storage.
-    this.completed = localStorage.getItem('sessionCounter');
-    this.count = 4 - (this.completed % 4);
-
+    this.completedCycles = localStorage.getItem('sessionCounter');
+    this.cycleCount = 4 - (this.completedCycles % 4);
+    this.isNewCycle = this.completedCycles % 4 === 0 ? 'true' : 'false';
     // Creates the nav element which houses the info of the header
     const nav = document.createElement('nav');
     nav.setAttribute('class', 'top-nav');
@@ -48,9 +80,9 @@ class HeaderComp extends HTMLElement {
     // Creat the date text.
     const date = document.createElement('h2');
     date.setAttribute('id', 'date');
-    date.innerText = HeaderComp.createDate() ?
-      HeaderComp.createDate() :
-      `Today's date`;
+    date.innerText = HeaderComp.createDate()
+      ? HeaderComp.createDate()
+      : `Today's date`;
 
     // Create the cycle counter section of the header.
     const section = document.createElement('section');
@@ -76,22 +108,63 @@ class HeaderComp extends HTMLElement {
     this.renderText();
   }
 
+  attributeChangedCallback(name, oldValue, newValue) {
+    if (name === 'completedcycles') {
+      this.cycleCount = 4 - (newValue % 4);
+      const circleSection = this.shadowRoot.querySelector('section');
+
+      // check if section is loaded
+      if (circleSection) {
+        // reset the section
+        circleSection.innerHTML = `      
+        <span>
+          <h2 id="completed-cycle" style="display: inline; color: #c4c4c4">
+            | Not yet completed
+          </h2>
+        </span>`;
+
+        this.renderCounter();
+        this.renderCompletedCount();
+        this.renderText();
+      }
+    }
+
+    if (name === 'isnewcycle') {
+      if (newValue === 'true') {
+        const circleSection = this.shadowRoot.querySelector('section');
+        // check if section is loaded
+        if (circleSection) {
+          // reset the section
+          circleSection.innerHTML = `      
+          <span>
+            <h2 id="completed-cycle" style="display: inline; color: #c4c4c4">
+              | Not yet completed
+            </h2>
+          </span>`;
+
+          this.renderCounter();
+          this.renderCompletedCount();
+          this.renderText();
+        }
+      }
+    }
+  }
+
   /**
    * Create unfilled circle for cycles.
    */
   renderCounter() {
-    const shadow = this.shadowRoot;
-    if (this.completedCycles === '0') {
+    if (this.completedCycles === '0' || this.isNewCycle === 'true') {
       for (let i = 0; i < 4; i++) {
         const newCycle = document.createElement('span');
         newCycle.setAttribute('class', 'dot');
-        shadow.getElementById('cycle-count').prepend(newCycle);
+        this.shadowRoot.getElementById('cycle-count').prepend(newCycle);
       }
     } else if (this.completedCycles % 4 !== 0) {
       for (let i = 0; i < this.cycleCount; i++) {
         const newCycle = document.createElement('span');
         newCycle.setAttribute('class', 'dot');
-        shadow.getElementById('cycle-count').prepend(newCycle);
+        this.shadowRoot.getElementById('cycle-count').prepend(newCycle);
       }
     }
   }
@@ -100,7 +173,11 @@ class HeaderComp extends HTMLElement {
    * Create filled circle for completed cycles.
    */
   renderCompletedCount() {
-    if (this.completedCycles % 4 === 0 && this.completedCycles !== '0') {
+    if (
+      this.completedCycles % 4 === 0 &&
+      this.completedCycles !== '0' &&
+      this.isNewCycle === 'false'
+    ) {
       for (let i = 0; i < 4; i++) {
         const newCycle = document.createElement('span');
         newCycle.setAttribute('class', 'filled-dot');
