@@ -327,3 +327,7 @@ window.onbeforeunload = function WarnReload() {
     return 'Your timer progress will reset';
   }
 };
+
+if ('HEllo' === 'hello') {
+  console.log('here');
+}
