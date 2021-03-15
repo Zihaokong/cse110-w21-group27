@@ -47,6 +47,7 @@ class TaskList extends HTMLElement {
     // set the timer state back to a work session
     localStorage.setItem('ShortBreak', 'false');
     localStorage.setItem('LongBreak', 'false');
+
     // Add an event listener to the taskform such that when the form is
     // submitted, it creates a task.
     document
@@ -131,7 +132,9 @@ class TaskList extends HTMLElement {
   }
 
   /**
-   * Create a task-item in the shadow DOM and append it to allTasks.
+   * Function which is triggered by the event of the user submitting a new task
+   * from add task modal; Creates a new task item, adds it to the list, and
+   * saves its properties to All tasks array.
    * @param {Event} event Event which triggered this function.
    */
   addTask(event) {
@@ -161,7 +164,10 @@ class TaskList extends HTMLElement {
   }
 
   /**
-   * Delete task from allTasks array and the task-list
+   * Function which is triggered by a delete button event in a task item;
+   * displays the delete modal and then creates an event listener on the delete
+   * modal which, on submission, deletes the task item from the list element and
+   * all tasks array.
    * @param {Event} event the event which triggered this function; it's target
    *                      should be the button of the task to be deleted.
    */
@@ -190,7 +196,10 @@ class TaskList extends HTMLElement {
   }
 
   /**
-   * Edit task with respect to allTasks array and the task-list
+   * A function which is triggered by an edit button event in a task item;
+   * displays the event modal and then creates an event listener on the edit
+   * modal which, on submission, edits an existing task and saves its changes to
+   * allTasks.
    * @param {Event} event the event which triggered this function; it's target
    *                      should be the button of the task to be edited.
    */
@@ -230,8 +239,9 @@ class TaskList extends HTMLElement {
   }
 
   /**
-   * Retrieving the note in Storage by getting its id
-   * and update the checkmark status on the array
+   * A function which is triggered by an event in task item; on call, it inverts
+   * the task item's completed property and changes the property of that task in
+   * allTasks.
    * @param {Event} event the event which triggered this function; it's target
    *                      should be the checkmark of the task being set.
    */
@@ -252,8 +262,8 @@ class TaskList extends HTMLElement {
   }
 
   /**
-   * Retrieving the task name and notes that are stored in allTasks array
-   * and show on the Modal before starting the timer.
+   * A function which is triggered by a play button event in a task item; on
+   * call, it opens the play modal and sets the current task
    * @param {Event} event the event which triggered this function; it's target
    *                      should be the button of the task to be played.
    */
