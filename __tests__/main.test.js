@@ -126,9 +126,6 @@ describe('"openModal" Function Test', () => {
   });
 });
 
-// describe('"determineSessionDate" Function Test', () => {
-// });
-
 describe('"closeModal" Function Test', () => {
   test('Test play modal ', () => {
     const playModal = document.getElementById('play-modal');
