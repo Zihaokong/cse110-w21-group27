@@ -327,7 +327,3 @@ window.onbeforeunload = function WarnReload() {
     return 'Your timer progress will reset';
   }
 };
-
-if ('hi' === 'go') {
-  console.log('herego');
-}
