@@ -47,6 +47,10 @@ function continueTask() {
   document.getElementById('minutes').innerHTML = '01';
   document.getElementById('seconds').innerHTML = '00';
   document.getElementById('currTask').innerHTML = allTasks[currentTaskId].name;
+  localStorage.setItem(
+    'todayPomo',
+    Number(localStorage.getItem('todayPomo')) + 1
+  );
   // start(0, 3);
   // window.location.reload();
 }
