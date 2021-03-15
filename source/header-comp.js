@@ -153,18 +153,17 @@ class HeaderComp extends HTMLElement {
    * Create unfilled circle for cycles.
    */
   renderCounter() {
-    const shadow = this.shadowRoot;
     if (this.completedCycles === '0' || this.isNewCycle === 'true') {
       for (let i = 0; i < 4; i++) {
         const newCycle = document.createElement('span');
         newCycle.setAttribute('class', 'dot');
-        shadow.getElementById('cycle-count').prepend(newCycle);
+        this.shadowRoot.getElementById('cycle-count').prepend(newCycle);
       }
     } else if (this.completedCycles % 4 !== 0) {
       for (let i = 0; i < this.cycleCount; i++) {
         const newCycle = document.createElement('span');
         newCycle.setAttribute('class', 'dot');
-        shadow.getElementById('cycle-count').prepend(newCycle);
+        this.shadowRoot.getElementById('cycle-count').prepend(newCycle);
       }
     }
   }
