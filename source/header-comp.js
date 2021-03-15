@@ -9,8 +9,9 @@
  */
 class HeaderComp extends HTMLElement {
   static get observedAttributes() {
-    return ['completedcycles'];
+    return ['completedcycles', 'isnewcycle'];
   }
+
   /**
    * Constructor which attaches a shadow root to this element in open mode
    */
@@ -36,6 +37,13 @@ class HeaderComp extends HTMLElement {
   }
 
   /**
+   * Set isnewcycle
+   */
+  set isNewCycle(newValue) {
+    this.setAttribute('isnewcycle', newValue);
+  }
+
+  /**
    * Gets the amount of completed cycles.
    */
   get completedCycles() {
@@ -50,13 +58,20 @@ class HeaderComp extends HTMLElement {
   }
 
   /**
+   * Gets whether it is newcycle.
+   */
+  get isNewCycle() {
+    return this.getAttribute('isnewcycle');
+  }
+
+  /**
    * Called when the header is applied to the DOM; Sets up the header.
    */
   connectedCallback() {
     // Get the session counter from storage.
     this.completedCycles = localStorage.getItem('sessionCounter');
     this.cycleCount = 4 - (this.completedCycles % 4);
-
+    this.isNewCycle = this.completedCycles % 4 === 0 ? 'true' : 'false';
     // Creates the nav element which houses the info of the header
     const nav = document.createElement('nav');
     nav.setAttribute('class', 'top-nav');
@@ -93,25 +108,46 @@ class HeaderComp extends HTMLElement {
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
-    if(name === 'completedcycles'){
-      this.cycleCount = 4-(newValue % 4);
-      let circleSection = this.shadowRoot.querySelector('section');
+    if (name === 'completedcycles') {
+      this.cycleCount = 4 - (newValue % 4);
+      const circleSection = this.shadowRoot.querySelector('section');
 
-      //check if section is loaded
-      if(circleSection){
-        //reset the section
+      // check if section is loaded
+      if (circleSection) {
+        // reset the section
         circleSection.innerHTML = `      
         <span>
           <h2 id="completed-cycle" style="display: inline; color: #c4c4c4">
             | Not yet completed
           </h2>
         </span>`;
-  
+
         this.renderCounter();
         this.renderCompletedCount();
         this.renderText();
       }
+    }
 
+    if (name === 'isnewcycle') {
+      if (newValue === 'true') {
+        this.cycleCount = 4 - (newValue % 4);
+        const circleSection = this.shadowRoot.querySelector('section');
+
+        // check if section is loaded
+        if (circleSection) {
+          // reset the section
+          circleSection.innerHTML = `      
+          <span>
+            <h2 id="completed-cycle" style="display: inline; color: #c4c4c4">
+              | Not yet completed
+            </h2>
+          </span>`;
+
+          this.renderCounter();
+          this.renderCompletedCount();
+          this.renderText();
+        }
+      }
     }
   }
 
@@ -120,9 +156,7 @@ class HeaderComp extends HTMLElement {
    */
   renderCounter() {
     const shadow = this.shadowRoot;
-    console.log("HERE");
-    console.log(this.completedCycles);
-    if (this.completedCycles === '0') {
+    if (this.completedCycles === '0' || this.isNewCycle === 'true') {
       for (let i = 0; i < 4; i++) {
         const newCycle = document.createElement('span');
         newCycle.setAttribute('class', 'dot');
@@ -141,7 +175,11 @@ class HeaderComp extends HTMLElement {
    * Create filled circle for completed cycles.
    */
   renderCompletedCount() {
-    if (this.completedCycles % 4 === 0 && this.completedCycles !== '0') {
+    if (
+      this.completedCycles % 4 === 0 &&
+      this.completedCycles !== '0' &&
+      this.isNewCycle === 'false'
+    ) {
       for (let i = 0; i < 4; i++) {
         const newCycle = document.createElement('span');
         newCycle.setAttribute('class', 'filled-dot');

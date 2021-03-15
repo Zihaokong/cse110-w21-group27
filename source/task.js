@@ -39,6 +39,9 @@ class TaskList extends HTMLElement {
    * task-items.
    */
   connectedCallback() {
+    // set the timer state back to a work session
+    localStorage.setItem('ShortBreak', 'false');
+    localStorage.setItem('LongBreak', 'false');
     // Add an event listener to the taskform such that when the form is
     // submitted, it creates a task.
     document
