@@ -24,6 +24,13 @@ function openModal() {
 }
 
 /**
+ * Function which sets the openInfoModal's display to be block
+ */
+function openInfoModal() {
+  document.getElementById('infoModal').style.display = 'block';
+}
+
+/**
  * To determine the current date when the user accessing to the index.html.
  * Calculate the difference of days since the last visit. If it is not the same
  * work day, create the new object with the current number in counters and add
@@ -83,6 +90,7 @@ function closeModal() {
   document.getElementById('play-modal').style.display = 'none';
   document.getElementById('edit-modal').style.display = 'none';
   document.getElementById('delete-modal').style.display = 'none';
+  document.getElementById('infoModal').style.display = 'none';
 }
 
 /**
