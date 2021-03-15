@@ -29,6 +29,9 @@ function openModal() {
 function openInfoModal() {
   document.getElementById('infoModal').style.display = 'block';
 }
+function closeIntoModal() {
+  document.getElementById('infoModal').style.display = 'none';
+}
 
 /**
  * To determine the current date when the user accessing to the index.html.
@@ -90,7 +93,6 @@ function closeModal() {
   document.getElementById('play-modal').style.display = 'none';
   document.getElementById('edit-modal').style.display = 'none';
   document.getElementById('delete-modal').style.display = 'none';
-  document.getElementById('infoModal').style.display = 'none';
 }
 
 /**
