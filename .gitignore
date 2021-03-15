@@ -5,4 +5,4 @@ coverage
 minified
 cypress/screenshots
 cypress/videos
-build/timer_page
+build
