@@ -26,6 +26,9 @@ if (sessionCounter == null) {
 }
 localStorage.setItem('sessionCounter', sessionCounter);
 
+// set flag for LongBreak
+localStorage.setItem('LongBreak', 'false');
+
 // add event listeners
 for (let i = 0; i < spanClose.length; ++i) {
   spanClose[i].addEventListener('click', closeModal);
@@ -65,3 +68,11 @@ window.onclick = function closeModal2(event) {
     deleteModal.style.display = 'none';
   }
 };
+
+function closeInfoModal() {
+  document.getElementById('infoModal').style.display = 'none';
+}
+
+function openInfoModal() {
+  document.getElementById('infoModal').style.display = 'block';
+}
