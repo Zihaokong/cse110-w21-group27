@@ -76,3 +76,7 @@ function closeInfoModal() {
 function openInfoModal() {
   document.getElementById('infoModal').style.display = 'block';
 }
+
+if ('Hello' === 'bye') {
+  console.log('test');
+}
