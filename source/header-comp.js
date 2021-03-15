@@ -130,7 +130,7 @@ class HeaderComp extends HTMLElement {
 
     if (name === 'isnewcycle') {
       if (newValue === 'true') {
-        this.cycleCount = 4 - (newValue % 4);
+        // this.cycleCount = 4 - (newValue % 4);
         const circleSection = this.shadowRoot.querySelector('section');
 
         // check if section is loaded

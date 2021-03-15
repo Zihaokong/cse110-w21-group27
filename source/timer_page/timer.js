@@ -74,7 +74,7 @@ function displayShortBreak() {
 
 function startShortBreak() {
   document.getElementById('container-short').style.display = 'none';
-  start(0, 5);
+  start(0, 3);
 }
 
 function displayLongBreak() {
@@ -95,7 +95,7 @@ function displayLongBreak() {
 
 function startLongBreak() {
   document.getElementById('container-long').style.display = 'none';
-  start(0, 10);
+  start(0, 5);
 }
 
 function startTimer() {
@@ -104,7 +104,7 @@ function startTimer() {
   isFailed = true;
   document.getElementById('start-btn').style.display = 'none';
   document.getElementById('button-container').style.paddingLeft = '150px';
-  start(0, 10);
+  start(0, 3);
 }
 
 // handle timing

@@ -6,7 +6,7 @@ describe('Header Testing', () => {
     const header = document.createElement('header-comp');
     document.body.appendChild(header);
     expect(header.completedCycles).toBe('0');
-    expect(header.cycleCount).toBe(4);
+    expect(header.cycleCount).toBe('4');
     expect(
       header.shadowRoot
         .getElementById('cycle-count')
@@ -22,8 +22,8 @@ describe('Header Testing', () => {
     Storage.prototype.getItem = jest.fn(() => 1);
     const header = document.createElement('header-comp');
     document.body.appendChild(header);
-    expect(header.completedCycles).toBe(1);
-    expect(header.cycleCount).toBe(3);
+    expect(header.completedCycles).toBe('1');
+    expect(header.cycleCount).toBe('3');
     expect(
       header.shadowRoot
         .getElementById('cycle-count')
@@ -39,8 +39,8 @@ describe('Header Testing', () => {
     Storage.prototype.getItem = jest.fn(() => 4);
     const header = document.createElement('header-comp');
     document.body.appendChild(header);
-    expect(header.completedCycles).toBe(4);
-    expect(header.cycleCount).toBe(4);
+    expect(header.completedCycles).toBe('4');
+    expect(header.cycleCount).toBe('4');
     expect(
       header.shadowRoot
         .getElementById('cycle-count')
@@ -56,8 +56,8 @@ describe('Header Testing', () => {
     Storage.prototype.getItem = jest.fn(() => 5);
     const header = document.createElement('header-comp');
     document.body.appendChild(header);
-    expect(header.completedCycles).toBe(5);
-    expect(header.cycleCount).toBe(3);
+    expect(header.completedCycles).toBe('5');
+    expect(header.cycleCount).toBe('3');
     expect(
       header.shadowRoot
         .getElementById('cycle-count')
@@ -74,8 +74,8 @@ describe('Header Testing', () => {
       Storage.prototype.getItem = jest.fn(() => i);
       const header = document.createElement('header-comp');
       document.body.appendChild(header);
-      expect(header.completedCycles).toBe(i);
-      expect(header.cycleCount).toBe(4 - (i % 4));
+      expect(header.completedCycles).toBe(String(i));
+      expect(header.cycleCount).toBe(String(4 - (i % 4)));
       expect(
         header.shadowRoot
           .getElementById('cycle-count')
