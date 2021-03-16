@@ -6,13 +6,19 @@ let isInSession = false;
 let isReload = true; // distinguish refresh or back button
 let currentTaskId;
 let allTasks;
+let circle;
+let radius;
+let circumference; 
 
-const circle = document.querySelector('.progress-ring-circle');
-const radius = circle.r.baseVal.value;
-const circumference = radius * 2 * Math.PI;
+window.addEventListener('load', () => {
+  circle = document.querySelector('.progress-ring-circle');
+  radius = circle.r.baseVal.value;
+  circumference = radius * 2 * Math.PI;
 
-circle.style.strokeDasharray = circumference;
-circle.style.strokeDashoffset = 0;
+  circle.style.strokeDasharray = circumference;
+  circle.style.strokeDashoffset = 0;
+});
+
 
 // progress bar functions
 function setProgress(percent) {
@@ -108,7 +114,7 @@ function startTimer() {
 }
 
 // handle timing
-window.onload = function template() {
+window.addEventListener('load,', function template() {
   // add event listeners for buttons on timer page
   document.getElementById('start-btn').addEventListener('click', startTimer);
   document
@@ -182,7 +188,7 @@ window.onload = function template() {
       window.history.back();
     }
   });
-};
+});
 
 /**
  * Set a timer that count down for 60 second.
@@ -327,3 +333,24 @@ window.onbeforeunload = function WarnReload() {
     return 'Your timer progress will reset';
   }
 };
+
+
+if (typeof exports !== 'undefined') {
+  module.exports = {
+    setProgress,
+    resetProgressRing,
+    displayBreakComplete,
+    continueTask,
+    changeTask,
+    displayShortBreak,
+    startShortBreak,
+    displayLongBreak,
+    startLongBreak,
+    startTimer,
+    start,
+    distractionCount,
+    displayFailModal,
+    failSession,
+    quitFailModal
+  };
+}
