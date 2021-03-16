@@ -5,6 +5,7 @@ head,
 body {
   background: #e5e5e5;
   margin: 0 0;
+  overflow-x: hidden;
   color: #2e4756;
   font-family: "Poppins", sans-serif;
 }
@@ -19,6 +20,7 @@ body {
 
 #heading-container-btns{
   display: flex;
+  margin-top: 1%;
 }
 
 #info-container{
@@ -37,15 +39,22 @@ body {
 
 h1 {
   margin-top: 5%;
+  font-family: "Poppins", sans-serif;
 }
 
 h2 {
   margin-top: 0;
 }
 
+#header-divider {
+  border: 1px solid #000000 !important;
+  margin-left: 7.5rem !important;
+  margin-right: 5.5rem !important;
+}
+
+
 hr {
   border: 1px solid #000000;
-  transform: rotate(-0.08deg);
 }
 
 

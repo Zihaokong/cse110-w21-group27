@@ -1,3 +1,8 @@
+/**
+ * This file implements function that start the timer and allow for transitions between work and break sessions
+ * It defines functions to update the progress ring and hold the distraction button count
+ * The file also contains functions that deal with edge cases and display pop-ups in between transitions
+ */
 // number of distraction tracked
 let distractCounter = 0;
 

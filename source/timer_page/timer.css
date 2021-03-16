@@ -2,6 +2,7 @@
 body{
     background-image: linear-gradient(to right,#E0EAFC,#CFDEF3);
     font-family: 'Poppins', sans-serif;
+    overflow-x: hidden;
 }
 
 #currTask{

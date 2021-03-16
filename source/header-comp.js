@@ -56,7 +56,10 @@ class HeaderComp extends HTMLElement {
    */
   connectedCallback() {
     // Get the session counter from storage.
-    this.completedCycles = localStorage.getItem('sessionCounter');
+    this.completedCycles =
+      localStorage.getItem('sessionCounter') === null
+        ? 0
+        : localStorage.getItem('sessionCounter');
     this.isNewCycle = this.completedCycles % 4 === 0 ? 'true' : 'false';
     // Creates the nav element which houses the info of the header
     const nav = document.createElement('nav');
