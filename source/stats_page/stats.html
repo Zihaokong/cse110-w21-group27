@@ -1,149 +1,154 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Material Icons  -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
     <!-- Google Font -->
     <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap"
+      rel="stylesheet"
+    />
     <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous" />
-    <link rel="stylesheet" href="./stats.css">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="./stats.css" />
     <title>Pomodoro Timer</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <header-comp></header-comp>
-    <a id="stats-btn" href="../index.html"><span class="material-icons">
-            format_list_bulleted
-        </span></a>
+    <a id="stats-btn" href="../index.html"
+      ><span class="material-icons"> format_list_bulleted </span></a
+    >
     <button id="back-to-top" onclick="scrollFunc()">Top</button>
     <div class="main-contents container">
-
-        <div id="heading-container">
-            <h1>Statistics:</h1>
-            <div id="heading-container-btns">
-                <button id="reset">Reset</button>
-                <button id="info" onclick="openInfoModal()">?</button>
-            </div>
+      <div id="heading-container">
+        <h1>Statistics:</h1>
+        <div id="heading-container-btns">
+          <button id="reset">Reset</button>
+          <button id="info" onclick="openInfoModal()">?</button>
         </div>
+      </div>
 
-        <hr style="height:2px ;color: #282828;">
+      <hr style="height: 2px; color: #282828" />
 
-        <div class="row">
-            <h2>Today</h2>
-            <div class="block-containers col">
-                <div class="block-contents">
-                    <img src="./images/check.png" alt="checkmark">
-                    <p id="todayPomos">0</p>
-                    <h3>completed pomos</h3>
-                </div>
-            </div>
-            <div class="block-containers col">
-                <div class="block-contents">
-                    <img src="./images/warning.png" alt="warning">
-                    <p id="todayAvgDistractions">0</p>
-                    <h3>average distractions per pomo</h3>
-                </div>
-            </div>
-            <div class="block-containers col">
-                <div class="block-contents">
-                    <img src="./images/star.png" alt="star">
-                    <p id="todaySuccess">0%</p>
-                    <h3>pomo success rate</h3>
-                </div>
-            </div>
+      <div class="row">
+        <h2>Today</h2>
+        <div class="block-containers col">
+          <div class="block-contents">
+            <img src="./images/check.png" alt="checkmark" />
+            <p id="todayPomos">0</p>
+            <h3>completed pomos</h3>
+          </div>
         </div>
-        <div class="row">
-            <h2>Last 7 Days</h2>
-            <div class="block-containers col">
-                <div class="block-contents">
-                    <img src="./images/check.png" alt="checkmark">
-                    <p id="weekPomos">0</p>
-                    <h3>completed pomos</h3>
-                </div>
-            </div>
-            <div class="block-containers col">
-                <div class="block-contents">
-                    <img src="./images/warning.png" alt="warning">
-                    <p id="weekAvgDistractions">0</p>
-                    <h3>average distractions per pomo</h3>
-                </div>
-            </div>
-            <div class="block-containers col">
-                <div class="block-contents">
-                    <img src="./images/star.png" alt="star">
-                    <p id="weekSuccess">0%</p>
-                    <h3>pomo success rate</h3>
-                </div>
-            </div>
+        <div class="block-containers col">
+          <div class="block-contents">
+            <img src="./images/warning.png" alt="warning" />
+            <p id="todayAvgDistractions">0</p>
+            <h3>average distractions per pomo</h3>
+          </div>
         </div>
+        <div class="block-containers col">
+          <div class="block-contents">
+            <img src="./images/star.png" alt="star" />
+            <p id="todaySuccess">0%</p>
+            <h3>pomo success rate</h3>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <h2>Last 7 Days</h2>
+        <div class="block-containers col">
+          <div class="block-contents">
+            <img src="./images/check.png" alt="checkmark" />
+            <p id="weekPomos">0</p>
+            <h3>completed pomos</h3>
+          </div>
+        </div>
+        <div class="block-containers col">
+          <div class="block-contents">
+            <img src="./images/warning.png" alt="warning" />
+            <p id="weekAvgDistractions">0</p>
+            <h3>average distractions per pomo</h3>
+          </div>
+        </div>
+        <div class="block-containers col">
+          <div class="block-contents">
+            <img src="./images/star.png" alt="star" />
+            <p id="weekSuccess">0%</p>
+            <h3>pomo success rate</h3>
+          </div>
+        </div>
+      </div>
 
-        <div class="row">
-            <h2>Last 30 Days</h2>
-            <div class="block-containers col">
-                <div class="block-contents">
-                    <img src="./images/check.png" alt="checkmark">
-                    <p id="monthPomos">0</p>
-                    <h3>completed pomos</h3>
-                </div>
-            </div>
-            <div class="block-containers col">
-                <div class="block-contents">
-                    <img src="./images/warning.png" alt="warning">
-                    <p id="monthAvgDistractions">0</p>
-                    <h3>average distractions per pomo</h3>
-                </div>
-            </div>
-            <div class="block-containers col">
-                <div class="block-contents">
-                    <img src="./images/star.png" alt="star">
-                    <p id="monthSuccess">0%</p>
-                    <h3>pomo success rate</h3>
-                </div>
-            </div>
+      <div class="row">
+        <h2>Last 30 Days</h2>
+        <div class="block-containers col">
+          <div class="block-contents">
+            <img src="./images/check.png" alt="checkmark" />
+            <p id="monthPomos">0</p>
+            <h3>completed pomos</h3>
+          </div>
         </div>
+        <div class="block-containers col">
+          <div class="block-contents">
+            <img src="./images/warning.png" alt="warning" />
+            <p id="monthAvgDistractions">0</p>
+            <h3>average distractions per pomo</h3>
+          </div>
+        </div>
+        <div class="block-containers col">
+          <div class="block-contents">
+            <img src="./images/star.png" alt="star" />
+            <p id="monthSuccess">0%</p>
+            <h3>pomo success rate</h3>
+          </div>
+        </div>
+      </div>
     </div>
-
-
-
-
 
     <div id="infoModal" class="modal modal-info">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header" id="add-task-modal-header">
-                    <button type="button" class="btn-close close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="modal-text">
-                        <p>
-                            <b>Completed Pomos: </b><br />Total number of completed pomos
-                        </p>
-                        <p>
-                            <b>Average Distractions Per Pomo: </b><br />Ratio of total number of distractions to total
-                            number
-                            of
-                            completed pomos
-                        </p>
-                        <p>
-                            <b>Pomo Success Rate: </b><br />Ratio of total number of completed pomos to total number of
-                            attempted
-                            pomos (including failed pomos)
-                        </p>
-                    </div>
-                </div>
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header" id="add-task-modal-header">
+            <button
+              type="button"
+              class="btn-close close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="modal-text">
+              <p>
+                <b>Completed Pomos: </b><br />Total number of completed pomos
+              </p>
+              <p>
+                <b>Average Distractions Per Pomo: </b><br />Ratio of total
+                number of distractions to total number of completed pomos
+              </p>
+              <p>
+                <b>Pomo Success Rate: </b><br />Ratio of total number of
+                completed pomos to total number of attempted pomos (including
+                failed pomos)
+              </p>
             </div>
+          </div>
         </div>
+      </div>
     </div>
 
-
     <script src="../header-comp.js"></script>
-    <script src="./stats.js"> </script>
-</body>
-
+    <script src="./stats.js"></script>
+  </body>
 </html>
