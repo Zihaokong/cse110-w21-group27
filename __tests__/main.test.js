@@ -1,11 +1,13 @@
 const {
   openModal,
-  determineSessionDate,
-  scrollFunc,
   closeModal,
   eventCloseModal,
+  openInfoModal,
+  closeInfoModal,
   handleLoad,
   handleUnload,
+  scrollFunc,
+  determineSessionDate,
 } = require('../source/main');
 
 // Stat list used to mock previous sessions
@@ -80,9 +82,9 @@ const statsListArray = [
 ];
 
 // Variables used in the mock.
-const statsList = JSON.stringify(statsListArray);
+let statsList = JSON.stringify(statsListArray);
 const currentDate = new Date('3/11/2021');
-const lastVisit = JSON.stringify(currentDate.toLocaleDateString('en-US'));
+let lastVisit = JSON.stringify(currentDate.toLocaleDateString('en-US'));
 const todayPomo = '5';
 const distractCount = '5';
 const sessionCount = '5';
@@ -103,6 +105,65 @@ Storage.prototype.getItem = jest.fn((item) => {
     default:
       return null;
   }
+});
+
+describe('"handleLoad" Function Test', () => {
+  test('Empty stats list test', () => {
+    let newPomo = todayPomo;
+    let newDistract = distractCount;
+    let newSesion = sessionCount;
+    Storage.prototype.setItem = jest.fn((item, value) => {
+      switch (item) {
+        case 'todayPomo':
+          newPomo = value;
+          break;
+        case 'distractCounter':
+          newDistract = value;
+          break;
+        case 'sessionCounter':
+          newSesion = value;
+          break;
+        default:
+          break;
+      }
+    });
+    statsList = null;
+    handleLoad();
+
+    // If there was not a previous day's data stored, then determineSessionDate
+    // does not run, which would mean the info is not reset.
+    expect(newPomo).toBe('5');
+    expect(newDistract).toBe('5');
+    expect(newSesion).toBe('5');
+  });
+
+  test('Non-empty stats list test', () => {
+    let newPomo = todayPomo;
+    let newDistract = distractCount;
+    let newSesion = sessionCount;
+    Storage.prototype.setItem = jest.fn((item, value) => {
+      switch (item) {
+        case 'todayPomo':
+          newPomo = value;
+          break;
+        case 'distractCounter':
+          newDistract = value;
+          break;
+        case 'sessionCounter':
+          newSesion = value;
+          break;
+        default:
+          break;
+      }
+    });
+    statsList = JSON.stringify(statsListArray);
+    handleLoad();
+    // If there was a previous day's data, then determineSessionDate runs, which
+    // would reset the info
+    expect(newPomo).toBe(0);
+    expect(newDistract).toBe(0);
+    expect(newSesion).toBe(0);
+  });
 });
 
 describe('"openModal" Function Test', () => {
@@ -181,5 +242,135 @@ describe('"handleUnload" Function Test', () => {
     handleUnload();
     expect(lv).toBe(stringDate);
     expect(document.getElementById('main-container')).toBe(null);
+  });
+});
+
+describe('"determineSessionDate" Function Test', () => {
+  test('Test for when last visit is 3/11', () => {
+    let newPomo = todayPomo;
+    let newDistract = distractCount;
+    let newSesion = sessionCount;
+    let newStats = null;
+    const lastDate = new Date(
+      JSON.parse(localStorage.getItem('lastVisit'))
+    ).toLocaleDateString('en-US');
+    Storage.prototype.setItem = jest.fn((item, value) => {
+      switch (item) {
+        case 'todayPomo':
+          newPomo = value;
+          break;
+        case 'distractCounter':
+          newDistract = value;
+          break;
+        case 'sessionCounter':
+          newSesion = value;
+          break;
+        case 'statsList':
+          newStats = value;
+          break;
+        default:
+          break;
+      }
+    });
+    determineSessionDate();
+    expect(newPomo).toBe(0);
+    expect(newDistract).toBe(0);
+    expect(newSesion).toBe(0);
+    expect(JSON.parse(newStats)[0].day).toBe(lastDate);
+    expect(JSON.parse(newStats)[0].pomoCount).toBe(parseInt(todayPomo, 10));
+    expect(JSON.parse(newStats)[0].distractions).toBe(
+      parseInt(distractCount, 10)
+    );
+    expect(JSON.parse(newStats)[0].completedPomos).toBe(
+      parseInt(sessionCount, 10)
+    );
+  });
+
+  test('Test for when last visit is 3/14', () => {
+    const newDate = new Date();
+    lastVisit = JSON.stringify(newDate.toLocaleDateString('en-US'));
+    let newPomo = todayPomo;
+    let newDistract = distractCount;
+    let newSesion = sessionCount;
+    let newStats = null;
+    const lastDate = new Date(
+      JSON.parse(localStorage.getItem('lastVisit'))
+    ).toLocaleDateString('en-US');
+    Storage.prototype.setItem = jest.fn((item, value) => {
+      switch (item) {
+        case 'todayPomo':
+          newPomo = value;
+          break;
+        case 'distractCounter':
+          newDistract = value;
+          break;
+        case 'sessionCounter':
+          newSesion = value;
+          break;
+        case 'statsList':
+          newStats = value;
+          break;
+        default:
+          break;
+      }
+    });
+    determineSessionDate();
+    expect(newPomo).toBe('5');
+    expect(newDistract).toBe('5');
+    expect(newSesion).toBe('5');
+  });
+});
+
+describe('"openInfoModal" Function Test', () => {
+  document.body.innerHTML =
+    '<div id="add-task-modal" class="modal">' +
+    '  <button class="cancel-btn">Cancel</button>' +
+    '  <button type="button" class="btn-close close" data-bs-dismiss="modal" aria-label="Close"></button>' +
+    '</div>' +
+    '<button id="add-task-btn" class="add-task-btn">+</button>' +
+    '<div id="main-container"></div>' +
+    '<div id="play-modal" class="modal"></div>' +
+    '<div id="edit-modal" class="modal"></div>' +
+    '<div id="delete-modal" class="modal"></div>' +
+    '<div id="infoModal" class="modal"></div>';
+
+  test('Open modal test', () => {
+    document.getElementById('infoModal').style.display = 'none';
+    openInfoModal();
+    expect(document.getElementById('infoModal').style.display).toBe('block');
+  });
+});
+
+describe('"closeInfoModal" Function Test', () => {
+  document.body.innerHTML =
+    '<div id="add-task-modal" class="modal">' +
+    '  <button class="cancel-btn">Cancel</button>' +
+    '  <button type="button" class="btn-close close" data-bs-dismiss="modal" aria-label="Close"></button>' +
+    '</div>' +
+    '<button id="add-task-btn" class="add-task-btn">+</button>' +
+    '<div id="main-container"></div>' +
+    '<div id="play-modal" class="modal"></div>' +
+    '<div id="edit-modal" class="modal"></div>' +
+    '<div id="delete-modal" class="modal"></div>' +
+    '<div id="infoModal" class="modal"></div>';
+
+  test('Close modal test', () => {
+    document.getElementById('infoModal').style.display = 'block';
+    closeInfoModal();
+    expect(document.getElementById('infoModal').style.display).toBe('none');
+  });
+});
+
+describe('"scrollFunc" Function Test', () => {
+  test('Make sure scrollFunc does not break', () => {
+    // Cant really test anything as window.scrollTo changes client info, which
+    // we cant really confirm as changed. Just run it to make sure no errors
+    // are thrown and that window.scrollTo is called.
+    let scrollToHasRan = false;
+    window.scrollTo = jest.fn(() => {
+      scrollToHasRan = true;
+    });
+    scrollFunc();
+    expect(scrollToHasRan).toBe(true);
   });
 });
