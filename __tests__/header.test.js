@@ -6,7 +6,6 @@ describe('Header Testing completed values', () => {
     const header = document.createElement('header-comp');
     document.body.appendChild(header);
     expect(header.completedCycles).toBe('0');
-    expect(header.cycleCount).toBe('4');
     expect(header.isNewCycle).toBe('true');
     expect(
       header.shadowRoot
@@ -24,7 +23,6 @@ describe('Header Testing completed values', () => {
     const header = document.createElement('header-comp');
     document.body.appendChild(header);
     expect(header.completedCycles).toBe('2');
-    expect(header.cycleCount).toBe('2');
     expect(header.isNewCycle).toBe('false');
     expect(
       header.shadowRoot
@@ -42,7 +40,6 @@ describe('Header Testing completed values', () => {
     const header = document.createElement('header-comp');
     document.body.appendChild(header);
     expect(header.completedCycles).toBe('1');
-    expect(header.cycleCount).toBe('3');
     expect(header.isNewCycle).toBe('false');
     expect(
       header.shadowRoot
@@ -60,7 +57,6 @@ describe('Header Testing completed values', () => {
     const header = document.createElement('header-comp');
     document.body.appendChild(header);
     expect(header.completedCycles).toBe('4');
-    expect(header.cycleCount).toBe('4');
     expect(header.isNewCycle).toBe('true');
     expect(
       header.shadowRoot
@@ -78,7 +74,6 @@ describe('Header Testing completed values', () => {
     const header = document.createElement('header-comp');
     document.body.appendChild(header);
     expect(header.completedCycles).toBe('5');
-    expect(header.cycleCount).toBe('3');
     expect(header.isNewCycle).toBe('false');
     expect(
       header.shadowRoot

@@ -31,13 +31,6 @@ class HeaderComp extends HTMLElement {
   }
 
   /**
-   * Sets the cycle count
-   */
-  set cycleCount(newValue) {
-    this.setAttribute('cyclecount', newValue);
-  }
-
-  /**
    * Set isnewcycle
    */
   set isNewCycle(newValue) {
@@ -49,13 +42,6 @@ class HeaderComp extends HTMLElement {
    */
   get completedCycles() {
     return this.getAttribute('completedcycles');
-  }
-
-  /**
-   * Gets the cycle count.
-   */
-  get cycleCount() {
-    return this.getAttribute('cyclecount');
   }
 
   /**
@@ -71,13 +57,12 @@ class HeaderComp extends HTMLElement {
   connectedCallback() {
     // Get the session counter from storage.
     this.completedCycles = localStorage.getItem('sessionCounter');
-    this.cycleCount = 4 - (this.completedCycles % 4);
     this.isNewCycle = this.completedCycles % 4 === 0 ? 'true' : 'false';
     // Creates the nav element which houses the info of the header
     const nav = document.createElement('nav');
     nav.setAttribute('class', 'top-nav');
 
-    // Creat the date text.
+    // Create the date text.
     const date = document.createElement('h2');
     date.setAttribute('id', 'date');
     date.innerText = HeaderComp.createDate()
@@ -110,7 +95,6 @@ class HeaderComp extends HTMLElement {
 
   attributeChangedCallback(name, oldValue, newValue) {
     if (name === 'completedcycles') {
-      this.cycleCount = 4 - (newValue % 4);
       const circleSection = this.shadowRoot.querySelector('section');
 
       // check if section is loaded
@@ -161,7 +145,7 @@ class HeaderComp extends HTMLElement {
         this.shadowRoot.getElementById('cycle-count').prepend(newCycle);
       }
     } else if (this.completedCycles % 4 !== 0) {
-      for (let i = 0; i < this.cycleCount; i++) {
+      for (let i = 0; i < 4 - (this.completedCycles % 4); i++) {
         const newCycle = document.createElement('span');
         newCycle.setAttribute('class', 'dot');
         this.shadowRoot.getElementById('cycle-count').prepend(newCycle);
