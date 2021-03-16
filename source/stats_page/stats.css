@@ -146,6 +146,13 @@ h3 {
     height: 2em;
     width: 2em;
 }
+#reset:hover  {
+    color: #e5e5e5;
+    background: #64838c;
+}
+#info:hover{
+    background: #e5e5e5;
+}
 
 .modal-info {
     position: fixed;
