@@ -19,13 +19,41 @@ function openInfoModal() {
   document.getElementById('infoModal').style.display = 'block';
 }
 
-/*
+/**
  * For scroll to the top, used in Top button
  */
 function scrollFunc() {
   window.scrollTo(0, 0);
 }
 
+/**
+ *  Function when the 'reset' button is clicked.
+ *  It will set statsList to be empty list, and reset all the counters.
+ */
+function resetStats() {
+  statsList = [];
+  localStorage.setItem('statsList', JSON.stringify(statsList));
+
+  localStorage.setItem('todayPomo', 0);
+  localStorage.setItem('sessionCounter', 0);
+  localStorage.setItem('distractCounter', 0);
+
+  document.getElementById('todayPomos').innerText = 0;
+  document.getElementById('todayAvgDistractions').innerText = 0;
+  document.getElementById('todaySuccess').innerText = '0%';
+
+  document.getElementById('weekPomos').innerText = 0;
+  document.getElementById('weekAvgDistractions').innerText = 0;
+  document.getElementById('weekSuccess').innerText = '0%';
+
+  document.getElementById('monthPomos').innerText = 0;
+  document.getElementById('monthAvgDistractions').innerText = 0;
+  document.getElementById('monthSuccess').innerText = '0%';
+}
+
+/**
+ * Function is called on window load. Calculates and displays statistics.
+ */
 function loadHandler() {
   const retrievedStats = localStorage.getItem('statsList');
   if (!retrievedStats || retrievedStats === 'undefined') {
@@ -41,7 +69,7 @@ function loadHandler() {
   const todayPomos = Number(localStorage.getItem('todayPomo'));
   const todayCompletedPomos = Number(localStorage.getItem('sessionCounter'));
   const todayDistractions = Number(localStorage.getItem('distractCounter'));
-  // last 7 days' pomo variables
+  // last 7 days' and last 30 days' pomo variables
   let weekPomos = Number(localStorage.getItem('todayPomo'));
   let weekCompletedPomos = Number(localStorage.getItem('sessionCounter'));
   let weekDistractions = Number(localStorage.getItem('distractCounter'));
@@ -113,31 +141,6 @@ function loadHandler() {
       : `${((100 * monthCompletedPomos) / monthPomos).toFixed(2)}%`;
 
   /**
-   *  EventHandler when the 'reset' button is being click.
-   *  It will set statsList to be empty list, and reset all the counters.
-   */
-  document.getElementById('reset').onclick = () => {
-    statsList = [];
-    localStorage.setItem('statsList', JSON.stringify(statsList));
-
-    localStorage.setItem('todayPomo', 0);
-    localStorage.setItem('sessionCounter', 0);
-    localStorage.setItem('distractCounter', 0);
-
-    document.getElementById('todayPomos').innerText = 0;
-    document.getElementById('todayAvgDistractions').innerText = 0;
-    document.getElementById('todaySuccess').innerText = '0%';
-
-    document.getElementById('weekPomos').innerText = 0;
-    document.getElementById('weekAvgDistractions').innerText = 0;
-    document.getElementById('weekSuccess').innerText = '0%';
-
-    document.getElementById('monthPomos').innerText = 0;
-    document.getElementById('monthAvgDistractions').innerText = 0;
-    document.getElementById('monthSuccess').innerText = '0%';
-  };
-
-  /**
    * Change the display of the infoModal modal
    */
   const spanClose = document.getElementsByClassName('close');
@@ -155,4 +158,14 @@ function loadHandler() {
  */
 function unloadHandler() {
   localStorage.setItem('statsList', JSON.stringify(statsList));
+}
+
+if (typeof exports !== 'undefined') {
+  module.exports = {
+    openInfoModal,
+    scrollFunc,
+    resetStats,
+    loadHandler,
+    unloadHandler,
+  };
 }
