@@ -29,7 +29,7 @@ function openModal() {
 function openInfoModal() {
   document.getElementById('infoModal').style.display = 'block';
 }
-function closeIntoModal() {
+function closeInfoModal() {
   document.getElementById('infoModal').style.display = 'none';
 }
 
@@ -120,7 +120,6 @@ function handleLoad() {
   cancelBtns = document.getElementsByClassName('cancel-btn');
   // Get the <span> element that closes the modal
   spanClose = document.getElementsByClassName('close');
-
   const retrievedStats = localStorage.getItem('statsList');
   if (!retrievedStats || retrievedStats === 'undefined') {
     statsList = [];
@@ -165,10 +164,12 @@ if (typeof exports !== 'undefined') {
   module.exports = {
     openModal,
     determineSessionDate,
-    scrollFunc,
     closeModal,
     eventCloseModal,
+    openInfoModal,
+    closeInfoModal,
     handleLoad,
     handleUnload,
+    scrollFunc,
   };
 }
