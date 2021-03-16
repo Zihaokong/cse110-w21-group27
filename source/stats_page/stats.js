@@ -69,7 +69,7 @@ function loadHandler() {
   const todayPomos = Number(localStorage.getItem('todayPomo'));
   const todayCompletedPomos = Number(localStorage.getItem('sessionCounter'));
   const todayDistractions = Number(localStorage.getItem('distractCounter'));
-  // last 7 days' and last 30 days' pomo variables
+  // last 7 days' pomo variables
   let weekPomos = Number(localStorage.getItem('todayPomo'));
   let weekCompletedPomos = Number(localStorage.getItem('sessionCounter'));
   let weekDistractions = Number(localStorage.getItem('distractCounter'));

@@ -179,7 +179,16 @@ describe('"resetStats" Function Test', () => {
     expect(newPomo).toBe(0);
     expect(newDistract).toBe(0);
     expect(newSesion).toBe(0);
-    expect(statsList).toBe('[]');
+    expect(newStatsList).toBe('[]');
+
+    expect(document.getElementById('todayAvgDistractions').innerText).toBe(0);
+    expect(document.getElementById('todaySuccess').innerText).toBe('0%');
+    expect(document.getElementById('weekPomos').innerText).toBe(0);
+    expect(document.getElementById('weekAvgDistractions').innerText).toBe(0);
+    expect(document.getElementById('weekSuccess').innerText).toBe('0%');
+    expect(document.getElementById('monthPomos').innerText).toBe(0);
+    expect(document.getElementById('monthAvgDistractions').innerText).toBe(0);
+    expect(document.getElementById('monthSuccess').innerText).toBe('0%');
   });
 });
 
