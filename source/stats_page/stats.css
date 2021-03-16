@@ -16,7 +16,8 @@ hr {
     height: 10px;
 }
 
-button {
+#reset,
+#info {
     background-color: #2e4756;
     color: #E5E5E5;
     font-size: 20px;
@@ -26,7 +27,6 @@ button {
     border: none !important;
     height: 2.5em;
     width: 5em;
-
 }
 
 p {
@@ -101,17 +101,16 @@ h3 {
     position: fixed;
     bottom: 2%;
     right: 2%;
-    z-index: 5;
+    z-index: 99;
     background-color: #2e4756;
     color: white;
-    padding: 0px 0px;
-    border-radius: 5px;
+    padding: 10px 10px;
+    border: none;
+    border-radius: 4px;
     font-family: "Poppins", sans-serif;
     font-size: 16px;
-    margin: 0 0;
-    height: 2.5em;
-    width: 3.5em;
 }
+
 
 .row {
     margin-top: 2%;
@@ -137,7 +136,8 @@ h3 {
     padding-bottom: 5%;
     text-align: center;
 }
-.block-contents > p{
+
+.block-contents>p {
     font-weight: 900;
     font-size: 2rem;
     color: #2e4756;
@@ -149,11 +149,13 @@ h3 {
     height: 2em;
     width: 2em;
 }
-#reset:hover  {
+
+#reset:hover {
     color: #e5e5e5;
     background: #64838c;
 }
-#info:hover{
+
+#info:hover {
     background: #e5e5e5;
 }
 
@@ -189,7 +191,8 @@ h3 {
     border: 1px solid #888;
     width: 90%;
 }
-.modal-text > p{
+
+.modal-text>p {
     font-size: 1.5rem;
     font-family: "Poppins", sans-serif;
 }
