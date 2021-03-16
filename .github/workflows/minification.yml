@@ -53,7 +53,7 @@ jobs:
       run: |
         cd build
         mkdir timer_page
-        mv break.js progress.js timer-modals.css timer.css timer.js timer.html timer_page
+        mv timer-modals.css timer.css timer.js timer.html timer_page
     - name: commit build files
       uses: stefanzweifel/git-auto-commit-action@v3.0.0
       with:
