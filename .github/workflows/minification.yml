@@ -1,4 +1,4 @@
-name: Minification
+name: Minification and Deployment
 
 on:
   push:
@@ -13,11 +13,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-
-    # - name: remove previous files
-    #   run: |
-    #     rm -r build/*
-    #     rm -r minified/*
 
     - name: Auto Minify
       uses: nizarmah/auto-minify@master
@@ -48,6 +43,12 @@ jobs:
       run: |
         cp source/index.html build/index.html
         cp source/timer_page/timer.html build/timer.html
+    - name: copy images and media from source to build
+      run: |
+        mkdir build/images
+        mkdir build/media
+        cp -a source/images/. build/images
+        cp -a source/media/. build/media
     - name: create timer_page directory structure
       run: |
         cd build
