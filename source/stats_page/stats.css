@@ -30,7 +30,7 @@ button {
 }
 
 p {
-    font-size: 30px;
+    font-size: 24px;
     font-weight: bold;
     margin-top: 15px;
     margin-bottom: 0px;
@@ -46,11 +46,11 @@ h1 {
 h2 {
     margin-top: 2%;
     margin-bottom: 2%;
+    font-weight: bold;
 }
 
 h3 {
-    font-size: 2.5em;
-    color: #2e4756;
+    font-size: 2em;
 }
 
 
@@ -125,21 +125,24 @@ h3 {
 
 .block-containers {
     float: left;
-
-    border-style: solid;
-    border-width: thin;
-    border-color: grey;
     border-radius: 10px;
-    margin-right: 2%;
-    background-color: white;
-    box-shadow: 0 0 5px grey;
+    margin-right: 5%;
+    background: #FFFFFF;
+    box-shadow: 0.25px 2px 5px 1px rgba(0, 0, 0, 0.25);
+
 }
 
 .block-contents {
-    padding-top: 10%;
-    padding-bottom: 10%;
+    padding-top: 5%;
+    padding-bottom: 5%;
     text-align: center;
 }
+.block-contents > p{
+    font-weight: 900;
+    font-size: 2rem;
+    color: #2e4756;
+}
+
 
 #close-btn {
     float: right;
