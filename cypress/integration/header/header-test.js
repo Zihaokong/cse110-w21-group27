@@ -137,7 +137,7 @@ describe('Header Tests', () => {
         .shadow()
         .find('#completed-cycle')
         .contains(`| Completed Cycles: ${session + 1}`);
-      if ((session + 1) % 4 === 0 && session !== 0) {
+      if ((session + 1) % 4 === 0) {
         cy.get('#header')
           .shadow()
           .find('#cycle-count')
