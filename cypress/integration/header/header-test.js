@@ -57,11 +57,12 @@ describe('Header Tests', () => {
         .find('#play-btn')
         .click({ force: true });
       cy.get('#start-btn').click();
+      cy.get('#start-btn').click();
       cy.tick(5000);
       if ((i + 1) % 4 === 0) {
-        cy.get('#start-button-long').click();
+        cy.get('#start-long-btn').click();
       } else {
-        cy.get('#start-button').click();
+        cy.get('#start-short-btn').click();
       }
       cy.get('#header')
         .shadow()
@@ -91,12 +92,12 @@ describe('Header Tests', () => {
         .shadow()
         .find('#cycle-count')
         .children('.dot')
-        .should('have.length', 3 - i);
+        .should('have.length', 4 - ((i + 1) % 4));
       cy.get('#header')
         .shadow()
         .find('#cycle-count')
         .children('.filled-dot')
-        .should('have.length', i + 1);
+        .should('have.length', (i + 1) % 4);
     }
   });
 
@@ -107,29 +108,16 @@ describe('Header Tests', () => {
         .shadow()
         .find('#completed-cycle')
         .contains(`| Completed Cycles: ${session}`);
-      if (session < 5) {
-        cy.get('#header')
-          .shadow()
-          .find('#cycle-count')
-          .children('.dot')
-          .should('have.length', 4 - session);
-        cy.get('#header')
-          .shadow()
-          .find('#cycle-count')
-          .children('.filled-dot')
-          .should('have.length', session);
-      } else {
-        cy.get('#header')
-          .shadow()
-          .find('#cycle-count')
-          .children('.dot')
-          .should('have.length', 3 - ((session - 1) % 4));
-        cy.get('#header')
-          .shadow()
-          .find('#cycle-count')
-          .children('.filled-dot')
-          .should('have.length', ((session - 1) % 4) + 1);
-      }
+      cy.get('#header')
+        .shadow()
+        .find('#cycle-count')
+        .children('.dot')
+        .should('have.length', 4 - (session % 4));
+      cy.get('#header')
+        .shadow()
+        .find('#cycle-count')
+        .children('.filled-dot')
+        .should('have.length', session % 4);
       cy.get('#main-container')
         .shadow()
         .find('#main-list')
@@ -138,64 +126,52 @@ describe('Header Tests', () => {
         .find('#play-btn')
         .click({ force: true });
       cy.get('#start-btn').click();
+      cy.get('#start-btn').click();
       cy.tick(5000);
       if ((session + 1) % 4 === 0) {
-        cy.get('#start-button-long').click();
+        cy.get('#start-long-btn').click();
       } else {
-        cy.get('#start-button').click();
+        cy.get('#start-short-btn').click();
       }
       cy.get('#header')
         .shadow()
         .find('#completed-cycle')
         .contains(`| Completed Cycles: ${session + 1}`);
-      if (session < 4) {
+      if ((session + 1) % 4 === 0 && session !== 0) {
         cy.get('#header')
           .shadow()
           .find('#cycle-count')
           .children('.dot')
-          .should('have.length', 3 - session);
+          .should('have.length', 0);
         cy.get('#header')
           .shadow()
           .find('#cycle-count')
           .children('.filled-dot')
-          .should('have.length', session + 1);
+          .should('have.length', 4);
       } else {
         cy.get('#header')
           .shadow()
           .find('#cycle-count')
           .children('.dot')
-          .should('have.length', 3 - (session % 4));
+          .should('have.length', 4 - ((session + 1) % 4));
         cy.get('#header')
           .shadow()
           .find('#cycle-count')
           .children('.filled-dot')
-          .should('have.length', (session % 4) + 1);
+          .should('have.length', (session + 1) % 4);
       }
       cy.tick(5000);
       cy.get('#change-btn').click();
-      if (session < 4) {
-        cy.get('#header')
-          .shadow()
-          .find('#cycle-count')
-          .children('.dot')
-          .should('have.length', 3 - session);
-        cy.get('#header')
-          .shadow()
-          .find('#cycle-count')
-          .children('.filled-dot')
-          .should('have.length', session + 1);
-      } else {
-        cy.get('#header')
-          .shadow()
-          .find('#cycle-count')
-          .children('.dot')
-          .should('have.length', 3 - (session % 4));
-        cy.get('#header')
-          .shadow()
-          .find('#cycle-count')
-          .children('.filled-dot')
-          .should('have.length', (session % 4) + 1);
-      }
+      cy.get('#header')
+        .shadow()
+        .find('#cycle-count')
+        .children('.dot')
+        .should('have.length', 4 - ((session + 1) % 4));
+      cy.get('#header')
+        .shadow()
+        .find('#cycle-count')
+        .children('.filled-dot')
+        .should('have.length', (session + 1) % 4);
     }
   });
 });
