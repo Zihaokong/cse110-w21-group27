@@ -42,13 +42,13 @@ function loadHandler() {
   const todayCompletedPomos = Number(localStorage.getItem('sessionCounter'));
   const todayDistractions = Number(localStorage.getItem('distractCounter'));
   // last 7 days' pomo variables
-  let weekPomos = 0;
-  let weekCompletedPomos = 0;
-  let weekDistractions = 0;
+  let weekPomos = Number(localStorage.getItem('todayPomo'));
+  let weekCompletedPomos = Number(localStorage.getItem('sessionCounter'));
+  let weekDistractions = Number(localStorage.getItem('distractCounter'));
   // last 30 days' pomo variables
-  let monthPomos = 0;
-  let monthCompletedPomos = 0;
-  let monthDistractions = 0;
+  let monthPomos = Number(localStorage.getItem('todayPomo'));
+  let monthCompletedPomos = Number(localStorage.getItem('sessionCounter'));
+  let monthDistractions = Number(localStorage.getItem('distractCounter'));
 
   for (let i = 0; i < statsList.length; i++) {
     // properties of the statistic object in the statsList
