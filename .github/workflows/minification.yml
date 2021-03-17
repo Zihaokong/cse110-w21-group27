@@ -52,7 +52,7 @@ jobs:
       run: |
         cd build
         mkdir timer_page
-        mv break.js progress.js timer-modals.css timer.css timer.js timer.html timer_page
+        mv timer-modals.css timer.css timer.js timer.html timer_page
       
     - name: Deploy build files
       uses: peaceiris/actions-gh-pages@v3
