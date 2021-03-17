@@ -75,12 +75,6 @@ class HeaderComp extends HTMLElement {
     // Create the cycle counter section of the header.
     const section = document.createElement('section');
     section.setAttribute('id', 'cycle-count');
-    // section.innerHTML = `
-    // <span>
-    //   <h2 id="completed-cycle" style="display: inline; color: #c4c4c4">
-    //     | Not yet completed
-    //   </h2>
-    // </span>`;
 
     // Append the date and section to the nav element
     nav.appendChild(date);
@@ -93,7 +87,6 @@ class HeaderComp extends HTMLElement {
     // Setup and render the circles in the cycle counter as well as the date.
     this.renderCounter();
     this.renderCompletedCount();
-    //  /   this.renderText();
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
@@ -102,17 +95,8 @@ class HeaderComp extends HTMLElement {
 
       // check if section is loaded
       if (circleSection) {
-        // reset the section
-        circleSection.innerHTML = `      
-        <span>
-          <h2 id="completed-cycle" style="display: inline; color: #c4c4c4">
-            | Not yet completed
-          </h2>
-        </span>`;
-
         this.renderCounter();
         this.renderCompletedCount();
-        // this.renderText();
       }
     }
 
@@ -121,17 +105,8 @@ class HeaderComp extends HTMLElement {
         const circleSection = this.shadowRoot.querySelector('section');
         // check if section is loaded
         if (circleSection) {
-          // reset the section
-          circleSection.innerHTML = `      
-          <span>
-            <h2 id="completed-cycle" style="display: inline; color: #c4c4c4">
-              | Not yet completed
-            </h2>
-          </span>`;
-
           this.renderCounter();
           this.renderCompletedCount();
-          // this.renderText();
         }
       }
     }
@@ -177,14 +152,6 @@ class HeaderComp extends HTMLElement {
         this.shadowRoot.getElementById('cycle-count').prepend(newCycle);
       }
     }
-  }
-
-  /**
-   * Render the text shown on header.
-   */
-  renderText() {
-    const cycleText = this.shadowRoot.getElementById('completed-cycle');
-    cycleText.innerText = `| Completed Cycles: ${this.completedCycles}`;
   }
 
   /**
