@@ -197,9 +197,9 @@ class HeaderComp extends HTMLElement {
         margin-top: 0;
         display: inline; 
         color:#C4C4C4;
-        font-size: 1.5em;
+        font-size: 1.25em;
         text-align: left;
-        font-weight: bold;
+        font-weight: 200;
         font-family: "Poppins", sans-serif;
       }
       
