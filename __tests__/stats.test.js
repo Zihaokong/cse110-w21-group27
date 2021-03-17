@@ -1,5 +1,6 @@
 const {
   openInfoModal,
+  closeInfoModal,
   scrollFunc,
   resetStats,
   loadHandler,
@@ -125,21 +126,27 @@ describe('"openInfoModal" Function Test', () => {
   });
 });
 
-describe('"loadHandler" Function Test', () => {
-  test('Test to see if today pomo variables are set correctly', () => {
-    loadHandler();
-    expect(1).toBe(1);
-    // expect(document.getElementById('todayPomos').innerText).toBe(5);
-    /*
-    expect(document.getElementById('todayAvgDistractions').innerText).toBe('0');
-    expect(document.getElementById('todaySuccess').innerText).toBe('0%');
-    expect(document.getElementById('weekPomos').innerText).toBe('0');
-    expect(document.getElementById('weekAvgDistractions').innerText).toBe('0');
-    expect(document.getElementById('weekSuccess').innerText).toBe('0%');
-    expect(document.getElementById('monthPomos').innerText).toBe('0');
-    expect(document.getElementById('monthAvgDistractions').innerText).toBe('0');
-    expect(document.getElementById('monthSuccess').innerText).toBe('0%'); */
-    // loadHandler();
+describe('"closeInfoModal" Function Test', () => {
+  test('Test to see if the modal display is set to block after function', () => {
+    const modal = document.getElementById('infoModal');
+    modal.style.display = 'block';
+    expect(modal.style.display).toBe('block');
+    closeInfoModal();
+    expect(modal.style.display).toBe('none');
+  });
+});
+
+describe('"scrollFunc" Function Test', () => {
+  test('Make sure scrollFunc does not break', () => {
+    // Cant really test anything as window.scrollTo changes client info, which
+    // we cant really confirm as changed. Just run it to make sure no errors
+    // are thrown and that window.scrollTo is called.
+    let scrollToHasRan = false;
+    window.scrollTo = jest.fn(() => {
+      scrollToHasRan = true;
+    });
+    scrollFunc();
+    expect(scrollToHasRan).toBe(true);
   });
 });
 
@@ -192,14 +199,53 @@ describe('"resetStats" Function Test', () => {
   });
 });
 
-/*
+describe('"loadHandler" Function Test', () => {
+  test('Test to see if today pomo variables are set correctly', () => {
+    expect(document.getElementById('todayPomos').innerText).toBe(0);
+    expect(document.getElementById('todayAvgDistractions').innerText).toBe(0);
+    expect(document.getElementById('todaySuccess').innerText).toBe('0%');
+    expect(document.getElementById('weekPomos').innerText).toBe(0);
+    expect(document.getElementById('weekAvgDistractions').innerText).toBe(0);
+    expect(document.getElementById('weekSuccess').innerText).toBe('0%');
+    expect(document.getElementById('monthPomos').innerText).toBe(0);
+    expect(document.getElementById('monthAvgDistractions').innerText).toBe(0);
+    expect(document.getElementById('monthSuccess').innerText).toBe('0%');
+
+    loadHandler();
+
+    expect(document.getElementById('todayPomos').innerText).toBe(5);
+    expect(document.getElementById('todayAvgDistractions').innerText).toBe(
+      '1.0'
+    );
+    expect(document.getElementById('todaySuccess').innerText).toBe('100.00%');
+    expect(document.getElementById('weekPomos').innerText).toBe(9);
+    expect(document.getElementById('weekAvgDistractions').innerText).toBe(
+      '1.7'
+    );
+    // expect(document.getElementById('weekSuccess').innerText).toBe('0%');
+    expect(document.getElementById('monthPomos').innerText).toBe(46);
+    // expect(document.getElementById('monthAvgDistractions').innerText).toBe(0);
+    // expect(document.getElementById('monthSuccess').innerText).toBe('0%');
+  });
+});
+
 describe('"unloadHandler" Function Test', () => {
   test('Test to see if unloading works as intended', () => {
-    let lv;
-    Storage.prototype.setItem = jest.fn((name, item) => {
-      lv = item;
+    let newStatsList = '[]';
+    statsListArray.splice(10, 1); // remove item with day > 30
+
+    Storage.prototype.setItem = jest.fn((item, value) => {
+      switch (item) {
+        case 'statsList':
+          newStatsList = value;
+          break;
+        default:
+          break;
+      }
     });
+
     unloadHandler();
-    expect(lv).toBe(statsList);
+
+    expect(newStatsList).toBe(JSON.stringify(statsListArray));
   });
-}); */
+});

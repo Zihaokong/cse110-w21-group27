@@ -13,10 +13,17 @@ let statsList;
 window.onload = loadHandler;
 
 /**
- * Change the display of the infoModal modal
+ * Change the display of the infoModal modal to open
  */
 function openInfoModal() {
   document.getElementById('infoModal').style.display = 'block';
+}
+
+/**
+ * Change the display of the infoModal modal to close
+ */
+function closeInfoModal() {
+  document.getElementById('infoModal').style.display = 'none';
 }
 
 /**
@@ -140,25 +147,9 @@ function loadHandler() {
       ? '0%'
       : `${((100 * monthCompletedPomos) / monthPomos).toFixed(2)}%`;
 
-  /**
-   * Change the display of the infoModal modal
-   */
-  const spanClose = document.getElementsByClassName('close');
-  for (let i = 0; i < spanClose.length; ++i) {
-    spanClose[i].addEventListener('click', () => {
-      document.getElementById('infoModal').style.display = 'none';
-    });
-  }
-
   // close the modal if click outside
-  window.onclick = eventCloseStatsModal;
+  window.onclick = closeInfoModal;
   window.onbeforeunload = unloadHandler;
-}
-
-function eventCloseStatsModal(event) {
-  if (event.target === document.getElementById('infoModal')) {
-    document.getElementById('infoModal').style.display = 'none';
-  }
 }
 
 /**
@@ -171,6 +162,7 @@ function unloadHandler() {
 if (typeof exports !== 'undefined') {
   module.exports = {
     openInfoModal,
+    closeInfoModal,
     scrollFunc,
     resetStats,
     loadHandler,
