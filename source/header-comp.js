@@ -75,6 +75,11 @@ class HeaderComp extends HTMLElement {
     // Create the cycle counter section of the header.
     const section = document.createElement('section');
     section.setAttribute('id', 'cycle-count');
+    section.innerHTML = `      
+    <span>
+      <h2 id="completed-cycle" style="display: inline; color: #c4c4c4">
+      </h2>
+    </span>`;
 
     // Append the date and section to the nav element
     nav.appendChild(date);
@@ -87,6 +92,7 @@ class HeaderComp extends HTMLElement {
     // Setup and render the circles in the cycle counter as well as the date.
     this.renderCounter();
     this.renderCompletedCount();
+    this.renderText();
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
@@ -95,8 +101,16 @@ class HeaderComp extends HTMLElement {
 
       // check if section is loaded
       if (circleSection) {
+        // reset the section
+        circleSection.innerHTML = `      
+        <span>
+          <h2 id="completed-cycle" style="display: inline; color: #c4c4c4">
+          </h2>
+        </span>`;
+
         this.renderCounter();
         this.renderCompletedCount();
+        this.renderText();
       }
     }
 
@@ -105,6 +119,13 @@ class HeaderComp extends HTMLElement {
         const circleSection = this.shadowRoot.querySelector('section');
         // check if section is loaded
         if (circleSection) {
+          // reset the section
+          circleSection.innerHTML = `      
+          <span>
+            <h2 id="completed-cycle" style="display: inline; color: #c4c4c4">
+            </h2>
+          </span>`;
+
           this.renderCounter();
           this.renderCompletedCount();
         }
@@ -197,9 +218,9 @@ class HeaderComp extends HTMLElement {
         margin-top: 0;
         display: inline; 
         color:#C4C4C4;
-        font-size: 1.25em;
+        font-size: 1.5em;
         text-align: left;
-        font-weight: 200;
+        font-weight: bold;
         font-family: "Poppins", sans-serif;
       }
       
