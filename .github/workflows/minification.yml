@@ -41,6 +41,7 @@ jobs:
       run: |
         cp source/index.html build/index.html
         cp source/timer_page/timer.html build/timer.html
+        cp source/stats_page/stats.html build/stats.html
         
     - name: copy images and media from source to build
       run: |
@@ -54,6 +55,14 @@ jobs:
         cd build
         mkdir timer_page
         mv timer-modals.css timer.css timer.js timer.html timer_page
+        cd ..
+
+    - name: create stats_page directory structure
+      run: |
+        cd build
+        mkdir stats_page
+        mv stats.css stats.js stats_page
+        cd ..
         
     - name: Deploy build files
       uses: peaceiris/actions-gh-pages@v3
