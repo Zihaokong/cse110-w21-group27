@@ -261,6 +261,8 @@ function start(mins, secs) {
 
           let counter = Number(localStorage.getItem('sessionCounter'));
           counter += 1;
+          let todayDistract = Number(localStorage.getItem('distractCounter'));
+          todayDistract += distractCounter;
           const pomo = localStorage.getItem('isPomo');
           isInSession = false;
 
@@ -285,12 +287,14 @@ function start(mins, secs) {
             if (counter % 4 === 0) {
               document.getElementById('header').completedCycles = counter;
               localStorage.setItem('sessionCounter', counter);
+              localStorage.setItem('distractCounter', todayDistract);
               localStorage.setItem('LongBreak', 'true');
               localStorage.setItem('ShortBreak', 'false');
               displayLongBreak();
             } else {
               document.getElementById('header').completedCycles = counter;
               localStorage.setItem('sessionCounter', counter);
+              localStorage.setItem('distractCounter', todayDistract);
               localStorage.setItem('ShortBreak', 'true');
               localStorage.setItem('LongBreak', 'false');
               displayShortBreak();
