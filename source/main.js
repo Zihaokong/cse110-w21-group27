@@ -69,6 +69,7 @@ window.onclick = function closeModal2(event) {
   }
 };
 
+// functions to open and close the info modal
 function closeInfoModal() {
   document.getElementById('infoModal').style.display = 'none';
 }
