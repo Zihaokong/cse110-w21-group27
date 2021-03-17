@@ -43,7 +43,7 @@ h2{
     height:70px;
 }
 
-#start-button{
+#start-button,#start-button-long {
     font-family: "Poppins", sans-serif;
     color: #ffffff;
     font-size: 2.5rem;

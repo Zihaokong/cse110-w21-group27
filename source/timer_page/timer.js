@@ -1,3 +1,8 @@
+/**
+ * This file implements function that start the timer and allow for transitions between work and break sessions
+ * It defines functions to update the progress ring and hold the distraction button count
+ * The file also contains functions that deal with edge cases and display pop-ups in between transitions
+ */
 // number of distraction tracked
 let distractCounter = 0;
 
@@ -48,6 +53,10 @@ function continueTask() {
   document.getElementById('minutes').innerHTML = '01';
   document.getElementById('seconds').innerHTML = '00';
   document.getElementById('currTask').innerHTML = allTasks[currentTaskId].name;
+  localStorage.setItem(
+    'todayPomo',
+    Number(localStorage.getItem('todayPomo')) + 1
+  );
   // start(0, 3);
   // window.location.reload();
 }
@@ -110,6 +119,12 @@ function startTimer() {
 
 // handle timing
 window.onload = function template() {
+  // Handle if date change before pomo start
+  const todayPomos = Number(localStorage.getItem('todayPomo'));
+  if (todayPomos === 0) {
+    localStorage.setItem('todayPomo', 1);
+  }
+  // set variable denote current timer mode
   // add event listeners for buttons on timer page
   document.getElementById('start-btn').addEventListener('click', startTimer);
   document
@@ -247,6 +262,8 @@ function start(mins, secs) {
 
           let counter = Number(localStorage.getItem('sessionCounter'));
           counter += 1;
+          let todayDistract = Number(localStorage.getItem('distractCounter'));
+          todayDistract += distractCounter;
           const pomo = localStorage.getItem('isPomo');
           isInSession = false;
 
@@ -272,12 +289,14 @@ function start(mins, secs) {
             if (counter % 4 === 0) {
               document.getElementById('header').completedCycles = counter;
               localStorage.setItem('sessionCounter', counter);
+              localStorage.setItem('distractCounter', todayDistract);
               localStorage.setItem('LongBreak', 'true');
               localStorage.setItem('ShortBreak', 'false');
               displayLongBreak();
             } else {
               document.getElementById('header').completedCycles = counter;
               localStorage.setItem('sessionCounter', counter);
+              localStorage.setItem('distractCounter', todayDistract);
               localStorage.setItem('ShortBreak', 'true');
               localStorage.setItem('LongBreak', 'false');
               displayShortBreak();
