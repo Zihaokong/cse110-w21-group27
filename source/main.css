@@ -1,6 +1,9 @@
 /* Styles for index.html and Modals */
 
 /* Body background and font */
+#welcome-message {
+  text-align: center;
+}
 head,
 body {
   background: #e5e5e5;

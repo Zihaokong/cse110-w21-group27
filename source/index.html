@@ -30,9 +30,9 @@
       </div>
     </div>
     <hr id="header-divider"/>
-    <center>
-      <span id="welcome-message"><b>Welcome. Add a task to get started.</b></span>
-    </center>
+
+      <p id="welcome-message"><b>Welcome. Add a task to get started.</b></p>
+ 
 
     <task-list id="main-container">
       <!-- ToDo from JS will append here -->
@@ -56,12 +56,12 @@
         <form id="taskform">
           <div class="taskform-entry">
             <label for="taskname">Task: </label>
-            <input type="text" class="taskname form-control" placeholder="Task 1" id="task-name" required />
+            <input type="text" class="taskname form-control" placeholder="Task Name" id="task-name" required />
           </div>
 
           <div class="taskform-entry">
             <label for="num-pomos">Estimated Pomos: </label>
-            <input type="number" class="num-pomos form-control" placeholder="4" id="task-num" min="1" max="10"
+            <input type="number" class="num-pomos form-control" id="task-num" min="1" max="10"
               required />
           </div>
 

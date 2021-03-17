@@ -100,9 +100,23 @@ function closeModal() {
  * @param {event} event: Javascript events
  */
 function eventCloseModal(event) {
-  if (event.target === modal) {
-    modal.style.display = 'none';
-    document.getElementById('delete-modal').style.display = 'none';
+  switch (event.target) {
+    case modal:
+      modal.style.display = 'none';
+      break;
+    case document.getElementById('delete-modal'):
+      document.getElementById('delete-modal').style.display = 'none';
+      break;
+    case document.getElementById('edit-modal'):
+      document.getElementById('edit-modal').style.display = 'none';
+      break;
+    case document.getElementById('infoModal'):
+      document.getElementById('infoModal').style.display = 'none';
+      break;
+    case document.getElementById('play-modal'):
+      document.getElementById('play-modal').style.display = 'none';
+      break;
+    default:
   }
 }
 
@@ -138,6 +152,7 @@ function handleLoad() {
     btns[i].addEventListener('click', openModal);
   }
 
+  // close the modal when clicking outside
   window.onclick = eventCloseModal;
 
   window.onbeforeunload = handleUnload;

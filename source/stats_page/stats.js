@@ -150,7 +150,15 @@ function loadHandler() {
     });
   }
 
+  // close the modal if click outside
+  window.onclick = eventCloseStatsModal;
   window.onbeforeunload = unloadHandler;
+}
+
+function eventCloseStatsModal(event) {
+  if (event.target === document.getElementById('infoModal')) {
+    document.getElementById('infoModal').style.display = 'none';
+  }
 }
 
 /**
