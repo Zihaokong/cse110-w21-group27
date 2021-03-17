@@ -3,7 +3,8 @@ let distractCounter = 0;
 
 let isFailed = false;
 let isInSession = false;
-let isReload = true; // distinguish refresh or back button
+let isReload = true;
+// distinguish refresh or back button
 let currentTaskId;
 let allTasks;
 
@@ -11,21 +12,18 @@ let circle;
 let radius;
 let circumference;
 
-
 // handle timing
 window.onload = function template() {
-
   circle = document.getElementById('progress-ring-circle');
-  let r = circle.getAttribute("r")
+  const r = circle.getAttribute('r');
+  // eslint-disable-next-line radix
   radius = parseInt(r);
   circumference = radius * 2 * Math.PI;
-  
+
   circle.style.strokeDasharray = circumference;
   circle.style.strokeDashoffset = 0;
 
-
-
-  //add event listeners for buttons on timer page
+  // add event listeners for buttons on timer page
   document.getElementById('start-btn').addEventListener('click', startTimer);
   document
     .getElementById('distraction-btn')
@@ -47,9 +45,9 @@ window.onload = function template() {
   document
     .getElementById('cancel-button')
     .addEventListener('click', quitFailModal);
-  //set variable denote current timer mode
+  // set variable denote current timer mode
   localStorage.setItem('isPomo', 'false');
-  //render current task name to timer page
+  // render current task name to timer page
   const id = JSON.parse(localStorage.getItem('currentTask'));
   allTasks = JSON.parse(localStorage.getItem('allTasks'));
   for (let i = 0; i < allTasks.length; i++) {
@@ -100,26 +98,34 @@ window.onload = function template() {
   });
 };
 
-
-
-
-//progress bar functions
+/**
+ * Change the style of current timer circle.
+ * @param {float} percent percentage of current progress bar.
+ */
 function setProgress(percent) {
   const offset = (percent / 100) * circumference;
   circle.style.strokeDashoffset = -offset;
 }
 
+/**
+ * Reset progress ring percentage to 0
+ */
 function resetProgressRing() {
   circle.style.strokeDashoffset = 0;
 }
 
-// break functions
+/**
+ * Display break complete modal, and sound.
+ */
 function displayBreakComplete() {
   const audio = new Audio('../../media/break-tune.mp3');
   audio.play();
   document.getElementById('breakCompleteModal').style.display = 'block';
 }
 
+/**
+ * Continue on current task, start another pomo.
+ */
 function continueTask() {
   document.getElementById('breakCompleteModal').style.display = 'none';
   document.body.style.backgroundImage =
@@ -136,15 +142,19 @@ function continueTask() {
   document.getElementById('minutes').innerHTML = '01';
   document.getElementById('seconds').innerHTML = '00';
   document.getElementById('currTask').innerHTML = allTasks[currentTaskId].name;
-  // start(0, 3);
-  // window.location.reload();
 }
 
+/**
+ * Change the current task, go back to task page.
+ */
 function changeTask() {
   document.getElementById('breakCompleteModal').style.display = 'none';
   window.location.href = '../index.html';
 }
 
+/**
+ * display short break page, play sound and change appearance of website.
+ */
 function displayShortBreak() {
   const audio1 = new Audio('../../media/work-tune.mp3');
   audio1.play();
@@ -157,15 +167,20 @@ function displayShortBreak() {
     document.getElementById('currTask').innerHTML = 'Short Break';
     document.getElementById('button-container').style.display = 'none';
     document.getElementById('container-short').style.display = 'block';
-    // window.location.reload();
   }, 2000);
 }
 
+/**
+ * start counter for short break.
+ */
 function startShortBreak() {
   document.getElementById('container-short').style.display = 'none';
   start(0, 3);
 }
 
+/**
+ *  display long break page, play sound and change appearance of website.
+ */
 function displayLongBreak() {
   const audio2 = new Audio('../../media/work-tune.mp3');
   audio2.play();
@@ -182,11 +197,17 @@ function displayLongBreak() {
   }, 2000);
 }
 
+/**
+ * start counter for long break.
+ */
 function startLongBreak() {
   document.getElementById('container-long').style.display = 'none';
   start(0, 5);
 }
 
+/**
+ * Start the pomodoro timer for current task.
+ */
 function startTimer() {
   // enable distraction button during session
   document.getElementById('distraction-btn').disabled = false;
@@ -195,7 +216,6 @@ function startTimer() {
   document.getElementById('button-container').style.paddingLeft = '150px';
   start(0, 3);
 }
-
 
 /**
  * Set a timer that count down for 60 second.
@@ -228,7 +248,6 @@ function start(mins, secs) {
     document.getElementById('title_timer').innerHTML = `${minutes}:${seconds}`;
   }
 
-  // var minutes_interval = setInterval(minutesTimer, 60000);
   const secondsInterval = setInterval(secondsTimer, 500);
 
   function secondsTimer() {
@@ -308,6 +327,9 @@ function start(mins, secs) {
   }
 }
 
+/**
+ * Used to increment distraction count.
+ */
 function distractionCount() {
   distractCounter += 1;
   document.getElementById(
@@ -315,16 +337,25 @@ function distractionCount() {
   ).innerHTML = `Distraction : ${distractCounter}`;
 }
 
+/**
+ * Display modal for fail.
+ */
 function displayFailModal() {
   isReload = false;
   document.getElementById('failModal').style.display = 'block';
 }
 
+/**
+ * go back to task page because session is failed.
+ */
 function failSession() {
   document.getElementById('failModal').style.display = 'none';
   window.location.href = '../index.html';
 }
 
+/**
+ * do not fail current task.
+ */
 function quitFailModal() {
   // keep session status active if they decide not to fail
   isReload = true;
@@ -355,7 +386,6 @@ if (typeof exports !== 'undefined') {
     displayFailModal,
     failSession,
     quitFailModal,
-    displayShortBreak
+    displayShortBreak,
   };
-
 }
