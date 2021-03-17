@@ -19,7 +19,6 @@ const circumference = radius * 2 * Math.PI;
 circle.style.strokeDasharray = circumference;
 circle.style.strokeDashoffset = 0;
 
-
 // progress bar functions
 function setProgress(percent) {
   const offset = (percent / 100) * circumference;
@@ -110,6 +109,9 @@ function startLongBreak() {
 
 function startTimer() {
   // enable distraction button during session
+  const todayPomos = Number(localStorage.getItem('todayPomo'));
+  localStorage.setItem('todayPomo', todayPomos + 1);
+
   document.getElementById('distraction-btn').disabled = false;
   isFailed = true;
   document.getElementById('start-btn').style.display = 'none';
@@ -120,10 +122,7 @@ function startTimer() {
 // handle timing
 window.onload = function template() {
   // Handle if date change before pomo start
-  const todayPomos = Number(localStorage.getItem('todayPomo'));
-  if (todayPomos === 0) {
-    localStorage.setItem('todayPomo', 1);
-  }
+
   // set variable denote current timer mode
   // add event listeners for buttons on timer page
   document.getElementById('start-btn').addEventListener('click', startTimer);
