@@ -105,7 +105,7 @@ describe('Test timer.js and functions)', () => {
     });
   });
 
-  it('starting short break works properly', () => {
+  it('starting the short break works properly', () => {
     cy.clock();
     localStorage.setItem('sessionCounter', '10');
     cy.visit('http://127.0.0.1:5501/source/timer_page/timer.html');
@@ -115,7 +115,7 @@ describe('Test timer.js and functions)', () => {
     cy.get('#container-short').should('have.css', 'display', 'none');
   });
 
-  it('starting long break works properly', () => {
+  it('starting the long break works properly', () => {
     cy.clock();
     localStorage.setItem('sessionCounter', '11');
     cy.visit('http://127.0.0.1:5501/source/timer_page/timer.html');
