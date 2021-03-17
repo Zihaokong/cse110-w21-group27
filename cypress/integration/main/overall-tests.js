@@ -426,6 +426,31 @@ describe('Overall testing', () => {
         cy.get('#change-btn').click();
         cy.get('#header')
           .shadow()
+          .find('#completed-cycle')
+          .contains(
+            `| Completed Cycles: ${4 * taskIndex + taskSessionIndex + 1}`
+          );
+
+        // Check to make sure stats are changed correctly
+        cy.get('#stats-btn').click();
+        cy.get('#todayPomos').contains(
+          `${4 * taskIndex + taskSessionIndex + 1}`
+        );
+        cy.get('#todayAvgDistractions').contains('1.0');
+        cy.get('#weekSuccess').contains('100.00%');
+        cy.get('#weekPomos').contains(
+          `${4 * taskIndex + taskSessionIndex + 1}`
+        );
+        cy.get('#weekAvgDistractions').contains('1.0');
+        cy.get('#weekSuccess').contains('100.00%');
+        cy.get('#monthPomos').contains(
+          `${4 * taskIndex + taskSessionIndex + 1}`
+        );
+        cy.get('#monthAvgDistractions').contains('1.0');
+        cy.get('#monthSuccess').contains('100.00%');
+        cy.get('#stats-btn').click();
+        cy.get('#header')
+          .shadow()
           .find('#cycle-count')
           .children('.dot')
           .should('have.length', 4 - ((taskSessionIndex + 1) % 4));
@@ -498,16 +523,5 @@ describe('Overall testing', () => {
           });
       }
     }
-    // Check the stats to see that they changed correctly
-    cy.get('#stats-btn').click();
-    cy.get('#todayPomos').contains('40');
-    cy.get('#todayAvgDistractions').contains('1.0');
-    cy.get('#weekSuccess').contains('100%');
-    cy.get('#weekPomos').contains('40');
-    cy.get('#weekAvgDistractions').contains('0');
-    cy.get('#weekSuccess').contains('100%');
-    cy.get('#monthPomos').contains('40');
-    cy.get('#monthAvgDistractions').contains('0');
-    cy.get('#monthSuccess').contains('100%');
   });
 });

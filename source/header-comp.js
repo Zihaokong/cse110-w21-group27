@@ -75,12 +75,12 @@ class HeaderComp extends HTMLElement {
     // Create the cycle counter section of the header.
     const section = document.createElement('section');
     section.setAttribute('id', 'cycle-count');
-    section.innerHTML = `      
-    <span>
-      <h2 id="completed-cycle" style="display: inline; color: #c4c4c4">
-        | Not yet completed
-      </h2>
-    </span>`;
+    // section.innerHTML = `
+    // <span>
+    //   <h2 id="completed-cycle" style="display: inline; color: #c4c4c4">
+    //     | Not yet completed
+    //   </h2>
+    // </span>`;
 
     // Append the date and section to the nav element
     nav.appendChild(date);
@@ -93,7 +93,7 @@ class HeaderComp extends HTMLElement {
     // Setup and render the circles in the cycle counter as well as the date.
     this.renderCounter();
     this.renderCompletedCount();
-    this.renderText();
+    //  /   this.renderText();
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
@@ -112,7 +112,7 @@ class HeaderComp extends HTMLElement {
 
         this.renderCounter();
         this.renderCompletedCount();
-        this.renderText();
+        // this.renderText();
       }
     }
 
@@ -131,7 +131,7 @@ class HeaderComp extends HTMLElement {
 
           this.renderCounter();
           this.renderCompletedCount();
-          this.renderText();
+          // this.renderText();
         }
       }
     }

@@ -1,1 +1,0 @@
-const circle=document.querySelector(".progress-ring-circle"),radius=circle.r.baseVal.value,circumference=2*radius*Math.PI;circle.style.strokeDasharray=circumference,circle.style.strokeDashoffset=0;function setProgress(a){circle.style.strokeDashoffset=-(a/100*circumference)}function resetProgressRing(){circle.style.strokeDashoffset=0}
