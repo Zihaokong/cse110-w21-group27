@@ -53,7 +53,7 @@
         <form id="taskform">
           <div class="taskform-entry">
             <label for="taskname">Task: </label>
-            <input type="text" class="taskname form-control" placeholder="Task 1" id="task-name" required />
+            <input type="text" class="taskname form-control" placeholder="Task 1" id="task-name" maxlength="26" required />
           </div>
 
           <div class="taskform-entry">
@@ -66,7 +66,7 @@
             <label for="notes">Notes: </label>
             <br />
             <textarea rows="4" cols="30" placeholder="Briefly describe your task." id="task-note"
-              class="form-control"></textarea>
+              class="form-control" maxlength="400"></textarea>
           </div>
 
           <div class="task-btns">
