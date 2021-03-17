@@ -92,7 +92,6 @@ class HeaderComp extends HTMLElement {
     // Setup and render the circles in the cycle counter as well as the date.
     this.renderCounter();
     this.renderCompletedCount();
-    this.renderText();
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
@@ -110,7 +109,6 @@ class HeaderComp extends HTMLElement {
 
         this.renderCounter();
         this.renderCompletedCount();
-        this.renderText();
       }
     }
 
