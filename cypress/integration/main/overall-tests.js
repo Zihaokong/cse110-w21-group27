@@ -9,9 +9,44 @@ describe('Overall testing', () => {
   const firstNotes = 'Notes for testname1';
   const firstNameEdited = 'testname1edit';
   const firstNumEdited = 3;
-  const firstNotesEdited = 'Notes for testname1 edited';
   beforeEach(() => {
     cy.visit('http://127.0.0.1:5501/source/index.html');
+  });
+
+  it('Check that info modal appears', () => {
+    cy.get('#info').click();
+    cy.get('#infoModal').then(($el) => {
+      expect($el).to.have.attr('style', 'display: block;');
+    });
+  });
+
+  it('Check the stats info modal', () => {
+    cy.get('#stats-btn').click();
+    cy.get('#info').click();
+    cy.get('#infoModal').then(($el) => {
+      expect($el).to.have.attr('style', 'display: block;');
+    });
+  });
+
+  it("Check that today's stats start at all 0", () => {
+    cy.get('#stats-btn').click();
+    cy.get('#todayPomos').contains('0');
+    cy.get('#todayAvgDistractions').contains('0');
+    cy.get('#weekSuccess').contains('0%');
+  });
+
+  it("Check that last 7 days' stats start at all 0", () => {
+    cy.get('#stats-btn').click();
+    cy.get('#weekPomos').contains('0');
+    cy.get('#weekAvgDistractions').contains('0');
+    cy.get('#weekSuccess').contains('0%');
+  });
+
+  it("Check that last 30 days' stats start at all 0", () => {
+    cy.get('#stats-btn').click();
+    cy.get('#monthPomos').contains('0');
+    cy.get('#monthAvgDistractions').contains('0');
+    cy.get('#monthSuccess').contains('0%');
   });
 
   it('Check for correct header after entering website', () => {
@@ -350,7 +385,9 @@ describe('Overall testing', () => {
           .click({ force: true });
         cy.get('#start-btn').click();
         cy.get('#start-btn').click();
-        cy.tick(5000);
+        cy.tick(1000);
+        cy.get('#distraction-btn').click();
+        cy.tick(4000);
         if ((taskSessionIndex + 1) % 4 === 0) {
           cy.get('#start-long-btn').click();
         } else {
@@ -461,5 +498,16 @@ describe('Overall testing', () => {
           });
       }
     }
+    // Check the stats to see that they changed correctly
+    cy.get('#stats-btn').click();
+    cy.get('#todayPomos').contains('40');
+    cy.get('#todayAvgDistractions').contains('1.0');
+    cy.get('#weekSuccess').contains('100%');
+    cy.get('#weekPomos').contains('40');
+    cy.get('#weekAvgDistractions').contains('0');
+    cy.get('#weekSuccess').contains('100%');
+    cy.get('#monthPomos').contains('40');
+    cy.get('#monthAvgDistractions').contains('0');
+    cy.get('#monthSuccess').contains('100%');
   });
 });
