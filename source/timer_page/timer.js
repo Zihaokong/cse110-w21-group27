@@ -31,7 +31,7 @@ function resetProgressRing() {
 
 // break functions
 function displayBreakComplete() {
-  const audio = new Audio('../../media/break-tune.mp3');
+  const audio = new Audio('../media/break-tune.mp3');
   audio.play();
   document.getElementById('breakCompleteModal').style.display = 'block';
 }
@@ -66,7 +66,7 @@ function changeTask() {
 }
 
 function displayShortBreak() {
-  const audio1 = new Audio('../../media/work-tune.mp3');
+  const audio1 = new Audio('../media/work-tune.mp3');
   audio1.play();
   setTimeout(() => {
     resetProgressRing();
@@ -87,7 +87,7 @@ function startShortBreak() {
 }
 
 function displayLongBreak() {
-  const audio2 = new Audio('../../media/work-tune.mp3');
+  const audio2 = new Audio('../media/work-tune.mp3');
   audio2.play();
   setTimeout(() => {
     resetProgressRing();
@@ -269,6 +269,7 @@ function start(mins, secs) {
           // disable distraction button
           document.getElementById('distraction-btn').disabled = true;
           if (pomo === 'true') {
+            // we just finished a break session
             localStorage.setItem('isPomo', 'false');
             // clear all circles for work session following longbreak
             if (localStorage.getItem('LongBreak') === 'true') {
@@ -279,8 +280,8 @@ function start(mins, secs) {
             localStorage.setItem('LongBreak', 'false');
             displayBreakComplete();
           } else {
+            // we just finished a work session
             localStorage.setItem('isPomo', 'true');
-
             // hide the fail modal if the timer runs out
             document.getElementById('failModal').style.display = 'none';
             isFailed = false;
