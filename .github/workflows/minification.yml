@@ -1,4 +1,4 @@
-name: Minification
+name: Minification and Deployment
 
 on:
   push:
@@ -31,22 +31,32 @@ jobs:
         cd ./minified
         for file in *.min.* ; do sudo mv $file ${file//min./} ; done
         cd ..
+        
     - name: add minfied files to build directory
       run: |
         rm -r build/*
         rmdir build
         mkdir build
         cp -a minified/. build
+        
     - name: copy index file from source to build
       run: |
         cp source/index.html build/index.html
         cp source/timer_page/timer.html build/timer.html
+        
+    - name: copy images and media from source to build
+      run: |
+        mkdir build/images
+        mkdir build/media
+        cp -a source/images/. build/images
+        cp -a source/media/. build/media
+        
     - name: create timer_page directory structure
       run: |
         cd build
         mkdir timer_page
         mv timer-modals.css timer.css timer.js timer.html timer_page
-      
+        
     - name: Deploy build files
       uses: peaceiris/actions-gh-pages@v3
       with:

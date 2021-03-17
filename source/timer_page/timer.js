@@ -26,7 +26,7 @@ function resetProgressRing() {
 
 // break functions
 function displayBreakComplete() {
-  const audio = new Audio('../../media/break-tune.mp3');
+  const audio = new Audio('../media/break-tune.mp3');
   audio.play();
   document.getElementById('breakCompleteModal').style.display = 'block';
 }
@@ -57,7 +57,7 @@ function changeTask() {
 }
 
 function displayShortBreak() {
-  const audio1 = new Audio('../../media/work-tune.mp3');
+  const audio1 = new Audio('../media/work-tune.mp3');
   audio1.play();
   setTimeout(() => {
     resetProgressRing();
@@ -78,7 +78,7 @@ function startShortBreak() {
 }
 
 function displayLongBreak() {
-  const audio2 = new Audio('../../media/work-tune.mp3');
+  const audio2 = new Audio('../media/work-tune.mp3');
   audio2.play();
   setTimeout(() => {
     resetProgressRing();
