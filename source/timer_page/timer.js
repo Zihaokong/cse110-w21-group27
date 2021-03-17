@@ -14,6 +14,7 @@ const circumference = radius * 2 * Math.PI;
 circle.style.strokeDasharray = circumference;
 circle.style.strokeDashoffset = 0;
 
+
 // progress bar functions
 function setProgress(percent) {
   const offset = (percent / 100) * circumference;
