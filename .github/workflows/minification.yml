@@ -34,8 +34,6 @@ jobs:
         
     - name: add minfied files to build directory
       run: |
-        rm -r build/*
-        rmdir build
         mkdir build
         cp -a minified/. build
         
