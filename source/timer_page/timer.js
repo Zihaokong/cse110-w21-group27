@@ -252,6 +252,7 @@ function start(mins, secs) {
           // disable distraction button
           document.getElementById('distraction-btn').disabled = true;
           if (pomo === 'true') {
+            // we just finished a break session
             localStorage.setItem('isPomo', 'false');
             // clear all circles for work session following longbreak
             if (localStorage.getItem('LongBreak') === 'true') {
@@ -262,8 +263,8 @@ function start(mins, secs) {
             localStorage.setItem('LongBreak', 'false');
             displayBreakComplete();
           } else {
+            // we just finished a work session
             localStorage.setItem('isPomo', 'true');
-
             // hide the fail modal if the timer runs out
             document.getElementById('failModal').style.display = 'none';
             isFailed = false;
