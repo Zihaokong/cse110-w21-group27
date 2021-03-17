@@ -61,7 +61,7 @@ jobs:
       run: |
         cd build
         mkdir stats_page
-        mv stats.css stats.js stats_page
+        mv stats.css stats.js stats.html stats_page
         cd ..
         
     - name: Deploy build files
