@@ -7,84 +7,97 @@ const {
   unloadHandler,
 } = require('../source/stats_page/stats');
 
+const ONE_DAY = 1000 * 60 * 60 * 24;
+
+const todaysDate = new Date();
+
+const dates = [];
+
+for (let i = 0; i < 100; i++) {
+  const date = new Date(todaysDate - ONE_DAY * i).toLocaleDateString('en-US');
+  dates.push(JSON.stringify(date));
+  console.log(date);
+}
+
 // Stat list used to mock previous sessions
+
 const statsListArray = [
   {
-    day: '3/10/2021',
-    pomoCount: 6,
+    day: dates[1],
+    pomoCount: 2,
     distractions: 5,
     completedPomos: 2,
   },
   {
-    day: '3/9/2021',
-    pomoCount: 7,
+    day: dates[2],
+    pomoCount: 2,
     distractions: 5,
     completedPomos: 2,
   },
   {
-    day: '3/8/2021',
-    pomoCount: 8,
+    day: dates[3],
+    pomoCount: 2,
     distractions: 5,
     completedPomos: 2,
   }, // longer than 7 days
   {
-    day: '2/27/2021',
-    pomoCount: 5,
+    day: dates[10],
+    pomoCount: 2,
     distractions: 5,
-    completedPomos: 5,
+    completedPomos: 2,
   },
   {
-    day: '2/26/2021',
-    pomoCount: 5,
+    day: dates[11],
+    pomoCount: 2,
     distractions: 5,
-    completedPomos: 5,
+    completedPomos: 2,
   },
   {
-    day: '2/25/2021',
-    pomoCount: 5,
+    day: dates[12],
+    pomoCount: 2,
     distractions: 5,
-    completedPomos: 5,
+    completedPomos: 2,
   },
   {
-    day: '2/24/2021',
-    pomoCount: 5,
+    day: dates[13],
+    pomoCount: 2,
     distractions: 5,
-    completedPomos: 5,
+    completedPomos: 2,
   },
   {
-    day: '2/23/2021',
-    pomoCount: 5,
+    day: dates[14],
+    pomoCount: 2,
     distractions: 5,
-    completedPomos: 5,
+    completedPomos: 2,
   },
   {
-    day: '2/22/2021',
-    pomoCount: 5,
+    day: dates[15],
+    pomoCount: 2,
     distractions: 5,
-    completedPomos: 5,
+    completedPomos: 2,
   },
   {
-    day: '2/20/2021',
-    pomoCount: 5,
+    day: dates[16],
+    pomoCount: 2,
     distractions: 5,
-    completedPomos: 5,
+    completedPomos: 2,
   },
   // more than 31 day
   {
-    day: '1/11/2021',
-    pomoCount: 99,
+    day: dates[99],
+    pomoCount: 2,
     distractions: 50,
-    completedPomos: 20,
+    completedPomos: 2,
   },
 ];
 
 // Variables used in the mock.
 const statsList = JSON.stringify(statsListArray);
-const currentDate = new Date('3/11/2021');
+const currentDate = new Date();
 const lastVisit = JSON.stringify(currentDate.toLocaleDateString('en-US'));
-const todayPomo = '5';
-const distractCount = '5';
-const sessionCount = '5';
+const todayPomo = '2';
+const distractCount = '2';
+const sessionCount = '2';
 
 // Mock local storage for main.
 Storage.prototype.getItem = jest.fn((item) => {
@@ -213,17 +226,17 @@ describe('"loadHandler" Function Test', () => {
 
     loadHandler();
 
-    expect(document.getElementById('todayPomos').innerText).toBe(5);
+    expect(document.getElementById('todayPomos').innerText).toBe(2);
     expect(document.getElementById('todayAvgDistractions').innerText).toBe(
       '1.0'
     );
     expect(document.getElementById('todaySuccess').innerText).toBe('100.00%');
-    expect(document.getElementById('weekPomos').innerText).toBe(9);
+    expect(document.getElementById('weekPomos').innerText).toBe(8);
     expect(document.getElementById('weekAvgDistractions').innerText).toBe(
-      '1.7'
+      '2.1'
     );
     // expect(document.getElementById('weekSuccess').innerText).toBe('0%');
-    expect(document.getElementById('monthPomos').innerText).toBe(46);
+    expect(document.getElementById('monthPomos').innerText).toBe(22);
     // expect(document.getElementById('monthAvgDistractions').innerText).toBe(0);
     // expect(document.getElementById('monthSuccess').innerText).toBe('0%');
   });
