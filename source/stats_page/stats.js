@@ -148,7 +148,14 @@ function loadHandler() {
       : `${((100 * monthCompletedPomos) / monthPomos).toFixed(2)}%`;
 
   // close the modal if click outside
-  window.onclick = closeInfoModal;
+  window.onclick = eventCloseStatsModal;
+
+  function eventCloseStatsModal(event) {
+    if (event.target === document.getElementById('infoModal')) {
+      document.getElementById('infoModal').style.display = 'none';
+    }
+  }
+
   window.onbeforeunload = unloadHandler;
 }
 
