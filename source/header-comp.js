@@ -72,7 +72,8 @@ class HeaderComp extends HTMLElement {
       ? HeaderComp.createDate()
       : `Today's date`;
 
-    // Create the cycle counter section of the header.
+    // Section of the header which shows dots and filled dots to represent
+    // progress to a long break.
     const section = document.createElement('section');
     section.setAttribute('id', 'cycle-count');
     section.innerHTML = `      
@@ -132,7 +133,8 @@ class HeaderComp extends HTMLElement {
   }
 
   /**
-   * Create unfilled circle for cycles.
+   * Creates and renders the unfilled dots using the new cycle and completed
+   * cycles properties.
    */
   renderCounter() {
     if (this.completedCycles === '0' || this.isNewCycle === 'true') {
@@ -151,7 +153,8 @@ class HeaderComp extends HTMLElement {
   }
 
   /**
-   * Create filled circle for completed cycles.
+   * Creates and renders the filled dots using the new cycle and completed
+   * cycles properties.
    */
   renderCompletedCount() {
     if (
@@ -226,7 +229,8 @@ class HeaderComp extends HTMLElement {
   }
 
   /**
-   * Method for creating Date object and get the local current Date
+   * Creates the text for the date element. Uses the JS Date object to generate
+   * the date.
    * @returns {string} today's date
    */
   static createDate() {

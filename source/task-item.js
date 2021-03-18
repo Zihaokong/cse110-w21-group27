@@ -252,7 +252,9 @@ class TaskItem extends HTMLElement {
   }
 
   /**
-   * Method for creating progress bar for the task-item.
+   * Method for creating progress bar for the task-item. The progress bar
+   * element shows the progress of the current task; changes based on the
+   * current and number attributes.
    * @returns {HTMLDivElement} The progress bar element.
    */
   createProgressBar() {
@@ -301,8 +303,8 @@ class TaskItem extends HTMLElement {
   }
 
   /**
-   * Static method for creating text representing the ratio:
-   * current pomos completed / estimated pomos
+   * Static method for creating the progress text. The progress text is an
+   * element which shows the ratio of current/number of the task.
    * @param {string} current String of the number of current pomos this task
    *                         completed.
    * @param {string} number String of the number of estimated pomos this task has.
@@ -317,9 +319,10 @@ class TaskItem extends HTMLElement {
   }
 
   /**
-   * Method for creating the task name on the shadow DOM.
-   * @param {string} name the name of the task
-   * @returns {HTMLParagraphElement} The elemet containing the task's name
+   * Method for creating the task name element. The task name element shows the
+   * name of the task; changes based on name attribute.
+   * @param {string} name the name of the task.
+   * @returns {HTMLParagraphElement} The elemet containing the task's name.
    */
   static createTask(name) {
     const todoTask = document.createElement('p');
@@ -329,7 +332,8 @@ class TaskItem extends HTMLElement {
   }
 
   /**
-   * Method for creating drag icon for the task-item
+   * Method for creating drag icon for the task-item. The drag icon element acts
+   * as a visual indicator that the task can be dragged.
    * @returns {HTMLSpanElement} The drag element of the task
    */
   static createDrag() {
@@ -341,7 +345,9 @@ class TaskItem extends HTMLElement {
   }
 
   /**
-   * Method for creating checkbox icon for the task-item
+   * Method for creating checkbox icon for the task-item. The checkmark element
+   * shows if the task is completed; user can check/uncheck it, which triggers a
+   * completion event.
    * @returns {HTMLSpanElement} The checkmark element inside the task.
    */
   createCheckmark() {
@@ -370,7 +376,8 @@ class TaskItem extends HTMLElement {
   }
 
   /**
-   * Method for creating the play-button to start the timer for the task-item
+   * Method for creating the play-button. The play button element handles user
+   * interaction and triggers a play event on click.
    * @return the button element with the play-icon
    */
   createPlayButton() {
@@ -401,7 +408,8 @@ class TaskItem extends HTMLElement {
   }
 
   /**
-   * Method for creating edit button for the task-item
+   * Method for creating edit button for the task-item. The edit button element
+   * handles user interaction and triggers an edit event on click.
    * @returns {HTMLButtonElement} The edit button on the task-item
    */
   createEditButton() {
@@ -432,7 +440,8 @@ class TaskItem extends HTMLElement {
   }
 
   /**
-   * Method for creating delete button for the task-item
+   * Method for creating delete button for the task-item. The delete button
+   * element handles user interaction and triggers a delete event on click.
    * @returns {HTMLButtonElement} The delete button show on the task-item
    */
   static createDeleteButton() {
