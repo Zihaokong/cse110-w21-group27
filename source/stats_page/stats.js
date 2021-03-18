@@ -13,17 +13,17 @@ let statsList;
 window.onload = loadHandler;
 
 /**
- * Change the display of the infoModal modal to open
+ * Change the display of the info-modal modal to open
  */
 function openInfoModal() {
-  document.getElementById('infoModal').style.display = 'block';
+  document.getElementById('info-modal').style.display = 'block';
 }
 
 /**
- * Change the display of the infoModal modal to close
+ * Change the display of the info-modal modal to close
  */
 function closeInfoModal() {
-  document.getElementById('infoModal').style.display = 'none';
+  document.getElementById('info-modal').style.display = 'none';
 }
 
 /**
@@ -156,8 +156,8 @@ function loadHandler() {
  * Close stats modal if click outside
  */
 function eventCloseStatsModal(event) {
-  if (event.target === document.getElementById('infoModal')) {
-    document.getElementById('infoModal').style.display = 'none';
+  if (event.target === document.getElementById('info-modal')) {
+    document.getElementById('info-modal').style.display = 'none';
   }
 }
 

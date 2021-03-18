@@ -27,10 +27,10 @@ function openModal() {
  * Function which sets the openInfoModal's display to be block
  */
 function openInfoModal() {
-  document.getElementById('infoModal').style.display = 'block';
+  document.getElementById('info-modal').style.display = 'block';
 }
 function closeInfoModal() {
-  document.getElementById('infoModal').style.display = 'none';
+  document.getElementById('info-modal').style.display = 'none';
 }
 
 /**
@@ -110,8 +110,8 @@ function eventCloseModal(event) {
     case document.getElementById('edit-modal'):
       document.getElementById('edit-modal').style.display = 'none';
       break;
-    case document.getElementById('infoModal'):
-      document.getElementById('infoModal').style.display = 'none';
+    case document.getElementById('info-modal'):
+      document.getElementById('info-modal').style.display = 'none';
       break;
     case document.getElementById('play-modal'):
       document.getElementById('play-modal').style.display = 'none';
