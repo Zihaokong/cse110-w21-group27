@@ -15,7 +15,7 @@ describe('Overall testing', () => {
 
   it('Check that info modal appears', () => {
     cy.get('#info').click();
-    cy.get('#infoModal').then(($el) => {
+    cy.get('#info-modal').then(($el) => {
       expect($el).to.have.attr('style', 'display: block;');
     });
   });
@@ -23,7 +23,7 @@ describe('Overall testing', () => {
   it('Check the stats info modal', () => {
     cy.get('#stats-btn').click();
     cy.get('#info').click();
-    cy.get('#infoModal').then(($el) => {
+    cy.get('#info-modal').then(($el) => {
       expect($el).to.have.attr('style', 'display: block;');
     });
   });
