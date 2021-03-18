@@ -13,10 +13,6 @@ describe('Header Tests', () => {
     cy.get('#header').shadow().find('#date').contains(HeaderComp.createDate());
     cy.get('#header')
       .shadow()
-      .find('#completed-cycle')
-      .contains('| Completed Cycles: 0');
-    cy.get('#header')
-      .shadow()
       .find('#cycle-count')
       .children('.dot')
       .should('have.length', 4);
@@ -35,10 +31,6 @@ describe('Header Tests', () => {
     cy.get('#task-note').clear().type(firstNotes);
     cy.get('#save-btn').click();
     for (let i = 0; i < 4; i++) {
-      cy.get('#header')
-        .shadow()
-        .find('#completed-cycle')
-        .contains(`| Completed Cycles: ${i}`);
       cy.get('#header')
         .shadow()
         .find('#cycle-count')
@@ -64,10 +56,6 @@ describe('Header Tests', () => {
       } else {
         cy.get('#start-short-btn').click();
       }
-      cy.get('#header')
-        .shadow()
-        .find('#completed-cycle')
-        .contains(`| Completed Cycles: ${i + 1}`);
       if (i !== 3) {
         cy.get('#header')
           .shadow()
@@ -106,10 +94,6 @@ describe('Header Tests', () => {
     for (let session = 0; session < 100; session++) {
       cy.get('#header')
         .shadow()
-        .find('#completed-cycle')
-        .contains(`| Completed Cycles: ${session}`);
-      cy.get('#header')
-        .shadow()
         .find('#cycle-count')
         .children('.dot')
         .should('have.length', 4 - (session % 4));
@@ -133,10 +117,6 @@ describe('Header Tests', () => {
       } else {
         cy.get('#start-short-btn').click();
       }
-      cy.get('#header')
-        .shadow()
-        .find('#completed-cycle')
-        .contains(`| Completed Cycles: ${session + 1}`);
       if ((session + 1) % 4 === 0) {
         cy.get('#header')
           .shadow()

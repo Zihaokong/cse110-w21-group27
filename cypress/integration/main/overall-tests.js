@@ -15,7 +15,7 @@ describe('Overall testing', () => {
 
   it('Check that info modal appears', () => {
     cy.get('#info').click();
-    cy.get('#infoModal').then(($el) => {
+    cy.get('#info-modal').then(($el) => {
       expect($el).to.have.attr('style', 'display: block;');
     });
   });
@@ -23,7 +23,7 @@ describe('Overall testing', () => {
   it('Check the stats info modal', () => {
     cy.get('#stats-btn').click();
     cy.get('#info').click();
-    cy.get('#infoModal').then(($el) => {
+    cy.get('#info-modal').then(($el) => {
       expect($el).to.have.attr('style', 'display: block;');
     });
   });
@@ -51,10 +51,6 @@ describe('Overall testing', () => {
 
   it('Check for correct header after entering website', () => {
     cy.get('#header').shadow().find('#date').contains(HeaderComp.createDate());
-    cy.get('#header')
-      .shadow()
-      .find('#completed-cycle')
-      .contains('| Completed Cycles: 0');
     cy.get('#header')
       .shadow()
       .find('#cycle-count')
@@ -364,10 +360,6 @@ describe('Overall testing', () => {
       for (let taskSessionIndex = 0; taskSessionIndex < 4; taskSessionIndex++) {
         cy.get('#header')
           .shadow()
-          .find('#completed-cycle')
-          .contains(`| Completed Cycles: ${4 * taskIndex + taskSessionIndex}`);
-        cy.get('#header')
-          .shadow()
           .find('#cycle-count')
           .children('.dot')
           .should('have.length', 4 - (taskSessionIndex % 4));
@@ -393,12 +385,6 @@ describe('Overall testing', () => {
         } else {
           cy.get('#start-short-btn').click();
         }
-        cy.get('#header')
-          .shadow()
-          .find('#completed-cycle')
-          .contains(
-            `| Completed Cycles: ${4 * taskIndex + taskSessionIndex + 1}`
-          );
         if ((taskSessionIndex + 1) % 4 === 0) {
           cy.get('#header')
             .shadow()
@@ -424,12 +410,6 @@ describe('Overall testing', () => {
         }
         cy.tick(5000);
         cy.get('#change-btn').click();
-        cy.get('#header')
-          .shadow()
-          .find('#completed-cycle')
-          .contains(
-            `| Completed Cycles: ${4 * taskIndex + taskSessionIndex + 1}`
-          );
 
         // Check to make sure stats are changed correctly
         cy.get('#stats-btn').click();

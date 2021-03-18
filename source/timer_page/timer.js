@@ -91,6 +91,7 @@ window.onload = function template() {
   }
   // render starting value of timer
 
+
   /* Show fail on back */
   window.history.pushState(null, document.title, window.location.href);
   window.addEventListener('popstate', () => {
@@ -205,7 +206,6 @@ function displayLongBreak() {
     document.getElementById('currTask').innerHTML = 'Long Break';
     document.getElementById('button-container').style.display = 'none';
     document.getElementById('container-long').style.display = 'block';
-    // window.location.reload();
   }, 2000);
 }
 
@@ -222,6 +222,9 @@ function startLongBreak() {
  */
 function startTimer() {
   // enable distraction button during session
+  const todayPomos = Number(localStorage.getItem('todayPomo'));
+  localStorage.setItem('todayPomo', todayPomos + 1);
+
   document.getElementById('distraction-btn').disabled = false;
   isFailed = true;
   document.getElementById('start-btn').style.display = 'none';
@@ -247,7 +250,6 @@ function start(mins, secs) {
   ).innerHTML = `Distraction : ${distractCounter}`;
 
   const totalsecs = minutes * 60 + seconds;
-  // var progress_ring_interval = setInterval(updateProgressRing, 10);
   if (minutes < 10) {
     document.getElementById('minutes').innerHTML = `0${minutes}`;
   } else {
@@ -285,7 +287,6 @@ function start(mins, secs) {
       ).innerHTML = `${minutes}:0${seconds}`;
       if (seconds === 0) {
         if (minutes <= 0) {
-          // clearInterval(minutes_interval);
           clearInterval(secondsInterval);
 
           let counter = Number(localStorage.getItem('sessionCounter'));

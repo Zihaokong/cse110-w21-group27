@@ -91,7 +91,7 @@ describe('Tasks tests', () => {
       .shadow()
       .find('#delete-btn')
       .click({ force: true });
-    cy.get('#task-delete').contains(`[${firstName}]`);
+    cy.get('#task-delete').contains(firstName);
   });
 
   it('Edit modal displays correct info', () => {
