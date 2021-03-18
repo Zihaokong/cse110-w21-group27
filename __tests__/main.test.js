@@ -332,12 +332,12 @@ describe('"openInfoModal" Function Test', () => {
     '<div id="play-modal" class="modal"></div>' +
     '<div id="edit-modal" class="modal"></div>' +
     '<div id="delete-modal" class="modal"></div>' +
-    '<div id="infoModal" class="modal"></div>';
+    '<div id="info-modal" class="modal"></div>';
 
   test('Open modal test', () => {
-    document.getElementById('infoModal').style.display = 'none';
+    document.getElementById('info-modal').style.display = 'none';
     openInfoModal();
-    expect(document.getElementById('infoModal').style.display).toBe('block');
+    expect(document.getElementById('info-modal').style.display).toBe('block');
   });
 });
 
@@ -352,12 +352,12 @@ describe('"closeInfoModal" Function Test', () => {
     '<div id="play-modal" class="modal"></div>' +
     '<div id="edit-modal" class="modal"></div>' +
     '<div id="delete-modal" class="modal"></div>' +
-    '<div id="infoModal" class="modal"></div>';
+    '<div id="info-modal" class="modal"></div>';
 
   test('Close modal test', () => {
-    document.getElementById('infoModal').style.display = 'block';
+    document.getElementById('info-modal').style.display = 'block';
     closeInfoModal();
-    expect(document.getElementById('infoModal').style.display).toBe('none');
+    expect(document.getElementById('info-modal').style.display).toBe('none');
   });
 });
 
