@@ -108,7 +108,13 @@ window.onload = function template() {
  * @param {float} percent percentage of current progress bar.
  */
 function setProgress(percent) {
-  const offset = (percent / 100) * circumference;
+  circle = document.getElementById('progress-ring-circle');
+  const r = circle.getAttribute('r');
+  // eslint-disable-next-line radix
+  const radiust = parseInt(r);
+  const circumferencet = radiust * 2 * Math.PI;
+
+  const offset = (percent / 100) * circumferencet;
   document.getElementById(
     'progress-ring-circle'
   ).style.strokeDashoffset = -offset;
@@ -154,7 +160,6 @@ function continueTask() {
     'todayPomo',
     Number(localStorage.getItem('todayPomo')) + 1
   );
-
 }
 
 /**

@@ -2,6 +2,7 @@ const {
   setProgress,
   resetProgressRing,
   displayBreakComplete,
+  continueTask,
   changeTask,
   startShortBreak,
   startLongBreak,
@@ -11,7 +12,8 @@ const {
   displayFailModal,
   failSession,
   quitFailModal,
-  displayShortBreak} = require('../source/timer_page/timer');
+  displayShortBreak,
+} = require('../source/timer_page/timer');
 
 // require('../source/timer_page/timer');
 
@@ -19,13 +21,15 @@ const {
 
 document.body.innerHTML = `<!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    />
 
     <!-- Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
@@ -33,71 +37,95 @@ document.body.innerHTML = `<!DOCTYPE html>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
     <!--My CSS-->
-    <link rel="stylesheet" href="./timer.css">
-    <link rel="stylesheet" href="./timer-modals.css">
+    <link rel="stylesheet" href="./timer.css" />
+    <link rel="stylesheet" href="./timer-modals.css" />
 
     <!--Font-->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap"
+      rel="stylesheet"
+    />
 
     <title id="title_timer">Pomodoro Timer</title>
-</head>
+  </head>
 
-<body onload="template()">
+  <body onload="template()">
     <header-comp id="header"></header-comp>
     <div class="container">
-        <!--Task Heading-->
-        <h1 class="text-center my-5" id="currTask">Task</h1>
 
-        <div class="container timer">
-            <div class="row">
-                <div class="col-5">
-                    <h4 id="minutes"></h4>
-                </div>
-                <div class="col-2">
-                    <h4>:</h4>
-                </div>
-                <div class="col-5">
-                    <h4 id="seconds"></h4>
-                </div>
-            </div>
+      <!--Task Heading-->
+      <h1 class="text-center my-5" id="currTask">Task</h1>
 
-            <svg class="progress-ring" height="27.5rem" width="27.5rem">
-                <circle class="progress-ring-circle" id="progress-ring-circle" stroke-width="40" fill="transparent" r="200" cx="13.75rem"
-                    cy="13.75rem" stroke="#2E4756" />
-            </svg>
+      <div class="container timer">
+        <div class="row">
+          <div class="col-5">
+            <h4 id="minutes"></h4>
+          </div>
+          <div class="col-2">
+            <h4>:</h4>
+          </div>
+          <div class="col-5">
+            <h4 id="seconds"></h4>
+          </div>
         </div>
 
-        <!--Buttons-->
-        <div id="button-container">
-            <div><button class="startButton" id="start-btn">Start</button></div>
-            <button class="distraction" id="distraction-btn" disabled>Distraction : 5</button>
-            <button class="fail" id="fail-btn">Fail</button>
-        </div>
+        <svg class="progress-ring" height="27.5rem" width="27.5rem">
+          <circle
+            class="progress-ring-circle"
+            id="progress-ring-circle"
+            stroke-width="40"
+            fill="transparent"
+            r="200"
+            cx="13.75rem"
+            cy="13.75rem"
+            stroke="#2E4756"
+          />
+        </svg>
+      </div>
 
-        <div id="container-short">
-            <div><button class="start-break-btn" id="start-short-btn">Start Break</button></div>
-        </div>
+      <!--Buttons-->
+      <div id="button-container">
+        <div><button class="startButton" id="start-btn">Start</button></div>
+        <button class="distraction" id="distraction-btn" disabled>
+          Distraction : 5
+        </button>
+        <button class="fail" id="fail-btn">Fail</button>
+      </div>
 
-        <div id="container-long">
-            <div><button class="start-break-btn" id="start-long-btn">Start Break</button></div>
+      <div id="container-short">
+        <div>
+          <button class="start-break-btn" id="start-short-btn">
+            Start Break
+          </button>
         </div>
+      </div>
+
+      <div id="container-long">
+        <div>
+          <button class="start-break-btn" id="start-long-btn">
+            Start Break
+          </button>
+        </div>
+      </div>
     </div>
 
     <div id="breakCompleteModal" class="modal-break">
-        <div class="modal-content-short_break">
-            <div class="modal-text">
-                <div id="heading-break-complete">
-                    Break Complete
-                </div>
-                <hr style="border-width: 3px; color: #C4C4C4;">
-                <div id="button-task-container">
-                    <div class="button-task-position"> <button class="button-task" id="continue-btn"
-                            >Continue Task</button></div>
-                    <div class="button-task-position"> <button class="button-task" id="change-btn"
-                            >Change Task</button></div>
-                </div>
+      <div class="modal-content-short_break">
+        <div class="modal-text">
+          <div id="heading-break-complete">Break Complete</div>
+          <hr style="border-width: 3px; color: #c4c4c4" />
+          <div id="button-task-container">
+            <div class="button-task-position">
+              <button class="button-task" id="continue-btn">
+                Continue Task
+              </button>
             </div>
+            <div class="button-task-position">
+              <button class="button-task" id="change-btn">Change Task</button>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
 
     <div id="failModal" class="modal-break">
@@ -107,7 +135,7 @@ document.body.innerHTML = `<!DOCTYPE html>
                     Are you sure you want to fail this pomo session?
                 </div>
                 <div id="sad-face-container">
-                    <img id="sad-face" src="../../images/sad-face.png" alt="sad-face">
+                    <img id="sad-face" src="../images/sad-face.png" alt="sad-face">
                 </div>
                 <div id="fail-button-container">
                     <button class="fail-buttons" id="fail-button">Fail</button>
@@ -115,15 +143,14 @@ document.body.innerHTML = `<!DOCTYPE html>
                 </div>
             </div>
         </div>
+      </div>
     </div>
 
-    <script src="./timer.js"> </script>
-    <script src="./progress.js"></script>
-    <script src="./break.js"></script>
+    <script src="./timer.js"></script>
     <script src="../header-comp.js"></script>
-</body>
-
-</html>`;
+  </body>
+</html>
+`;
 const allTasks = [];
 const newTask1 = {
   id: '123456',
@@ -167,10 +194,10 @@ Storage.prototype.getItem = jest.fn((item) => {
 });
 describe('Test Timer functions', () => {
   test('Set Progress function test', () => {
-    setProgress(0);
+    setProgress(50);
     expect(
       document.getElementById('progress-ring-circle').style.strokeDashoffset
-    ).toBe('0');
+    ).toBe('-628.3185307179587');
   });
 
   test('reset Progress Ring function test', () => {
@@ -274,4 +301,5 @@ describe('Test Timer functions', () => {
     quitFailModal();
     expect(document.getElementById('failModal').style.display).toBe('none');
   });
+
 });
