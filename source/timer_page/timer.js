@@ -65,27 +65,27 @@ window.onload = function template() {
   if (localStorage.getItem('ShortBreak') === 'true') {
     document.body.style.backgroundImage =
       'linear-gradient(to right,#74EBD5,#ACB6E5)';
-    document.getElementById('minutes').innerHTML = '01';
-    document.getElementById('seconds').innerHTML = '00';
+    document.getElementById('minutes').innerHTML = '00';
+    document.getElementById('seconds').innerHTML = '05';
     document.getElementById('currTask').innerHTML = 'Short Break';
     document.getElementById('button-container').style.display = 'none';
     document.getElementById('container-short').style.display = 'block';
   } else if (localStorage.getItem('LongBreak') === 'true') {
     document.body.style.backgroundImage =
       'linear-gradient(to right,#ACB6E5,#74EBD5)';
-    document.getElementById('minutes').innerHTML = '01';
-    document.getElementById('seconds').innerHTML = '00';
+    document.getElementById('minutes').innerHTML = '00';
+    document.getElementById('seconds').innerHTML = '15';
     document.getElementById('currTask').innerHTML = 'Long Break';
     document.getElementById('button-container').style.display = 'none';
     document.getElementById('container-long').style.display = 'block';
   } else {
     localStorage.setItem('isPomo', 'false');
-    document.getElementById('minutes').innerHTML = '01';
-    document.getElementById('seconds').innerHTML = '00';
+    document.getElementById('minutes').innerHTML = '0';
+    document.getElementById('seconds').innerHTML = '25';
     document.getElementById(
       'distraction-btn'
     ).innerHTML = `Distraction : ${distractCounter}`;
-    document.getElementById('title_timer').innerHTML = '01:00 - Time To Work!';
+    document.getElementById('title_timer').innerHTML = '00:25';
     document.getElementById('start-btn').style.display = 'block';
     document.getElementById('button-container').style.paddingLeft = '0px';
   }
@@ -145,9 +145,9 @@ function continueTask() {
   document.getElementById(
     'distraction-btn'
   ).innerHTML = `Distraction : ${distractCounter}`;
-  document.getElementById('title_timer').innerHTML = '01:00 - Time To Work!';
-  document.getElementById('minutes').innerHTML = '01';
-  document.getElementById('seconds').innerHTML = '00';
+  document.getElementById('title_timer').innerHTML = '00:25';
+  document.getElementById('minutes').innerHTML = '00';
+  document.getElementById('seconds').innerHTML = '25';
   document.getElementById('currTask').innerHTML = allTasks[currentTaskId].name;
 
   localStorage.setItem(
@@ -175,8 +175,8 @@ function displayShortBreak() {
     resetProgressRing();
     document.body.style.backgroundImage =
       'linear-gradient(to right,#74EBD5,#ACB6E5)';
-    document.getElementById('minutes').innerHTML = '01';
-    document.getElementById('seconds').innerHTML = '00';
+    document.getElementById('minutes').innerHTML = '00';
+    document.getElementById('seconds').innerHTML = '05';
     document.getElementById('currTask').innerHTML = 'Short Break';
     document.getElementById('button-container').style.display = 'none';
     document.getElementById('container-short').style.display = 'block';
@@ -188,7 +188,7 @@ function displayShortBreak() {
  */
 function startShortBreak() {
   document.getElementById('container-short').style.display = 'none';
-  start(0, 3);
+  start(0, 5);
 }
 
 /**
@@ -201,8 +201,8 @@ function displayLongBreak() {
     resetProgressRing();
     document.body.style.backgroundImage =
       'linear-gradient(to right,#ACB6E5,#74EBD5)';
-    document.getElementById('minutes').innerHTML = '01';
-    document.getElementById('seconds').innerHTML = '00';
+    document.getElementById('minutes').innerHTML = '00';
+    document.getElementById('seconds').innerHTML = '15';
     document.getElementById('currTask').innerHTML = 'Long Break';
     document.getElementById('button-container').style.display = 'none';
     document.getElementById('container-long').style.display = 'block';
@@ -214,7 +214,7 @@ function displayLongBreak() {
  */
 function startLongBreak() {
   document.getElementById('container-long').style.display = 'none';
-  start(0, 5);
+  start(0, 15);
 }
 
 /**
@@ -229,7 +229,7 @@ function startTimer() {
   isFailed = true;
   document.getElementById('start-btn').style.display = 'none';
   document.getElementById('button-container').style.paddingLeft = '150px';
-  start(0, 3);
+  start(0, 25);
 }
 
 
