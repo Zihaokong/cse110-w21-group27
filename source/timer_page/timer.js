@@ -108,7 +108,9 @@ window.onload = function template() {
  */
 function setProgress(percent) {
   const offset = (percent / 100) * circumference;
-  circle.style.strokeDashoffset = -offset;
+  document.getElementById(
+    'progress-ring-circle'
+  ).style.strokeDashoffset = -offset;
 }
 
 /**

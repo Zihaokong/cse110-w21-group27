@@ -16,7 +16,7 @@ const dates = [];
 for (let i = 0; i < 100; i++) {
   const date = new Date(todaysDate - ONE_DAY * i).toLocaleDateString('en-US');
   dates.push(JSON.stringify(date));
-  console.log(date);
+  //console.log(date);
 }
 
 // Stat list used to mock previous sessions
