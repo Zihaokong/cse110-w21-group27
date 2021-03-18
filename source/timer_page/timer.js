@@ -19,7 +19,6 @@ const circumference = radius * 2 * Math.PI;
 circle.style.strokeDasharray = circumference;
 circle.style.strokeDashoffset = 0;
 
-
 // progress bar functions
 function setProgress(percent) {
   const offset = (percent / 100) * circumference;
@@ -57,8 +56,6 @@ function continueTask() {
     'todayPomo',
     Number(localStorage.getItem('todayPomo')) + 1
   );
-  // start(0, 3);
-  // window.location.reload();
 }
 
 function changeTask() {
@@ -78,7 +75,6 @@ function displayShortBreak() {
     document.getElementById('currTask').innerHTML = 'Short Break';
     document.getElementById('button-container').style.display = 'none';
     document.getElementById('container-short').style.display = 'block';
-    // window.location.reload();
   }, 2000);
 }
 
@@ -99,7 +95,6 @@ function displayLongBreak() {
     document.getElementById('currTask').innerHTML = 'Long Break';
     document.getElementById('button-container').style.display = 'none';
     document.getElementById('container-long').style.display = 'block';
-    // window.location.reload();
   }, 2000);
 }
 
@@ -110,6 +105,9 @@ function startLongBreak() {
 
 function startTimer() {
   // enable distraction button during session
+  const todayPomos = Number(localStorage.getItem('todayPomo'));
+  localStorage.setItem('todayPomo', todayPomos + 1);
+
   document.getElementById('distraction-btn').disabled = false;
   isFailed = true;
   document.getElementById('start-btn').style.display = 'none';
@@ -120,10 +118,7 @@ function startTimer() {
 // handle timing
 window.onload = function template() {
   // Handle if date change before pomo start
-  const todayPomos = Number(localStorage.getItem('todayPomo'));
-  if (todayPomos === 0) {
-    localStorage.setItem('todayPomo', 1);
-  }
+
   // set variable denote current timer mode
   // add event listeners for buttons on timer page
   document.getElementById('start-btn').addEventListener('click', startTimer);
@@ -148,7 +143,6 @@ window.onload = function template() {
     .getElementById('cancel-button')
     .addEventListener('click', quitFailModal);
   // set variable denote current timer mode
-  // localStorage.setItem('isPomo', 'false');
   // render current task name to timer page
   const id = JSON.parse(localStorage.getItem('currentTask'));
   allTasks = JSON.parse(localStorage.getItem('allTasks'));
@@ -189,7 +183,7 @@ window.onload = function template() {
   }
   // render starting value of timer
 
-  /* Show fail on back */
+  // Show fail on back
   window.history.pushState(null, document.title, window.location.href);
   window.addEventListener('popstate', () => {
     if (isFailed) {
@@ -218,7 +212,6 @@ function start(mins, secs) {
   ).innerHTML = `Distraction : ${distractCounter}`;
 
   const totalsecs = minutes * 60 + seconds;
-  // var progress_ring_interval = setInterval(updateProgressRing, 10);
   if (minutes < 10) {
     document.getElementById('minutes').innerHTML = `0${minutes}`;
   } else {
@@ -232,7 +225,6 @@ function start(mins, secs) {
     document.getElementById('title_timer').innerHTML = `${minutes}:${seconds}`;
   }
 
-  // var minutes_interval = setInterval(minutesTimer, 60000);
   const secondsInterval = setInterval(secondsTimer, 500);
 
   function secondsTimer() {
@@ -257,7 +249,6 @@ function start(mins, secs) {
       ).innerHTML = `${minutes}:0${seconds}`;
       if (seconds === 0) {
         if (minutes <= 0) {
-          // clearInterval(minutes_interval);
           clearInterval(secondsInterval);
 
           let counter = Number(localStorage.getItem('sessionCounter'));

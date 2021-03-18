@@ -286,10 +286,6 @@ class TaskList extends HTMLElement {
     // set the current task id to localStorage
     const currentTask = targetTask.id;
     localStorage.setItem('currentTask', JSON.stringify(currentTask));
-    localStorage.setItem(
-      'todayPomo',
-      Number(localStorage.getItem('todayPomo')) + 1
-    );
   }
 
   /**

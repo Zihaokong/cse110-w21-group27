@@ -16,7 +16,6 @@ const dates = [];
 for (let i = 0; i < 100; i++) {
   const date = new Date(todaysDate - ONE_DAY * i).toLocaleDateString('en-US');
   dates.push(JSON.stringify(date));
-  console.log(date);
 }
 
 // Stat list used to mock previous sessions
@@ -118,7 +117,7 @@ Storage.prototype.getItem = jest.fn((item) => {
 });
 
 document.body.innerHTML =
-  '<div id="infoModal" class="modal"></div>' +
+  '<div id="info-modal" class="modal"></div>' +
   '<p id="todayPomos">0</p>' +
   '<p id="todayAvgDistractions">0</p>' +
   '<p id="todaySuccess">0%</p>' +
@@ -127,11 +126,12 @@ document.body.innerHTML =
   '<p id="weekSuccess">0%</p>' +
   '<p id="monthPomos">0</p>' +
   '<p id="monthAvgDistractions">0</p>' +
-  '<p id="monthSuccess">0%</p>';
+  '<p id="monthSuccess">0%</p>' +
+  '<header-comp id="header"></header-comp>';
 
 describe('"openInfoModal" Function Test', () => {
   test('Test to see if the modal display is set to block after function', () => {
-    const modal = document.getElementById('infoModal');
+    const modal = document.getElementById('info-modal');
     modal.style.display = 'none';
     expect(modal.style.display).toBe('none');
     openInfoModal();
@@ -141,7 +141,7 @@ describe('"openInfoModal" Function Test', () => {
 
 describe('"closeInfoModal" Function Test', () => {
   test('Test to see if the modal display is set to block after function', () => {
-    const modal = document.getElementById('infoModal');
+    const modal = document.getElementById('info-modal');
     modal.style.display = 'block';
     expect(modal.style.display).toBe('block');
     closeInfoModal();

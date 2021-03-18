@@ -13,17 +13,17 @@ let statsList;
 window.onload = loadHandler;
 
 /**
- * Change the display of the infoModal modal to open
+ * Change the display of the info-modal modal to open
  */
 function openInfoModal() {
-  document.getElementById('infoModal').style.display = 'block';
+  document.getElementById('info-modal').style.display = 'block';
 }
 
 /**
- * Change the display of the infoModal modal to close
+ * Change the display of the info-modal modal to close
  */
 function closeInfoModal() {
-  document.getElementById('infoModal').style.display = 'none';
+  document.getElementById('info-modal').style.display = 'none';
 }
 
 /**
@@ -38,13 +38,14 @@ function scrollFunc() {
  *  It will set statsList to be empty list, and reset all the counters.
  */
 function resetStats() {
+  // reset stats record
   statsList = [];
   localStorage.setItem('statsList', JSON.stringify(statsList));
-
+  // reset all the counters for today in localStorage
   localStorage.setItem('todayPomo', 0);
   localStorage.setItem('sessionCounter', 0);
   localStorage.setItem('distractCounter', 0);
-
+  // reset the text in all cards
   document.getElementById('todayPomos').innerText = 0;
   document.getElementById('todayAvgDistractions').innerText = 0;
   document.getElementById('todaySuccess').innerText = '0%';
@@ -56,6 +57,8 @@ function resetStats() {
   document.getElementById('monthPomos').innerText = 0;
   document.getElementById('monthAvgDistractions').innerText = 0;
   document.getElementById('monthSuccess').innerText = '0%';
+  // reset counts on header
+  document.getElementById('header').completedCycles = 0;
 }
 
 /**
@@ -156,8 +159,8 @@ function loadHandler() {
  * Close stats modal if click outside
  */
 function eventCloseStatsModal(event) {
-  if (event.target === document.getElementById('infoModal')) {
-    document.getElementById('infoModal').style.display = 'none';
+  if (event.target === document.getElementById('info-modal')) {
+    document.getElementById('info-modal').style.display = 'none';
   }
 }
 
