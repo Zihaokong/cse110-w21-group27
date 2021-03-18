@@ -54,7 +54,7 @@ class TaskList extends HTMLElement {
       .getElementById('taskform')
       .addEventListener('submit', (e) => this.addTask(e));
 
-    // Create and Appened a liSt container the task-list to house task-items
+    // Create and Appened a list container the task-list to house task-items
     const list = document.createElement('ul');
     list.setAttribute('id', 'main-list');
     list.setAttribute('class', 'task-container d-flex');
@@ -234,7 +234,9 @@ class TaskList extends HTMLElement {
         this.allTasks[taskIndex].note = editTaskNote;
         editModal.style.display = 'none';
       },
-      { once: true }
+      {
+        once: true,
+      }
     );
   }
 
@@ -284,6 +286,10 @@ class TaskList extends HTMLElement {
     // set the current task id to localStorage
     const currentTask = targetTask.id;
     localStorage.setItem('currentTask', JSON.stringify(currentTask));
+    localStorage.setItem(
+      'todayPomo',
+      Number(localStorage.getItem('todayPomo')) + 1
+    );
   }
 
   /**
@@ -367,13 +373,6 @@ class TaskList extends HTMLElement {
   }
 }
 customElements.define('task-list', TaskList);
-
-/**
- * Closing page will save current task and update local storage
- */
-window.onbeforeunload = function removeTaskList() {
-  document.getElementById('main-container').remove();
-};
 
 if (typeof exports !== 'undefined') {
   module.exports = {

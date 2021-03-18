@@ -1,10 +1,14 @@
 /* Styles for index.html and Modals */
 
 /* Body background and font */
+#welcome-message {
+  text-align: center;
+}
 head,
 body {
   background: #e5e5e5;
   margin: 0 0;
+  overflow-x: hidden;
   color: #2e4756;
   font-family: "Poppins", sans-serif;
 }
@@ -19,6 +23,7 @@ body {
 
 #heading-container-btns{
   display: flex;
+  margin-top: 1%;
 }
 
 #info-container{
@@ -37,15 +42,22 @@ body {
 
 h1 {
   margin-top: 5%;
+  font-family: "Poppins", sans-serif;
 }
 
 h2 {
   margin-top: 0;
 }
 
+#header-divider {
+  border: 1px solid #000000 !important;
+  margin-left: 7.5rem !important;
+  margin-right: 5.5rem !important;
+}
+
+
 hr {
   border: 1px solid #000000;
-  transform: rotate(-0.08deg);
 }
 
 
@@ -91,7 +103,6 @@ hr {
   padding-left: 1%;
 }
 
-
 #back-to-top {
   position: fixed;
   bottom: 2%;
@@ -105,6 +116,22 @@ hr {
   font-size: 16px;
 }
 
+#stats-btn{
+  background: #E5E5E5;
+  color: #2e4756 !important;
+  position: absolute;
+  top: 2%;
+  right: 2%;
+  z-index: 99;
+  padding-top: 2px;
+  border-radius: 55%;
+  box-shadow: none;
+  justify-content: center;
+}
+
+#stats-btn > span{
+ padding: 2px 5px;
+}
 
 /* Styles for Modals */
 .modal {
@@ -116,7 +143,7 @@ hr {
   top: 0;
   width: 100%; /* Full width */
   height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
+  overflow-y: auto !important; /* Enable scroll if needed */
   background-color: rgb(0, 0, 0); /* Fallback color */
   background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 }
@@ -126,12 +153,11 @@ hr {
   background-color: #fefefe;
   font-size: 1.5rem;
   font-family: "Poppins", sans-serif;
-
+  overflow:auto;
   margin: auto;
   padding: 20px;
   border: 1px solid #888;
   width: 80%;
-  
 }
 
 form div {
@@ -166,6 +192,7 @@ form div {
 .close:hover,
 .close:focus {
   color: #000;
+  box-shadow: none !important;
   text-decoration: none;
   cursor: pointer;
 }

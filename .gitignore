@@ -6,3 +6,5 @@ minified
 cypress/screenshots
 cypress/videos
 build
+.vscode
+./source/.vscode

@@ -56,7 +56,10 @@ class HeaderComp extends HTMLElement {
    */
   connectedCallback() {
     // Get the session counter from storage.
-    this.completedCycles = localStorage.getItem('sessionCounter');
+    this.completedCycles =
+      localStorage.getItem('sessionCounter') === null
+        ? 0
+        : localStorage.getItem('sessionCounter');
     this.isNewCycle = this.completedCycles % 4 === 0 ? 'true' : 'false';
     // Creates the nav element which houses the info of the header
     const nav = document.createElement('nav');
@@ -76,7 +79,6 @@ class HeaderComp extends HTMLElement {
     section.innerHTML = `      
     <span>
       <h2 id="completed-cycle" style="display: inline; color: #c4c4c4">
-        | Not yet completed
       </h2>
     </span>`;
 
@@ -91,7 +93,6 @@ class HeaderComp extends HTMLElement {
     // Setup and render the circles in the cycle counter as well as the date.
     this.renderCounter();
     this.renderCompletedCount();
-    this.renderText();
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
@@ -104,13 +105,11 @@ class HeaderComp extends HTMLElement {
         circleSection.innerHTML = `      
         <span>
           <h2 id="completed-cycle" style="display: inline; color: #c4c4c4">
-            | Not yet completed
           </h2>
         </span>`;
 
         this.renderCounter();
         this.renderCompletedCount();
-        this.renderText();
       }
     }
 
@@ -123,13 +122,11 @@ class HeaderComp extends HTMLElement {
           circleSection.innerHTML = `      
           <span>
             <h2 id="completed-cycle" style="display: inline; color: #c4c4c4">
-              | Not yet completed
             </h2>
           </span>`;
 
           this.renderCounter();
           this.renderCompletedCount();
-          this.renderText();
         }
       }
     }
@@ -177,15 +174,6 @@ class HeaderComp extends HTMLElement {
         this.shadowRoot.getElementById('cycle-count').prepend(newCycle);
       }
     }
-  }
-
-  /**
-   * Renders the completed cycles text onto the cycle count element. Uses the
-   * completed property.
-   */
-  renderText() {
-    const cycleText = this.shadowRoot.getElementById('completed-cycle');
-    cycleText.innerText = `| Completed Cycles: ${this.completedCycles}`;
   }
 
   /**

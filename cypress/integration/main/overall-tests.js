@@ -9,9 +9,44 @@ describe('Overall testing', () => {
   const firstNotes = 'Notes for testname1';
   const firstNameEdited = 'testname1edit';
   const firstNumEdited = 3;
-  const firstNotesEdited = 'Notes for testname1 edited';
   beforeEach(() => {
     cy.visit('http://127.0.0.1:5501/source/index.html');
+  });
+
+  it('Check that info modal appears', () => {
+    cy.get('#info').click();
+    cy.get('#infoModal').then(($el) => {
+      expect($el).to.have.attr('style', 'display: block;');
+    });
+  });
+
+  it('Check the stats info modal', () => {
+    cy.get('#stats-btn').click();
+    cy.get('#info').click();
+    cy.get('#infoModal').then(($el) => {
+      expect($el).to.have.attr('style', 'display: block;');
+    });
+  });
+
+  it("Check that today's stats start at all 0", () => {
+    cy.get('#stats-btn').click();
+    cy.get('#todayPomos').contains('0');
+    cy.get('#todayAvgDistractions').contains('0');
+    cy.get('#weekSuccess').contains('0%');
+  });
+
+  it("Check that last 7 days' stats start at all 0", () => {
+    cy.get('#stats-btn').click();
+    cy.get('#weekPomos').contains('0');
+    cy.get('#weekAvgDistractions').contains('0');
+    cy.get('#weekSuccess').contains('0%');
+  });
+
+  it("Check that last 30 days' stats start at all 0", () => {
+    cy.get('#stats-btn').click();
+    cy.get('#monthPomos').contains('0');
+    cy.get('#monthAvgDistractions').contains('0');
+    cy.get('#monthSuccess').contains('0%');
   });
 
   it('Check for correct header after entering website', () => {
@@ -88,7 +123,7 @@ describe('Overall testing', () => {
       .shadow()
       .find('#delete-btn')
       .click({ force: true });
-    cy.get('#task-delete').contains(`[${firstName}]`);
+    cy.get('#task-delete').contains(firstName);
   });
 
   it('Edit modal displays correct info', () => {
@@ -323,80 +358,24 @@ describe('Overall testing', () => {
 
   it('For each task, run it 4 times', () => {
     cy.clock();
-    for (let i = 0; i < 10; i++) {
-      const currentTaskName = `name${i}`;
-      const currentTaskNum = i + 1;
-      const currentTaskNotes = `${i}`;
-      for (let j = 0; j < 4; j++) {
+    for (let taskIndex = 0; taskIndex < 10; taskIndex++) {
+      const currentTaskName = `name${taskIndex}`;
+      const currentTaskNum = taskIndex + 1;
+      for (let taskSessionIndex = 0; taskSessionIndex < 4; taskSessionIndex++) {
         cy.get('#header')
           .shadow()
           .find('#completed-cycle')
-          .contains(`| Completed Cycles: ${4 * i + j}`);
-        if (i === 0) {
-          cy.get('#header')
-            .shadow()
-            .find('#cycle-count')
-            .children('.dot')
-            .should('have.length', 4 - j);
-          cy.get('#header')
-            .shadow()
-            .find('#cycle-count')
-            .children('.filled-dot')
-            .should('have.length', j);
-        } else {
-          switch (j) {
-            case 0:
-              cy.get('#header')
-                .shadow()
-                .find('#cycle-count')
-                .children('.dot')
-                .should('have.length', 0);
-              cy.get('#header')
-                .shadow()
-                .find('#cycle-count')
-                .children('.filled-dot')
-                .should('have.length', 4);
-              break;
-            case 1:
-              cy.get('#header')
-                .shadow()
-                .find('#cycle-count')
-                .children('.dot')
-                .should('have.length', 3);
-              cy.get('#header')
-                .shadow()
-                .find('#cycle-count')
-                .children('.filled-dot')
-                .should('have.length', 1);
-              break;
-            case 2:
-              cy.get('#header')
-                .shadow()
-                .find('#cycle-count')
-                .children('.dot')
-                .should('have.length', 2);
-              cy.get('#header')
-                .shadow()
-                .find('#cycle-count')
-                .children('.filled-dot')
-                .should('have.length', 2);
-              break;
-            case 3:
-              cy.get('#header')
-                .shadow()
-                .find('#cycle-count')
-                .children('.dot')
-                .should('have.length', 1);
-              cy.get('#header')
-                .shadow()
-                .find('#cycle-count')
-                .children('.filled-dot')
-                .should('have.length', 3);
-              break;
-            default:
-              break;
-          }
-        }
+          .contains(`| Completed Cycles: ${4 * taskIndex + taskSessionIndex}`);
+        cy.get('#header')
+          .shadow()
+          .find('#cycle-count')
+          .children('.dot')
+          .should('have.length', 4 - (taskSessionIndex % 4));
+        cy.get('#header')
+          .shadow()
+          .find('#cycle-count')
+          .children('.filled-dot')
+          .should('have.length', taskSessionIndex % 4);
         cy.get('#main-container')
           .shadow()
           .find('#main-list')
@@ -405,148 +384,143 @@ describe('Overall testing', () => {
           .find('#play-btn')
           .click({ force: true });
         cy.get('#start-btn').click();
-        cy.tick(5000);
-        if (j === 3) {
-          cy.get('#start-button-long').click();
+        cy.get('#start-btn').click();
+        cy.tick(1000);
+        cy.get('#distraction-btn').click();
+        cy.tick(4000);
+        if ((taskSessionIndex + 1) % 4 === 0) {
+          cy.get('#start-long-btn').click();
         } else {
-          cy.get('#start-button').click();
+          cy.get('#start-short-btn').click();
         }
         cy.get('#header')
           .shadow()
           .find('#completed-cycle')
-          .contains(`| Completed Cycles: ${4 * i + j + 1}`);
-        if (i === 0) {
+          .contains(
+            `| Completed Cycles: ${4 * taskIndex + taskSessionIndex + 1}`
+          );
+        if ((taskSessionIndex + 1) % 4 === 0) {
           cy.get('#header')
             .shadow()
             .find('#cycle-count')
             .children('.dot')
-            .should('have.length', 3 - j);
+            .should('have.length', 0);
           cy.get('#header')
             .shadow()
             .find('#cycle-count')
             .children('.filled-dot')
-            .should('have.length', j + 1);
+            .should('have.length', 4);
         } else {
-          switch (j) {
-            case 0:
-              cy.get('#header')
-                .shadow()
-                .find('#cycle-count')
-                .children('.dot')
-                .should('have.length', 3);
-              cy.get('#header')
-                .shadow()
-                .find('#cycle-count')
-                .children('.filled-dot')
-                .should('have.length', 1);
-              break;
-            case 1:
-              cy.get('#header')
-                .shadow()
-                .find('#cycle-count')
-                .children('.dot')
-                .should('have.length', 2);
-              cy.get('#header')
-                .shadow()
-                .find('#cycle-count')
-                .children('.filled-dot')
-                .should('have.length', 2);
-              break;
-            case 2:
-              cy.get('#header')
-                .shadow()
-                .find('#cycle-count')
-                .children('.dot')
-                .should('have.length', 1);
-              cy.get('#header')
-                .shadow()
-                .find('#cycle-count')
-                .children('.filled-dot')
-                .should('have.length', 3);
-              break;
-            case 3:
-              cy.get('#header')
-                .shadow()
-                .find('#cycle-count')
-                .children('.dot')
-                .should('have.length', 0);
-              cy.get('#header')
-                .shadow()
-                .find('#cycle-count')
-                .children('.filled-dot')
-                .should('have.length', 4);
-              break;
-            default:
-              break;
-          }
+          cy.get('#header')
+            .shadow()
+            .find('#cycle-count')
+            .children('.dot')
+            .should('have.length', 4 - ((taskSessionIndex + 1) % 4));
+          cy.get('#header')
+            .shadow()
+            .find('#cycle-count')
+            .children('.filled-dot')
+            .should('have.length', (taskSessionIndex + 1) % 4);
         }
         cy.tick(5000);
         cy.get('#change-btn').click();
-        if (i === 0) {
-          cy.get('#header')
-            .shadow()
-            .find('#cycle-count')
-            .children('.dot')
-            .should('have.length', 3 - j);
-          cy.get('#header')
-            .shadow()
-            .find('#cycle-count')
-            .children('.filled-dot')
-            .should('have.length', j + 1);
+        cy.get('#header')
+          .shadow()
+          .find('#completed-cycle')
+          .contains(
+            `| Completed Cycles: ${4 * taskIndex + taskSessionIndex + 1}`
+          );
+
+        // Check to make sure stats are changed correctly
+        cy.get('#stats-btn').click();
+        cy.get('#todayPomos').contains(
+          `${4 * taskIndex + taskSessionIndex + 1}`
+        );
+        cy.get('#todayAvgDistractions').contains('1.0');
+        cy.get('#weekSuccess').contains('100.00%');
+        cy.get('#weekPomos').contains(
+          `${4 * taskIndex + taskSessionIndex + 1}`
+        );
+        cy.get('#weekAvgDistractions').contains('1.0');
+        cy.get('#weekSuccess').contains('100.00%');
+        cy.get('#monthPomos').contains(
+          `${4 * taskIndex + taskSessionIndex + 1}`
+        );
+        cy.get('#monthAvgDistractions').contains('1.0');
+        cy.get('#monthSuccess').contains('100.00%');
+        cy.get('#stats-btn').click();
+        cy.get('#header')
+          .shadow()
+          .find('#cycle-count')
+          .children('.dot')
+          .should('have.length', 4 - ((taskSessionIndex + 1) % 4));
+        cy.get('#header')
+          .shadow()
+          .find('#cycle-count')
+          .children('.filled-dot')
+          .should('have.length', (taskSessionIndex + 1) % 4);
+        cy.get('#main-container')
+          .shadow()
+          .find('#main-list')
+          .find(`[name="${currentTaskName}"]`)
+          .then(($el) => {
+            expect($el).to.have.attr('number', currentTaskNum);
+            expect($el).to.have.attr('current', taskSessionIndex + 1);
+          });
+
+        // Check that the current task's progress bar is correct
+        let classname;
+        let width;
+        const widthPercentage = ((taskSessionIndex + 1) / currentTaskNum) * 100;
+        if (widthPercentage > 100) {
+          classname = 'progress-bar progress-bar bg-danger';
         } else {
-          switch (j) {
-            case 0:
-              cy.get('#header')
-                .shadow()
-                .find('#cycle-count')
-                .children('.dot')
-                .should('have.length', 3);
-              cy.get('#header')
-                .shadow()
-                .find('#cycle-count')
-                .children('.filled-dot')
-                .should('have.length', 1);
-              break;
-            case 1:
-              cy.get('#header')
-                .shadow()
-                .find('#cycle-count')
-                .children('.dot')
-                .should('have.length', 2);
-              cy.get('#header')
-                .shadow()
-                .find('#cycle-count')
-                .children('.filled-dot')
-                .should('have.length', 2);
-              break;
-            case 2:
-              cy.get('#header')
-                .shadow()
-                .find('#cycle-count')
-                .children('.dot')
-                .should('have.length', 1);
-              cy.get('#header')
-                .shadow()
-                .find('#cycle-count')
-                .children('.filled-dot')
-                .should('have.length', 3);
-              break;
-            case 3:
-              cy.get('#header')
-                .shadow()
-                .find('#cycle-count')
-                .children('.dot')
-                .should('have.length', 0);
-              cy.get('#header')
-                .shadow()
-                .find('#cycle-count')
-                .children('.filled-dot')
-                .should('have.length', 4);
-              break;
-            default:
-              break;
-          }
+          classname = 'progress-bar progress-bar';
         }
+        if (widthPercentage >= 100) {
+          width = '100%';
+        } else {
+          width = `${widthPercentage.toFixed(2)}%`;
+        }
+
+        cy.get('#main-container')
+          .shadow()
+          .find('#main-list')
+          .find(`[name="${currentTaskName}"]`)
+          .shadow()
+          .find('#progress-bar')
+          .then(($el) => {
+            expect($el).to.have.attr('class', classname);
+            expect($el).to.have.attr('style', `width: ${width};`);
+          });
+
+        // Check that the current task's progress text is correct
+        cy.get('#main-container')
+          .shadow()
+          .find('#main-list')
+          .find(`[name="${currentTaskName}"]`)
+          .shadow()
+          .find('.progress-text')
+          .contains(`${taskSessionIndex + 1}/${currentTaskNum}`);
+      }
+
+      // Check to make sure that all tasks that are not current task are
+      // Unaffected and that the current task remains the same.
+      for (let checkTaskIndex = 0; checkTaskIndex < 10; checkTaskIndex++) {
+        let currentAmount = 0;
+
+        if (checkTaskIndex <= taskIndex) {
+          currentAmount = 4;
+        }
+
+        cy.get('#main-container')
+          .shadow()
+          .find('#main-list')
+          .find(`[name="name${checkTaskIndex}"]`)
+          .then(($el) => {
+            expect($el).to.have.attr('number', checkTaskIndex + 1);
+            expect($el).to.have.attr('current', currentAmount);
+          });
       }
     }
   });
