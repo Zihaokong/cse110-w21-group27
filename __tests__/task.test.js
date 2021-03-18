@@ -731,15 +731,6 @@ describe('Test other event functions', () => {
     expect(document.getElementById('timer-name').innerText).toBe('name1');
     expect(document.getElementById('timer-note').innerText).toBe('note1');
   });
-
-  test('Test window.onBeforeUnload', () => {
-    // Create and set task list element in document
-    const taskList = document.createElement('task-list');
-    taskList.id = 'main-container';
-    document.getElementById('test').appendChild(taskList);
-    window.onbeforeunload();
-    expect(document.getElementById('main-container')).toBe(null);
-  });
 });
 
 describe('stress testing tasks', () => {

@@ -1,3 +1,8 @@
+/**
+ * This file implements function that start the timer and allow for transitions between work and break sessions
+ * It defines functions to update the progress ring and hold the distraction button count
+ * The file also contains functions that deal with edge cases and display pop-ups in between transitions
+ */
 // number of distraction tracked
 let distractCounter = 0;
 
@@ -22,7 +27,6 @@ window.onload = function template() {
 
   circle.style.strokeDasharray = circumference;
   circle.style.strokeDashoffset = 0;
-
   // add event listeners for buttons on timer page
   document.getElementById('start-btn').addEventListener('click', startTimer);
   document
@@ -118,7 +122,7 @@ function resetProgressRing() {
  * Display break complete modal, and sound.
  */
 function displayBreakComplete() {
-  const audio = new Audio('../../media/break-tune.mp3');
+  const audio = new Audio('../media/break-tune.mp3');
   audio.play();
   document.getElementById('breakCompleteModal').style.display = 'block';
 }
@@ -142,6 +146,12 @@ function continueTask() {
   document.getElementById('minutes').innerHTML = '01';
   document.getElementById('seconds').innerHTML = '00';
   document.getElementById('currTask').innerHTML = allTasks[currentTaskId].name;
+
+  localStorage.setItem(
+    'todayPomo',
+    Number(localStorage.getItem('todayPomo')) + 1
+  );
+
 }
 
 /**
@@ -156,7 +166,7 @@ function changeTask() {
  * display short break page, play sound and change appearance of website.
  */
 function displayShortBreak() {
-  const audio1 = new Audio('../../media/work-tune.mp3');
+  const audio1 = new Audio('../media/work-tune.mp3');
   audio1.play();
   setTimeout(() => {
     resetProgressRing();
@@ -182,7 +192,7 @@ function startShortBreak() {
  *  display long break page, play sound and change appearance of website.
  */
 function displayLongBreak() {
-  const audio2 = new Audio('../../media/work-tune.mp3');
+  const audio2 = new Audio('../media/work-tune.mp3');
   audio2.play();
   setTimeout(() => {
     resetProgressRing();
@@ -216,6 +226,7 @@ function startTimer() {
   document.getElementById('button-container').style.paddingLeft = '150px';
   start(0, 3);
 }
+
 
 /**
  * Set a timer that count down for 60 second.
@@ -277,12 +288,15 @@ function start(mins, secs) {
 
           let counter = Number(localStorage.getItem('sessionCounter'));
           counter += 1;
+          let todayDistract = Number(localStorage.getItem('distractCounter'));
+          todayDistract += distractCounter;
           const pomo = localStorage.getItem('isPomo');
           isInSession = false;
 
           // disable distraction button
           document.getElementById('distraction-btn').disabled = true;
           if (pomo === 'true') {
+            // we just finished a break session
             localStorage.setItem('isPomo', 'false');
             // clear all circles for work session following longbreak
             if (localStorage.getItem('LongBreak') === 'true') {
@@ -293,20 +307,22 @@ function start(mins, secs) {
             localStorage.setItem('LongBreak', 'false');
             displayBreakComplete();
           } else {
+            // we just finished a work session
             localStorage.setItem('isPomo', 'true');
-
             // hide the fail modal if the timer runs out
             document.getElementById('failModal').style.display = 'none';
             isFailed = false;
             if (counter % 4 === 0) {
               document.getElementById('header').completedCycles = counter;
               localStorage.setItem('sessionCounter', counter);
+              localStorage.setItem('distractCounter', todayDistract);
               localStorage.setItem('LongBreak', 'true');
               localStorage.setItem('ShortBreak', 'false');
               displayLongBreak();
             } else {
               document.getElementById('header').completedCycles = counter;
               localStorage.setItem('sessionCounter', counter);
+              localStorage.setItem('distractCounter', todayDistract);
               localStorage.setItem('ShortBreak', 'true');
               localStorage.setItem('LongBreak', 'false');
               displayShortBreak();
