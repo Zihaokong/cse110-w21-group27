@@ -80,7 +80,7 @@ window.onload = function template() {
     document.getElementById('container-long').style.display = 'block';
   } else {
     localStorage.setItem('isPomo', 'false');
-    document.getElementById('minutes').innerHTML = '0';
+    document.getElementById('minutes').innerHTML = '00';
     document.getElementById('seconds').innerHTML = '25';
     document.getElementById(
       'distraction-btn'
