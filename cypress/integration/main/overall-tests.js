@@ -379,7 +379,7 @@ describe('Overall testing', () => {
         cy.get('#start-btn').click();
         cy.tick(1000);
         cy.get('#distraction-btn').click();
-        cy.tick(4000);
+        cy.tick(1500000 + 2000);
         if ((taskSessionIndex + 1) % 4 === 0) {
           cy.get('#start-long-btn').click();
         } else {
@@ -408,7 +408,7 @@ describe('Overall testing', () => {
             .children('.filled-dot')
             .should('have.length', (taskSessionIndex + 1) % 4);
         }
-        cy.tick(5000);
+        cy.tick(1500000 + 2000);
         cy.get('#change-btn').click();
 
         // Check to make sure stats are changed correctly

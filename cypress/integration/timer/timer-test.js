@@ -71,12 +71,14 @@ describe('Test timer.js and functions)', () => {
     cy.get('#fail-button').click();
   });
 
+  // There appears to be a bug with cypress that causes the first use of tick here to fail.
+  // This test is the same as the next test yet fails while the next one passes.
   it('placeholder test that fails despite being the exact same as the next test', () => {
     cy.clock();
     localStorage.setItem('sessionCounter', '11');
     cy.visit('http://127.0.0.1:5501/source/timer_page/timer.html');
     cy.get('#start-btn').click();
-    cy.tick(3000 + 2000);
+    cy.tick(1500000 + 2000);
     cy.get('#currTask').then(($el) => {
       expect($el).to.have.text('Long Break');
     });
@@ -87,7 +89,7 @@ describe('Test timer.js and functions)', () => {
     localStorage.setItem('sessionCounter', '11');
     cy.visit('http://127.0.0.1:5501/source/timer_page/timer.html');
     cy.get('#start-btn').click();
-    cy.tick(3000 + 2000);
+    cy.tick(1500000 + 2000);
     cy.get('#currTask').then(($el) => {
       expect($el).to.have.text('Long Break');
     });
@@ -98,7 +100,7 @@ describe('Test timer.js and functions)', () => {
     localStorage.setItem('sessionCounter', '10');
     cy.visit('http://127.0.0.1:5501/source/timer_page/timer.html');
     cy.get('#start-btn').click();
-    cy.tick(3000 + 2000);
+    cy.tick(1500000 + 2000);
     cy.get('#currTask').then(($el) => {
       expect($el).to.have.text('Short Break');
     });
@@ -109,7 +111,7 @@ describe('Test timer.js and functions)', () => {
     localStorage.setItem('sessionCounter', '10');
     cy.visit('http://127.0.0.1:5501/source/timer_page/timer.html');
     cy.get('#start-btn').click();
-    cy.tick(3000 + 2000);
+    cy.tick(1500000 + 2000);
     cy.get('#start-short-btn').click();
     cy.get('#container-short').should('have.css', 'display', 'none');
   });
@@ -119,7 +121,7 @@ describe('Test timer.js and functions)', () => {
     localStorage.setItem('sessionCounter', '11');
     cy.visit('http://127.0.0.1:5501/source/timer_page/timer.html');
     cy.get('#start-btn').click();
-    cy.tick(3000 + 2000);
+    cy.tick(1500000 + 2000);
     cy.get('#start-long-btn').click();
     cy.get('#container-long').should('have.css', 'display', 'none');
   });

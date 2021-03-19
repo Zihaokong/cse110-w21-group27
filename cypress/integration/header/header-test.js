@@ -50,7 +50,7 @@ describe('Header Tests', () => {
         .click({ force: true });
       cy.get('#start-btn').click();
       cy.get('#start-btn').click();
-      cy.tick(5000);
+      cy.tick(1500000 + 2000);
       if ((i + 1) % 4 === 0) {
         cy.get('#start-long-btn').click();
       } else {
@@ -74,7 +74,7 @@ describe('Header Tests', () => {
         .find('#cycle-count')
         .children('.filled-dot')
         .should('have.length', i + 1);
-      cy.tick(5000);
+      cy.tick(1500000 + 2000);
       cy.get('#change-btn').click();
       cy.get('#header')
         .shadow()
@@ -111,7 +111,7 @@ describe('Header Tests', () => {
         .click({ force: true });
       cy.get('#start-btn').click();
       cy.get('#start-btn').click();
-      cy.tick(5000);
+      cy.tick(1500000 + 2000);
       if ((session + 1) % 4 === 0) {
         cy.get('#start-long-btn').click();
       } else {
@@ -140,7 +140,7 @@ describe('Header Tests', () => {
           .children('.filled-dot')
           .should('have.length', (session + 1) % 4);
       }
-      cy.tick(5000);
+      cy.tick(1500000 + 2000);
       cy.get('#change-btn').click();
       cy.get('#header')
         .shadow()
