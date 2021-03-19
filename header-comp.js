@@ -50,7 +50,7 @@ class HeaderComp extends HTMLElement{static get observedAttributes(){return["com
         color:#C4C4C4;
         font-size: 1.5em;
         text-align: left;
-        font-weight: bold;
+        font-weight: 200;
         font-family: "Poppins", sans-serif;
       }
       
