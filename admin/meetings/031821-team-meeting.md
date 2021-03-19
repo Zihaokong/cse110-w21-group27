@@ -13,21 +13,13 @@
 - [x] Varun Singh
 - [x] Zihao Kong
 
-**When:** Sat 3/17/21 8pm-12am
+**When:** Sat 3/17/21 6-8pm
 
 **Where:** Zoom
 
-## Action items:
-- everyone: 30 second video clips
-- finish tests
-- finish onboarding documentation
-- finalize codebase
-- repo: delete extra branches
-- deploy: change timer values to actual values
-- videos
-
 ## Agenda:
-- fix variable naming
-- merging
-- video slides
-- record video
+- finish recording videos
+- change timer values to actual values
+- update Cypress tests for timer
+- code style touchups and linting
+- merge branches
