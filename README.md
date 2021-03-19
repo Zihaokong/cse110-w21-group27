@@ -1,5 +1,7 @@
 # cse110-w21-group27
-Hello! This is group 27, team ReccoonBytes, welcome to our Pomodoro Timer project. In this project repo. We have source code, documentations, Project Issue Board, Github Actions, which contains everything inside our projects. [Timer Link](https://zihaokong.github.io/cse110-w21-group27/)
+Hello! This is group 27, team ReccoonBytes, welcome to our Pomodoro Timer project. In this project repo. We have source code, documentations, Project Issue Board, Github Actions, which contains everything inside our projects.  
+[Timer Link](https://zihaokong.github.io/cse110-w21-group27/)  
+[Private Video](https://www.youtube.com/watch?v=G4CbDFwOpS8)
 
 ## Source Code
 We have multiple directories in our source code that serves different purposes:
