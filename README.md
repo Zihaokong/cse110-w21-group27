@@ -22,3 +22,7 @@ In this Wiki, it contains our team introduction, all of our auto-generated code 
 
 
 Thanks for your support!
+## Private Video:
+https://youtu.be/G4CbDFwOpS8
+
+## Public Video:
