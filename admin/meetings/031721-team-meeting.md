@@ -13,7 +13,7 @@
 - [x] Varun Singh
 - [x] Zihao Kong
 
-**When:** Sat 3/17/21 8-12pm
+**When:** Sat 3/17/21 8pm-12am
 
 **Where:** Zoom
 
