@@ -43,7 +43,7 @@ const statsListArray = [
     day: dates[10],
     pomoCount: 2,
     distractions: 5,
-    completedPomos: 2,
+    completedPomos: 0,
   },
   {
     day: dates[11],
@@ -213,7 +213,7 @@ describe('"resetStats" Function Test', () => {
 });
 
 describe('"loadHandler" Function Test', () => {
-  test('Test to see if today pomo variables are set correctly', () => {
+  test('Test to see if pomo stats are set and displayed correctly', () => {
     expect(document.getElementById('todayPomos').innerText).toBe(0);
     expect(document.getElementById('todayAvgDistractions').innerText).toBe(0);
     expect(document.getElementById('todaySuccess').innerText).toBe('0%');
@@ -235,10 +235,12 @@ describe('"loadHandler" Function Test', () => {
     expect(document.getElementById('weekAvgDistractions').innerText).toBe(
       '2.1'
     );
-    // expect(document.getElementById('weekSuccess').innerText).toBe('0%');
-    expect(document.getElementById('monthPomos').innerText).toBe(22);
-    // expect(document.getElementById('monthAvgDistractions').innerText).toBe(0);
-    // expect(document.getElementById('monthSuccess').innerText).toBe('0%');
+    expect(document.getElementById('weekSuccess').innerText).toBe('100.00%');
+    expect(document.getElementById('monthPomos').innerText).toBe(20);
+    expect(document.getElementById('monthAvgDistractions').innerText).toBe(
+      '2.6'
+    );
+    expect(document.getElementById('monthSuccess').innerText).toBe('90.91%');
   });
 });
 
