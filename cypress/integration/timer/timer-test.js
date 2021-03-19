@@ -1,7 +1,6 @@
 describe('Test timer.js and functions)', () => {
-
   beforeEach(() => {
-    let allTasks = [];
+    const allTasks = [];
     const newTask1 = {
       id: Math.random().toString(16).slice(2),
       completed: false,
@@ -44,13 +43,13 @@ describe('Test timer.js and functions)', () => {
   });
 
   it('short and long break not rendering before task', () => {
-      cy.get('#currTask').then(($el) => {
-        expect($el).to.not.have.text('Short Break');
-        expect($el).to.not.have.text('Long Break');
-      });
+    cy.get('#currTask').then(($el) => {
+      expect($el).to.not.have.text('Short Break');
+      expect($el).to.not.have.text('Long Break');
+    });
   });
 
-  it('count distraction + 2', () =>{
+  it('count distraction + 2', () => {
     cy.get('#start-btn').click();
     cy.get('#distraction-btn').click();
     cy.get('#distraction-btn').click();
@@ -125,4 +124,3 @@ describe('Test timer.js and functions)', () => {
     cy.get('#container-long').should('have.css', 'display', 'none');
   });
 });
-
