@@ -301,5 +301,4 @@ describe('Test Timer functions', () => {
     quitFailModal();
     expect(document.getElementById('failModal').style.display).toBe('none');
   });
-
 });
