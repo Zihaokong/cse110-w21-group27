@@ -93,7 +93,6 @@ window.onload = function template() {
   }
   // render starting value of timer
 
-
   /* Show fail on back */
   window.history.pushState(null, document.title, window.location.href);
   window.addEventListener('popstate', () => {
@@ -240,7 +239,6 @@ function startTimer() {
   document.getElementById('button-container').style.paddingLeft = '150px';
   start(25, 0);
 }
-
 
 /**
  * Set a timer that count down for 60 second.

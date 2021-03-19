@@ -292,10 +292,6 @@ describe('"determineSessionDate" Function Test', () => {
     let newPomo = todayPomo;
     let newDistract = distractCount;
     let newSesion = sessionCount;
-    let newStats = null;
-    const lastDate = new Date(
-      JSON.parse(localStorage.getItem('lastVisit'))
-    ).toLocaleDateString('en-US');
     Storage.prototype.setItem = jest.fn((item, value) => {
       switch (item) {
         case 'todayPomo':
@@ -306,9 +302,6 @@ describe('"determineSessionDate" Function Test', () => {
           break;
         case 'sessionCounter':
           newSesion = value;
-          break;
-        case 'statsList':
-          newStats = value;
           break;
         default:
           break;
