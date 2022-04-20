@@ -3,246 +3,240 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="main.css" />
-  <link rel="stylesheet" href="task.css" />
-  <!-- Material Icons  -->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="main.css" />
+    <link rel="stylesheet" href="task.css" />
+    <!-- Material Icons  -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 
-  <!-- Google Font -->
-  <link rel="preconnect" href="https://fonts.gstatic.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap" rel="stylesheet" />
-  <!-- Bootstrap -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous" />
-  <title>Pomodoro App</title>
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap" rel="stylesheet" />
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous" />
+    <title>Pomodoro App</title>
 </head>
 
 <body>
-  <header-comp id="header"></header-comp>
-  <main>
-    <div id="heading-container">
-      <h1 id="todo-title">To-do List</h1>
-      <div id="heading-container-btns">
-        <button id="add-task-btn" class="add-task-btn">+ Add Task</button>
-        <div id="info-container"><button id="info" onclick="openInfoModal()">?</button></div>
-      </div>
-    </div>
-    <hr id="header-divider"/>
+    <header-comp id="header"></header-comp>
+    <main>
+        <div id="heading-container">
+            <h1 id="todo-title">To-do List</h1>
+            <div id="heading-container-btns">
+                <button id="add-task-btn" class="add-task-btn">+ Add Task</button>
+                <div id="info-container"><button id="info" onclick="openInfoModal()">?</button></div>
+            </div>
+        </div>
+        <hr id="header-divider" />
+        <h1>Hello World</h1>
+        <p id="welcome-message"><b>Welcome. Add a task to get started.</b></p>
 
-      <p id="welcome-message"><b>Welcome. Add a task to get started.</b></p>
- 
 
-    <task-list id="main-container">
-      <!-- ToDo from JS will append here -->
-    </task-list>
-    <button id="add-task-btn-bottom" class="add-task-btn ">+</button>
-    <label for="add-task-btn" class="bottom-add-task">Add Task</label>
-    <button id="back-to-top" onclick="scrollFunc()">Top</button>
-    <a id="stats-btn" href="./stats_page/stats.html"><span class="material-icons">
+        <task-list id="main-container">
+            <!-- ToDo from JS will append here -->
+        </task-list>
+        <button id="add-task-btn-bottom" class="add-task-btn ">+</button>
+        <label for="add-task-btn" class="bottom-add-task">Add Task</label>
+        <button id="back-to-top" onclick="scrollFunc()">Top</button>
+        <a id="stats-btn" href="./stats_page/stats.html"><span class="material-icons">
         format_list_bulleted
       </span></a>
-  </main>
+    </main>
 
-  <!-- Modal Goes here -->
-  <div id="add-task-modal" class="modal">
-    <!-- Modal content -->
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header" id="add-task-modal-header">
-          <button type="button" class="btn-close close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <form id="taskform">
-          <div class="taskform-entry">
-            <label for="taskname">Task: </label>
-            <input type="text" class="taskname form-control" placeholder="Task 1" id="task-name" maxlength="26" required />
-          </div>
+    <!-- Modal Goes here -->
+    <div id="add-task-modal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header" id="add-task-modal-header">
+                    <button type="button" class="btn-close close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="taskform">
+                    <div class="taskform-entry">
+                        <label for="taskname">Task: </label>
+                        <input type="text" class="taskname form-control" placeholder="Task 1" id="task-name" maxlength="26" required />
+                    </div>
 
-          <div class="taskform-entry">
-            <label for="num-pomos">Estimated Pomos: </label>
-            <input type="number" class="num-pomos form-control" id="task-num" min="1" max="10"
-              required />
-          </div>
+                    <div class="taskform-entry">
+                        <label for="num-pomos">Estimated Pomos: </label>
+                        <input type="number" class="num-pomos form-control" id="task-num" min="1" max="10" required />
+                    </div>
 
-          <div class="taskform-entry">
-            <label for="notes">Notes: </label>
-            <br />
-            <textarea rows="4" cols="30" placeholder="Briefly describe your task." id="task-note"
-              class="form-control" maxlength="400"></textarea>
-          </div>
+                    <div class="taskform-entry">
+                        <label for="notes">Notes: </label>
+                        <br />
+                        <textarea rows="4" cols="30" placeholder="Briefly describe your task." id="task-note" class="form-control" maxlength="400"></textarea>
+                    </div>
 
-          <div class="task-btns">
-            <button class="cancel-btn">Cancel</button>
-            <button class="submit-btn" id="save-btn" type="submit">
+                    <div class="task-btns">
+                        <button class="cancel-btn">Cancel</button>
+                        <button class="submit-btn" id="save-btn" type="submit">
               Save
             </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-
-  <div id="play-modal" class="modal">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header text-center">
-          <h2 class="w-100">Ready to Start?</h2>
-          <span class="close">&times;</span>
+                    </div>
+                </form>
+            </div>
         </div>
-        <div class="modal-body">
-          <form id="timerform" action="./timer_page/timer.html">
-            <label for="taskname">Task: </label>
-            <span id="timer-name"></span>
-            <br />
-            <label for="notes">Notes: </label>
-            <br />
-            <textarea rows="4" cols="30" placeholder="Briefly describe your task." id="timer-note" class="form-control"
-              disabled></textarea>
+    </div>
 
-            <div class="task-btns">
-              <button class="cancel-btn" type="button">Cancel</button>
-              <button class="submit-btn" id="start-btn" type="submit">
+    <div id="play-modal" class="modal">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h2 class="w-100">Ready to Start?</h2>
+                    <span class="close">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <form id="timerform" action="./timer_page/timer.html">
+                        <label for="taskname">Task: </label>
+                        <span id="timer-name"></span>
+                        <br />
+                        <label for="notes">Notes: </label>
+                        <br />
+                        <textarea rows="4" cols="30" placeholder="Briefly describe your task." id="timer-note" class="form-control" disabled></textarea>
+
+                        <div class="task-btns">
+                            <button class="cancel-btn" type="button">Cancel</button>
+                            <button class="submit-btn" id="start-btn" type="submit">
                 Start
               </button>
+                        </div>
+                    </form>
+                </div>
             </div>
-          </form>
         </div>
-      </div>
     </div>
-  </div>
 
-  
 
-  <div id="edit-modal" class="modal">
-    <!-- Modal content -->
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header" id="edit-task-modal-header">
-          <button type="button" class="btn-close close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <form id="editform">
-          <div class="taskform-entry">
-            <label for="taskname">Task: </label>
-            <input type="text" class="taskname form-control" placeholder="Task 1" id="edit-name" required />
-          </div>
 
-          <div class="taskform-entry form-group">
-            <label for="num-pomos">Estimated Pomos: </label>
-            <input type="number" class="num-pomos form-control" placeholder="4" id="edit-num" min="1" max="10"
-              required />
-          </div>
+    <div id="edit-modal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header" id="edit-task-modal-header">
+                    <button type="button" class="btn-close close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="editform">
+                    <div class="taskform-entry">
+                        <label for="taskname">Task: </label>
+                        <input type="text" class="taskname form-control" placeholder="Task 1" id="edit-name" required />
+                    </div>
 
-          <div class="taskform-entry">
-            <label for="notes">Notes: </label>
-            <br />
-            <textarea rows="4" cols="30" placeholder="Briefly describe your task." id="edit-note"
-              class="form-control"></textarea>
-          </div>
+                    <div class="taskform-entry form-group">
+                        <label for="num-pomos">Estimated Pomos: </label>
+                        <input type="number" class="num-pomos form-control" placeholder="4" id="edit-num" min="1" max="10" required />
+                    </div>
 
-          <div class="task-btns">
-            <button class="cancel-btn">Cancel</button>
-            <button class="submit-btn" id="edit-save-btn" type="submit">
+                    <div class="taskform-entry">
+                        <label for="notes">Notes: </label>
+                        <br />
+                        <textarea rows="4" cols="30" placeholder="Briefly describe your task." id="edit-note" class="form-control"></textarea>
+                    </div>
+
+                    <div class="task-btns">
+                        <button class="cancel-btn">Cancel</button>
+                        <button class="submit-btn" id="edit-save-btn" type="submit">
               Save
             </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-
-
-  <div id="delete-modal" class="modal">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header" id="add-task-modal-header">
-          <button type="button" class="btn-close close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <div class="modal-text">
-            <div class="heading-delete">
-              Are you sure to delete task:<br />
-              <p id="task-delete"></p>
+                    </div>
+                </form>
             </div>
-            <div class="task-btns">
-              <button class="cancel-btn">Cancel</button>
-              <button class="confirm-btn" id="confirm-button">Delete</button>
+        </div>
+    </div>
+
+
+    <div id="delete-modal" class="modal">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header" id="add-task-modal-header">
+                    <button type="button" class="btn-close close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-text">
+                        <div class="heading-delete">
+                            Are you sure to delete task:<br />
+                            <p id="task-delete"></p>
+                        </div>
+                        <div class="task-btns">
+                            <button class="cancel-btn">Cancel</button>
+                            <button class="confirm-btn" id="confirm-button">Delete</button>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
 
-  <div id="info-modal" class="modal-info">
-    <div class="modal-content-info">
-      <div class="modal-text">
-        <input id="close-btn" type="image" src="./images/close.png" onclick="closeInfoModal()" />
-        <div class="heading-info">
-          <h3>Information</h3>
+    <div id="info-modal" class="modal-info">
+        <div class="modal-content-info">
+            <div class="modal-text">
+                <input id="close-btn" type="image" src="./images/close.png" onclick="closeInfoModal()" />
+                <div class="heading-info">
+                    <h3>Information</h3>
+                </div>
+                <hr style="height:2px ;color: #282828;">
+                <p>
+                    <img id="btn1" src="./images/button1.png"> <span class="describe">Add new task to to-do list</span>
+                </p>
+                <p>
+                    <img id="btn2" src="./images/button2.png"><span class="describe">Incomplete Task</span>
+                </p>
+                <p>
+                    <img id="btn3" src="./images/button3.png"><span class="describe">Complete Task</span>
+                </p>
+                <p>
+                    <img id="btn4" src="./images/button4.png"><span class="describe">Start work session for task</span>
+                </p>
+                <p>
+                    <img id="btn5" src="./images/button5.png"><span class="describe">Edit task </span>
+                </p>
+                <p>
+                    <img id="btn6" src="./images/button6.png"><span class="describe">Delete </span>
+                </p>
+                <h3>Pomodoro Technique</h3>
+                <hr>
+                <div id="steps">
+                    <p>
+                        1. Add tasks with estimated number of pomo work sessions to to-do list
+                    </p>
+                    <p>
+                        2. Click start button to start work session for a task
+                    </p>
+                    <p>
+                        3. Count distractions during work session by clicking distraction button
+                    </p>
+                    <p>
+                        4. Complete work session
+                    </p>
+                    <p>
+                        5. Take a break!
+                    </p>
+                    <p>
+                        6. Repeat!
+                    </p>
+                </div>
+                <br>
+                <p>
+                    <b>Work Session: </b>25 minutes
+                </p>
+                <p>
+                    <b>Short Break: </b>5 minutes
+                    <p id="small-text">(after completing a work session)</p>
+                </p>
+                <p>
+                    <b>Long Break: </b>15 minutes
+                    <p id="small-text">(after completing 4 work sessions)</p>
+                </p>
+            </div>
         </div>
-        <hr style="height:2px ;color: #282828;">
-        <p>
-          <img id="btn1" src="./images/button1.png"> <span class="describe">Add new task to to-do list</span>
-        </p>
-        <p>
-          <img id="btn2" src="./images/button2.png"><span class="describe">Incomplete Task</span>
-        </p>
-        <p>
-          <img id="btn3" src="./images/button3.png"><span class="describe">Complete Task</span>
-        </p>
-        <p>
-          <img id="btn4" src="./images/button4.png"><span class="describe">Start work session for task</span>
-        </p>
-        <p>
-          <img id="btn5" src="./images/button5.png"><span class="describe">Edit task </span>
-        </p>
-        <p>
-          <img id="btn6" src="./images/button6.png"><span class="describe">Delete </span>
-        </p>
-        <h3>Pomodoro Technique</h3>
-        <hr>
-        <div id="steps">
-          <p>
-            1. Add tasks with estimated number of pomo work sessions to to-do list
-          </p>
-          <p>
-            2. Click start button to start work session for a task
-          </p>
-          <p>
-            3. Count distractions during work session by clicking distraction button
-          </p>
-          <p>
-            4. Complete work session
-          </p>
-          <p>
-            5. Take a break!
-          </p>
-          <p>
-            6. Repeat!
-          </p>
-        </div>
-        <br>
-        <p>
-          <b>Work Session: </b>25 minutes
-        </p>
-        <p>
-          <b>Short Break: </b>5 minutes
-          <p id="small-text">(after completing a work session)</p>
-        </p>
-        <p>
-          <b>Long Break: </b>15 minutes
-          <p id="small-text">(after completing 4 work sessions)</p>
-        </p>
-      </div>
     </div>
-  </div>
 
 
-  <script src="main.js"></script>
-  <script src="header-comp.js"></script>
-  <script src="task-item.js" defer></script>
-  <script src="task.js" defer></script>
+    <script src="main.js"></script>
+    <script src="header-comp.js"></script>
+    <script src="task-item.js" defer></script>
+    <script src="task.js" defer></script>
 </body>
 
 </html>
