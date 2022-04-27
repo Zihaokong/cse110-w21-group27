@@ -1,5 +1,5 @@
 ---
-name: Bug report
+name: Bug Report
 about: Report on an existing bug in the codebase.
 title: ''
 labels: ''
