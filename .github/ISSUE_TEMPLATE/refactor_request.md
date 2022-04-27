@@ -1,6 +1,6 @@
 ---
 name: Refactor Request
-about: Suggest an idea for this project.
+about: Request a change in one of the systems of the current project.
 title: ''
 labels: ''
 assignees: ''
