@@ -1,6 +1,6 @@
 ---
-name: Refactor
-about: Suggest an idea for this project
+name: Refactor Request
+about: Suggest an idea for this project.
 title: ''
 labels: ''
 assignees: ''
