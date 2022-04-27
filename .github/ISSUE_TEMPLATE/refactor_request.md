@@ -1,8 +1,8 @@
 ---
 name: Refactor Request
 about: Request a change in one of the systems of the current project.
-title: ''
-labels: ''
+title: "[Refactor]: "
+labels: refactoring
 assignees: ''
 
 ---

@@ -1,8 +1,8 @@
 ---
 name: Bug Report
 about: Report on an existing bug in the codebase.
-title: ''
-labels: ''
+title: "[Bug]: "
+labels: bug
 assignees: ''
 
 ---
