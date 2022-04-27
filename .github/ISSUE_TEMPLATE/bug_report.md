@@ -1,6 +1,6 @@
 ---
 name: Bug report
-about: Create a report to help us improve
+about: Report on an existing bug in the codebase.
 title: ''
 labels: ''
 assignees: ''
