@@ -1,0 +1,11 @@
+# App Theme Ideas
+- Raccoons (black and white or eyes/logo on timer?)
+- Tomatoes (touches on point of skeumorphic design)
+- Gamification
+- Minimalism
+- UCSD (gold/blue)
+- Plants
+- School
+- Sound effects to indicate timer completion - calming sounds instead of jarring?
+- We could look into colorblind friendly color schemes
+- Final: **Minimal, simplistic, tomatoes**

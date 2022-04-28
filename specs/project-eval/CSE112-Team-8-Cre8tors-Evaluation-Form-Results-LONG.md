@@ -1,0 +1,748 @@
+
+# CSE 112 Team Cre8tors (Group 8) Evaluation Results
+## Notes on Score:
+For scoring, we primarily look at the second to the last question in terms of ranking for the values ("Overall, how would rate the x of this repo?") where Unsatisfactory = 0, Adequate = 1, and Satisfactory = 2. Additionally, the final two question on skill and time are measured and valued the same, where Unconfident = 0, Iffy = 1, and Confident = 2.
+## Repositories
+### Tag.it (Jaime Izabal's repo)
+- [Repository Link](https://github.com/JIzabal/tag.it)
+- Calvin Chen's Eval:
+  - General Question
+    - **Question:** Briefly describe what the project is and what technologies are used (i.e. is it a web app, android app, something else).
+      - **Answer:** Piazza-like bulletin board web app
+  - Simplicity & Organization (2/2)
+    - **Question:** Does the GitHub act as the single source of truth (meaning is all the information pertaining to the project created found in the repository)?
+      - **Answer:** Artifacts aren't accessible from the repo. They might exist on Jaime's Google drive
+    - **Question:** Briefly describe the file structure of the repo in terms of organization and simplicity
+      - **Answer:** Code is cleanly separated into two folders, client and backend. Backend folder is further separated into model, controller subfolders. Firebase related code files are also separated. Client folder follows the React default directory hierarchy. Very simple and clean structure.
+    - **Question:** Briefly list what dependencies are used (by dependencies we mean things which are directly connected with the product like Bootstrap, React, etc).
+      - **Answer:** Firebase (probably for managing and verifying user accounts), React is used on the front end. Other dependencies can be found in the yarn file, including Babel, Wrappy(?), Popper js(?), etc...
+    - **Question:** Are there on boarding documents? If so, are they simple and easy to understand? How much details do they go over in these documents (i.e. do they mention the code strucutre, the CI/CD pipeline, testing, etc)?
+      - **Answer:** Documents not included in the repo but they exist as "artifacts" as Gary called them. Jaime should have them somewhere... I see the repo includes Travis which is a form of CI.
+    - **Question:** Briefly list what tools are used in the project (by tools we mean things which are used in support of the product like ESLint, Jest, etc).
+      - **Answer:** Travis CI
+    - **Question:** How many ADRs do they have?
+      - **Answer:** 0
+    - **Question:** Do they have C4 Diagrams or something similar?
+      - **Answer:** He should have something called a screen sequence diagram which may be Gary's equivalent of C4 diagrams
+    - **Question:** How many issues do they have? Are they well structured and organized (ie templates, labels, associated branches, etc)?
+      - **Answer:** Just 1 default master branch
+    - **Question:** Do they have a SCRUM board or something similar?
+      - **Answer:** Jaime should still have access to the project management website at cse110.com
+    - **Question:** Does the code have an enforced standard (i.e. a linter or some documentation on coding standards)?
+      - **Answer:** No
+    - **Question:** Overall, how would rate the simplicity and organization of this repo?
+      - **Answer:** Satisfactory
+    - **Question:** Any additional comments in regards to the simplicity and organization of the project?
+      - **Answer:** 
+  - User Centered Thinking (0/2)
+    - **Question:** How many user stories are there?
+      - **Answer:** 0
+    - **Question:** Briefly describe the quality of the user stories
+      - **Answer:** N/A, Jaime should have a User Stories artifact with this info
+    - **Question:** How many personas are there?
+      - **Answer:** 0
+    - **Question:** Briefly describe the quality of the personas
+      - **Answer:** N/A
+    - **Question:** Do they have flow charts detailing the use cases from the perspective of the user?
+      - **Answer:** Jaime should have a User Cases artifact with this info
+    - **Question:** Do the ADRs consider and/or account for the user experience (i.e. accessibility features, performance, etc)?
+      - **Answer:** No ADRs
+    - **Question:** Are there user focused diagrams like wire-frame and high fidelity mock-ups?
+      - **Answer:** Jaime should have a Sample Screens artifact with this info
+    - **Question:** Is there a feature list which focuses on the usability and accessibility of the product?
+      - **Answer:** Jaime should have a Design Use Cases artifact with this info
+    - **Question:** Briefly describe the roadmap of the project and if there is documentation on a ranking of features in regards to the user experience.
+      - **Answer:** No roadmap
+    - **Question:** Overall, how would rate the user centered thinking of this repo?
+      - **Answer:** Unsatisfactory
+    - **Question:** Any additional comments in regards to the user centered thinking of the project?
+      - **Answer:** Can't answer most of these questions without Jaime's artifacts
+  - Transparency (0/2)
+    - **Question:** Do the ADRs document major decisions? Do these ADRs include the problem, solution, pros and cons, and an eventual decision and a followup of consequences?
+      - **Answer:** N/A
+    - **Question:** Is there a roadmap detailing what the original team wanted to implement? 
+      - **Answer:** No
+    - **Question:** Are known bugs and issues documented properly, or are they obfuscated?
+      - **Answer:** On cse110.com, Jaime should have a record of bugs/issues
+    - **Question:** After looking at both the product as well as the GitHub repo, is there a disconnect between what is documented and what is presented?
+      - **Answer:** N/A
+    - **Question:** Are there documents which highlight the challenges and struggles members faced along the way?
+      - **Answer:** No
+    - **Question:** Overall, how would rate the transparency of this repo?
+      - **Answer:** Unsatisfactory
+    - **Question:** Any additional comments in regards to the transparency of the project?
+      - **Answer:** Can't answer most of these without Jaime's artifacts
+  - Constraints: Skill (0/2) & Time (0/2)
+    - **Question:** Given the skills needed for the repo, how confident are you that we can get this project into a "1.0" level by the end of the quarter
+      - **Answer:** Unconfident
+    - **Question:** Given the time we calculated in the evaluation slides, how confident are you that we can get this project into a "1.0" level by the end of the quarter
+      - **Answer:** Unconfident
+### Time2Meet (Calvin Chen's repo)
+- [Repository Link](https://github.com/xdsherman/cse110_Time2Meet)
+- Fenghao Yang's Eval:
+  - General Question
+    - **Question:** Briefly describe what the project is and what technologies are used (i.e. is it a web app, android app, something else).
+      - **Answer:** This repo is a web application that is similar to the whentomeet app. User is able to find the aviliable time to meet in a group using this appication and arrange the meeting accordingly. This repo uses reactJs as the frontend and firebase as the backend. 
+  - Simplicity & Organization (2/2)
+    - **Question:** Does the GitHub act as the single source of truth (meaning is all the information pertaining to the project created found in the repository)?
+      - **Answer:** It misses documentation but everthing else is in the repo
+    - **Question:** Briefly describe the file structure of the repo in terms of organization and simplicity
+      - **Answer:** This repo has two major folders. One is src which contains all the frontend and UI of this web application. The other one is .firebase which containes the backend stuff and database for this app. There are also jsons file in the home directory that set up the enviornment for both front and back end. 
+    - **Question:** Briefly list what dependencies are used (by dependencies we mean things which are directly connected with the product like Bootstrap, React, etc).
+      - **Answer:** React as frontend, firebase as backend
+    - **Question:** Are there on boarding documents? If so, are they simple and easy to understand? How much details do they go over in these documents (i.e. do they mention the code strucutre, the CI/CD pipeline, testing, etc)?
+      - **Answer:** I dont see any documents in this repo
+    - **Question:** Briefly list what tools are used in the project (by tools we mean things which are used in support of the product like ESLint, Jest, etc).
+      - **Answer:** N/A
+    - **Question:** How many ADRs do they have?
+      - **Answer:** 0
+    - **Question:** Do they have C4 Diagrams or something similar?
+      - **Answer:** No
+    - **Question:** How many issues do they have? Are they well structured and organized (ie templates, labels, associated branches, etc)?
+      - **Answer:** The lack of documentation makes it hard for me the track the process of the development. Other than that, the organization of the file looks good to me. 
+    - **Question:** Do they have a SCRUM board or something similar?
+      - **Answer:** No
+    - **Question:** Does the code have an enforced standard (i.e. a linter or some documentation on coding standards)?
+      - **Answer:** Yes
+    - **Question:** Overall, how would rate the simplicity and organization of this repo?
+      - **Answer:** Satisfactory
+    - **Question:** Any additional comments in regards to the simplicity and organization of the project?
+      - **Answer:** 
+  - User Centered Thinking (2/2)
+    - **Question:** How many user stories are there?
+      - **Answer:** 8
+    - **Question:** Briefly describe the quality of the user stories
+      - **Answer:** Most of the user stories in this repo is completed with only minor issues
+    - **Question:** How many personas are there?
+      - **Answer:** 1
+    - **Question:** Briefly describe the quality of the personas
+      - **Answer:** The quality is quite good for personas
+    - **Question:** Do they have flow charts detailing the use cases from the perspective of the user?
+      - **Answer:** No
+    - **Question:** Do the ADRs consider and/or account for the user experience (i.e. accessibility features, performance, etc)?
+      - **Answer:** No
+    - **Question:** Are there user focused diagrams like wire-frame and high fidelity mock-ups?
+      - **Answer:** No
+    - **Question:** Is there a feature list which focuses on the usability and accessibility of the product?
+      - **Answer:** No
+    - **Question:** Briefly describe the roadmap of the project and if there is documentation on a ranking of features in regards to the user experience.
+      - **Answer:** They do not have a documentation to describe the roadmap
+    - **Question:** Overall, how would rate the user centered thinking of this repo?
+      - **Answer:** Satisfactory
+    - **Question:** Any additional comments in regards to the user centered thinking of the project?
+      - **Answer:** It is hard to judge the user centered thinking of this project without the documentation. But from the repo and the application itself, I think the user centered thinking aspect is satisfacotory and we can make some adjusts in the future to make it even better. 
+  - Transparency (0/2)
+    - **Question:** Do the ADRs document major decisions? Do these ADRs include the problem, solution, pros and cons, and an eventual decision and a followup of consequences?
+      - **Answer:** There are no documents in the repo
+    - **Question:** Is there a roadmap detailing what the original team wanted to implement? 
+      - **Answer:** No
+    - **Question:** Are known bugs and issues documented properly, or are they obfuscated?
+      - **Answer:** No
+    - **Question:** After looking at both the product as well as the GitHub repo, is there a disconnect between what is documented and what is presented?
+      - **Answer:** There are no documents in the repo, but the readme shows the connection between the repo and the application itself.
+    - **Question:** Are there documents which highlight the challenges and struggles members faced along the way?
+      - **Answer:** No
+    - **Question:** Overall, how would rate the transparency of this repo?
+      - **Answer:** Unsatisfactory
+    - **Question:** Any additional comments in regards to the transparency of the project?
+      - **Answer:** 
+  - Constraints: Skill (2/2) & Time (1/2)
+    - **Question:** Given the skills needed for the repo, how confident are you that we can get this project into a "1.0" level by the end of the quarter
+      - **Answer:** Confident
+    - **Question:** Given the time we calculated in the evaluation slides, how confident are you that we can get this project into a "1.0" level by the end of the quarter
+      - **Answer:** Iffy
+- Jaime Izabal's Eval:
+  - General Question
+    - **Question:** Briefly describe what the project is and what technologies are used (i.e. is it a web app, android app, something else).
+      - **Answer:** Firebase, React, HTML, CSS
+  - Simplicity & Organization (1/2)
+    - **Question:** Does the GitHub act as the single source of truth (meaning is all the information pertaining to the project created found in the repository)?
+      - **Answer:** There are artifacts associated with the repo, but I don't think they cover everything
+    - **Question:** Briefly describe the file structure of the repo in terms of organization and simplicity
+      - **Answer:** The program is broken down into auth, components, and routes. I'm not sure if I see any tests.
+    - **Question:** Briefly list what dependencies are used (by dependencies we mean things which are directly connected with the product like Bootstrap, React, etc).
+      - **Answer:** React dependencies (e.g., react-day-picker, react-dom, react-multi-email, react-scripts, web-vitals), Firebase
+    - **Question:** Are there on boarding documents? If so, are they simple and easy to understand? How much details do they go over in these documents (i.e. do they mention the code strucutre, the CI/CD pipeline, testing, etc)?
+      - **Answer:** No onboarding document
+    - **Question:** Briefly list what tools are used in the project (by tools we mean things which are used in support of the product like ESLint, Jest, etc).
+      - **Answer:** @testing-library/jest-dom, @testing-library/react, @testing-library/user-event, ESLint, npm
+    - **Question:** How many ADRs do they have?
+      - **Answer:** 0
+    - **Question:** Do they have C4 Diagrams or something similar?
+      - **Answer:** No
+    - **Question:** How many issues do they have? Are they well structured and organized (ie templates, labels, associated branches, etc)?
+      - **Answer:** No use of GitHub Issues
+    - **Question:** Do they have a SCRUM board or something similar?
+      - **Answer:** No
+    - **Question:** Does the code have an enforced standard (i.e. a linter or some documentation on coding standards)?
+      - **Answer:** Yes
+    - **Question:** Overall, how would rate the simplicity and organization of this repo?
+      - **Answer:** Adequate
+    - **Question:** Any additional comments in regards to the simplicity and organization of the project?
+      - **Answer:** 
+  - User Centered Thinking (1/2)
+    - **Question:** How many user stories are there?
+      - **Answer:** 9
+    - **Question:** Briefly describe the quality of the user stories
+      - **Answer:** They're good but they all don't give a specific role (e.g., All use "As a user")
+    - **Question:** How many personas are there?
+      - **Answer:** 0
+    - **Question:** Briefly describe the quality of the personas
+      - **Answer:** No personas
+    - **Question:** Do they have flow charts detailing the use cases from the perspective of the user?
+      - **Answer:** Yes
+    - **Question:** Do the ADRs consider and/or account for the user experience (i.e. accessibility features, performance, etc)?
+      - **Answer:** No
+    - **Question:** Are there user focused diagrams like wire-frame and high fidelity mock-ups?
+      - **Answer:** Yes
+    - **Question:** Is there a feature list which focuses on the usability and accessibility of the product?
+      - **Answer:** Yes
+    - **Question:** Briefly describe the roadmap of the project and if there is documentation on a ranking of features in regards to the user experience.
+      - **Answer:** There's a list of features with priorities and they consider the user experience, however there are only two features that aren't done. 
+    - **Question:** Overall, how would rate the user centered thinking of this repo?
+      - **Answer:** Adequate
+    - **Question:** Any additional comments in regards to the user centered thinking of the project?
+      - **Answer:** 
+  - Transparency (0/2)
+    - **Question:** Do the ADRs document major decisions? Do these ADRs include the problem, solution, pros and cons, and an eventual decision and a followup of consequences?
+      - **Answer:** No ADRs
+    - **Question:** Is there a roadmap detailing what the original team wanted to implement? 
+      - **Answer:** Yes
+    - **Question:** Are known bugs and issues documented properly, or are they obfuscated?
+      - **Answer:** No
+    - **Question:** After looking at both the product as well as the GitHub repo, is there a disconnect between what is documented and what is presented?
+      - **Answer:** No
+    - **Question:** Are there documents which highlight the challenges and struggles members faced along the way?
+      - **Answer:** No
+    - **Question:** Overall, how would rate the transparency of this repo?
+      - **Answer:** Unsatisfactory
+    - **Question:** Any additional comments in regards to the transparency of the project?
+      - **Answer:** 
+  - Constraints: Skill (1/2) & Time (0/2)
+    - **Question:** Given the skills needed for the repo, how confident are you that we can get this project into a "1.0" level by the end of the quarter
+      - **Answer:** Iffy
+    - **Question:** Given the time we calculated in the evaluation slides, how confident are you that we can get this project into a "1.0" level by the end of the quarter
+      - **Answer:** Unconfident
+### Pomodoro (James Larsen' repo)
+- [Repository Link](https://github.com/dnanjunda/cse110-w21-group11)
+- Kaiwen Tsou's Eval:
+  - General Question
+    - **Question:** Briefly describe what the project is and what technologies are used (i.e. is it a web app, android app, something else).
+      - **Answer:** Pomodoro timer using basic web tech (vanilla JS, html/css)
+  - Simplicity & Organization (1/2)
+    - **Question:** Does the GitHub act as the single source of truth (meaning is all the information pertaining to the project created found in the repository)?
+      - **Answer:** Unknown where the Kanban/Project board is, as there is no GitHub Projects board
+    - **Question:** Briefly describe the file structure of the repo in terms of organization and simplicity
+      - **Answer:** Organized. All source files are in source, and specs are in specs. Nothing unusual in terms of file structure.
+    - **Question:** Briefly list what dependencies are used (by dependencies we mean things which are directly connected with the product like Bootstrap, React, etc).
+      - **Answer:** None
+    - **Question:** Are there on boarding documents? If so, are they simple and easy to understand? How much details do they go over in these documents (i.e. do they mention the code strucutre, the CI/CD pipeline, testing, etc)?
+      - **Answer:** "Lack of onboarding documents. The wiki has rough function documentation, and roughly formatted documentation for the build pipeline. There is another .md file on the pipeline in /admin/documentation. Lack of info in ADRs. No designated architecture diagram."
+    - **Question:** Briefly list what tools are used in the project (by tools we mean things which are used in support of the product like ESLint, Jest, etc).
+      - **Answer:** Jest, ESLint, Prettify, JSDoc,
+    - **Question:** How many ADRs do they have?
+      - **Answer:** 3
+    - **Question:** Do they have C4 Diagrams or something similar?
+      - **Answer:** No
+    - **Question:** How many issues do they have? Are they well structured and organized (ie templates, labels, associated branches, etc)?
+      - **Answer:** 2 open issues, 25 closed issues. Only uses default labels. No templates
+    - **Question:** Do they have a SCRUM board or something similar?
+      - **Answer:** No
+    - **Question:** Does the code have an enforced standard (i.e. a linter or some documentation on coding standards)?
+      - **Answer:** Yes
+    - **Question:** Overall, how would rate the simplicity and organization of this repo?
+      - **Answer:** Adequate
+    - **Question:** Any additional comments in regards to the simplicity and organization of the project?
+      - **Answer:** 
+  - User Centered Thinking (0/2)
+    - **Question:** How many user stories are there?
+      - **Answer:** 8
+    - **Question:** Briefly describe the quality of the user stories
+      - **Answer:** Organization is not very consistent, hard to read due to formatting. Overall, these don't seem too helpful in establishing a potential user base or telling us the potential audience. 
+    - **Question:** How many personas are there?
+      - **Answer:** 8
+    - **Question:** Briefly describe the quality of the personas
+      - **Answer:** Same as user stories. 
+    - **Question:** Do they have flow charts detailing the use cases from the perspective of the user?
+      - **Answer:** No
+    - **Question:** Do the ADRs consider and/or account for the user experience (i.e. accessibility features, performance, etc)?
+      - **Answer:** Not many ADRs, but the few that exist briefly mention user experience. 
+    - **Question:** Are there user focused diagrams like wire-frame and high fidelity mock-ups?
+      - **Answer:** There are some diagrams in the pitch, but they are not very high quality. The interface design mockup closely resembles the final product, however.. 
+    - **Question:** Is there a feature list which focuses on the usability and accessibility of the product?
+      - **Answer:** There is an ADR detailing the agreed upon core features of the product. 
+    - **Question:** Briefly describe the roadmap of the project and if there is documentation on a ranking of features in regards to the user experience.
+      - **Answer:** There is no future roadmap/features to be added. 
+    - **Question:** Overall, how would rate the user centered thinking of this repo?
+      - **Answer:** Unsatisfactory
+    - **Question:** Any additional comments in regards to the user centered thinking of the project?
+      - **Answer:** 
+  - Transparency (0/2)
+    - **Question:** Do the ADRs document major decisions? Do these ADRs include the problem, solution, pros and cons, and an eventual decision and a followup of consequences?
+      - **Answer:** There are 3 ADRs, one for core components, one for how the early pipeline will work, and one for which visual design is chosen. They are well formatted, however there are no other ADRs for anything, so many architectural decisions are not documented at all.
+    - **Question:** Is there a roadmap detailing what the original team wanted to implement? 
+      - **Answer:** The core-components ADR includes a single item that may be included in the future.
+    - **Question:** Are known bugs and issues documented properly, or are they obfuscated?
+      - **Answer:** No bugs or major issues are noted, however it seems the program is sparsely tested so something will likely show up.
+    - **Question:** After looking at both the product as well as the GitHub repo, is there a disconnect between what is documented and what is presented?
+      - **Answer:** Not as far as I can tell. 
+    - **Question:** Are there documents which highlight the challenges and struggles members faced along the way?
+      - **Answer:** There might be something in the status video, but besides the 25 closed issues, there is no written documentation on the history of the project. 
+    - **Question:** Overall, how would rate the transparency of this repo?
+      - **Answer:** Unsatisfactory
+    - **Question:** Any additional comments in regards to the transparency of the project?
+      - **Answer:** 
+  - Constraints: Skill (1/2) & Time (1/2)
+    - **Question:** Given the skills needed for the repo, how confident are you that we can get this project into a "1.0" level by the end of the quarter
+      - **Answer:** While it's not a well documented system, it is still a relatively simple project. 
+    - **Question:** Given the time we calculated in the evaluation slides, how confident are you that we can get this project into a "1.0" level by the end of the quarter
+      - **Answer:** Iffy
+- Sohum Modha's Eval:
+  - General Question
+    - **Question:** Briefly describe what the project is and what technologies are used (i.e. is it a web app, android app, something else).
+      - **Answer:** Web app. It's a Pomodoro timer coded mostly in JS. 
+  - Simplicity & Organization (1/2)
+    - **Question:** Does the GitHub act as the single source of truth (meaning is all the information pertaining to the project created found in the repository)?
+      - **Answer:** Yes
+    - **Question:** Briefly describe the file structure of the repo in terms of organization and simplicity
+      - **Answer:** The majority of the code is in "node_modules," and it's well organized. The majority of team information is in "admin," and the development process is in "specs"
+    - **Question:** Briefly list what dependencies are used (by dependencies we mean things which are directly connected with the product like Bootstrap, React, etc).
+      - **Answer:** Express (source was James, not the repo. Was not sure where to get this info) 
+    - **Question:** Are there on boarding documents? If so, are they simple and easy to understand? How much details do they go over in these documents (i.e. do they mention the code strucutre, the CI/CD pipeline, testing, etc)?
+      - **Answer:** No
+    - **Question:** Briefly list what tools are used in the project (by tools we mean things which are used in support of the product like ESLint, Jest, etc).
+      - **Answer:** ESLint
+    - **Question:** How many ADRs do they have?
+      - **Answer:** 3
+    - **Question:** Do they have C4 Diagrams or something similar?
+      - **Answer:** Yes
+    - **Question:** How many issues do they have? Are they well structured and organized (ie templates, labels, associated branches, etc)?
+      - **Answer:** I don't see any issues. The files are well organized into folders.
+    - **Question:** Do they have a SCRUM board or something similar?
+      - **Answer:** No
+    - **Question:** Does the code have an enforced standard (i.e. a linter or some documentation on coding standards)?
+      - **Answer:** Yes
+    - **Question:** Overall, how would rate the simplicity and organization of this repo?
+      - **Answer:** Adequate
+    - **Question:** Any additional comments in regards to the simplicity and organization of the project?
+      - **Answer:** No
+  - User Centered Thinking (2/2)
+    - **Question:** How many user stories are there?
+      - **Answer:** 0
+    - **Question:** Briefly describe the quality of the user stories
+      - **Answer:** I think that there are personas and no user stories. In my CSE 110 class, a user story was of the form "As a user, I want -- so that --" and I didn't see anything like that in the repo. 
+    - **Question:** How many personas are there?
+      - **Answer:** 8
+    - **Question:** Briefly describe the quality of the personas
+      - **Answer:** There are 8 personas and each of them are very detailed. There are sticky notes for different view points and details for each persona.
+    - **Question:** Do they have flow charts detailing the use cases from the perspective of the user?
+      - **Answer:** Yes
+    - **Question:** Do the ADRs consider and/or account for the user experience (i.e. accessibility features, performance, etc)?
+      - **Answer:** Yes
+    - **Question:** Are there user focused diagrams like wire-frame and high fidelity mock-ups?
+      - **Answer:** Yes
+    - **Question:** Is there a feature list which focuses on the usability and accessibility of the product?
+      - **Answer:** Yes
+    - **Question:** Briefly describe the roadmap of the project and if there is documentation on a ranking of features in regards to the user experience.
+      - **Answer:** No ranking of features, but there was a list of accepted and rejected app componenets
+    - **Question:** Overall, how would rate the user centered thinking of this repo?
+      - **Answer:** Satisfactory
+    - **Question:** Any additional comments in regards to the user centered thinking of the project?
+      - **Answer:** No
+  - Transparency (2/2)
+    - **Question:** Do the ADRs document major decisions? Do these ADRs include the problem, solution, pros and cons, and an eventual decision and a followup of consequences?
+      - **Answer:** Yes. There are 3 ADRs and they are very detailed.
+    - **Question:** Is there a roadmap detailing what the original team wanted to implement? 
+      - **Answer:** No
+    - **Question:** Are known bugs and issues documented properly, or are they obfuscated?
+      - **Answer:** No
+    - **Question:** After looking at both the product as well as the GitHub repo, is there a disconnect between what is documented and what is presented?
+      - **Answer:** No
+    - **Question:** Are there documents which highlight the challenges and struggles members faced along the way?
+      - **Answer:** No
+    - **Question:** Overall, how would rate the transparency of this repo?
+      - **Answer:** Satisfactory
+    - **Question:** Any additional comments in regards to the transparency of the project?
+      - **Answer:** No
+  - Constraints: Skill (1/2) & Time (1/2)
+    - **Question:** Given the skills needed for the repo, how confident are you that we can get this project into a "1.0" level by the end of the quarter
+      - **Answer:** Iffy
+    - **Question:** Given the time we calculated in the evaluation slides, how confident are you that we can get this project into a "1.0" level by the end of the quarter
+      - **Answer:** Iffy
+### Pomodoro (Chad Wall's repo)
+- [Repository Link](https://github.com/Zihaokong/cse110-w21-group27)
+- Zhuoliang Pu's Eval:
+  - General Question
+    - **Question:** Briefly describe what the project is and what technologies are used (i.e. is it a web app, android app, something else).
+      - **Answer:** A web based Pomodoro timer
+  - Simplicity & Organization (2/2)
+    - **Question:** Does the GitHub act as the single source of truth (meaning is all the information pertaining to the project created found in the repository)?
+      - **Answer:** Yes
+    - **Question:** Briefly describe the file structure of the repo in terms of organization and simplicity
+      - **Answer:** Generally very well structured repo. Design and decision documents are welly stored in "specs". "Admin" contains meeting notes and slides that helps keep track of their progress. Source code were stored in "source" and everything were welly divided into components that are easy to locate. Tests seems to be divided into 2 portions "\_test\_" and "cypress", not sure if it is some existing standard but I feel it may be better to combine the two. But still, overally speaking very well organized and pretty simple to locate things. 
+    - **Question:** Briefly list what dependencies are used (by dependencies we mean things which are directly connected with the product like Bootstrap, React, etc).
+      - **Answer:** Bootstrap
+    - **Question:** Are there on boarding documents? If so, are they simple and easy to understand? How much details do they go over in these documents (i.e. do they mention the code strucutre, the CI/CD pipeline, testing, etc)?
+      - **Answer:** They have detailed documentations on code structure, pipeline, testing and design on their wiki page. Have documentations on how to run test locally, but doesn't seem to have one that simply tells you how to deploy the project locally. Also I couldn't find easily accessiable documentations on the features and usage of the actual product.
+    - **Question:** Briefly list what tools are used in the project (by tools we mean things which are used in support of the product like ESLint, Jest, etc).
+      - **Answer:** "cypress" & "jest" for testing, "husky" for git commit, "jsdoc" for auto code documentation, "eslint" and "prettier" for code analysis and format.
+    - **Question:** How many ADRs do they have?
+      - **Answer:** 9
+    - **Question:** Do they have C4 Diagrams or something similar?
+      - **Answer:** Yes
+    - **Question:** How many issues do they have? Are they well structured and organized (ie templates, labels, associated branches, etc)?
+      - **Answer:** 3 open (which is for future improvements) and 29 resolved.  They looks well structured and there are labels indicating priority and estimated difficulties.
+    - **Question:** Do they have a SCRUM board or something similar?
+      - **Answer:** Yes
+    - **Question:** Does the code have an enforced standard (i.e. a linter or some documentation on coding standards)?
+      - **Answer:** Yes
+    - **Question:** Overall, how would rate the simplicity and organization of this repo?
+      - **Answer:** Satisfactory
+    - **Question:** Any additional comments in regards to the simplicity and organization of the project?
+      - **Answer:** 
+  - User Centered Thinking (1/2)
+    - **Question:** How many user stories are there?
+      - **Answer:** 4
+    - **Question:** Briefly describe the quality of the user stories
+      - **Answer:** Have good points and very related to the project.
+    - **Question:** How many personas are there?
+      - **Answer:** 8
+    - **Question:** Briefly describe the quality of the personas
+      - **Answer:** Well thought and covers wide range of users.
+    - **Question:** Do they have flow charts detailing the use cases from the perspective of the user?
+      - **Answer:** Yes
+    - **Question:** Do the ADRs consider and/or account for the user experience (i.e. accessibility features, performance, etc)?
+      - **Answer:** No
+    - **Question:** Are there user focused diagrams like wire-frame and high fidelity mock-ups?
+      - **Answer:** Yes
+    - **Question:** Is there a feature list which focuses on the usability and accessibility of the product?
+      - **Answer:** Not documented but there are 2 brought up on the issue lists, and seems to have one aiming for accessibility in the actual product (question mark icon) 
+    - **Question:** Briefly describe the roadmap of the project and if there is documentation on a ranking of features in regards to the user experience.
+      - **Answer:** Design-> task list CRUD-> add working timer-> add statistics tracking      They have a feature list during brainstorm stage, but other than that I coudln't find anything else. 
+    - **Question:** Overall, how would rate the user centered thinking of this repo?
+      - **Answer:** Adequate
+    - **Question:** Any additional comments in regards to the user centered thinking of the project?
+      - **Answer:** Yes.
+  - Transparency (2/2)
+    - **Question:** Do the ADRs document major decisions? Do these ADRs include the problem, solution, pros and cons, and an eventual decision and a followup of consequences?
+      - **Answer:** Yes.
+    - **Question:** Is there a roadmap detailing what the original team wanted to implement? 
+      - **Answer:** Yes
+    - **Question:** Are known bugs and issues documented properly, or are they obfuscated?
+      - **Answer:** No
+    - **Question:** After looking at both the product as well as the GitHub repo, is there a disconnect between what is documented and what is presented?
+      - **Answer:** Not really.
+    - **Question:** Are there documents which highlight the challenges and struggles members faced along the way?
+      - **Answer:** No
+    - **Question:** Overall, how would rate the transparency of this repo?
+      - **Answer:** Satisfactory
+    - **Question:** Any additional comments in regards to the transparency of the project?
+      - **Answer:** 
+  - Constraints: Skill (2/2) & Time (2/2)
+    - **Question:** Given the skills needed for the repo, how confident are you that we can get this project into a "1.0" level by the end of the quarter
+      - **Answer:** Confident
+    - **Question:** Given the time we calculated in the evaluation slides, how confident are you that we can get this project into a "1.0" level by the end of the quarter
+      - **Answer:** Confident
+### Bullet Journal (Zhuoliang's repo)
+- [Repository Link](https://github.com/cse110-sp21-group34/cse110-sp21-group34)
+- James Larsen's Eval:
+  - General Question
+    - **Question:** Briefly describe what the project is and what technologies are used (i.e. is it a web app, android app, something else).
+      - **Answer:** Web app (Vanilla JS), bullet journal
+  - Simplicity & Organization (0/2)
+    - **Question:** Does the GitHub act as the single source of truth (meaning is all the information pertaining to the project created found in the repository)?
+      - **Answer:** Yes
+    - **Question:** Briefly describe the file structure of the repo in terms of organization and simplicity
+      - **Answer:** "First the positives. The root of the repo is very clean. There's a clear delineation between CICD in the github workflows directory, the admin directory, the spec directory, and the source directory. So the root directory gets an A+.Once you go a level or two down it gets much more confusing though. The delineation between what goes in admin vs what goes in spec is unclear. Why the specifications of the CICD pipeline are in the admin folder is weird. The source folder is where it gets really hard to understand. There are multiple index.html files at different levels buried in the source. It's also hard to trace what files are inheriting from other files. Also things like audio and image dependencies are buried in editor rather than utils. CSS is scattered around between different directories. There are entire dependencies buried under several layers that are entire repos dropped in. It's hard to know where to look for stuff unless you already have gotten a sense of the repo and dug around in it."
+    - **Question:** Briefly list what dependencies are used (by dependencies we mean things which are directly connected with the product like Bootstrap, React, etc).
+      - **Answer:** Uses babel, editorjs, Simple Image Tool, clipboardy, parcel, puppeteer, and possibly others that I missed
+    - **Question:** Are there on boarding documents? If so, are they simple and easy to understand? How much details do they go over in these documents (i.e. do they mention the code strucutre, the CI/CD pipeline, testing, etc)?
+      - **Answer:** There are instructions on how to launch the app from a repo and test the build pipeline. There are minimal JSDocs, but the docs do give at least a sense of what's going on. The code has variable amounts of comments, not usually enough to know what's going on.
+    - **Question:** Briefly list what tools are used in the project (by tools we mean things which are used in support of the product like ESLint, Jest, etc).
+      - **Answer:** ESLint, Jest, and JSDocs
+    - **Question:** How many ADRs do they have?
+      - **Answer:** 10
+    - **Question:** Do they have C4 Diagrams or something similar?
+      - **Answer:** Yes, but they look out of date and don't reflect the current state of the app
+    - **Question:** How many issues do they have? Are they well structured and organized (ie templates, labels, associated branches, etc)?
+      - **Answer:** 37 issues, most are untagged. There seems to be minimal organization of the Issues.
+    - **Question:** Do they have a SCRUM board or something similar?
+      - **Answer:** Yes
+    - **Question:** Does the code have an enforced standard (i.e. a linter or some documentation on coding standards)?
+      - **Answer:** Yes
+    - **Question:** Overall, how would rate the simplicity and organization of this repo?
+      - **Answer:** Unsatisfactory
+    - **Question:** Any additional comments in regards to the simplicity and organization of the project?
+      - **Answer:** 
+  - User Centered Thinking (0/2)
+    - **Question:** How many user stories are there?
+      - **Answer:** 0
+    - **Question:** Briefly describe the quality of the user stories
+      - **Answer:** N/a
+    - **Question:** How many personas are there?
+      - **Answer:** 3
+    - **Question:** Briefly describe the quality of the personas
+      - **Answer:** The personas certainly have a nice presentation. They go into detail about all three of their users. They go into details about what their frustrations are and what their core needs are.
+    - **Question:** Do they have flow charts detailing the use cases from the perspective of the user?
+      - **Answer:** Yes
+    - **Question:** Do the ADRs consider and/or account for the user experience (i.e. accessibility features, performance, etc)?
+      - **Answer:** No
+    - **Question:** Are there user focused diagrams like wire-frame and high fidelity mock-ups?
+      - **Answer:** Yes
+    - **Question:** Is there a feature list which focuses on the usability and accessibility of the product?
+      - **Answer:** Yes, there is a feature list but it doesn't have much to say about the user experience
+    - **Question:** Briefly describe the roadmap of the project and if there is documentation on a ranking of features in regards to the user experience.
+      - **Answer:** They have an initial project proposal which seems to have a general roadmap to how they wanted to approach the project. The features don't have any particular ranking of importance from what I could see.
+    - **Question:** Overall, how would rate the user centered thinking of this repo?
+      - **Answer:** Unsatisfactory
+    - **Question:** Any additional comments in regards to the user centered thinking of the project?
+      - **Answer:** I feel like there wasn't much recorded user centered thinking during the development of this project. I feel like it bleeds into the actual UI/UX as well, where it is confusing how to do simple tasks like make the text bold.
+  - Transparency (0/2)
+    - **Question:** Do the ADRs document major decisions? Do these ADRs include the problem, solution, pros and cons, and an eventual decision and a followup of consequences?
+      - **Answer:** The ADRs are over pretty minor decisions. The ADRs are also fairly minimal in terms of the discussion  surrounding them. They feel like they were backfilled. No followup was recorded.
+    - **Question:** Is there a roadmap detailing what the original team wanted to implement? 
+      - **Answer:** Yes
+    - **Question:** Are known bugs and issues documented properly, or are they obfuscated?
+      - **Answer:** There are documented Issues, but there seem to be a number of bugs that aren't documented.
+    - **Question:** After looking at both the product as well as the GitHub repo, is there a disconnect between what is documented and what is presented?
+      - **Answer:** They cut a lot of features, which makes the system diagrams very out of date. JSDoc is up to date of course and accurately documents what functions they've commented.
+    - **Question:** Are there documents which highlight the challenges and struggles members faced along the way?
+      - **Answer:** Yes
+    - **Question:** Overall, how would rate the transparency of this repo?
+      - **Answer:** Unsatisfactory
+    - **Question:** Any additional comments in regards to the transparency of the project?
+      - **Answer:** I don't feel like I can list this as adequate when there are unreported bugs I run into when using the bullet journal (text options disappearing/not following the cursor or text). It's also unclear how and when features were cut as well as the reasoning for how they limited the scope of the project. The fact that there are buttons which don't do anything and I can't find documentation on them is what makes it hard for me to give this an adequate.
+  - Constraints: Skill (2/2) & Time (0/2)
+    - **Question:** Given the skills needed for the repo, how confident are you that we can get this project into a "1.0" level by the end of the quarter
+      - **Answer:** Confident
+    - **Question:** Given the time we calculated in the evaluation slides, how confident are you that we can get this project into a "1.0" level by the end of the quarter
+      - **Answer:** Unconfident, I imagine we'd spend a lot of time struggling with the different dependencies of the project as well as the structure of the current repo
+### Bullet Journal (Lars Vlahakis' repo)
+- [Repository Link](https://github.com/cse110-sp21-group13/cse110-sp21-group13)
+- Dzhangir Bayandarov's Eval:
+  - General Question
+    - **Question:** Briefly describe what the project is and what technologies are used (i.e. is it a web app, android app, something else).
+      - **Answer:** Bullet Journal Web App that mimics pen&paper journaling style
+  - Simplicity & Organization (1/2)
+    - **Question:** Does the GitHub act as the single source of truth (meaning is all the information pertaining to the project created found in the repository)?
+      - **Answer:** Yes
+    - **Question:** Briefly describe the file structure of the repo in terms of organization and simplicity
+      - **Answer:** admin, source, specs folders. Very simple folder structure.  
+    - **Question:** Briefly list what dependencies are used (by dependencies we mean things which are directly connected with the product like Bootstrap, React, etc).
+      - **Answer:** PouchDB, NodeJS(Express), JSDocs
+    - **Question:** Are there on boarding documents? If so, are they simple and easy to understand? How much details do they go over in these documents (i.e. do they mention the code strucutre, the CI/CD pipeline, testing, etc)?
+      - **Answer:** There are some descriptions of the pipeline and overall structure but no clear onboarding documentation. The diagrams are rather convoluted and the descriptions are a wall of text rather than concise instructions 
+    - **Question:** Briefly list what tools are used in the project (by tools we mean things which are used in support of the product like ESLint, Jest, etc).
+      - **Answer:** ESList, Jest, Pupeteer, Lighthouse reports, Codacy. 
+    - **Question:** How many ADRs do they have?
+      - **Answer:** 11
+    - **Question:** Do they have C4 Diagrams or something similar?
+      - **Answer:** Only for the CICD pipeline
+    - **Question:** How many issues do they have? Are they well structured and organized (ie templates, labels, associated branches, etc)?
+      - **Answer:** 0 open issues. 90 closed issues neatly organized.
+    - **Question:** Do they have a SCRUM board or something similar?
+      - **Answer:** Yes
+    - **Question:** Does the code have an enforced standard (i.e. a linter or some documentation on coding standards)?
+      - **Answer:** Yes
+    - **Question:** Overall, how would rate the simplicity and organization of this repo?
+      - **Answer:** Adequate
+    - **Question:** Any additional comments in regards to the simplicity and organization of the project?
+      - **Answer:** 
+  - User Centered Thinking (1/2)
+    - **Question:** How many user stories are there?
+      - **Answer:** 3
+    - **Question:** Briefly describe the quality of the user stories
+      - **Answer:** They are sophisticated and cover the broad range of usability case.
+    - **Question:** How many personas are there?
+      - **Answer:** 3
+    - **Question:** Briefly describe the quality of the personas
+      - **Answer:** The personas cover different age groups and distinguish between the core usability.
+    - **Question:** Do they have flow charts detailing the use cases from the perspective of the user?
+      - **Answer:** Yes
+    - **Question:** Do the ADRs consider and/or account for the user experience (i.e. accessibility features, performance, etc)?
+      - **Answer:** Yes
+    - **Question:** Are there user focused diagrams like wire-frame and high fidelity mock-ups?
+      - **Answer:** Yes
+    - **Question:** Is there a feature list which focuses on the usability and accessibility of the product?
+      - **Answer:** Yes
+    - **Question:** Briefly describe the roadmap of the project and if there is documentation on a ranking of features in regards to the user experience.
+      - **Answer:** There is a pitch document that describes the core functionality and how it would affect the use experience.
+    - **Question:** Overall, how would rate the user centered thinking of this repo?
+      - **Answer:** Adequate
+    - **Question:** Any additional comments in regards to the user centered thinking of the project?
+      - **Answer:** 
+  - Transparency (1/2)
+    - **Question:** Do the ADRs document major decisions? Do these ADRs include the problem, solution, pros and cons, and an eventual decision and a followup of consequences?
+      - **Answer:** Yes, moderately, the ADRs do not go into depth but prompt a strong foundation for the functionality of the app. 
+    - **Question:** Is there a roadmap detailing what the original team wanted to implement? 
+      - **Answer:** Yes
+    - **Question:** Are known bugs and issues documented properly, or are they obfuscated?
+      - **Answer:** No
+    - **Question:** After looking at both the product as well as the GitHub repo, is there a disconnect between what is documented and what is presented?
+      - **Answer:** I don't think there is disconnect but I do think the project appears more simple than its implementation.
+    - **Question:** Are there documents which highlight the challenges and struggles members faced along the way?
+      - **Answer:** Yes
+    - **Question:** Overall, how would rate the transparency of this repo?
+      - **Answer:** Adequate
+    - **Question:** Any additional comments in regards to the transparency of the project?
+      - **Answer:** 
+  - Constraints: Skill (0/2) & Time (0/2)
+    - **Question:** Given the skills needed for the repo, how confident are you that we can get this project into a "1.0" level by the end of the quarter
+      - **Answer:** Unconfident
+    - **Question:** Given the time we calculated in the evaluation slides, how confident are you that we can get this project into a "1.0" level by the end of the quarter
+      - **Answer:** Unconfident
+### Recipe Manger (Dzhangir Bayandarov's repo)
+- [Repository Link](https://github.com/Dzhango/RecipeHunter)
+- 's Eval:
+  - General Question
+    - **Question:** Briefly describe what the project is and what technologies are used (i.e. is it a web app, android app, something else).
+      - **Answer:** This is a recipe manager that focuses on fast and easy recipes. It allows users to find recipes based on searches, or by ingredients they have on hand, and allows them to save recipes they find through the app as well as recipes they find elsewhere on the internet. It is a web application.
+  - Simplicity & Organization (1/2)
+    - **Question:** Does the GitHub act as the single source of truth (meaning is all the information pertaining to the project created found in the repository)?
+      - **Answer:** I don't know if there is another place that 
+    - **Question:** Briefly describe the file structure of the repo in terms of organization and simplicity
+      - **Answer:** The repo has 3 main folders: admin, source and specs. The admin folder contains branding materials, meeting notes, team rules and videos. The source folder contains assets, as well as folders for each of the four pages of the application. Each page folder contains the markup, scripts, styles, and tests for each page. The organization within each page folder is a little confusing and inconsistent as some pages are not stored within sub-folders, and two page folders contain coverage reports while the other two don't. The specs folder contains adrs, brainstorming, and ci pipeline documentation. There is a folder for documentation of the code itself, but it is empty. If there is documentation anywhere else, I can't find it.
+    - **Question:** Briefly list what dependencies are used (by dependencies we mean things which are directly connected with the product like Bootstrap, React, etc).
+      - **Answer:** Bootstrap, Spoonacular API, IndexDB API
+    - **Question:** Are there on boarding documents? If so, are they simple and easy to understand? How much details do they go over in these documents (i.e. do they mention the code strucutre, the CI/CD pipeline, testing, etc)?
+      - **Answer:** The main README gives instructions for how to install the repo and push a change. The CI/CD pipeline seems well-documented in the specs folder, but I can't find any documentation on code structure. 
+    - **Question:** Briefly list what tools are used in the project (by tools we mean things which are used in support of the product like ESLint, Jest, etc).
+      - **Answer:** SuperLinter, CodeFactor, Jest, JSDocs
+    - **Question:** How many ADRs do they have?
+      - **Answer:** 6
+    - **Question:** Do they have C4 Diagrams or something similar?
+      - **Answer:** No
+    - **Question:** How many issues do they have? Are they well structured and organized (ie templates, labels, associated branches, etc)?
+      - **Answer:** 0 open. 44 closed. Issues do not use templates. Many don't have any description at all. They do use labels, but there do not appear to be branches or pull requests associated with closing the issues. 
+    - **Question:** Do they have a SCRUM board or something similar?
+      - **Answer:** Yes
+    - **Question:** Does the code have an enforced standard (i.e. a linter or some documentation on coding standards)?
+      - **Answer:** Yes
+    - **Question:** Overall, how would rate the simplicity and organization of this repo?
+      - **Answer:** Adequate
+    - **Question:** Any additional comments in regards to the simplicity and organization of the project?
+      - **Answer:** I don't think I had trouble finding anything, but there is definitely a lack of information. I was not able to tell if there were additional dependencies used. 
+  - User Centered Thinking (0/2)
+    - **Question:** How many user stories are there?
+      - **Answer:** 0
+    - **Question:** Briefly describe the quality of the user stories
+      - **Answer:** N/A
+    - **Question:** How many personas are there?
+      - **Answer:** 0
+    - **Question:** Briefly describe the quality of the personas
+      - **Answer:** N/A
+    - **Question:** Do they have flow charts detailing the use cases from the perspective of the user?
+      - **Answer:** No
+    - **Question:** Do the ADRs consider and/or account for the user experience (i.e. accessibility features, performance, etc)?
+      - **Answer:** Yes
+    - **Question:** Are there user focused diagrams like wire-frame and high fidelity mock-ups?
+      - **Answer:** Yes
+    - **Question:** Is there a feature list which focuses on the usability and accessibility of the product?
+      - **Answer:** There is a user manual that outlines all of the features of the application and goes through how to use each one in depth. In the brainstorming, there is a board of features ranked by importance, though there is no indication of which features have been implemented.
+    - **Question:** Briefly describe the roadmap of the project and if there is documentation on a ranking of features in regards to the user experience.
+      - **Answer:** Two features are on the roadmap. There is not much explanation for either one. 
+    - **Question:** Overall, how would rate the user centered thinking of this repo?
+      - **Answer:** Unsatisfactory
+    - **Question:** Any additional comments in regards to the user centered thinking of the project?
+      - **Answer:** There is thought given to who the target audience of this product is, and how this application would address their particular user-base. Evidence of this can be found in the brainstorming section of the repo. However, it is hard to find formalized artifacts of user centered design (things like user stories and personas), which is why I gave it an "unsatisfactory."
+  - Transparency (0/2)
+    - **Question:** Do the ADRs document major decisions? Do these ADRs include the problem, solution, pros and cons, and an eventual decision and a followup of consequences?
+      - **Answer:** ADRs document major decisions. They do include problem, solutions, pros and cons, and eventual decision. Not all ADRs have followups of the consequences, but some do.
+    - **Question:** Is there a roadmap detailing what the original team wanted to implement? 
+      - **Answer:** There are two featuers listed as the roadmap. Not much information is provided.
+    - **Question:** Are known bugs and issues documented properly, or are they obfuscated?
+      - **Answer:** No
+    - **Question:** After looking at both the product as well as the GitHub repo, is there a disconnect between what is documented and what is presented?
+      - **Answer:** There are definitely bugs on the application itself that are not reflected in the GitHub repo. However, it is hard to tell which bugs existed at the time, and which have developed since the team stopped working on the project. It is hard to tell how issues were addressed, because they were not associated with particular branches, and many were opened and closed without comment.
+    - **Question:** Are there documents which highlight the challenges and struggles members faced along the way?
+      - **Answer:** Yes
+    - **Question:** Overall, how would rate the transparency of this repo?
+      - **Answer:** Unsatisfactory
+    - **Question:** Any additional comments in regards to the transparency of the project?
+      - **Answer:** I think the main issue is that there is a lack of information in regards to the issues, as well as a lack of documentation. While the ADRs provide some nice high level documentation of how problems were addressed, it would be very difficult to figure out what is currently broken and how the details of problems were addressed.
+  - Constraints: Skill (1/2) & Time (1/2)
+    - **Question:** Given the skills needed for the repo, how confident are you that we can get this project into a "1.0" level by the end of the quarter
+      - **Answer:** Iffy
+    - **Question:** Given the time we calculated in the evaluation slides, how confident are you that we can get this project into a "1.0" level by the end of the quarter
+      - **Answer:** Iffy
+### Recipe Manager (Kaiwen Tsou's repo)
+- [Repository Link](https://github.com/cse110-fa21-group2/cse110-fa21-group2)
+- Chad Wall's Eval:
+  - General Question
+    - **Question:** Briefly describe what the project is and what technologies are used (i.e. is it a web app, android app, something else).
+      - **Answer:** The project is a recipe management web app. 
+  - Simplicity & Organization (1/2)
+    - **Question:** Does the GitHub act as the single source of truth (meaning is all the information pertaining to the project created found in the repository)?
+      - **Answer:** Yes
+    - **Question:** Briefly describe the file structure of the repo in terms of organization and simplicity
+      - **Answer:** \__tests__ holds the testing functionality, admin holds, misc. admin work, out stores JSDocs output, source stores source files, and specs store ADRs. Most files were arranged adequately in sub-directories, but there were some miscellaneous files in directories which had no sub-directory to further define them. Additionally, the structure of directories was a bit off, as it would sometimes be based on the semantics of the directory (i.e. meetings directory) and other times it would be based on what type of files were in it (ie videos). 
+    - **Question:** Briefly list what dependencies are used (by dependencies we mean things which are directly connected with the product like Bootstrap, React, etc).
+      - **Answer:** spoonacular API, Bootstrap, and Netlify
+    - **Question:** Are there on boarding documents? If so, are they simple and easy to understand? How much details do they go over in these documents (i.e. do they mention the code strucutre, the CI/CD pipeline, testing, etc)?
+      - **Answer:** There seems to be good documentation on GitHub etiquette (branches, issues, pull requests, project board etc)  and some documentation on how to get started as a programmer, but not much in-depth documentation on the pipeline and how to create unit tests/e2e tests. 
+    - **Question:** Briefly list what tools are used in the project (by tools we mean things which are used in support of the product like ESLint, Jest, etc).
+      - **Answer:** Github, Github Actions, Babel, Jest, Puppeteer, ESLint and JSDocs
+    - **Question:** How many ADRs do they have?
+      - **Answer:** 7
+    - **Question:** Do they have C4 Diagrams or something similar?
+      - **Answer:** No
+    - **Question:** How many issues do they have? Are they well structured and organized (ie templates, labels, associated branches, etc)?
+      - **Answer:** 126 (9 open); Some here and there had a structure to them but for the most part they were not organizaed
+    - **Question:** Do they have a SCRUM board or something similar?
+      - **Answer:** Yes
+    - **Question:** Does the code have an enforced standard (i.e. a linter or some documentation on coding standards)?
+      - **Answer:** Yes
+    - **Question:** Overall, how would rate the simplicity and organization of this repo?
+      - **Answer:** Adequate
+    - **Question:** Any additional comments in regards to the simplicity and organization of the project?
+      - **Answer:** Most of the important documents were there, but the wiki was lacking in information and it was hard to get a sense of what was and was not being used. Fair amount of documentation on the meta info of the project (issues, project board, branches, stories, etc) but not so much on the actual project (System diagrams, pipeline info, testing info, dependency/tool usage was a bit of a scavenger hunt to fully figure out).
+  - User Centered Thinking (1/2)
+    - **Question:** How many user stories are there?
+      - **Answer:** 1
+    - **Question:** Briefly describe the quality of the user stories
+      - **Answer:** It isn't so much a user story more so it is an emporium of possible use cases and circumstances which play into what the user would do on the website.
+    - **Question:** How many personas are there?
+      - **Answer:** 12
+    - **Question:** Briefly describe the quality of the personas
+      - **Answer:** The user stories are well made as they not only create a persona, but they talk in detail about how those persona 
+    - **Question:** Do they have flow charts detailing the use cases from the perspective of the user?
+      - **Answer:** Yes
+    - **Question:** Do the ADRs consider and/or account for the user experience (i.e. accessibility features, performance, etc)?
+      - **Answer:** Mostly no, there are some instances where they reference their user story when talking about why they did something but generally outcomes are based on implementation feasibility.
+    - **Question:** Are there user focused diagrams like wire-frame and high fidelity mock-ups?
+      - **Answer:** Yes
+    - **Question:** Is there a feature list which focuses on the usability and accessibility of the product?
+      - **Answer:** There are some documents on extra features, mostly in the project ptich, but for the most part the extra festures arn't mentioned too much and are not well documented. When they are documented, there is no elaboration on them.
+    - **Question:** Briefly describe the roadmap of the project and if there is documentation on a ranking of features in regards to the user experience.
+      - **Answer:** Roadmap is briefly mentioned in their project pitch, but it does not have a whole lot of structure.
+    - **Question:** Overall, how would rate the user centered thinking of this repo?
+      - **Answer:** Adequate
+    - **Question:** Any additional comments in regards to the user centered thinking of the project?
+      - **Answer:** The user stories and persona was really fleshed out, but feature lists, roadmaps, and integration of the user needs into the project is not well documented.
+  - Transparency (0/2)
+    - **Question:** Do the ADRs document major decisions? Do these ADRs include the problem, solution, pros and cons, and an eventual decision and a followup of consequences?
+      - **Answer:** Some major desicions are indeed documented in ADR (bootstrap, storage, design, timer, login, etc), and they do go into some detail on the problem, solution, pro and cons, and desicion, but they are rather undetailed. Additionally there is no followup with the consequences of their actions, In short, the ADRs are not in depth.
+    - **Question:** Is there a roadmap detailing what the original team wanted to implement? 
+      - **Answer:** The only real mention of a road map seems to be in the project pitch, and even then it is sparse and not fleshed out.
+    - **Question:** Are known bugs and issues documented properly, or are they obfuscated?
+      - **Answer:** There are some glaring bugs on the website, mainly the connection between it and the spoonacular api, however this was most likely not an issue while they were working on the project. That said, there seems to be little to no documentatio on the system so it would be hard to look into this issue. Though as a plus, they do have 9 open issues which can act as starting points for improvement
+    - **Question:** After looking at both the product as well as the GitHub repo, is there a disconnect between what is documented and what is presented?
+      - **Answer:** Not exactly. The repo's info is not deceptive/performative as what it states its pretty accurate to what is on the repo. Especially the issues seem to have a large breadth of documentation. The issue is more so that there isn't much depth in the documentation of the project.
+    - **Question:** Are there documents which highlight the challenges and struggles members faced along the way?
+      - **Answer:** No
+    - **Question:** Overall, how would rate the transparency of this repo?
+      - **Answer:** Unsatisfactory
+    - **Question:** Any additional comments in regards to the transparency of the project?
+      - **Answer:** An issue with transparency, though more so the maintainability, is that there isn't much documentation on how the website interacts with the spoonacular api. This is an issue because the spoonacular api is no longer working with the website which may cause major issues with revitalizing the project.
+  - Constraints: Skill (1/2) & Time (1/2)
+    - **Question:** Given the skills needed for the repo, how confident are you that we can get this project into a "1.0" level by the end of the quarter
+      - **Answer:** Iffy
+    - **Question:** Given the time we calculated in the evaluation slides, how confident are you that we can get this project into a "1.0" level by the end of the quarter
+      - **Answer:** Iffy
+### Sohum Modha's Project
+- Was disqualified due to being a project from Professor Griswold's class and it couldn't be made public or shared under any circumstance.
+### Fenghao Yang's Project
+- Was disqualified due to being a project from Professor Griswold's class and it couldn't be made public or shared under any circumstance.
+
+## Results
+The Top 2 repos are **Pomodoro Timer (Chad Wall's repo)** and **Pomodoro Timer (James Larsen' repo)**. There was a tie between Time2Meet (Calvin Chen's repo) and Pomodoro (James Larsen' repo), and even the tie breaker of getting only the value scores was not enough. After looking over both repos as well as both evaluations and weighing the options, I decided to take the executive decision of choosing James' Pomo timer. it seems that the evaluations show there is no documentation on Time2Meet repo and after visiting it this seems to be the case. Additionally, It seems that the react technologies are used as well as firebase, both of which are only used in the Gary projects which means people who have not learned react or firebase may have more catching up to do. While it is admittedly boring to have two of the same project as the top two, I think that James' repo has more documentation that would help us get into things, additionally, the project uses rather simple dependencies (HTML,CSS,JS).
