@@ -17,6 +17,9 @@ let circle;
 let radius;
 let circumference;
 
+// The interval function used for timer logic
+let secondsInterval;
+
 // handle timing
 window.onload = function template() {
   circle = document.getElementById('progress-ring-circle');
@@ -246,17 +249,38 @@ function startTimer() {
  * @param {integer} secs second of timer
  */
 function start(mins, secs) {
-  let minutes = mins;
-  let seconds = secs;
+  const minutes = 0;
+  const seconds = 5;
   isInSession = true;
-  const startTime = +new Date();
+  const startTime = new Date();
   // display correct distraction counter
   distractCounter = 0;
   document.getElementById(
     'distraction-btn'
   ).innerHTML = `Distraction : ${distractCounter}`;
 
-  const totalsecs = minutes * 60 + seconds;
+  const totalSeconds = minutes * 60 + seconds;
+  renderTimer(minutes, seconds);
+  secondsInterval = setInterval(secondsTimer, 500, startTime, totalSeconds);
+}
+
+function secondsTimer(startTime, totalSeconds) {
+  document.getElementById('header').isNewCycle = 'false';
+  const currTime = new Date();
+  const elapsed = Math.floor((currTime - startTime) / 1000);
+  const timeLeft = totalSeconds - elapsed;
+  const minutes = Math.floor(timeLeft / 60);
+  const seconds = timeLeft % 60;
+
+  const perc = 100 - (timeLeft / totalSeconds) * 100;
+  setProgress(perc);
+  renderTimer(minutes, seconds);
+  if (seconds === 0 && minutes <= 0) {
+    finishedTask();
+  }
+}
+
+function renderTimer(minutes, seconds) {
   if (minutes < 10) {
     document.getElementById('minutes').innerHTML = `0${minutes}`;
   } else {
@@ -269,87 +293,54 @@ function start(mins, secs) {
     document.getElementById('seconds').innerHTML = seconds;
     document.getElementById('title_timer').innerHTML = `${minutes}:${seconds}`;
   }
+}
 
-  const secondsInterval = setInterval(secondsTimer, 500);
-
-  function secondsTimer() {
-    document.getElementById('header').isNewCycle = 'false';
-    const currTime = +new Date();
-    const elapsed = Math.floor((currTime - startTime) / 1000);
-    const timeLeft = totalsecs - elapsed;
-    minutes = Math.floor(timeLeft / 60);
-    seconds = timeLeft % 60;
-
-    const perc = 100 - (timeLeft / totalsecs) * 100;
-    setProgress(perc);
-    if (minutes < 10) {
-      document.getElementById('minutes').innerHTML = `0${minutes}`;
-    } else {
-      document.getElementById('minutes').innerHTML = minutes;
+function finishedTask() {
+  clearInterval(secondsInterval);
+  let counter = Number(localStorage.getItem('sessionCounter'));
+  counter += 1;
+  let todayDistract = Number(localStorage.getItem('distractCounter'));
+  todayDistract += distractCounter;
+  const pomo = localStorage.getItem('isPomo');
+  isInSession = false;
+  // disable distraction button
+  document.getElementById('distraction-btn').disabled = true;
+  if (pomo === 'true') {
+    // we just finished a break session
+    localStorage.setItem('isPomo', 'false');
+    // clear all circles for work session following longbreak
+    if (localStorage.getItem('LongBreak') === 'true') {
+      document.getElementById('header').isNewCycle = 'true';
     }
-    if (seconds < 10) {
-      document.getElementById('seconds').innerHTML = `0${seconds}`;
-      document.getElementById(
-        'title_timer'
-      ).innerHTML = `${minutes}:0${seconds}`;
-      if (seconds === 0) {
-        if (minutes <= 0) {
-          clearInterval(secondsInterval);
 
-          let counter = Number(localStorage.getItem('sessionCounter'));
-          counter += 1;
-          let todayDistract = Number(localStorage.getItem('distractCounter'));
-          todayDistract += distractCounter;
-          const pomo = localStorage.getItem('isPomo');
-          isInSession = false;
-
-          // disable distraction button
-          document.getElementById('distraction-btn').disabled = true;
-          if (pomo === 'true') {
-            // we just finished a break session
-            localStorage.setItem('isPomo', 'false');
-            // clear all circles for work session following longbreak
-            if (localStorage.getItem('LongBreak') === 'true') {
-              document.getElementById('header').isNewCycle = 'true';
-            }
-
-            localStorage.setItem('ShortBreak', 'false');
-            localStorage.setItem('LongBreak', 'false');
-            displayBreakComplete();
-          } else {
-            // we just finished a work session
-            localStorage.setItem('isPomo', 'true');
-            // hide the fail modal if the timer runs out
-            document.getElementById('failModal').style.display = 'none';
-            isFailed = false;
-            if (counter % 4 === 0) {
-              document.getElementById('header').completedCycles = counter;
-              localStorage.setItem('sessionCounter', counter);
-              localStorage.setItem('distractCounter', todayDistract);
-              localStorage.setItem('LongBreak', 'true');
-              localStorage.setItem('ShortBreak', 'false');
-              displayLongBreak();
-            } else {
-              document.getElementById('header').completedCycles = counter;
-              localStorage.setItem('sessionCounter', counter);
-              localStorage.setItem('distractCounter', todayDistract);
-              localStorage.setItem('ShortBreak', 'true');
-              localStorage.setItem('LongBreak', 'false');
-              displayShortBreak();
-            }
-
-            // update progress for current task
-            allTasks[currentTaskId].current += 1;
-            localStorage.setItem('allTasks', JSON.stringify(allTasks));
-          }
-        }
-      }
+    localStorage.setItem('ShortBreak', 'false');
+    localStorage.setItem('LongBreak', 'false');
+    displayBreakComplete();
+  } else {
+    // we just finished a work session
+    localStorage.setItem('isPomo', 'true');
+    // hide the fail modal if the timer runs out
+    document.getElementById('failModal').style.display = 'none';
+    isFailed = false;
+    if (counter % 4 === 0) {
+      document.getElementById('header').completedCycles = counter;
+      localStorage.setItem('sessionCounter', counter);
+      localStorage.setItem('distractCounter', todayDistract);
+      localStorage.setItem('LongBreak', 'true');
+      localStorage.setItem('ShortBreak', 'false');
+      displayLongBreak();
     } else {
-      document.getElementById('seconds').innerHTML = seconds;
-      document.getElementById(
-        'title_timer'
-      ).innerHTML = `${minutes}:${seconds}`;
+      document.getElementById('header').completedCycles = counter;
+      localStorage.setItem('sessionCounter', counter);
+      localStorage.setItem('distractCounter', todayDistract);
+      localStorage.setItem('ShortBreak', 'true');
+      localStorage.setItem('LongBreak', 'false');
+      displayShortBreak();
     }
+
+    // update progress for current task
+    allTasks[currentTaskId].current += 1;
+    localStorage.setItem('allTasks', JSON.stringify(allTasks));
   }
 }
 
