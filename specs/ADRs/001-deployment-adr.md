@@ -1,6 +1,6 @@
 # 001 - Deployment
 * Date: 04/29/22
-* Status: IN PROGRESS
+* Status: COMPLETED
 
 ## Context and Problem Statement
 We need a new remote server to support our website as GitHub pages is no longer acceptable based on the specs of our project. Primarily, we need to set up analytcs which means we must have a backend to set up error/data collection. Additionally, an independent deployment from GitHub would most likely provide faster speeds and more accomodations.
@@ -33,12 +33,11 @@ We need a new remote server to support our website as GitHub pages is no longer 
   * [-] Low Flexibility
   * [-] 
 ## Decision Outcome
-
-**Chosen option:** -OPTION-
-
+**Chosen option:** Firebase
+Firebase was chosen because of two main reasons. For one, many of the team members are already familiar with Firebase due to using it in the CSE134B project. The second was that it simplified the backend process by automating database features such as SQL so that they we could focus more on the system of analytics more so than having to deal with the overhead of setting up a backend database.
 
 ## Consequences
-Things that need to change or happen, Links
+One consequence is that in order to use the firebase backend systems, we need to import some JS libraries for firebase compatability between the front end and backend. This might tie us to Firebase as a deployment server.
 
 ## Sources:
 * https://gcpfirebase.com/firebase-vs-heroku/
