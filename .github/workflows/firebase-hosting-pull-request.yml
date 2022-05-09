@@ -9,6 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: FirebaseExtended/action-hosting-deploy@v0
+      - uses: actions/checkout@v2
         with:
           entrypoint: "/source"
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
