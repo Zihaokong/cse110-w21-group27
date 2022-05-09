@@ -8,4 +8,4 @@ cypress/videos
 build
 .vscode
 ./source/.vscode
-.DS_Store
+**/.DS_Store
