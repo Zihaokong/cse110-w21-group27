@@ -20,6 +20,10 @@ let circumference;
 // The interval function used for timer logic
 let secondsInterval;
 
+localStorage.setItem('TimerLength', 3);
+localStorage.setItem('ShortBreakLength',2);
+localStorage.setItem('LongBreakLength', 11);
+
 // handle timing
 window.onload = function template() {
   circle = document.getElementById('progress-ring-circle');
@@ -40,10 +44,10 @@ window.onload = function template() {
     .addEventListener('click', displayFailModal);
   document
     .getElementById('start-short-btn')
-    .addEventListener('click', startShortBreak);
+    .addEventListener('click', startBreak);
   document
     .getElementById('start-long-btn')
-    .addEventListener('click', startLongBreak);
+    .addEventListener('click', startBreak);
   document
     .getElementById('continue-btn')
     .addEventListener('click', continueTask);
@@ -66,31 +70,28 @@ window.onload = function template() {
   }
   resetProgressRing();
   if (localStorage.getItem('ShortBreak') === 'true') {
-    document.body.style.backgroundImage =
-      'linear-gradient(to right,#74EBD5,#ACB6E5)';
-    document.getElementById('minutes').innerHTML = '05';
-    document.getElementById('seconds').innerHTML = '00';
-    document.getElementById('title_timer').innerHTML = '5:00';
+    document.body.style.backgroundImage = 'linear-gradient(to right,#74EBD5,#ACB6E5)';
+
+    renderTimer(localStorage.getItem('ShortBreakLength'), 0);
+
     document.getElementById('currTask').innerHTML = 'Short Break';
     document.getElementById('button-container').style.display = 'none';
     document.getElementById('container-short').style.display = 'block';
   } else if (localStorage.getItem('LongBreak') === 'true') {
-    document.body.style.backgroundImage =
-      'linear-gradient(to right,#ACB6E5,#74EBD5)';
-    document.getElementById('title_timer').innerHTML = '15:00';
-    document.getElementById('minutes').innerHTML = '15';
-    document.getElementById('seconds').innerHTML = '00';
+    document.body.style.backgroundImage = 'linear-gradient(to right,#ACB6E5,#74EBD5)';
+    
+    renderTimer(localStorage.getItem('LongBreakLength'), 0);
+
     document.getElementById('currTask').innerHTML = 'Long Break';
     document.getElementById('button-container').style.display = 'none';
     document.getElementById('container-long').style.display = 'block';
   } else {
     localStorage.setItem('isPomo', 'false');
-    document.getElementById('minutes').innerHTML = '25';
-    document.getElementById('seconds').innerHTML = '00';
     document.getElementById(
       'distraction-btn'
     ).innerHTML = `Distraction : ${distractCounter}`;
-    document.getElementById('title_timer').innerHTML = '25:00';
+
+    renderTimer(localStorage.getItem('TimerLength'), 0);
     document.getElementById('start-btn').style.display = 'block';
     document.getElementById('button-container').style.paddingLeft = '0px';
   }
@@ -155,9 +156,7 @@ function continueTask() {
   document.getElementById(
     'distraction-btn'
   ).innerHTML = `Distraction : ${distractCounter}`;
-  document.getElementById('title_timer').innerHTML = '25:00';
-  document.getElementById('minutes').innerHTML = '25';
-  document.getElementById('seconds').innerHTML = '00';
+  renderTimer(localStorage.getItem('TimerLength'), 0);
   document.getElementById('currTask').innerHTML = allTasks[currentTaskId].name;
 
   localStorage.setItem(
@@ -177,55 +176,41 @@ function changeTask() {
 /**
  * display short break page, play sound and change appearance of website.
  */
-function displayShortBreak() {
+function displayBreak() {
   const audio1 = new Audio('../media/work-tune.mp3');
   audio1.play();
   setTimeout(() => {
     resetProgressRing();
-    document.body.style.backgroundImage =
-      'linear-gradient(to right,#74EBD5,#ACB6E5)';
-    document.getElementById('minutes').innerHTML = '05';
-    document.getElementById('seconds').innerHTML = '00';
-    document.getElementById('title_timer').innerHTML = '5:00';
-    document.getElementById('currTask').innerHTML = 'Short Break';
+    console.log(localStorage.getItem('ShortBreak'));
+    if(localStorage.getItem('ShortBreak') === 'true'){
+      document.body.style.backgroundImage = 'linear-gradient(to right,#74EBD5,#ACB6E5)';
+      document.getElementById('container-short').style.display = 'block';
+      document.getElementById('currTask').innerHTML = 'Short Break';
+      renderTimer(localStorage.getItem('ShortBreakLength'), 0);
+    }
+    else {
+      document.body.style.backgroundImage = 'linear-gradient(to right,#ACB6E5,#74EBD5)';
+      document.getElementById('container-long').style.display = 'block';
+      document.getElementById('currTask').innerHTML = 'Long Break';
+      renderTimer(localStorage.getItem('LongBreakLength'), 0);
+    }
     document.getElementById('button-container').style.display = 'none';
-    document.getElementById('container-short').style.display = 'block';
+
   }, 2000);
 }
 
 /**
  * start counter for short break.
  */
-function startShortBreak() {
-  document.getElementById('container-short').style.display = 'none';
-  start(5, 0);
-}
-
-/**
- *  display long break page, play sound and change appearance of website.
- */
-function displayLongBreak() {
-  const audio2 = new Audio('../media/work-tune.mp3');
-  audio2.play();
-  setTimeout(() => {
-    resetProgressRing();
-    document.body.style.backgroundImage =
-      'linear-gradient(to right,#ACB6E5,#74EBD5)';
-    document.getElementById('minutes').innerHTML = '15';
-    document.getElementById('seconds').innerHTML = '00';
-    document.getElementById('title_timer').innerHTML = '15:00';
-    document.getElementById('currTask').innerHTML = 'Long Break';
-    document.getElementById('button-container').style.display = 'none';
-    document.getElementById('container-long').style.display = 'block';
-  }, 2000);
-}
-
-/**
- * start counter for long break.
- */
-function startLongBreak() {
-  document.getElementById('container-long').style.display = 'none';
-  start(15, 0);
+function startBreak() {
+  if(localStorage.getItem('ShortBreak') === 'true'){
+    document.getElementById('container-short').style.display = 'none';
+    start(localStorage.getItem('ShortBreakLength'), 0);
+  }
+  else {
+    document.getElementById('container-long').style.display = 'none';
+    start(localStorage.getItem('LongBreakLength'), 0);
+  }
 }
 
 /**
@@ -240,7 +225,7 @@ function startTimer() {
   isFailed = true;
   document.getElementById('start-btn').style.display = 'none';
   document.getElementById('button-container').style.paddingLeft = '150px';
-  start(25, 0);
+  start(localStorage.getItem('TimerLength'), 0);
 }
 
 /**
@@ -249,8 +234,6 @@ function startTimer() {
  * @param {integer} secs second of timer
  */
 function start(mins, secs) {
-  const minutes = 0;
-  const seconds = 5;
   isInSession = true;
   const startTime = new Date();
   // display correct distraction counter
@@ -259,8 +242,8 @@ function start(mins, secs) {
     'distraction-btn'
   ).innerHTML = `Distraction : ${distractCounter}`;
 
-  const totalSeconds = minutes * 60 + seconds;
-  renderTimer(minutes, seconds);
+  const totalSeconds = mins * 60 + secs;
+  //renderTimer(mins, secs);
   secondsInterval = setInterval(secondsTimer, 500, startTime, totalSeconds);
 }
 
@@ -276,6 +259,7 @@ function secondsTimer(startTime, totalSeconds) {
   setProgress(perc);
   renderTimer(minutes, seconds);
   if (seconds === 0 && minutes <= 0) {
+    console.log("Task finished");
     finishedTask();
   }
 }
@@ -296,6 +280,7 @@ function renderTimer(minutes, seconds) {
 }
 
 function finishedTask() {
+  console.log("Finished tAsk");
   clearInterval(secondsInterval);
   let counter = Number(localStorage.getItem('sessionCounter'));
   counter += 1;
@@ -328,14 +313,14 @@ function finishedTask() {
       localStorage.setItem('distractCounter', todayDistract);
       localStorage.setItem('LongBreak', 'true');
       localStorage.setItem('ShortBreak', 'false');
-      displayLongBreak();
+      displayBreak();
     } else {
       document.getElementById('header').completedCycles = counter;
       localStorage.setItem('sessionCounter', counter);
       localStorage.setItem('distractCounter', todayDistract);
       localStorage.setItem('ShortBreak', 'true');
       localStorage.setItem('LongBreak', 'false');
-      displayShortBreak();
+      displayBreak();
     }
 
     // update progress for current task
@@ -395,14 +380,13 @@ if (typeof exports !== 'undefined') {
     displayBreakComplete,
     continueTask,
     changeTask,
-    startShortBreak,
-    startLongBreak,
+    startBreak,
     startTimer,
     start,
     distractionCount,
     displayFailModal,
     failSession,
     quitFailModal,
-    displayShortBreak,
+    displayBreak,
   };
 }
