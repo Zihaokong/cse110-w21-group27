@@ -20,12 +20,15 @@ let circumference;
 // The interval function used for timer logic
 let secondsInterval;
 
-localStorage.setItem('TimerLength', 3);
-localStorage.setItem('ShortBreakLength',2);
-localStorage.setItem('LongBreakLength', 11);
+// Call the initializer function when the window is loaded.
+window.onload = timerPageInit;
 
-// handle timing
-window.onload = function template() {
+// TODO: More detailed comments may be required.
+/**
+ * Initialize the timer page. Render required HTML elements.
+ */
+function timerPageInit() {
+  timerLengthInit();
   circle = document.getElementById('progress-ring-circle');
   const r = circle.getAttribute('r');
   // eslint-disable-next-line radix
@@ -70,17 +73,19 @@ window.onload = function template() {
   }
   resetProgressRing();
   if (localStorage.getItem('ShortBreak') === 'true') {
-    document.body.style.backgroundImage = 'linear-gradient(to right,#74EBD5,#ACB6E5)';
+    document.body.style.backgroundImage =
+      'linear-gradient(to right,#74EBD5,#ACB6E5)';
 
-    renderTimer(localStorage.getItem('ShortBreakLength'), 0);
+    renderTimer(localStorage.getItem('ShortBreakMinutes'), 0);
 
     document.getElementById('currTask').innerHTML = 'Short Break';
     document.getElementById('button-container').style.display = 'none';
     document.getElementById('container-short').style.display = 'block';
   } else if (localStorage.getItem('LongBreak') === 'true') {
-    document.body.style.backgroundImage = 'linear-gradient(to right,#ACB6E5,#74EBD5)';
-    
-    renderTimer(localStorage.getItem('LongBreakLength'), 0);
+    document.body.style.backgroundImage =
+      'linear-gradient(to right,#ACB6E5,#74EBD5)';
+
+    renderTimer(localStorage.getItem('LongBreakMinutes'), 0);
 
     document.getElementById('currTask').innerHTML = 'Long Break';
     document.getElementById('button-container').style.display = 'none';
@@ -91,7 +96,7 @@ window.onload = function template() {
       'distraction-btn'
     ).innerHTML = `Distraction : ${distractCounter}`;
 
-    renderTimer(localStorage.getItem('TimerLength'), 0);
+    renderTimer(localStorage.getItem('TimerMinutes'), 0);
     document.getElementById('start-btn').style.display = 'block';
     document.getElementById('button-container').style.paddingLeft = '0px';
   }
@@ -106,11 +111,49 @@ window.onload = function template() {
       window.history.back();
     }
   });
-};
+}
+
+/**
+ * Initialize the timer's length. Initialize them to default value if not previously set.
+ */
+function timerLengthInit() {
+  localStorage.setItem(
+    'TimerMinutes',
+    localStorage.getItem('TimerMinutes') || 3
+  );
+  localStorage.setItem(
+    'ShortBreakMinutes',
+    localStorage.getItem('ShortBreakMinutes') || 2
+  );
+  localStorage.setItem(
+    'LongBreakMinutes',
+    localStorage.getItem('LongBreakMinutes') || 11
+  );
+
+  // render the change input's value
+  document.getElementById('TimerMinutes').value = localStorage.getItem(
+    'TimerMinutes'
+  );
+  document.getElementById('ShortBreakMinutes').value = localStorage.getItem(
+    'ShortBreakMinutes'
+  );
+  document.getElementById('LongBreakMinutes').value = localStorage.getItem(
+    'LongBreakMinutes'
+  );
+}
+
+/**
+ *
+ * @param lengthType {string} the identifier for which timer's length.
+ * Currently, the HTML element's ID should be the same as the name for the local storage.
+ */
+function updateTimerLength(lengthType) {
+  localStorage.setItem(lengthType, document.getElementById(lengthType).value);
+}
 
 /**
  * Change the style of current timer circle.
- * @param {float} percent percentage of current progress bar.
+ * @param {number} percent percentage of current progress bar.
  */
 function setProgress(percent) {
   circle = document.getElementById('progress-ring-circle');
@@ -156,7 +199,7 @@ function continueTask() {
   document.getElementById(
     'distraction-btn'
   ).innerHTML = `Distraction : ${distractCounter}`;
-  renderTimer(localStorage.getItem('TimerLength'), 0);
+  renderTimer(localStorage.getItem('TimerMinutes'), 0);
   document.getElementById('currTask').innerHTML = allTasks[currentTaskId].name;
 
   localStorage.setItem(
@@ -182,20 +225,20 @@ function displayBreak() {
   setTimeout(() => {
     resetProgressRing();
     console.log(localStorage.getItem('ShortBreak'));
-    if(localStorage.getItem('ShortBreak') === 'true'){
-      document.body.style.backgroundImage = 'linear-gradient(to right,#74EBD5,#ACB6E5)';
+    if (localStorage.getItem('ShortBreak') === 'true') {
+      document.body.style.backgroundImage =
+        'linear-gradient(to right,#74EBD5,#ACB6E5)';
       document.getElementById('container-short').style.display = 'block';
       document.getElementById('currTask').innerHTML = 'Short Break';
-      renderTimer(localStorage.getItem('ShortBreakLength'), 0);
-    }
-    else {
-      document.body.style.backgroundImage = 'linear-gradient(to right,#ACB6E5,#74EBD5)';
+      renderTimer(localStorage.getItem('ShortBreakMinutes'), 0);
+    } else {
+      document.body.style.backgroundImage =
+        'linear-gradient(to right,#ACB6E5,#74EBD5)';
       document.getElementById('container-long').style.display = 'block';
       document.getElementById('currTask').innerHTML = 'Long Break';
-      renderTimer(localStorage.getItem('LongBreakLength'), 0);
+      renderTimer(localStorage.getItem('LongBreakMinutes'), 0);
     }
     document.getElementById('button-container').style.display = 'none';
-
   }, 2000);
 }
 
@@ -203,13 +246,12 @@ function displayBreak() {
  * start counter for short break.
  */
 function startBreak() {
-  if(localStorage.getItem('ShortBreak') === 'true'){
+  if (localStorage.getItem('ShortBreak') === 'true') {
     document.getElementById('container-short').style.display = 'none';
-    start(localStorage.getItem('ShortBreakLength'), 0);
-  }
-  else {
+    start(localStorage.getItem('ShortBreakMinutes'), 0);
+  } else {
     document.getElementById('container-long').style.display = 'none';
-    start(localStorage.getItem('LongBreakLength'), 0);
+    start(localStorage.getItem('LongBreakMinutes'), 0);
   }
 }
 
@@ -225,7 +267,7 @@ function startTimer() {
   isFailed = true;
   document.getElementById('start-btn').style.display = 'none';
   document.getElementById('button-container').style.paddingLeft = '150px';
-  start(localStorage.getItem('TimerLength'), 0);
+  start(localStorage.getItem('TimerMinutes'), 0);
 }
 
 /**
@@ -243,10 +285,15 @@ function start(mins, secs) {
   ).innerHTML = `Distraction : ${distractCounter}`;
 
   const totalSeconds = mins * 60 + secs;
-  //renderTimer(mins, secs);
+  // renderTimer(mins, secs);
   secondsInterval = setInterval(secondsTimer, 500, startTime, totalSeconds);
 }
 
+/**
+ * The helper function used for setInterval() to achieve the dynamic timer functionality.
+ * @param {number} startTime the start time for the timer
+ * @param {number} totalSeconds the totally needed seconds for the timer to run
+ */
 function secondsTimer(startTime, totalSeconds) {
   document.getElementById('header').isNewCycle = 'false';
   const currTime = new Date();
@@ -255,32 +302,42 @@ function secondsTimer(startTime, totalSeconds) {
   const minutes = Math.floor(timeLeft / 60);
   const seconds = timeLeft % 60;
 
-  const perc = 100 - (timeLeft / totalSeconds) * 100;
-  setProgress(perc);
+  const finishedPercent = 100 - (timeLeft / totalSeconds) * 100;
+  setProgress(finishedPercent);
   renderTimer(minutes, seconds);
   if (seconds === 0 && minutes <= 0) {
-    console.log("Task finished");
+    console.log('Task finished');
     finishedTask();
   }
 }
 
+/**
+ * Dynamically renders the HTML elements of the running timer.
+ * @param  {number} minutes minutes of the timer
+ * @param {number} seconds seconds of the timer
+ */
 function renderTimer(minutes, seconds) {
   if (minutes < 10) {
     document.getElementById('minutes').innerHTML = `0${minutes}`;
   } else {
-    document.getElementById('minutes').innerHTML = minutes;
+    document.getElementById('minutes').innerHTML = `${minutes}`;
   }
   if (seconds < 10) {
     document.getElementById('seconds').innerHTML = `0${seconds}`;
     document.getElementById('title_timer').innerHTML = `${minutes}:0${seconds}`;
   } else {
-    document.getElementById('seconds').innerHTML = seconds;
+    document.getElementById('seconds').innerHTML = `${seconds}`;
     document.getElementById('title_timer').innerHTML = `${minutes}:${seconds}`;
   }
 }
 
+// TODO: Maybe more detailed comments on this.
+/**
+ * The function to be called when a timer runs out, or in another word when the
+ * task is finished. It should set the related HTML elements properly and stop the timer.
+ */
 function finishedTask() {
-  console.log("Finished tAsk");
+  // console.log('Finished Task');
   clearInterval(secondsInterval);
   let counter = Number(localStorage.getItem('sessionCounter'));
   counter += 1;
@@ -309,15 +366,15 @@ function finishedTask() {
     isFailed = false;
     if (counter % 4 === 0) {
       document.getElementById('header').completedCycles = counter;
-      localStorage.setItem('sessionCounter', counter);
-      localStorage.setItem('distractCounter', todayDistract);
+      localStorage.setItem('sessionCounter', `${counter}`);
+      localStorage.setItem('distractCounter', `${todayDistract}`);
       localStorage.setItem('LongBreak', 'true');
       localStorage.setItem('ShortBreak', 'false');
       displayBreak();
     } else {
       document.getElementById('header').completedCycles = counter;
-      localStorage.setItem('sessionCounter', counter);
-      localStorage.setItem('distractCounter', todayDistract);
+      localStorage.setItem('sessionCounter', `${counter}`);
+      localStorage.setItem('distractCounter', `${todayDistract}`);
       localStorage.setItem('ShortBreak', 'true');
       localStorage.setItem('LongBreak', 'false');
       displayBreak();
@@ -388,5 +445,6 @@ if (typeof exports !== 'undefined') {
     failSession,
     quitFailModal,
     displayBreak,
+    updateTimerLength,
   };
 }
