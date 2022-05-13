@@ -31,8 +31,7 @@ function timerPageInit() {
   timerLengthInit();
   circle = document.getElementById('progress-ring-circle');
   const r = circle.getAttribute('r');
-  // eslint-disable-next-line radix
-  radius = parseInt(r);
+  radius = parseInt(r, 10);
   circumference = radius * 2 * Math.PI;
 
   circle.style.strokeDasharray = circumference;
@@ -73,23 +72,9 @@ function timerPageInit() {
   }
   resetProgressRing();
   if (localStorage.getItem('ShortBreak') === 'true') {
-    document.body.style.backgroundImage =
-      'linear-gradient(to right,#74EBD5,#ACB6E5)';
-
-    renderTimer(localStorage.getItem('ShortBreakMinutes'), 0);
-
-    document.getElementById('currTask').innerHTML = 'Short Break';
-    document.getElementById('button-container').style.display = 'none';
-    document.getElementById('container-short').style.display = 'block';
+    displayBreak();
   } else if (localStorage.getItem('LongBreak') === 'true') {
-    document.body.style.backgroundImage =
-      'linear-gradient(to right,#ACB6E5,#74EBD5)';
-
-    renderTimer(localStorage.getItem('LongBreakMinutes'), 0);
-
-    document.getElementById('currTask').innerHTML = 'Long Break';
-    document.getElementById('button-container').style.display = 'none';
-    document.getElementById('container-long').style.display = 'block';
+    displayBreak();
   } else {
     localStorage.setItem('isPomo', 'false');
     document.getElementById(
@@ -119,15 +104,15 @@ function timerPageInit() {
 function timerLengthInit() {
   localStorage.setItem(
     'TimerMinutes',
-    localStorage.getItem('TimerMinutes') || 3
+    localStorage.getItem('TimerMinutes') || 25
   );
   localStorage.setItem(
     'ShortBreakMinutes',
-    localStorage.getItem('ShortBreakMinutes') || 2
+    localStorage.getItem('ShortBreakMinutes') || 5
   );
   localStorage.setItem(
     'LongBreakMinutes',
-    localStorage.getItem('LongBreakMinutes') || 11
+    localStorage.getItem('LongBreakMinutes') || 15
   );
 
   // render the change input's value
@@ -143,12 +128,21 @@ function timerLengthInit() {
 }
 
 /**
- *
- * @param lengthType {string} the identifier for which timer's length.
  * Currently, the HTML element's ID should be the same as the name for the local storage.
+ * @param {string} lengthType the identifier for which timer's length.
  */
 function updateTimerLength(lengthType) {
   localStorage.setItem(lengthType, document.getElementById(lengthType).value);
+  if (
+    !isInSession &&
+    ((lengthType === 'TimerMinutes' &&
+      localStorage.getItem('isPomo') === 'false') ||
+      (lengthType === 'ShortBreakMinutes' &&
+        localStorage.getItem('ShortBreak') === 'true') ||
+      (lengthType === 'LongBreakMinutes' &&
+        localStorage.getItem('LongBreak') === 'true'))
+  )
+    renderTimer(localStorage.getItem(lengthType), 0);
 }
 
 /**
@@ -158,8 +152,7 @@ function updateTimerLength(lengthType) {
 function setProgress(percent) {
   circle = document.getElementById('progress-ring-circle');
   const r = circle.getAttribute('r');
-  // eslint-disable-next-line radix
-  const radiust = parseInt(r);
+  const radiust = parseInt(r, 10);
   const circumferencet = radiust * 2 * Math.PI;
 
   const offset = (percent / 100) * circumferencet;
@@ -217,14 +210,13 @@ function changeTask() {
 }
 
 /**
- * display short break page, play sound and change appearance of website.
+ * Display break page, play sound and change appearance of website.
  */
 function displayBreak() {
   const audio1 = new Audio('../media/work-tune.mp3');
   audio1.play();
   setTimeout(() => {
     resetProgressRing();
-    console.log(localStorage.getItem('ShortBreak'));
     if (localStorage.getItem('ShortBreak') === 'true') {
       document.body.style.backgroundImage =
         'linear-gradient(to right,#74EBD5,#ACB6E5)';
@@ -243,7 +235,7 @@ function displayBreak() {
 }
 
 /**
- * start counter for short break.
+ * Start counter for break.
  */
 function startBreak() {
   if (localStorage.getItem('ShortBreak') === 'true') {
@@ -306,7 +298,6 @@ function secondsTimer(startTime, totalSeconds) {
   setProgress(finishedPercent);
   renderTimer(minutes, seconds);
   if (seconds === 0 && minutes <= 0) {
-    console.log('Task finished');
     finishedTask();
   }
 }
