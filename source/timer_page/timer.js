@@ -277,7 +277,7 @@ function start(mins, secs) {
   ).innerHTML = `Distraction : ${distractCounter}`;
 
   const totalSeconds = mins * 60 + secs;
-  // renderTimer(mins, secs);
+  renderTimer(mins, secs);
   secondsInterval = setInterval(secondsTimer, 500, startTime, totalSeconds);
 }
 
