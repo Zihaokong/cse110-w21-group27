@@ -28,13 +28,19 @@
     <title id="title_timer">Pomodoro Timer</title>
   </head>
 
-  <body onload="template()">
+  <body onload="timerPageInit()">
     <header-comp id="header"></header-comp>
     <div class="container">
 
+      <!-- Simple UI to change timer length-->
+      <input type="text" id="TimerMinutes" onchange="updateTimerLength('TimerMinutes')">
+      <input type="text" id="ShortBreakMinutes" onchange="updateTimerLength('ShortBreakMinutes')">
+      <input type="text" id="LongBreakMinutes" onchange="updateTimerLength('LongBreakMinutes')">
+      <!-- End of simple UI to change timer length-->
+
+
       <!--Task Heading-->
       <h1 class="text-center my-5" id="currTask">Task</h1>
-
       <div class="container timer">
         <div class="row">
           <div class="col-5">
