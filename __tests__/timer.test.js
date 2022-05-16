@@ -17,7 +17,7 @@ const {
 
 // require('../source/timer_page/timer');
 
-//localStorage.setItem('allTasks', 'sada');
+// localStorage.setItem('allTasks', 'sada');
 
 document.body.innerHTML = `<!DOCTYPE html>
 <html lang="en">
@@ -49,7 +49,7 @@ document.body.innerHTML = `<!DOCTYPE html>
     <title id="title_timer">Pomodoro Timer</title>
   </head>
 
-  <body onload="template()">
+  <body onload="timerPageInit()">
     <header-comp id="header"></header-comp>
     <div class="container">
 
@@ -252,7 +252,7 @@ describe('Test Timer functions', () => {
 
   test('startTimer function test', () => {
     startTimer();
-    expect(document.getElementById('distraction-btn').disabled).toBe(false)
+    expect(document.getElementById('distraction-btn').disabled).toBe(false);
     expect(document.getElementById('start-btn').style.display).toBe('none');
     expect(document.getElementById('button-container').style.paddingLeft).toBe(
       '150px'
