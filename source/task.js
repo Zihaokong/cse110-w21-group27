@@ -34,8 +34,7 @@ class TaskList extends HTMLElement {
 
     // set styles for shadow elements
     shadow.innerHTML = `<link rel="stylesheet" href="task.css"/>
-      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous"/>`;
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />`;
   }
 
   /**
@@ -54,10 +53,8 @@ class TaskList extends HTMLElement {
       .getElementById('taskform')
       .addEventListener('submit', (e) => this.addTask(e));
 
-    // Create and Appened a list container the task-list to house task-items
+    // Create and Appened a list container to house task-items
     const list = document.createElement('ul');
-    list.setAttribute('id', 'main-list');
-    list.setAttribute('class', 'task-container d-flex');
     this.shadowRoot.append(list);
 
     // Get tasks from localStorage and, if they exist, create and append them
@@ -79,7 +76,7 @@ class TaskList extends HTMLElement {
     this.dropzone = this.shadowRoot.querySelector('ul');
 
     // getter for the list items
-    this.nodes = this.dropzone.getElementsByClassName('taskNode');
+    this.nodes = this.dropzone.getElementsByTagName('task-item');
 
     // variable for the selected node to be dragged or moved
     this.selectedNode = null;
