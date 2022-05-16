@@ -238,12 +238,8 @@ Use this space to list resources you find helpful and would like to give credit 
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
-[contributors-url]: https://github.com/othneildrew/Best-README-Template/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/othneildrew/Best-README-Template.svg?style=for-the-badge
-[forks-url]: https://github.com/othneildrew/Best-README-Template/network/members
-[stars-shield]: https://img.shields.io/github/stars/othneildrew/Best-README-Template.svg?style=for-the-badge
-[stars-url]: https://github.com/othneildrew/Best-README-Template/stargazers
+[contributors-shield]: https://img.shields.io/github/contributors/cmwall0605/cse112-sp22-group8?style=for-the-badge
+[contributors-url]: https://github.com/cmwall0605/cse112-sp22-group8/graphs/contributors
 [issues-shield]: https://img.shields.io/github/issues-closed/cmwall0605/cse112-sp22-group8?style=for-the-badge
 [issues-url]: https://github.com/cmwall0605/cse112-sp22-group8/issues
 [license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
