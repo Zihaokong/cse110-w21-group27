@@ -20,11 +20,9 @@
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
 [![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
 [![CodeFactor][codefactor-shield]][codefactor-url]
+[![Firebase][firebase-shield]][firebase-url]
+[![MIT License][license-shield]][license-url]
 
 <!-- PROJECT LOGO -->
 <br />
@@ -244,8 +242,8 @@ Use this space to list resources you find helpful and would like to give credit 
 [issues-url]: https://github.com/cmwall0605/cse112-sp22-group8/issues
 [license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
 [license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/othneildrew
+[firebase-shield]: https://img.shields.io/badge/firebase-%23039BE5.svg?style=for-the-badge&logo=firebase
+[firebase-url]: https://firebase.google.com/
 [product-screenshot]: images/screenshot.png
 [codefactor-shield]: https://img.shields.io/codefactor/grade/github/cmwall0605/cse112-sp22-group8?style=for-the-badge
 [codefactor-url]: https://www.codefactor.io/repository/github/cmwall0605/cse112-sp22-group8
