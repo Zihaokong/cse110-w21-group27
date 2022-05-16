@@ -13,9 +13,6 @@
   <!-- Google Font -->
   <link rel="preconnect" href="https://fonts.gstatic.com" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap" rel="stylesheet" />
-  <!-- Bootstrap -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous" />
   <title>Pomodoro App</title>
 </head>
 
@@ -55,8 +52,8 @@
         </div>
         <form id="taskform">
           <div class="taskform-entry">
-            <label for="taskname">Task: </label>
-            <input type="text" class="taskname form-control" placeholder="Task 1" id="task-name" maxlength="26" required />
+            <label for="task-name">Task: </label>
+            <input type="text" placeholder="Task 1" id="task-name" maxlength="26" required />
           </div>
 
           <div class="taskform-entry">
@@ -67,7 +64,6 @@
 
           <div class="taskform-entry">
             <label for="notes">Notes: </label>
-            <br />
             <textarea rows="4" cols="30" placeholder="Briefly describe your task." id="task-note"
               class="form-control" maxlength="400"></textarea>
           </div>
@@ -88,15 +84,12 @@
       <div class="modal-content">
         <div class="modal-header text-center">
           <h2 class="w-100">Ready to Start?</h2>
-          <span class="close">&times;</span>
         </div>
         <div class="modal-body">
           <form id="timerform" action="./timer_page/timer.html">
             <label for="taskname">Task: </label>
             <span id="timer-name"></span>
-            <br />
             <label for="notes">Notes: </label>
-            <br />
             <textarea rows="4" cols="30" placeholder="Briefly describe your task." id="timer-note" class="form-control"
               disabled></textarea>
 
@@ -135,7 +128,6 @@
 
           <div class="taskform-entry">
             <label for="notes">Notes: </label>
-            <br />
             <textarea rows="4" cols="30" placeholder="Briefly describe your task." id="edit-note"
               class="form-control"></textarea>
           </div>
