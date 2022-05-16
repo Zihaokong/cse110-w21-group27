@@ -1,7 +1,6 @@
 const {
   openInfoModal,
   closeInfoModal,
-  scrollFunc,
   resetStats,
   loadHandler,
   unloadHandler,
@@ -146,20 +145,6 @@ describe('"closeInfoModal" Function Test', () => {
     expect(modal.style.display).toBe('block');
     closeInfoModal();
     expect(modal.style.display).toBe('none');
-  });
-});
-
-describe('"scrollFunc" Function Test', () => {
-  test('Make sure scrollFunc does not break', () => {
-    // Cant really test anything as window.scrollTo changes client info, which
-    // we cant really confirm as changed. Just run it to make sure no errors
-    // are thrown and that window.scrollTo is called.
-    let scrollToHasRan = false;
-    window.scrollTo = jest.fn(() => {
-      scrollToHasRan = true;
-    });
-    scrollFunc();
-    expect(scrollToHasRan).toBe(true);
   });
 });
 

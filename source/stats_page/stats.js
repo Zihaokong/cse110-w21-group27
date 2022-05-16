@@ -27,13 +27,6 @@ function closeInfoModal() {
 }
 
 /**
- * For scroll to the top, used in Top button
- */
-function scrollFunc() {
-  window.scrollTo(0, 0);
-}
-
-/**
  *  Function when the 'reset' button is clicked.
  *  It will set statsList to be empty list, and reset all the counters.
  */
@@ -175,7 +168,6 @@ if (typeof exports !== 'undefined') {
   module.exports = {
     openInfoModal,
     closeInfoModal,
-    scrollFunc,
     resetStats,
     loadHandler,
     unloadHandler,
