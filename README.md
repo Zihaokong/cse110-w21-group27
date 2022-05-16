@@ -31,11 +31,9 @@
     <img src="/admin/misc/CSE112-Team-8-Cre8tors-Logo.png" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">Best-README-Template</h3>
+  <h3 align="center">Cre8tors</h3>
 
   <p align="center">
-    An awesome README template to jumpstart your projects!
-    <br />
     <a href="https://github.com/cmwall0605/cse112-sp22-group8/tree/main/specs"><strong>Explore the specs»</strong></a>
     <br />
     <br />
