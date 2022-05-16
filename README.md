@@ -28,7 +28,7 @@
 <br />
 <div align="center">
   <a href="https://pomodoro-timer-c1a2a.web.app/">
-    <img src="cse112-sp22-group8/admin/misc/CSE112-Team-8-Cre8tors-Logo.png" alt="Logo" width="80" height="80">
+    <img src="/admin/misc/CSE112-Team-8-Cre8tors-Logo.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">Best-README-Template</h3>
