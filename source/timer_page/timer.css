@@ -8,6 +8,8 @@ body{
 #currTask{
     color:black;
     font-size: 50px;
+    display: flex;
+    justify-content: center;
 }
 
 .row{
@@ -25,12 +27,11 @@ h4{
     text-align: center;
     width: 27.5rem;
     height: 27.5rem;
-    border: 40px solid rgba(46, 71, 86, 0.25);
-    border-radius: 13.75rem;
     display: flex;
     justify-content: center;
     align-items: center;
     position:relative;
+    padding-bottom: 50px;
 }
 
 .progress-ring{
@@ -123,4 +124,18 @@ button{
     height:70px ; 
     width:150px;
     align-self: center;
+}
+
+.timer-grid {
+    display: flex;
+    justify-content: center;
+}
+
+.time-input {
+    display: flex;
+    justify-content: center;
+}
+
+input {
+    font-size: 20px;
 }
