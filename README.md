@@ -251,5 +251,5 @@ Use this space to list resources you find helpful and would like to give credit 
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/othneildrew
 [product-screenshot]: images/screenshot.png
-[codefactor-shield]: https://www.codefactor.io/repository/github/cmwall0605/cse112-sp22-group8/badge
+[codefactor-shield]: https://img.shields.io/codefactor/grade/github/cmwall0605/cse112-sp22-group8?style=for-the-badge
 [codefactor-url]: https://www.codefactor.io/repository/github/cmwall0605/cse112-sp22-group8
