@@ -8,4 +8,10 @@ cypress/videos
 build
 .vscode
 ./source/.vscode
+.idea/vcs.xml
+.idea/inspectionProfiles/Project_Default.xml
+.idea/cse112-sp22-group8.iml
+.idea/modules.xml
+.idea/codeStyles/Project.xml
+.idea/codeStyles/codeStyleConfig.xml
 **/.DS_Store

@@ -17,12 +17,21 @@ let circle;
 let radius;
 let circumference;
 
-// handle timing
-window.onload = function template() {
+// The interval function used for timer logic
+let secondsInterval;
+
+// Call the initializer function when the window is loaded.
+window.onload = timerPageInit;
+
+// TODO: More detailed comments may be required.
+/**
+ * Initialize the timer page. Render required HTML elements.
+ */
+function timerPageInit() {
+  timerLengthInit();
   circle = document.getElementById('progress-ring-circle');
   const r = circle.getAttribute('r');
-  // eslint-disable-next-line radix
-  radius = parseInt(r);
+  radius = parseInt(r, 10);
   circumference = radius * 2 * Math.PI;
 
   circle.style.strokeDasharray = circumference;
@@ -37,10 +46,10 @@ window.onload = function template() {
     .addEventListener('click', displayFailModal);
   document
     .getElementById('start-short-btn')
-    .addEventListener('click', startShortBreak);
+    .addEventListener('click', startBreak);
   document
     .getElementById('start-long-btn')
-    .addEventListener('click', startLongBreak);
+    .addEventListener('click', startBreak);
   document
     .getElementById('continue-btn')
     .addEventListener('click', continueTask);
@@ -63,31 +72,16 @@ window.onload = function template() {
   }
   resetProgressRing();
   if (localStorage.getItem('ShortBreak') === 'true') {
-    document.body.style.backgroundImage =
-      'linear-gradient(to right,#74EBD5,#ACB6E5)';
-    document.getElementById('minutes').innerHTML = '05';
-    document.getElementById('seconds').innerHTML = '00';
-    document.getElementById('title_timer').innerHTML = '5:00';
-    document.getElementById('currTask').innerHTML = 'Short Break';
-    document.getElementById('button-container').style.display = 'none';
-    document.getElementById('container-short').style.display = 'block';
+    displayBreak();
   } else if (localStorage.getItem('LongBreak') === 'true') {
-    document.body.style.backgroundImage =
-      'linear-gradient(to right,#ACB6E5,#74EBD5)';
-    document.getElementById('title_timer').innerHTML = '15:00';
-    document.getElementById('minutes').innerHTML = '15';
-    document.getElementById('seconds').innerHTML = '00';
-    document.getElementById('currTask').innerHTML = 'Long Break';
-    document.getElementById('button-container').style.display = 'none';
-    document.getElementById('container-long').style.display = 'block';
+    displayBreak();
   } else {
     localStorage.setItem('isPomo', 'false');
-    document.getElementById('minutes').innerHTML = '25';
-    document.getElementById('seconds').innerHTML = '00';
     document.getElementById(
       'distraction-btn'
     ).innerHTML = `Distraction : ${distractCounter}`;
-    document.getElementById('title_timer').innerHTML = '25:00';
+
+    renderTimer(localStorage.getItem('TimerMinutes'), 0);
     document.getElementById('start-btn').style.display = 'block';
     document.getElementById('button-container').style.paddingLeft = '0px';
   }
@@ -102,17 +96,63 @@ window.onload = function template() {
       window.history.back();
     }
   });
-};
+}
+
+/**
+ * Initialize the timer's length. Initialize them to default value if not previously set.
+ */
+function timerLengthInit() {
+  localStorage.setItem(
+    'TimerMinutes',
+    localStorage.getItem('TimerMinutes') || 25
+  );
+  localStorage.setItem(
+    'ShortBreakMinutes',
+    localStorage.getItem('ShortBreakMinutes') || 5
+  );
+  localStorage.setItem(
+    'LongBreakMinutes',
+    localStorage.getItem('LongBreakMinutes') || 15
+  );
+
+  // render the change input's value
+  document.getElementById('TimerMinutes').value = localStorage.getItem(
+    'TimerMinutes'
+  );
+  document.getElementById('ShortBreakMinutes').value = localStorage.getItem(
+    'ShortBreakMinutes'
+  );
+  document.getElementById('LongBreakMinutes').value = localStorage.getItem(
+    'LongBreakMinutes'
+  );
+}
+
+/**
+ * Currently, the HTML element's ID should be the same as the name for the local storage.
+ * @param {string} lengthType the identifier for which timer's length.
+ */
+function updateTimerLength(lengthType) {
+  localStorage.setItem(lengthType, document.getElementById(lengthType).value);
+  if (
+    !isInSession &&
+    ((lengthType === 'TimerMinutes' &&
+      localStorage.getItem('isPomo') === 'false') ||
+      (lengthType === 'ShortBreakMinutes' &&
+        localStorage.getItem('ShortBreak') === 'true') ||
+      (lengthType === 'LongBreakMinutes' &&
+        localStorage.getItem('LongBreak') === 'true'))
+  )
+    renderTimer(localStorage.getItem(lengthType), 0);
+}
 
 /**
  * Change the style of current timer circle.
- * @param {float} percent percentage of current progress bar.
+ * @param {number} percent percentage of current progress bar.
  */
 function setProgress(percent) {
   circle = document.getElementById('progress-ring-circle');
   const r = circle.getAttribute('r');
-  // eslint-disable-next-line radix
-  const radiust = parseInt(r);
+  const radiust = parseInt(r, 10);
   const circumferencet = radiust * 2 * Math.PI;
 
   const offset = (percent / 100) * circumferencet;
@@ -152,9 +192,7 @@ function continueTask() {
   document.getElementById(
     'distraction-btn'
   ).innerHTML = `Distraction : ${distractCounter}`;
-  document.getElementById('title_timer').innerHTML = '25:00';
-  document.getElementById('minutes').innerHTML = '25';
-  document.getElementById('seconds').innerHTML = '00';
+  renderTimer(localStorage.getItem('TimerMinutes'), 0);
   document.getElementById('currTask').innerHTML = allTasks[currentTaskId].name;
 
   localStorage.setItem(
@@ -172,57 +210,41 @@ function changeTask() {
 }
 
 /**
- * display short break page, play sound and change appearance of website.
+ * Display break page, play sound and change appearance of website.
  */
-function displayShortBreak() {
+function displayBreak() {
   const audio1 = new Audio('../media/work-tune.mp3');
   audio1.play();
   setTimeout(() => {
     resetProgressRing();
-    document.body.style.backgroundImage =
-      'linear-gradient(to right,#74EBD5,#ACB6E5)';
-    document.getElementById('minutes').innerHTML = '05';
-    document.getElementById('seconds').innerHTML = '00';
-    document.getElementById('title_timer').innerHTML = '5:00';
-    document.getElementById('currTask').innerHTML = 'Short Break';
+    if (localStorage.getItem('ShortBreak') === 'true') {
+      document.body.style.backgroundImage =
+        'linear-gradient(to right,#74EBD5,#ACB6E5)';
+      document.getElementById('container-short').style.display = 'block';
+      document.getElementById('currTask').innerHTML = 'Short Break';
+      renderTimer(localStorage.getItem('ShortBreakMinutes'), 0);
+    } else {
+      document.body.style.backgroundImage =
+        'linear-gradient(to right,#ACB6E5,#74EBD5)';
+      document.getElementById('container-long').style.display = 'block';
+      document.getElementById('currTask').innerHTML = 'Long Break';
+      renderTimer(localStorage.getItem('LongBreakMinutes'), 0);
+    }
     document.getElementById('button-container').style.display = 'none';
-    document.getElementById('container-short').style.display = 'block';
   }, 2000);
 }
 
 /**
- * start counter for short break.
+ * Start counter for break.
  */
-function startShortBreak() {
-  document.getElementById('container-short').style.display = 'none';
-  start(5, 0);
-}
-
-/**
- *  display long break page, play sound and change appearance of website.
- */
-function displayLongBreak() {
-  const audio2 = new Audio('../media/work-tune.mp3');
-  audio2.play();
-  setTimeout(() => {
-    resetProgressRing();
-    document.body.style.backgroundImage =
-      'linear-gradient(to right,#ACB6E5,#74EBD5)';
-    document.getElementById('minutes').innerHTML = '15';
-    document.getElementById('seconds').innerHTML = '00';
-    document.getElementById('title_timer').innerHTML = '15:00';
-    document.getElementById('currTask').innerHTML = 'Long Break';
-    document.getElementById('button-container').style.display = 'none';
-    document.getElementById('container-long').style.display = 'block';
-  }, 2000);
-}
-
-/**
- * start counter for long break.
- */
-function startLongBreak() {
-  document.getElementById('container-long').style.display = 'none';
-  start(15, 0);
+function startBreak() {
+  if (localStorage.getItem('ShortBreak') === 'true') {
+    document.getElementById('container-short').style.display = 'none';
+    start(localStorage.getItem('ShortBreakMinutes'), 0);
+  } else {
+    document.getElementById('container-long').style.display = 'none';
+    start(localStorage.getItem('LongBreakMinutes'), 0);
+  }
 }
 
 /**
@@ -237,7 +259,7 @@ function startTimer() {
   isFailed = true;
   document.getElementById('start-btn').style.display = 'none';
   document.getElementById('button-container').style.paddingLeft = '150px';
-  start(25, 0);
+  start(localStorage.getItem('TimerMinutes'), 0);
 }
 
 /**
@@ -246,110 +268,112 @@ function startTimer() {
  * @param {integer} secs second of timer
  */
 function start(mins, secs) {
-  let minutes = mins;
-  let seconds = secs;
   isInSession = true;
-  const startTime = +new Date();
+  const startTime = new Date();
   // display correct distraction counter
   distractCounter = 0;
   document.getElementById(
     'distraction-btn'
   ).innerHTML = `Distraction : ${distractCounter}`;
 
-  const totalsecs = minutes * 60 + seconds;
+  const totalSeconds = mins * 60 + secs;
+  renderTimer(mins, secs);
+  secondsInterval = setInterval(secondsTimer, 500, startTime, totalSeconds);
+}
+
+/**
+ * The helper function used for setInterval() to achieve the dynamic timer functionality.
+ * @param {number} startTime the start time for the timer
+ * @param {number} totalSeconds the totally needed seconds for the timer to run
+ */
+function secondsTimer(startTime, totalSeconds) {
+  document.getElementById('header').isNewCycle = 'false';
+  const currTime = new Date();
+  const elapsed = Math.floor((currTime - startTime) / 1000);
+  const timeLeft = totalSeconds - elapsed;
+  const minutes = Math.floor(timeLeft / 60);
+  const seconds = timeLeft % 60;
+
+  const finishedPercent = 100 - (timeLeft / totalSeconds) * 100;
+  setProgress(finishedPercent);
+  renderTimer(minutes, seconds);
+  if (seconds === 0 && minutes <= 0) {
+    finishedTask();
+  }
+}
+
+/**
+ * Dynamically renders the HTML elements of the running timer.
+ * @param  {number} minutes minutes of the timer
+ * @param {number} seconds seconds of the timer
+ */
+function renderTimer(minutes, seconds) {
   if (minutes < 10) {
     document.getElementById('minutes').innerHTML = `0${minutes}`;
   } else {
-    document.getElementById('minutes').innerHTML = minutes;
+    document.getElementById('minutes').innerHTML = `${minutes}`;
   }
   if (seconds < 10) {
     document.getElementById('seconds').innerHTML = `0${seconds}`;
     document.getElementById('title_timer').innerHTML = `${minutes}:0${seconds}`;
   } else {
-    document.getElementById('seconds').innerHTML = seconds;
+    document.getElementById('seconds').innerHTML = `${seconds}`;
     document.getElementById('title_timer').innerHTML = `${minutes}:${seconds}`;
   }
+}
 
-  const secondsInterval = setInterval(secondsTimer, 500);
-
-  function secondsTimer() {
-    document.getElementById('header').isNewCycle = 'false';
-    const currTime = +new Date();
-    const elapsed = Math.floor((currTime - startTime) / 1000);
-    const timeLeft = totalsecs - elapsed;
-    minutes = Math.floor(timeLeft / 60);
-    seconds = timeLeft % 60;
-
-    const perc = 100 - (timeLeft / totalsecs) * 100;
-    setProgress(perc);
-    if (minutes < 10) {
-      document.getElementById('minutes').innerHTML = `0${minutes}`;
-    } else {
-      document.getElementById('minutes').innerHTML = minutes;
+// TODO: Maybe more detailed comments on this.
+/**
+ * The function to be called when a timer runs out, or in another word when the
+ * task is finished. It should set the related HTML elements properly and stop the timer.
+ */
+function finishedTask() {
+  // console.log('Finished Task');
+  clearInterval(secondsInterval);
+  let counter = Number(localStorage.getItem('sessionCounter'));
+  counter += 1;
+  let todayDistract = Number(localStorage.getItem('distractCounter'));
+  todayDistract += distractCounter;
+  const pomo = localStorage.getItem('isPomo');
+  isInSession = false;
+  // disable distraction button
+  document.getElementById('distraction-btn').disabled = true;
+  if (pomo === 'true') {
+    // we just finished a break session
+    localStorage.setItem('isPomo', 'false');
+    // clear all circles for work session following longbreak
+    if (localStorage.getItem('LongBreak') === 'true') {
+      document.getElementById('header').isNewCycle = 'true';
     }
-    if (seconds < 10) {
-      document.getElementById('seconds').innerHTML = `0${seconds}`;
-      document.getElementById(
-        'title_timer'
-      ).innerHTML = `${minutes}:0${seconds}`;
-      if (seconds === 0) {
-        if (minutes <= 0) {
-          clearInterval(secondsInterval);
 
-          let counter = Number(localStorage.getItem('sessionCounter'));
-          counter += 1;
-          let todayDistract = Number(localStorage.getItem('distractCounter'));
-          todayDistract += distractCounter;
-          const pomo = localStorage.getItem('isPomo');
-          isInSession = false;
-
-          // disable distraction button
-          document.getElementById('distraction-btn').disabled = true;
-          if (pomo === 'true') {
-            // we just finished a break session
-            localStorage.setItem('isPomo', 'false');
-            // clear all circles for work session following longbreak
-            if (localStorage.getItem('LongBreak') === 'true') {
-              document.getElementById('header').isNewCycle = 'true';
-            }
-
-            localStorage.setItem('ShortBreak', 'false');
-            localStorage.setItem('LongBreak', 'false');
-            displayBreakComplete();
-          } else {
-            // we just finished a work session
-            localStorage.setItem('isPomo', 'true');
-            // hide the fail modal if the timer runs out
-            document.getElementById('failModal').style.display = 'none';
-            isFailed = false;
-            if (counter % 4 === 0) {
-              document.getElementById('header').completedCycles = counter;
-              localStorage.setItem('sessionCounter', counter);
-              localStorage.setItem('distractCounter', todayDistract);
-              localStorage.setItem('LongBreak', 'true');
-              localStorage.setItem('ShortBreak', 'false');
-              displayLongBreak();
-            } else {
-              document.getElementById('header').completedCycles = counter;
-              localStorage.setItem('sessionCounter', counter);
-              localStorage.setItem('distractCounter', todayDistract);
-              localStorage.setItem('ShortBreak', 'true');
-              localStorage.setItem('LongBreak', 'false');
-              displayShortBreak();
-            }
-
-            // update progress for current task
-            allTasks[currentTaskId].current += 1;
-            localStorage.setItem('allTasks', JSON.stringify(allTasks));
-          }
-        }
-      }
+    localStorage.setItem('ShortBreak', 'false');
+    localStorage.setItem('LongBreak', 'false');
+    displayBreakComplete();
+  } else {
+    // we just finished a work session
+    localStorage.setItem('isPomo', 'true');
+    // hide the fail modal if the timer runs out
+    document.getElementById('failModal').style.display = 'none';
+    isFailed = false;
+    if (counter % 4 === 0) {
+      document.getElementById('header').completedCycles = counter;
+      localStorage.setItem('sessionCounter', `${counter}`);
+      localStorage.setItem('distractCounter', `${todayDistract}`);
+      localStorage.setItem('LongBreak', 'true');
+      localStorage.setItem('ShortBreak', 'false');
+      displayBreak();
     } else {
-      document.getElementById('seconds').innerHTML = seconds;
-      document.getElementById(
-        'title_timer'
-      ).innerHTML = `${minutes}:${seconds}`;
+      document.getElementById('header').completedCycles = counter;
+      localStorage.setItem('sessionCounter', `${counter}`);
+      localStorage.setItem('distractCounter', `${todayDistract}`);
+      localStorage.setItem('ShortBreak', 'true');
+      localStorage.setItem('LongBreak', 'false');
+      displayBreak();
     }
+
+    // update progress for current task
+    allTasks[currentTaskId].current += 1;
+    localStorage.setItem('allTasks', JSON.stringify(allTasks));
   }
 }
 
@@ -404,14 +428,14 @@ if (typeof exports !== 'undefined') {
     displayBreakComplete,
     continueTask,
     changeTask,
-    startShortBreak,
-    startLongBreak,
+    startBreak,
     startTimer,
     start,
     distractionCount,
     displayFailModal,
     failSession,
     quitFailModal,
-    displayShortBreak,
+    displayBreak,
+    updateTimerLength,
   };
 }

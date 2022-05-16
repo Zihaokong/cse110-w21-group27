@@ -1,5 +1,4 @@
 # cse110-w21-group8 (AKA Team Cre8tors)
-
 ## Placeholder README
 
 <div id="top"></div>
@@ -26,8 +25,6 @@
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
-
-
 
 <!-- PROJECT LOGO -->
 <br />
