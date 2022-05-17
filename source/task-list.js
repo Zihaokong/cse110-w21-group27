@@ -33,7 +33,7 @@ class TaskList extends HTMLElement {
     this.preNodePos = null;
 
     // set styles for shadow elements
-    shadow.innerHTML = `<link rel="stylesheet" href="task.css"/>
+    shadow.innerHTML = `<link rel="stylesheet" href="task-list.css"/>
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />`;
   }
 
@@ -95,14 +95,6 @@ class TaskList extends HTMLElement {
   }
 
   /**
-   * When the task-list is disconnected (basically before the page is exited),
-   * save the tasks in the task-list to localStorage.
-   */
-  disconnectedCallback() {
-    localStorage.setItem('allTasks', JSON.stringify(this.allTasks));
-  }
-
-  /**
    * Set up and render a task-item element and then append it to the task-list.
    * @param {Object} taskInfo Info about the task being created.
    * @param {string} taskInfo.id Randomly generated id of the pomo.
@@ -136,7 +128,6 @@ class TaskList extends HTMLElement {
    */
   addTask(event) {
     event.preventDefault();
-
     // create struct and append to global list
     const newTask = {
       id: Math.random().toString(16).slice(2),
@@ -146,8 +137,9 @@ class TaskList extends HTMLElement {
       current: 0,
       note: document.getElementById('task-note').value,
     };
+    // Push the new task into allTasks and set the local storage item
     this.allTasks.push(newTask);
-
+    localStorage.setItem('allTasks', JSON.stringify(this.allTasks));
     // render HTML on page.
     this.renderTask(newTask);
 
@@ -171,25 +163,28 @@ class TaskList extends HTMLElement {
   deleteTask(event) {
     document.getElementById('delete-modal').style.display = 'block';
 
-    // Delete item in the DOM
-    const element = event.target;
-    const itemToDelete = element.getRootNode().host;
-
-    // Delete item in allTasks array
+    // Get the item to delete in the DOM
+    const itemToDelete = event.target.getRootNode().host;
     const { name } = itemToDelete;
-    document.getElementById('task-delete').innerText = `${name}?`;
-    document.getElementById('confirm-button').addEventListener('click', () => {
-      for (let i = 0; i < this.allTasks.length; i++) {
-        if (this.allTasks[i].name === name) {
-          this.allTasks.splice(i, 1);
-          break;
-        }
-      }
 
-      // Delete item in the DOM
-      itemToDelete.remove();
-      document.getElementById('delete-modal').style.display = 'none';
-    });
+    // Set up the delete modal
+    document.getElementById('task-delete').innerText = `${name}?`;
+    document.getElementById('confirm-button').addEventListener(
+      'click',
+      () => {
+        for (let i = 0; i < this.allTasks.length; i++) {
+          if (this.allTasks[i].name === name) {
+            this.allTasks.splice(i, 1);
+            break;
+          }
+        }
+        localStorage.setItem('allTasks', JSON.stringify(this.allTasks));
+        // Delete item in the DOM
+        itemToDelete.remove();
+        document.getElementById('delete-modal').style.display = 'none';
+      },
+      { once: true }
+    );
   }
 
   /**
@@ -230,6 +225,7 @@ class TaskList extends HTMLElement {
         this.allTasks[taskIndex].number = editTaskNum;
         this.allTasks[taskIndex].note = editTaskNote;
         editModal.style.display = 'none';
+        localStorage.setItem('allTasks', JSON.stringify(this.allTasks));
       },
       {
         once: true,
@@ -258,6 +254,7 @@ class TaskList extends HTMLElement {
     // get the element Index in the object list
     const taskIndex = this.allTasks.findIndex((elem) => elem.id === targetID);
     this.allTasks[taskIndex].completed = !this.allTasks[taskIndex].completed;
+    localStorage.setItem('allTasks', JSON.stringify(this.allTasks));
   }
 
   /**
@@ -329,6 +326,7 @@ class TaskList extends HTMLElement {
         newArray.push(taskInArray);
       }
       this.allTasks = newArray;
+      localStorage.setItem('allTasks', JSON.stringify(this.allTasks));
     }
   }
 
@@ -365,6 +363,7 @@ class TaskList extends HTMLElement {
     return currentNodePos;
   }
 }
+
 customElements.define('task-list', TaskList);
 
 if (typeof exports !== 'undefined') {

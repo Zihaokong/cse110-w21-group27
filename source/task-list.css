@@ -24,10 +24,4 @@ task-item {
   
   border: 1px solid rgba(46, 71, 86, 0.075);
   border-radius: 10px;
-  transition: all 0.5s ease;
 }
-
-task-item:hover .hide {
-  opacity: 1;
-  visibility:visible  !important;
-}   

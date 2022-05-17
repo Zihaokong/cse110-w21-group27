@@ -1,8 +1,3 @@
-/* root attributes for the task-item*/
-:root {
-  
-}
-
 /* Section for drag button */
 .drag-btn {
   
@@ -11,7 +6,6 @@
   text-align: center;
   line-height: inherit;
   
-  /* background-color: rgba(46, 71, 86, 0.075); */
   background-color: transparent;
   border-radius: 10px;
 }
