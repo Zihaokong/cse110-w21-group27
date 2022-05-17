@@ -1,71 +1,156 @@
+@import url(https://fonts.googleapis.com/icon?family=Material+Icons);
+@media (min-width: 900px) {
+  section{
+    display: flex;
+    flex-direction: row;
+    
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+  }
+  drag-ind {
+    flex: 0 0 auto;
+  }
+  progress-container {
+    flex: 5 1 auto;
+  }
+  input {
+    flex: 0 0 auto;
+  }
+  h1 {
+    flex: 1 0 auto;
+    width: 20%;
+  }
+  p {
+    flex: 0 0 auto;
+  }
+  button {
+    flex: 0 0 auto;
+  }
+}
 
-section{
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  
-  font-size: 1.5rem;
-  
-  border: 1px solid rgba(46, 71, 86, 0.075);
-  border-radius: 10px;
+@media (max-width: 900px) {
+  section{
+    display: grid;
+    grid-auto-columns: 1fr 2fr 2fr 2fr 2fr;
+    grid-template-rows: auto;
+    grid-template-areas:
+      "drag title title title title"
+      "drag progress progress progress progress"
+      "drag check start edit delete";
+    align-items: center;
+    justify-items: center;
+  }
+  drag-ind {
+    grid-area: drag;
+  }
+  progress-container {
+    grid-area: progress;
+  }
+  input {
+    grid-area: check;
+  }
+  h1 {
+    grid-area: title;
+  }
+  button[job="play"] {
+    grid-area: start;
+  }
+  button[job="edit"] {
+    grid-area: edit;
+  }
+  button[job="delete"] {
+    grid-area: delete;
+  }
+}
+
+section {
   opacity: 0.5;
   transition: opacity 0.3s;
+  cursor: grab;
 }
 
 section:hover {
   opacity: 1;
-  
 }
 
-/*
- * Section for the checkbox in task item
- */
+drag-ind {
+  vertical-align: middle;
+}
+
+progress-container {
+  display: inline-block;
+  width: 100%;
+  height: 2em;
+  background-color: #2e475650;
+}
+
+progress-bar {
+  display: inline-block;
+  height: 100%;
+  background-color: #2e4756;
+  color: #e5e5e5;
+  font-size: 1.25em;
+  text-align: center;
+}
+
 input {
   color: #e5e5e5;
-  width: 1.3em;
-  height: 1.3em;
   border-color: #e5e5e5;
+  cursor: pointer;
+  height: 3em;
+  width: 3em;
 }
 
 input:checked {
   background-color: #2e4756;
   border-color: #2e4756;
 }
-input:focus {
+
+input:hover {
   border-color: #e5e5e5;
   box-shadow: 0 0 0 0.2rem rgba(46, 71, 86, 0.3);
 }
 
-/*
- * Section for the text of task in task item
- */
-p {
+h1 {
+  display: inline-block;
   margin: 0;
-  overflow: hidden;
   text-overflow: ellipsis;
+  overflow-wrap: break-word;
+  font-size: calc(20px + 0.5vw);
+}
+
+p {
+  display: inline-block;
+  
 }
 
 button {
   color: #2e4756;
   border: none;
   cursor: pointer;
-  padding-top: 3px;
-  padding-bottom:0%;
-  text-shadow: none;
-  box-shadow: none;
+  padding: 0px;
+  transition: font-size 0.3s;
+  
+}
+
+button:hover:enabled {
+  font-size: 5em;
 }
 
 button:disabled {
-  cursor: auto;
+  cursor: not-allowed;
   opacity: 0.5;
 }
 
-.material-icons {
+.icon {
   font-family: 'Material Icons';
-
+  
+  font-size: 4em;
+  
   /* Support for all WebKit browsers. */
   -webkit-font-smoothing: antialiased;
+  
   /* Support for Safari and Chrome. */
   text-rendering: optimizeLegibility;
 

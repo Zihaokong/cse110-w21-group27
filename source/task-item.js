@@ -108,22 +108,28 @@ class TaskItem extends HTMLElement {
     this.setAttribute('draggable', 'true');
 
     const section = document.createElement('section');
+
     // Creating the drag icon
     const dragIcon = TaskItem.createDrag();
+
     // Creating the checkmark
     const checkmark = this.createCheckmark();
     checkmark.addEventListener('click', this.setCheck);
-    // Creating p tag for task name
-    const todoTask = TaskItem.createTask(this.name);
+
+    // Creatingtitle for task
+    const title = TaskItem.createTitle(this.name);
+
     // Creating the progress-bar
     const progressBar = this.createProgressBar();
-    const progressText = TaskItem.createProgressText(this.current, this.number);
+
     // Creating the play-button
     const playButton = this.createPlayButton();
     playButton.addEventListener('click', this.playTask);
+
     // Creating the edit-button
     const editButton = this.createEditButton();
     editButton.addEventListener('click', this.editTask);
+
     // Creating the delete-button
     const deleteButton = TaskItem.createDeleteButton();
     deleteButton.addEventListener('click', this.deleteTask);
@@ -133,9 +139,8 @@ class TaskItem extends HTMLElement {
     this.shadowRoot.appendChild(section);
     section.appendChild(dragIcon);
     section.appendChild(checkmark);
-    section.appendChild(todoTask);
+    section.appendChild(title);
     section.appendChild(progressBar);
-    section.appendChild(progressText);
     section.appendChild(playButton);
     section.appendChild(editButton);
     section.appendChild(deleteButton);
@@ -167,16 +172,16 @@ class TaskItem extends HTMLElement {
   attributeChangedCallback(name, oldValue, newValue) {
     // When changing the name, change the text content to the newvalue.
     if (name === 'name') {
-      if (this.shadowRoot.querySelector('p')) {
-        this.shadowRoot.querySelector('p').textContent = newValue;
+      if (this.shadowRoot.querySelector('h1')) {
+        this.shadowRoot.querySelector('h1').textContent = newValue;
       }
     }
 
     // When changing the number, change the ratio of the task's pomos
     if (name === 'number') {
-      if (this.shadowRoot.querySelector('p1')) {
+      if (this.shadowRoot.querySelector('p')) {
         this.shadowRoot.querySelector(
-          'p1'
+          'p'
         ).innerHTML = `${this.current}/${newValue}`;
       }
     }
@@ -184,29 +189,21 @@ class TaskItem extends HTMLElement {
     // When changing the completed, fill out the progress bar and disable the
     // edit/play buttons.
     if (name === 'completed') {
-      if (this.shadowRoot.childNodes[8]) {
-        // change the progress bar
-        const newProgressBar = this.createProgressBar();
-        this.shadowRoot.replaceChild(
-          newProgressBar,
-          this.shadowRoot.childNodes[8]
-        );
+      // change the progress bar
+      const newProgressBar = this.createProgressBar();
+      // this.shadowRoot.replaceChild(newProgressBar, this.shadowRoot);
 
-        const playButton = this.shadowRoot.querySelector('.play-btn');
-        const editButton = this.shadowRoot.querySelector('.edit-btn');
+      const playButton = this.shadowRoot.querySelector('button[job="play"]');
+      const editButton = this.shadowRoot.querySelector('button[job="edit"]');
+      if (playButton && editButton) {
         if (newValue === 'true') {
           playButton.disabled = true;
-          playButton.firstChild.style.color = '#c4c4c4';
           editButton.disabled = true;
-          editButton.firstChild.style.color = '#c4c4c4';
         } else {
           playButton.disabled = false;
-          playButton.firstChild.style.color = '#2e4756';
-
           // re-enable edit only if no pomos are completed
           if (this.current === '0') {
             editButton.disabled = false;
-            editButton.firstChild.style.color = '#2e4756';
           }
         }
       }
@@ -246,28 +243,14 @@ class TaskItem extends HTMLElement {
     }
 
     // the div for the progress itserlf and uses the attribute from the newTask object
+    const progressContainter = document.createElement('progress-container');
     const progress = document.createElement('progress-bar');
+    progress.style.width = percent;
+    progress.innerHTML = `${this.current}/${this.number}`;
 
-    // Modify the progress bar to reflect the percentage.
-    progress.innerHTML = `${percent}`;
+    progressContainter.appendChild(progress);
 
-    return progress;
-  }
-
-  /**
-   * Static method for creating the progress text. The progress text is an
-   * element which shows the ratio of current/number of the task.
-   * @param {string} current String of the number of current pomos this task
-   *                         completed.
-   * @param {string} number String of the number of estimated pomos this task has.
-   * @return {HTMLElement} the text element as described as p1 tag
-   */
-  static createProgressText(current, number) {
-    const progressT = `${current}/${number}`;
-    const progressText = document.createElement('p1');
-    progressText.setAttribute('class', 'progress-text');
-    progressText.innerHTML = `${progressT}`;
-    return progressText;
+    return progressContainter;
   }
 
   /**
@@ -276,10 +259,10 @@ class TaskItem extends HTMLElement {
    * @param {string} name the name of the task.
    * @returns {HTMLParagraphElement} The elemet containing the task's name.
    */
-  static createTask(name) {
-    const todoTask = document.createElement('p');
-    todoTask.innerHTML = name;
-    return todoTask;
+  static createTitle(name) {
+    const title = document.createElement('h1');
+    title.innerHTML = name;
+    return title;
   }
 
   /**
@@ -289,7 +272,7 @@ class TaskItem extends HTMLElement {
    */
   static createDrag() {
     const dragIcon = document.createElement('drag-ind');
-    dragIcon.setAttribute('class', 'material-icons');
+    dragIcon.setAttribute('class', 'icon');
     dragIcon.textContent = 'drag_indicator';
     return dragIcon;
   }
@@ -319,7 +302,7 @@ class TaskItem extends HTMLElement {
   createPlayButton() {
     // Create play button element
     const playButton = document.createElement('button');
-    playButton.setAttribute('class', 'material-icons ');
+    playButton.setAttribute('class', 'icon ');
     playButton.setAttribute('job', 'play');
     playButton.textContent = 'play_circle';
     playButton.disabled = this.completed === 'true';
@@ -334,9 +317,8 @@ class TaskItem extends HTMLElement {
   createEditButton() {
     // Create the edit button element
     const editButton = document.createElement('button');
-    editButton.setAttribute('class', 'material-icons');
+    editButton.setAttribute('class', 'icon');
     editButton.setAttribute('job', 'edit');
-    editButton.name = 'edit';
     editButton.textContent = 'mode_edit';
     editButton.disabled =
       this.completed === 'true' || parseInt(this.current, 10) > 0;
@@ -351,19 +333,9 @@ class TaskItem extends HTMLElement {
   static createDeleteButton() {
     // Create the delete button
     const deleteButton = document.createElement('button');
-    deleteButton.setAttribute(
-      'class',
-      'p-2 bd-highlight btn  delete-btn flex-right hide'
-    );
-    deleteButton.setAttribute('id', `delete-btn`);
-    deleteButton.setAttribute('type', 'button');
-
-    // Create the delete icon
-    const deleteIcon = document.createElement('span');
-    deleteIcon.setAttribute('class', 'material-icons delete-btn hide');
-    deleteIcon.setAttribute('job', 'delete');
-    deleteIcon.textContent = 'delete';
-    deleteButton.appendChild(deleteIcon);
+    deleteButton.setAttribute('class', 'icon');
+    deleteButton.setAttribute('job', 'delete');
+    deleteButton.textContent = 'delete';
     return deleteButton;
   }
 
@@ -372,8 +344,7 @@ class TaskItem extends HTMLElement {
    * @returns {string} The style sheet for the task item's shadow DOM.
    */
   static getStyleSheets() {
-    return `<link rel="stylesheet" href="task-item.css"/>
-            <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>`;
+    return `<link rel="stylesheet" href="task-item.css"/>`;
   }
 }
 customElements.define('task-item', TaskItem);
