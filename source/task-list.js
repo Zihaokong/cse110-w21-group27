@@ -306,7 +306,6 @@ class TaskList extends HTMLElement {
   handleDragOver(event) {
     event.preventDefault();
     const currentNodePos = this.setNodePos(event.clientY);
-
     // If the currentNodePos changes from the previousNodePos, set the previous
     //  to the current and swap the selected task with the task associated with
     //  the currentPosition.
@@ -316,8 +315,6 @@ class TaskList extends HTMLElement {
         this.selectedNode,
         this.dropzone.children[currentNodePos]
       );
-      this.selectedNode.checkmark.checked = this.checked;
-
       // re-ordering item in localStorage
       const newArray = [];
       for (let i = 0; i < this.nodes.length; i++) {

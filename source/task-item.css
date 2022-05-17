@@ -1,34 +1,38 @@
-/* Section for drag button */
-.drag-btn {
+
+section{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
   
-  margin-right: 5%;
-  margin-left: -1em;
-  text-align: center;
-  line-height: inherit;
+  font-size: 1.5rem;
   
-  background-color: transparent;
+  border: 1px solid rgba(46, 71, 86, 0.075);
   border-radius: 10px;
+  opacity: 0.5;
+  transition: opacity 0.3s;
+}
+
+section:hover {
+  opacity: 1;
+  
 }
 
 /*
  * Section for the checkbox in task item
  */
-.form-check-input[type="checkbox"] {
+input {
   color: #e5e5e5;
-  border-radius: 50% !important;
-  display: inline-block;
-  margin-left: 5%;
-  position: inline-block;
   width: 1.3em;
   height: 1.3em;
   border-color: #e5e5e5;
 }
 
-.form-check-input[type="checkbox"]:checked {
+input:checked {
   background-color: #2e4756;
   border-color: #2e4756;
 }
-.form-check-input[type="checkbox"]:focus {
+input:focus {
   border-color: #e5e5e5;
   box-shadow: 0 0 0 0.2rem rgba(46, 71, 86, 0.3);
 }
@@ -36,60 +40,13 @@
 /*
  * Section for the text of task in task item
  */
-p.task-item {
+p {
   margin: 0;
-  white-space: nowrap;
-  word-break: break-all;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-/* Section for progress-bar */
-.progress {
-  width: 25% !important;
-  min-width:  25% !important;
-  margin-right: 5%;
-  margin-top: 0.25%;
-}
-
-.progress-bar {
-  background-color: #2e4756 !important;
-}
-.progress-text{
-  padding-right: 2% !important;
-}
-
-
-/* For material icon adjustment */
-.material-icons {
-  font-size: 48px !important;
-  font-weight: bold;
-}
-
 button {
-  border: none;
-  background: #00000000;
-  
-}
-
-.hide,  :host(.hide){
-  visibility: hidden !important;
-  border: none;
-  /* background:none; */
-  opacity: 0;
-  transition: opacity 0.75s ease !important;
-}
-
-:host(:hover) .hide {
-  opacity: 1;
-  visibility:visible  !important;
-}   
-
-.btn{
-  padding-left: 0% !important;
-  padding-right: 0% !important;
-}
-.play-btn, .edit-btn, .delete-btn{
   color: #2e4756;
   border: none;
   cursor: pointer;
@@ -99,6 +56,22 @@ button {
   box-shadow: none;
 }
 
-.btn:focus, .btn:active {
-  box-shadow: none !important;
+button:disabled {
+  cursor: auto;
+  opacity: 0.5;
+}
+
+.material-icons {
+  font-family: 'Material Icons';
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  font-feature-settings: 'liga';
 }
