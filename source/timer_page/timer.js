@@ -63,11 +63,13 @@ function timerPageInit() {
   // render current task name to timer page
   const id = JSON.parse(localStorage.getItem('currentTask'));
   allTasks = JSON.parse(localStorage.getItem('allTasks'));
-  for (let i = 0; i < allTasks.length; i++) {
-    if (allTasks[i].id === id) {
-      currentTaskId = i;
-      document.getElementById('currTask').innerHTML =
-        allTasks[currentTaskId].name;
+  if (allTasks && id) {
+    for (let i = 0; i < allTasks.length; i++) {
+      if (allTasks[i].id === id) {
+        currentTaskId = i;
+        document.getElementById('currTask').innerHTML =
+          allTasks[currentTaskId].name;
+      }
     }
   }
   resetProgressRing();
