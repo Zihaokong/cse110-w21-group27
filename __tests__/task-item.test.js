@@ -34,10 +34,9 @@ describe('Task Item Test Constructor', () => {
     const createPlayButtonSpy = jest.spyOn(taskItemElement, 'createPlayButton');
     const createEditButtonSpy = jest.spyOn(taskItemElement, 'createEditButton');
     const createDeleteButtonSpy = jest.spyOn(TaskItem, 'createDeleteButton');
-    const styleSheetsSpy = jest.spyOn(TaskItem, 'styleSheets');
 
     // Setup taskItemElement
-    taskItemElement.setAttribute('id', inputTask.id);
+    taskItemElement.id = inputTask.id;
     taskItemElement.completed = inputTask.completed;
     taskItemElement.name = inputTask.name;
     taskItemElement.number = inputTask.number;
@@ -54,7 +53,6 @@ describe('Task Item Test Constructor', () => {
     expect(createPlayButtonSpy).toHaveBeenCalled();
     expect(createEditButtonSpy).toHaveBeenCalled();
     expect(createDeleteButtonSpy).toHaveBeenCalled();
-    expect(styleSheetsSpy).toHaveBeenCalled();
 
     // Expect taskName, number, current, and name to be correct
     expect(taskItemElement.taskName).toBe(inputTask.name);
@@ -87,21 +85,9 @@ describe('Task Item Test Functions', () => {
     taskItemElement.number = number;
     taskItemElement.current = current;
     const progressBar = taskItemElement.createProgressBar();
-    expect(progressBar.getAttribute('class')).toBe('flex-column progress');
-    expect(progressBar.firstChild.getAttribute('class')).toBe(
-      'progress-bar progress-bar'
-    );
-    expect(progressBar.firstChild.getAttribute('role')).toBe('progressbar');
-    expect(progressBar.firstChild.getAttribute('style')).toBe(
-      `width: ${percent};`
-    );
-    expect(progressBar.firstChild.getAttribute('aria-valuenow')).toBe(
-      `${current}`
-    );
-    expect(progressBar.firstChild.getAttribute('aria-valuemin')).toBe(
-      `${number}`
-    );
-    expect(progressBar.firstChild.innerHTML).toBe(`${percent}`);
+    expect(progressBar.firstChild).not.toBe(null);
+    expect(progressBar.firstChild.style.width).toBe(percent);
+    expect(progressBar.firstChild.innerHTML).toBe(`${current}/${number}`);
   });
 
   test('Test createProgressBar @ 100% && completed = false', () => {
@@ -114,21 +100,9 @@ describe('Task Item Test Functions', () => {
     taskItemElement.number = number;
     taskItemElement.current = current;
     const progressBar = taskItemElement.createProgressBar();
-    expect(progressBar.getAttribute('class')).toBe('flex-column progress');
-    expect(progressBar.firstChild.getAttribute('class')).toBe(
-      'progress-bar progress-bar'
-    );
-    expect(progressBar.firstChild.getAttribute('role')).toBe('progressbar');
-    expect(progressBar.firstChild.getAttribute('style')).toBe(
-      `width: ${percent};`
-    );
-    expect(progressBar.firstChild.getAttribute('aria-valuenow')).toBe(
-      `${current}`
-    );
-    expect(progressBar.firstChild.getAttribute('aria-valuemin')).toBe(
-      `${number}`
-    );
-    expect(progressBar.firstChild.innerHTML).toBe(`${percent}`);
+    expect(progressBar.firstChild).not.toBe(null);
+    expect(progressBar.firstChild.style.width).toBe(percent);
+    expect(progressBar.firstChild.innerHTML).toBe(`${current}/${number}`);
   });
 
   test('Test createProgressBar @ > 100% && completed = false', () => {
@@ -141,21 +115,9 @@ describe('Task Item Test Functions', () => {
     taskItemElement.number = number;
     taskItemElement.current = current;
     const progressBar = taskItemElement.createProgressBar();
-    expect(progressBar.getAttribute('class')).toBe('flex-column progress');
-    expect(progressBar.firstChild.getAttribute('class')).toBe(
-      'progress-bar progress-bar bg-danger'
-    );
-    expect(progressBar.firstChild.getAttribute('role')).toBe('progressbar');
-    expect(progressBar.firstChild.getAttribute('style')).toBe(
-      `width: ${percent};`
-    );
-    expect(progressBar.firstChild.getAttribute('aria-valuenow')).toBe(
-      `${current}`
-    );
-    expect(progressBar.firstChild.getAttribute('aria-valuemin')).toBe(
-      `${number}`
-    );
-    expect(progressBar.firstChild.innerHTML).toBe(`${percent}`);
+    expect(progressBar.firstChild).not.toBe(null);
+    expect(progressBar.firstChild.style.width).toBe(percent);
+    expect(progressBar.firstChild.innerHTML).toBe(`${current}/${number}`);
   });
 
   test('Test createProgressBar @ < 100% && completed = true', () => {
@@ -168,21 +130,9 @@ describe('Task Item Test Functions', () => {
     taskItemElement.number = number;
     taskItemElement.current = current;
     const progressBar = taskItemElement.createProgressBar();
-    expect(progressBar.getAttribute('class')).toBe('flex-column progress');
-    expect(progressBar.firstChild.getAttribute('class')).toBe(
-      'progress-bar progress-bar'
-    );
-    expect(progressBar.firstChild.getAttribute('role')).toBe('progressbar');
-    expect(progressBar.firstChild.getAttribute('style')).toBe(
-      `width: ${percent};`
-    );
-    expect(progressBar.firstChild.getAttribute('aria-valuenow')).toBe(
-      `${current}`
-    );
-    expect(progressBar.firstChild.getAttribute('aria-valuemin')).toBe(
-      `${number}`
-    );
-    expect(progressBar.firstChild.innerHTML).toBe(`${percent}`);
+    expect(progressBar.firstChild).not.toBe(null);
+    expect(progressBar.firstChild.style.width).toBe(percent);
+    expect(progressBar.firstChild.innerHTML).toBe(`${current}/${number}`);
   });
 
   test('Test createProgressBar @ 100% && completed = true', () => {
@@ -195,21 +145,9 @@ describe('Task Item Test Functions', () => {
     taskItemElement.number = number;
     taskItemElement.current = current;
     const progressBar = taskItemElement.createProgressBar();
-    expect(progressBar.getAttribute('class')).toBe('flex-column progress');
-    expect(progressBar.firstChild.getAttribute('class')).toBe(
-      'progress-bar progress-bar'
-    );
-    expect(progressBar.firstChild.getAttribute('role')).toBe('progressbar');
-    expect(progressBar.firstChild.getAttribute('style')).toBe(
-      `width: ${percent};`
-    );
-    expect(progressBar.firstChild.getAttribute('aria-valuenow')).toBe(
-      `${current}`
-    );
-    expect(progressBar.firstChild.getAttribute('aria-valuemin')).toBe(
-      `${number}`
-    );
-    expect(progressBar.firstChild.innerHTML).toBe(`${percent}`);
+    expect(progressBar.firstChild).not.toBe(null);
+    expect(progressBar.firstChild.style.width).toBe(percent);
+    expect(progressBar.firstChild.innerHTML).toBe(`${current}/${number}`);
   });
 
   test('Test createProgressBar @ > 100% && completed = true', () => {
@@ -222,38 +160,23 @@ describe('Task Item Test Functions', () => {
     taskItemElement.number = number;
     taskItemElement.current = current;
     const progressBar = taskItemElement.createProgressBar();
-    expect(progressBar.getAttribute('class')).toBe('flex-column progress');
-    expect(progressBar.firstChild.getAttribute('class')).toBe(
-      'progress-bar progress-bar bg-danger'
-    );
-    expect(progressBar.firstChild.getAttribute('role')).toBe('progressbar');
-    expect(progressBar.firstChild.getAttribute('style')).toBe(
-      `width: ${percent};`
-    );
-    expect(progressBar.firstChild.getAttribute('aria-valuenow')).toBe(
-      `${current}`
-    );
-    expect(progressBar.firstChild.getAttribute('aria-valuemin')).toBe(
-      `${number}`
-    );
-    expect(progressBar.firstChild.innerHTML).toBe(`${percent}`);
+    expect(progressBar.firstChild).not.toBe(null);
+    expect(progressBar.firstChild.style.width).toBe(percent);
+    expect(progressBar.firstChild.innerHTML).toBe(`${current}/${number}`);
   });
 
-  test('Test createTask', () => {
+  test('Test createTitle', () => {
     const name = 'testname';
-    const task = TaskItem.createTask(name);
-    expect(task.getAttribute('class')).toBe(
-      'p-2 flex-md-fill text-nowrap task-item'
-    );
-    expect(task.innerHTML).toBe(name);
+    const title = TaskItem.createTitle(name);
+    expect(title.getAttribute('class')).toBe(null);
+    expect(title.tagName).toBe('H1');
+    expect(title.innerHTML).toBe(name);
   });
 
   test('Test createDrag', () => {
     const dragIcon = TaskItem.createDrag();
-    expect(dragIcon.getAttribute('class')).toBe(
-      'p-2 inline material-icons drag-btn hide'
-    );
-    expect(dragIcon.getAttribute('id')).toBe('drag');
+    expect(dragIcon.getAttribute('class')).toBe('icon');
+    expect(dragIcon.tagName).toBe('DRAG-IND');
     expect(dragIcon.innerHTML).toBe('drag_indicator');
   });
 
@@ -270,7 +193,7 @@ describe('Task Item Test Functions', () => {
     const taskItemElement = document.createElement('task-item');
 
     // Setup taskItemElement
-    taskItemElement.setAttribute('id', inputTask.id);
+    taskItemElement.id = inputTask.id;
     taskItemElement.completed = inputTask.completed;
     taskItemElement.name = inputTask.name;
     taskItemElement.number = inputTask.number;
@@ -280,17 +203,10 @@ describe('Task Item Test Functions', () => {
     taskItemElement.checkmark.checked = inputTask.completed;
 
     const checkmark = taskItemElement.createCheckmark();
-    expect(checkmark.getAttribute('class')).toBe(
-      'p-2 form-check form-check-inline'
-    );
-    expect(checkmark.getAttribute('id')).toBe('checkmark');
-    expect(checkmark.childElementCount).toBe(2);
-    expect(checkmark.firstChild.getAttribute('class')).toBe(
-      'form-check-input input-mysize large'
-    );
-    expect(checkmark.firstChild.getAttribute('type')).toBe('checkbox');
-    expect(checkmark.firstChild.getAttribute('job')).toBe('check');
-    expect(checkmark.lastChild.getAttribute('for')).toBe('checkbox');
+
+    expect(checkmark.tagName).toBe('INPUT');
+    expect(checkmark.getAttribute('type')).toBe('checkbox');
+    expect(checkmark.checked).toBe(false);
   });
 
   test('Test createPlayButton when completed = false', () => {
@@ -316,18 +232,11 @@ describe('Task Item Test Functions', () => {
     taskItemElement.checkmark.checked = inputTask.completed;
 
     const playButton = taskItemElement.createPlayButton();
-    expect(playButton.getAttribute('class')).toBe(
-      'p-2 bd-highlight btn  play-btn flex-right hide'
-    );
-    expect(playButton.getAttribute('id')).toBe('play-btn');
-    expect(playButton.getAttribute('type')).toBe('button');
-    expect(playButton.childElementCount).toBe(1);
-    expect(playButton.firstElementChild.getAttribute('class')).toBe(
-      'material-icons play-btn hide'
-    );
-    expect(playButton.firstElementChild.getAttribute('job')).toBe('play');
-    expect(playButton.firstElementChild.innerHTML).toBe('play_circle');
-    expect(playButton.hasAttribute('disabled')).toBe(false);
+    expect(playButton.tagName).toBe('BUTTON');
+    expect(playButton.getAttribute('class')).toBe('icon');
+    expect(playButton.getAttribute('job')).toBe('play');
+    expect(playButton.textContent).toBe('play_circle');
+    expect(playButton.disabled).toBe(false);
   });
 
   test('Test createPlayButton when completed = true', () => {
@@ -354,18 +263,11 @@ describe('Task Item Test Functions', () => {
     taskItemElement.checkmark.checked = inputTask.completed;
 
     const playButton = taskItemElement.createPlayButton();
-    expect(playButton.getAttribute('class')).toBe(
-      'p-2 bd-highlight btn  play-btn flex-right hide'
-    );
-    expect(playButton.getAttribute('id')).toBe('play-btn');
-    expect(playButton.getAttribute('type')).toBe('button');
-    expect(playButton.childElementCount).toBe(1);
-    expect(playButton.firstElementChild.getAttribute('class')).toBe(
-      'material-icons play-btn hide'
-    );
-    expect(playButton.firstElementChild.getAttribute('job')).toBe('play');
-    expect(playButton.firstElementChild.innerHTML).toBe('play_circle');
-    expect(playButton.hasAttribute('disabled')).toBe(true);
+    expect(playButton.tagName).toBe('BUTTON');
+    expect(playButton.getAttribute('class')).toBe('icon');
+    expect(playButton.getAttribute('job')).toBe('play');
+    expect(playButton.textContent).toBe('play_circle');
+    expect(playButton.disabled).toBe(true);
   });
 
   test('Test createEditButton when completed = false && not started', () => {
@@ -391,18 +293,11 @@ describe('Task Item Test Functions', () => {
     taskItemElement.checkmark.checked = inputTask.completed;
 
     const editButton = taskItemElement.createEditButton();
-    expect(editButton.getAttribute('class')).toBe(
-      'p-2 bd-highlight btn  edit-btn flex-right hide'
-    );
-    expect(editButton.getAttribute('id')).toBe('edit-btn');
-    expect(editButton.getAttribute('type')).toBe('button');
-    expect(editButton.childElementCount).toBe(1);
-    expect(editButton.firstElementChild.getAttribute('class')).toBe(
-      'material-icons edit-btn hide'
-    );
-    expect(editButton.firstElementChild.getAttribute('job')).toBe('edit');
-    expect(editButton.firstElementChild.innerHTML).toBe('mode_edit');
-    expect(editButton.hasAttribute('disabled')).toBe(false);
+    expect(editButton.tagName).toBe('BUTTON');
+    expect(editButton.getAttribute('class')).toBe('icon');
+    expect(editButton.getAttribute('job')).toBe('edit');
+    expect(editButton.textContent).toBe('mode_edit');
+    expect(editButton.disabled).toBe(false);
   });
 
   test('Test createEditButton when completed = true && not started', () => {
@@ -428,18 +323,11 @@ describe('Task Item Test Functions', () => {
     taskItemElement.checkmark.checked = inputTask.completed;
 
     const editButton = taskItemElement.createEditButton();
-    expect(editButton.getAttribute('class')).toBe(
-      'p-2 bd-highlight btn  edit-btn flex-right hide'
-    );
-    expect(editButton.getAttribute('id')).toBe('edit-btn');
-    expect(editButton.getAttribute('type')).toBe('button');
-    expect(editButton.childElementCount).toBe(1);
-    expect(editButton.firstElementChild.getAttribute('class')).toBe(
-      'material-icons edit-btn hide'
-    );
-    expect(editButton.firstElementChild.getAttribute('job')).toBe('edit');
-    expect(editButton.firstElementChild.innerHTML).toBe('mode_edit');
-    expect(editButton.hasAttribute('disabled')).toBe(true);
+    expect(editButton.tagName).toBe('BUTTON');
+    expect(editButton.getAttribute('class')).toBe('icon');
+    expect(editButton.getAttribute('job')).toBe('edit');
+    expect(editButton.textContent).toBe('mode_edit');
+    expect(editButton.disabled).toBe(true);
   });
 
   test('Test createEditButton when completed = false && started', () => {
@@ -465,18 +353,11 @@ describe('Task Item Test Functions', () => {
     taskItemElement.checkmark.checked = inputTask.completed;
 
     const editButton = taskItemElement.createEditButton();
-    expect(editButton.getAttribute('class')).toBe(
-      'p-2 bd-highlight btn  edit-btn flex-right hide'
-    );
-    expect(editButton.getAttribute('id')).toBe('edit-btn');
-    expect(editButton.getAttribute('type')).toBe('button');
-    expect(editButton.childElementCount).toBe(1);
-    expect(editButton.firstElementChild.getAttribute('class')).toBe(
-      'material-icons edit-btn hide'
-    );
-    expect(editButton.firstElementChild.getAttribute('job')).toBe('edit');
-    expect(editButton.firstElementChild.innerHTML).toBe('mode_edit');
-    expect(editButton.hasAttribute('disabled')).toBe(true);
+    expect(editButton.tagName).toBe('BUTTON');
+    expect(editButton.getAttribute('class')).toBe('icon');
+    expect(editButton.getAttribute('job')).toBe('edit');
+    expect(editButton.textContent).toBe('mode_edit');
+    expect(editButton.disabled).toBe(true);
   });
 
   test('Test createEditButton when completed = true && started', () => {
@@ -502,33 +383,20 @@ describe('Task Item Test Functions', () => {
     taskItemElement.checkmark.checked = inputTask.completed;
 
     const editButton = taskItemElement.createEditButton();
-    expect(editButton.getAttribute('class')).toBe(
-      'p-2 bd-highlight btn  edit-btn flex-right hide'
-    );
-    expect(editButton.getAttribute('id')).toBe('edit-btn');
-    expect(editButton.getAttribute('type')).toBe('button');
-    expect(editButton.childElementCount).toBe(1);
-    expect(editButton.firstElementChild.getAttribute('class')).toBe(
-      'material-icons edit-btn hide'
-    );
-    expect(editButton.firstElementChild.getAttribute('job')).toBe('edit');
-    expect(editButton.firstElementChild.innerHTML).toBe('mode_edit');
-    expect(editButton.hasAttribute('disabled')).toBe(true);
+    expect(editButton.tagName).toBe('BUTTON');
+    expect(editButton.getAttribute('class')).toBe('icon');
+    expect(editButton.getAttribute('job')).toBe('edit');
+    expect(editButton.textContent).toBe('mode_edit');
+    expect(editButton.disabled).toBe(true);
   });
 
   test('Test createDeleteButton', () => {
     const deleteButton = TaskItem.createDeleteButton();
-    expect(deleteButton.getAttribute('class')).toBe(
-      'p-2 bd-highlight btn  delete-btn flex-right hide'
-    );
-    expect(deleteButton.getAttribute('id')).toBe('delete-btn');
-    expect(deleteButton.getAttribute('type')).toBe('button');
-    expect(deleteButton.childElementCount).toBe(1);
-    expect(deleteButton.firstElementChild.getAttribute('class')).toBe(
-      'material-icons delete-btn hide'
-    );
-    expect(deleteButton.firstElementChild.getAttribute('job')).toBe('delete');
-    expect(deleteButton.firstElementChild.innerHTML).toBe('delete');
+    expect(deleteButton.tagName).toBe('BUTTON');
+    expect(deleteButton.getAttribute('class')).toBe('icon');
+    expect(deleteButton.getAttribute('job')).toBe('delete');
+    expect(deleteButton.textContent).toBe('delete');
+    expect(deleteButton.disabled).toBe(false);
   });
 });
 
@@ -564,42 +432,12 @@ describe('Task Item Test Attributes', () => {
     taskItemElement.note = inputTask.note;
     document.getElementById('test').appendChild(taskItemElement);
     taskItemElement.checkmark.checked = inputTask.completed;
-    expect(taskItemElement.shadowRoot.querySelector('p').textContent).toBe(
+    expect(taskItemElement.shadowRoot.querySelector('h1').textContent).toBe(
       inputTask.name
     );
     taskItemElement.setAttribute('name', 'newTestName');
-    expect(taskItemElement.shadowRoot.querySelector('p').textContent).toBe(
+    expect(taskItemElement.shadowRoot.querySelector('h1').textContent).toBe(
       'newTestName'
-    );
-  });
-
-  test('Testing number attribute', () => {
-    const inputTask = {
-      id: '05023c2908555',
-      completed: true,
-      name: 'ThisIsATestingTask',
-      number: 4,
-      current: 1,
-      note: 'ThisIsNotes',
-    };
-    // Create element
-    const taskItemElement = document.createElement('task-item');
-
-    // Setup taskItemElement
-    taskItemElement.setAttribute('id', inputTask.id);
-    taskItemElement.completed = inputTask.completed;
-    taskItemElement.name = inputTask.name;
-    taskItemElement.number = inputTask.number;
-    taskItemElement.current = inputTask.current;
-    taskItemElement.note = inputTask.note;
-    document.getElementById('test').appendChild(taskItemElement);
-    taskItemElement.checkmark.checked = inputTask.completed;
-    expect(taskItemElement.shadowRoot.querySelector('p1').innerHTML).toBe(
-      `${inputTask.current}/${inputTask.number}`
-    );
-    taskItemElement.setAttribute('number', 5);
-    expect(taskItemElement.shadowRoot.querySelector('p1').innerHTML).toBe(
-      `${inputTask.current}/5`
     );
   });
 
@@ -625,17 +463,17 @@ describe('Task Item Test Attributes', () => {
     taskItemElement.note = inputTask.note;
     document.getElementById('test').appendChild(taskItemElement);
     taskItemElement.checkmark.checked = inputTask.completed;
-    const playButton = taskItemElement.shadowRoot.querySelector('.play-btn');
-    const editButton = taskItemElement.shadowRoot.querySelector('.edit-btn');
-    expect(playButton.hasAttribute('disabled')).toBe(false);
-    expect(editButton.hasAttribute('disabled')).toBe(false);
-    expect(playButton.firstChild.style.color).toBe('rgb(46, 71, 86)');
-    expect(editButton.firstChild.style.color).toBe('rgb(46, 71, 86)');
+    const playButton = taskItemElement.shadowRoot.querySelector(
+      'button[job="play"]'
+    );
+    const editButton = taskItemElement.shadowRoot.querySelector(
+      'button[job="edit"]'
+    );
+    expect(playButton.disabled).toBe(false);
+    expect(editButton.disabled).toBe(false);
     taskItemElement.setAttribute('completed', 'true');
-    expect(playButton.hasAttribute('disabled')).toBe(true);
-    expect(editButton.hasAttribute('disabled')).toBe(true);
-    expect(playButton.firstChild.style.color).toBe('rgb(196, 196, 196)');
-    expect(editButton.firstChild.style.color).toBe('rgb(196, 196, 196)');
+    expect(playButton.disabled).toBe(true);
+    expect(editButton.disabled).toBe(true);
   });
 
   test('Testing completed attribute true -> false (current == 0)', () => {
@@ -660,17 +498,17 @@ describe('Task Item Test Attributes', () => {
     taskItemElement.note = inputTask.note;
     document.getElementById('test').appendChild(taskItemElement);
     taskItemElement.checkmark.checked = inputTask.completed;
-    const playButton = taskItemElement.shadowRoot.querySelector('.play-btn');
-    const editButton = taskItemElement.shadowRoot.querySelector('.edit-btn');
+    const playButton = taskItemElement.shadowRoot.querySelector(
+      'button[job="play"]'
+    );
+    const editButton = taskItemElement.shadowRoot.querySelector(
+      'button[job="edit"]'
+    );
     expect(playButton.hasAttribute('disabled')).toBe(true);
     expect(editButton.hasAttribute('disabled')).toBe(true);
-    expect(playButton.firstChild.style.color).toBe('rgb(196, 196, 196)');
-    expect(editButton.firstChild.style.color).toBe('rgb(196, 196, 196)');
     taskItemElement.setAttribute('completed', 'false');
     expect(playButton.hasAttribute('disabled')).toBe(false);
     expect(editButton.hasAttribute('disabled')).toBe(false);
-    expect(playButton.firstChild.style.color).toBe('rgb(46, 71, 86)');
-    expect(editButton.firstChild.style.color).toBe('rgb(46, 71, 86)');
   });
 
   test('Testing completed attribute false -> true (current == 1)', () => {
@@ -695,17 +533,17 @@ describe('Task Item Test Attributes', () => {
     taskItemElement.note = inputTask.note;
     document.getElementById('test').appendChild(taskItemElement);
     taskItemElement.checkmark.checked = inputTask.completed;
-    const playButton = taskItemElement.shadowRoot.querySelector('.play-btn');
-    const editButton = taskItemElement.shadowRoot.querySelector('.edit-btn');
+    const playButton = taskItemElement.shadowRoot.querySelector(
+      'button[job="play"]'
+    );
+    const editButton = taskItemElement.shadowRoot.querySelector(
+      'button[job="edit"]'
+    );
     expect(playButton.hasAttribute('disabled')).toBe(false);
     expect(editButton.hasAttribute('disabled')).toBe(true);
-    expect(playButton.firstChild.style.color).toBe('rgb(46, 71, 86)');
-    expect(editButton.firstChild.style.color).toBe('rgb(196, 196, 196)');
     taskItemElement.setAttribute('completed', 'true');
     expect(playButton.hasAttribute('disabled')).toBe(true);
     expect(editButton.hasAttribute('disabled')).toBe(true);
-    expect(playButton.firstChild.style.color).toBe('rgb(196, 196, 196)');
-    expect(editButton.firstChild.style.color).toBe('rgb(196, 196, 196)');
   });
 
   test('Testing completed attribute true -> false (current == 1)', () => {
@@ -730,17 +568,17 @@ describe('Task Item Test Attributes', () => {
     taskItemElement.note = inputTask.note;
     document.getElementById('test').appendChild(taskItemElement);
     taskItemElement.checkmark.checked = inputTask.completed;
-    const playButton = taskItemElement.shadowRoot.querySelector('.play-btn');
-    const editButton = taskItemElement.shadowRoot.querySelector('.edit-btn');
+    const playButton = taskItemElement.shadowRoot.querySelector(
+      'button[job="play"]'
+    );
+    const editButton = taskItemElement.shadowRoot.querySelector(
+      'button[job="edit"]'
+    );
     expect(playButton.hasAttribute('disabled')).toBe(true);
     expect(editButton.hasAttribute('disabled')).toBe(true);
-    expect(playButton.firstChild.style.color).toBe('rgb(196, 196, 196)');
-    expect(editButton.firstChild.style.color).toBe('rgb(196, 196, 196)');
     taskItemElement.setAttribute('completed', 'false');
     expect(playButton.hasAttribute('disabled')).toBe(false);
     expect(editButton.hasAttribute('disabled')).toBe(true);
-    expect(playButton.firstChild.style.color).toBe('rgb(46, 71, 86)');
-    expect(editButton.firstChild.style.color).toBe('rgb(196, 196, 196)');
   });
 
   test('Testing current attribute current 0 -> 1', () => {
@@ -765,13 +603,13 @@ describe('Task Item Test Attributes', () => {
     document.getElementById('test').appendChild(taskItemElement);
     taskItemElement.checkmark.checked = inputTask.completed;
 
-    const editButton = taskItemElement.shadowRoot.querySelector('.edit-btn');
+    const editButton = taskItemElement.shadowRoot.querySelector(
+      'button[job="edit"]'
+    );
 
     expect(editButton.hasAttribute('disabled')).toBe(false);
-    expect(editButton.firstChild.style.color).toBe('rgb(46, 71, 86)');
     taskItemElement.setAttribute('current', 1);
     expect(editButton.hasAttribute('disabled')).toBe(true);
-    expect(editButton.firstChild.style.color).toBe('rgb(196, 196, 196)');
   });
 
   test('Testing current attribute current 0 -> 0', () => {
@@ -796,13 +634,13 @@ describe('Task Item Test Attributes', () => {
     document.getElementById('test').appendChild(taskItemElement);
     taskItemElement.checkmark.checked = inputTask.completed;
 
-    const editButton = taskItemElement.shadowRoot.querySelector('.edit-btn');
+    const editButton = taskItemElement.shadowRoot.querySelector(
+      'button[job="edit"]'
+    );
 
     expect(editButton.hasAttribute('disabled')).toBe(false);
-    expect(editButton.firstChild.style.color).toBe('rgb(46, 71, 86)');
     taskItemElement.setAttribute('current', 0);
     expect(editButton.hasAttribute('disabled')).toBe(false);
-    expect(editButton.firstChild.style.color).toBe('rgb(46, 71, 86)');
   });
 
   test('Testing current attribute current 1 -> 1', () => {
@@ -827,13 +665,13 @@ describe('Task Item Test Attributes', () => {
     document.getElementById('test').appendChild(taskItemElement);
     taskItemElement.checkmark.checked = inputTask.completed;
 
-    const editButton = taskItemElement.shadowRoot.querySelector('.edit-btn');
+    const editButton = taskItemElement.shadowRoot.querySelector(
+      'button[job="edit"]'
+    );
 
     expect(editButton.hasAttribute('disabled')).toBe(true);
-    expect(editButton.firstChild.style.color).toBe('rgb(196, 196, 196)');
     taskItemElement.setAttribute('current', 1);
     expect(editButton.hasAttribute('disabled')).toBe(true);
-    expect(editButton.firstChild.style.color).toBe('rgb(196, 196, 196)');
   });
 
   test('Testing current attribute current 1 -> 0', () => {
@@ -858,12 +696,12 @@ describe('Task Item Test Attributes', () => {
     document.getElementById('test').appendChild(taskItemElement);
     taskItemElement.checkmark.checked = inputTask.completed;
 
-    const editButton = taskItemElement.shadowRoot.querySelector('.edit-btn');
+    const editButton = taskItemElement.shadowRoot.querySelector(
+      'button[job="edit"]'
+    );
 
     expect(editButton.hasAttribute('disabled')).toBe(true);
-    expect(editButton.firstChild.style.color).toBe('rgb(196, 196, 196)');
     taskItemElement.setAttribute('current', 0);
     expect(editButton.hasAttribute('disabled')).toBe(true);
-    expect(editButton.firstChild.style.color).toBe('rgb(196, 196, 196)');
   });
 });

@@ -95,7 +95,7 @@ class TaskItem extends HTMLElement {
    * the <p>'s content from <task-item>
    */
   get taskName() {
-    return this.shadowRoot.querySelector('p').textContent;
+    return this.shadowRoot.querySelector('h1').textContent;
   }
 
   /**
@@ -189,18 +189,9 @@ class TaskItem extends HTMLElement {
       }
     }
 
-    // When changing the number, change the ratio of the task's pomos
-    if (name === 'number') {
-      if (this.shadowRoot.querySelector('p')) {
-        this.shadowRoot.querySelector(
-          'p'
-        ).innerHTML = `${this.current}/${newValue}`;
-      }
-    }
-
-    // When changing the completed, fill out the progress bar and disable the
+    // When changing the completed or number, fill out the progress bar and disable the
     // edit/play buttons.
-    if (name === 'completed') {
+    if (name === 'completed' || name === 'number') {
       // change the progress bar
       const oldProgressBar = this.shadowRoot.querySelector(
         'progress-container'
@@ -231,10 +222,9 @@ class TaskItem extends HTMLElement {
     // When changing the current pomo value (thereby increasing it), disable the
     // edit button.
     if (name === 'current') {
-      const editButton = this.shadowRoot.querySelector('.edit-btn');
+      const editButton = this.shadowRoot.querySelector('button[job="edit"]');
       if (editButton && newValue > 0) {
         editButton.disabled = true;
-        editButton.firstChild.style.color = '#c4c4c4';
       }
     }
   }
