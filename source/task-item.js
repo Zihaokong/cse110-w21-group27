@@ -104,7 +104,15 @@ class TaskItem extends HTMLElement {
    * task's shadow DOM.
    */
   connectedCallback() {
-    // Set attributes for bootstrap.
+    if (this.shadowRoot.childNodes.length === 0) this.constructShadowDOM();
+  }
+
+  /**
+   * Constructs the shadow DOM of the task item. Should only be called once
+   * during the initial connected callback.
+   */
+  constructShadowDOM() {
+    // Set the draggable attribute for task-item mobility
     this.draggable = true;
 
     const section = document.createElement('section');
@@ -116,7 +124,7 @@ class TaskItem extends HTMLElement {
     const checkmark = this.createCheckmark();
     checkmark.addEventListener('click', this.setCheck);
 
-    // Creatingtitle for task
+    // Creating title for task
     const title = TaskItem.createTitle(this.name);
 
     // Creating the progress-bar

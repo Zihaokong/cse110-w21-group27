@@ -19,7 +19,7 @@
   }
   h1 {
     flex: 1 0 auto;
-    max-width: 20%;
+    width: 20%;
   }
   p {
     flex: 0 0 auto;
