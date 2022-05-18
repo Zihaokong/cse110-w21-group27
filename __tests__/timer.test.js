@@ -2,22 +2,46 @@ const {
   setProgress,
   resetProgressRing,
   displayBreakComplete,
-  continueTask,
   changeTask,
-  startShortBreak,
-  startLongBreak,
+  startBreak,
   startTimer,
   start,
   distractionCount,
   displayFailModal,
   failSession,
   quitFailModal,
-  displayShortBreak,
 } = require('../source/timer_page/timer');
 
-// require('../source/timer_page/timer');
+/**
+ * Created a mock local storage object since local storage does not exist in the
+ * jest enviornment.
+ * Inspired By:
+ * https://stackoverflow.com/questions/57092154/how-to-test-img-onload-using-jest
+ */
+class MockLocalStorage {
+  cosntructor() {
+    this.store = {};
+  }
 
-// localStorage.setItem('allTasks', 'sada');
+  clear() {
+    this.store = {};
+  }
+
+  getItem(key) {
+    return this.store[key] || null;
+  }
+
+  setItem(key, value) {
+    this.store[key] = String(value);
+  }
+
+  removeItem(key) {
+    delete this.store[key];
+  }
+}
+
+// Set up the mock local storage as the global local storage
+global.localStorage = new MockLocalStorage();
 
 document.body.innerHTML = `<!DOCTYPE html>
 <html lang="en">
@@ -36,6 +60,12 @@ document.body.innerHTML = `<!DOCTYPE html>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
+    <!-- Simple UI to change timer length-->
+    <input type="text" id="TimerMinutes" onchange="updateTimerLength('TimerMinutes')">
+    <input type="text" id="ShortBreakMinutes" onchange="updateTimerLength('ShortBreakMinutes')">
+    <input type="text" id="LongBreakMinutes" onchange="updateTimerLength('LongBreakMinutes')">
+    <!-- End of simple UI to change timer length-->
+    
     <!--My CSS-->
     <link rel="stylesheet" href="./timer.css" />
     <link rel="stylesheet" href="./timer-modals.css" />
@@ -182,17 +212,13 @@ allTasks.push(newTask1);
 allTasks.push(newTask2);
 allTasks.push(newTask3);
 
-Storage.prototype.getItem = jest.fn((item) => {
-  switch (item) {
-    case 'currentTask':
-      return '123456';
-    case 'allTasks':
-      return JSON.stringify(allTasks);
-    default:
-      return JSON.stringify(allTasks);
-  }
-});
 describe('Test Timer functions', () => {
+  beforeEach(() => {
+    localStorage.clear();
+    localStorage.setItem('currentTask', '123456');
+    localStorage.setItem('allTasks', JSON.stringify(allTasks));
+  });
+
   test('Set Progress function test', () => {
     setProgress(50);
     expect(
@@ -233,21 +259,24 @@ describe('Test Timer functions', () => {
   });
 
   test('start short break function test', () => {
-    startShortBreak();
+    localStorage.clear();
+    localStorage.setItem('ShortBreak', 'true');
+    startBreak();
     expect(document.getElementById('container-short').style.display).toBe(
       'none'
     );
   });
 
   test('start long break function test', () => {
-    startLongBreak();
+    localStorage.clear();
+    startBreak();
     expect(document.getElementById('container-long').style.display).toBe(
       'none'
     );
   });
 
   test('display short break function test', () => {
-    displayShortBreak();
+    startBreak();
   });
 
   test('startTimer function test', () => {
