@@ -12,6 +12,12 @@ const {
   quitFailModal,
 } = require('../source/timer_page/timer');
 
+/**
+ * Created a mock local storage object since local storage does not exist in the
+ * jest enviornment.
+ * Inspired By:
+ * https://stackoverflow.com/questions/57092154/how-to-test-img-onload-using-jest
+ */
 class MockLocalStorage {
   cosntructor() {
     this.store = {};
@@ -34,6 +40,7 @@ class MockLocalStorage {
   }
 }
 
+// Set up the mock local storage as the global local storage
 global.localStorage = new MockLocalStorage();
 
 document.body.innerHTML = `<!DOCTYPE html>
@@ -205,16 +212,6 @@ allTasks.push(newTask1);
 allTasks.push(newTask2);
 allTasks.push(newTask3);
 
-// Storage.prototype.getItem = jest.fn((item) => {
-//   switch (item) {
-//     case 'currentTask':
-//       return '123456';
-//     case 'allTasks':
-//       return JSON.stringify(allTasks);
-//     default:
-//       return JSON.stringify(allTasks);
-//   }
-// });
 describe('Test Timer functions', () => {
   beforeEach(() => {
     localStorage.clear();
