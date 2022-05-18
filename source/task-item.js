@@ -105,7 +105,7 @@ class TaskItem extends HTMLElement {
    */
   connectedCallback() {
     // Set attributes for bootstrap.
-    this.setAttribute('draggable', 'true');
+    this.draggable = true;
 
     const section = document.createElement('section');
 
@@ -134,8 +134,12 @@ class TaskItem extends HTMLElement {
     const deleteButton = TaskItem.createDeleteButton();
     deleteButton.addEventListener('click', this.deleteTask);
 
-    // Append the elements created into the shadow DOM.
-    this.shadowRoot.innerHTML = TaskItem.getStyleSheets();
+    // Create the style
+    const styleSheet = document.createElement('link');
+    styleSheet.rel = 'stylesheet';
+    styleSheet.href = 'task-item.css';
+
+    this.shadowRoot.appendChild(styleSheet);
     this.shadowRoot.appendChild(section);
     section.appendChild(dragIcon);
     section.appendChild(checkmark);
@@ -279,7 +283,7 @@ class TaskItem extends HTMLElement {
    */
   static createDrag() {
     const dragIcon = document.createElement('drag-ind');
-    dragIcon.setAttribute('class', 'icon');
+    dragIcon.className = 'icon';
     dragIcon.textContent = 'drag_indicator';
     return dragIcon;
   }
@@ -294,8 +298,6 @@ class TaskItem extends HTMLElement {
     // Create the checkmark
     const checkmarkInput = document.createElement('input');
     checkmarkInput.setAttribute('type', 'checkbox');
-    checkmarkInput.setAttribute('job', 'check');
-    checkmarkInput.setAttribute('id', 'checkmark-input');
     const isCompleted = this.completed === 'true';
     checkmarkInput.checked = isCompleted;
     return checkmarkInput;
@@ -309,7 +311,7 @@ class TaskItem extends HTMLElement {
   createPlayButton() {
     // Create play button element
     const playButton = document.createElement('button');
-    playButton.setAttribute('class', 'icon ');
+    playButton.className = 'icon';
     playButton.setAttribute('job', 'play');
     playButton.textContent = 'play_circle';
     playButton.disabled = this.completed === 'true';
@@ -324,7 +326,7 @@ class TaskItem extends HTMLElement {
   createEditButton() {
     // Create the edit button element
     const editButton = document.createElement('button');
-    editButton.setAttribute('class', 'icon');
+    editButton.className = 'icon';
     editButton.setAttribute('job', 'edit');
     editButton.textContent = 'mode_edit';
     editButton.disabled =
@@ -340,18 +342,10 @@ class TaskItem extends HTMLElement {
   static createDeleteButton() {
     // Create the delete button
     const deleteButton = document.createElement('button');
-    deleteButton.setAttribute('class', 'icon');
+    deleteButton.className = 'icon';
     deleteButton.setAttribute('job', 'delete');
     deleteButton.textContent = 'delete';
     return deleteButton;
-  }
-
-  /**
-   * Method for the styles sheets
-   * @returns {string} The style sheet for the task item's shadow DOM.
-   */
-  static getStyleSheets() {
-    return `<link rel="stylesheet" href="task-item.css"/>`;
   }
 }
 customElements.define('task-item', TaskItem);
