@@ -26,12 +26,11 @@ describe('Task Item Test Constructor', () => {
     // Create Spies for functions called in connectedCallback
     const createDragSpy = jest.spyOn(TaskItem, 'createDrag');
     const createCheckmarkSpy = jest.spyOn(taskItemElement, 'createCheckmark');
-    const createTaskSpy = jest.spyOn(TaskItem, 'createTask');
+    const createTaskSpy = jest.spyOn(TaskItem, 'createTitle');
     const createProgressBarSpy = jest.spyOn(
       taskItemElement,
       'createProgressBar'
     );
-    const createProgressTextSpy = jest.spyOn(TaskItem, 'createProgressText');
     const createPlayButtonSpy = jest.spyOn(taskItemElement, 'createPlayButton');
     const createEditButtonSpy = jest.spyOn(taskItemElement, 'createEditButton');
     const createDeleteButtonSpy = jest.spyOn(TaskItem, 'createDeleteButton');
@@ -52,7 +51,6 @@ describe('Task Item Test Constructor', () => {
     expect(createCheckmarkSpy).toHaveBeenCalled();
     expect(createTaskSpy).toHaveBeenCalled();
     expect(createProgressBarSpy).toHaveBeenCalled();
-    expect(createProgressTextSpy).toHaveBeenCalled();
     expect(createPlayButtonSpy).toHaveBeenCalled();
     expect(createEditButtonSpy).toHaveBeenCalled();
     expect(createDeleteButtonSpy).toHaveBeenCalled();

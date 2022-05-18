@@ -1,4 +1,4 @@
-require('../source/task');
+require('../source/task-list');
 require('../source/task-item');
 
 require('../source/task-item');
@@ -153,35 +153,35 @@ describe('Test task-list that has pre-existing tasks', () => {
     expect(
       taskList.shadowRoot
         .getElementById('main-list')
-        .children[0].getAttribute('id')
+        .children[0].children[0].getAttribute('id')
     ).toBe('1');
 
     // Test name
     expect(
       taskList.shadowRoot
         .getElementById('main-list')
-        .children[0].getAttribute('name')
+        .children[0].children[0].getAttribute('name')
     ).toBe('name1');
 
     // Test numumber
     expect(
       taskList.shadowRoot
         .getElementById('main-list')
-        .children[0].getAttribute('number')
+        .children[0].children[0].getAttribute('number')
     ).toBe('1');
 
     // Test current
     expect(
       taskList.shadowRoot
         .getElementById('main-list')
-        .children[0].getAttribute('current')
+        .children[0].children[0].getAttribute('current')
     ).toBe('0');
 
     // Test completed
     expect(
       taskList.shadowRoot
         .getElementById('main-list')
-        .children[0].getAttribute('completed')
+        .children[0].children[0].getAttribute('completed')
     ).toBe('false');
 
     // Test the allTasks values for the task item
@@ -194,35 +194,35 @@ describe('Test task-list that has pre-existing tasks', () => {
     expect(
       taskList.shadowRoot
         .getElementById('main-list')
-        .children[1].getAttribute('id')
+        .children[0].children[1].getAttribute('id')
     ).toBe('2');
 
     // Test name
     expect(
       taskList.shadowRoot
         .getElementById('main-list')
-        .children[1].getAttribute('name')
+        .children[0].children[1].getAttribute('name')
     ).toBe('name2');
 
     // Test number
     expect(
       taskList.shadowRoot
         .getElementById('main-list')
-        .children[1].getAttribute('number')
+        .children[0].children[1].getAttribute('number')
     ).toBe('2');
 
     // Test current
     expect(
       taskList.shadowRoot
         .getElementById('main-list')
-        .children[1].getAttribute('current')
+        .children[0].children[1].getAttribute('current')
     ).toBe('1');
 
     // Test completed
     expect(
       taskList.shadowRoot
         .getElementById('main-list')
-        .children[1].getAttribute('completed')
+        .children[0].children[1].getAttribute('completed')
     ).toBe('true');
 
     // Test the allTasks values for the task item

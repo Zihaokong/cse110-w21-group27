@@ -105,7 +105,7 @@ class TaskList extends HTMLElement {
    */
   renderTask(taskInfo) {
     const taskItem = document.createElement('task-item');
-    taskItem.setAttribute('id', taskInfo.id);
+    taskItem.id = taskInfo.id;
     taskItem.name = taskInfo.name;
     taskItem.current = taskInfo.current;
     taskItem.number = taskInfo.number;

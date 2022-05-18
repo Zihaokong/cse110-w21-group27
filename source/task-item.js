@@ -166,7 +166,7 @@ class TaskItem extends HTMLElement {
    * attributes: {string}'name', {number}'number', {string}'completed',
    *             {number}'current'
    * @param {string} name name of the attribute being changed
-   * @param {*} oldValue NOT USED
+   * @param {*} oldValue Value is not used, only exists to fit function template
    * @param {string|number} newValue new value of the attribute
    */
   attributeChangedCallback(name, oldValue, newValue) {
@@ -190,8 +190,15 @@ class TaskItem extends HTMLElement {
     // edit/play buttons.
     if (name === 'completed') {
       // change the progress bar
-      const newProgressBar = this.createProgressBar();
-      // this.shadowRoot.replaceChild(newProgressBar, this.shadowRoot);
+      const oldProgressBar = this.shadowRoot.querySelector(
+        'progress-container'
+      );
+      if (oldProgressBar) {
+        const newProgressBar = this.createProgressBar();
+        this.shadowRoot
+          .querySelector('section')
+          .replaceChild(newProgressBar, oldProgressBar);
+      }
 
       const playButton = this.shadowRoot.querySelector('button[job="play"]');
       const editButton = this.shadowRoot.querySelector('button[job="edit"]');

@@ -172,7 +172,9 @@ function handleUnload() {
     'lastVisit',
     JSON.stringify(current.toLocaleDateString('en-US'))
   );
-  document.getElementById('main-container').remove();
+  if (document.getElementsByTagName('task-list')[0]) {
+    document.getElementsByTagName('task-list')[0].remove();
+  }
 }
 
 if (typeof exports !== 'undefined') {
