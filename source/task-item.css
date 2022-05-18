@@ -19,7 +19,7 @@
   }
   h1 {
     flex: 1 0 auto;
-    width: 20%;
+    max-width: 20%;
   }
   p {
     flex: 0 0 auto;
@@ -52,6 +52,8 @@
   }
   h1 {
     grid-area: title;
+    text-align: center;
+    width: 100%;
   }
   button[job="play"] {
     grid-area: start;
