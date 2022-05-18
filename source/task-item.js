@@ -246,11 +246,10 @@ class TaskItem extends HTMLElement {
    * @returns {HTMLDivElement} The progress bar element.
    */
   createProgressBar() {
-    let percent;
-    const isCompleted = this.completed === 'true';
+    let percent = '0%';
     // If the task is completed, force the percent to be 100%, else, get the
     // percentage of the completed pomos by the total amount of estimated pomos.
-    if (isCompleted) {
+    if (this.completed === 'true') {
       percent = '100%';
     } else {
       percent = (this.current / this.number) * 100;
