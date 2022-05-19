@@ -44,7 +44,7 @@
     <button id="add-task-btn-bottom" class="add-task-btn ">+</button>
     <label for="add-task-btn" class="bottom-add-task">Add Task</label>
     <button id="back-to-top" onclick="scrollFunc()">Top</button>
-    <a id="stats-btn" href="./stats_page/stats.html"><span class="material-icons">
+    <a id="stats-btn" href="./stats-page/stats.html"><span class="material-icons">
         format_list_bulleted
       </span></a>
   </main>
@@ -93,7 +93,7 @@
           <h2 class="w-100">Ready to Start?</h2>
         </div>
         <div class="modal-body">
-          <form id="timerform" action="./timer_page/timer.html">
+          <form id="timerform" action="./timer-page/timer.html">
             <label for="taskname">Task: </label>
             <span id="timer-name"></span>
             <label for="notes">Notes: </label>
@@ -176,28 +176,28 @@
   <div id="info-modal" class="modal-info">
     <div class="modal-content-info">
       <div class="modal-text">
-        <input id="close-btn" type="image" src="./images/close.png" onclick="closeInfoModal()" />
+        <input id="close-btn" type="image" src="/assets/images/close.png" onclick="closeInfoModal()" />
         <div class="heading-info">
           <h3>Information</h3>
         </div>
         <hr style="height:2px ;color: #282828;">
         <p>
-          <img id="btn1" src="./images/button1.png"> <span class="describe">Add new task to to-do list</span>
+          <img id="btn1" src="/assets/images/button1.png"> <span class="describe">Add new task to to-do list</span>
         </p>
         <p>
-          <img id="btn2" src="./images/button2.png"><span class="describe">Incomplete Task</span>
+          <img id="btn2" src="/assets/images/button2.png"><span class="describe">Incomplete Task</span>
         </p>
         <p>
-          <img id="btn3" src="./images/button3.png"><span class="describe">Complete Task</span>
+          <img id="btn3" src="/assets/images/button3.png"><span class="describe">Complete Task</span>
         </p>
         <p>
-          <img id="btn4" src="./images/button4.png"><span class="describe">Start work session for task</span>
+          <img id="btn4" src="/assets/images/button4.png"><span class="describe">Start work session for task</span>
         </p>
         <p>
-          <img id="btn5" src="./images/button5.png"><span class="describe">Edit task </span>
+          <img id="btn5" src="/assets/images/button5.png"><span class="describe">Edit task </span>
         </p>
         <p>
-          <img id="btn6" src="./images/button6.png"><span class="describe">Delete </span>
+          <img id="btn6" src="/assets/images/button6.png"><span class="describe">Delete </span>
         </p>
         <h3>Pomodoro Technique</h3>
         <hr>
@@ -239,9 +239,9 @@
 
 
   <script src="main.js"></script>
-  <script src="header-comp.js"></script>
-  <script src="task-item.js" defer></script>
-  <script src="task-list.js" defer></script>
+  <script src="/components/header-comp/header-comp.js"></script>
+  <script src="/components/task-item/task-item.js" defer></script>
+  <script src="/components/task-list/task-list.js" defer></script>
 </body>
 
 </html>
