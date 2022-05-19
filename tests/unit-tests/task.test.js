@@ -1,5 +1,5 @@
-require('../../source/task-list');
-require('../../source/task-item');
+require('../../source/components/task-item/task-item');
+require('../../source/components/task-list/task-list');
 
 describe('Test task-list that is initially null', () => {
   beforeEach(() => {
@@ -386,7 +386,7 @@ describe('Test task-list dragging', () => {
     const draggedTask = taskList.shadowRoot.getElementById('1');
 
     // Get the dropzone which handles drag n' drop functionality
-    const dropzone = taskList.shadowRoot.querySelector('ul');
+    const dropzone = taskList.shadowRoot.querySelector('section');
 
     // Create events to mimic dragging events that the user would trigger.
     const dragStartEvent = new Event('dragstart');

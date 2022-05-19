@@ -1,4 +1,4 @@
-require('../../source/header-comp');
+require('../../source/components/header-comp/header-comp');
 
 describe('Header Testing completed values', () => {
   test('Create Header where completed = 0', () => {
