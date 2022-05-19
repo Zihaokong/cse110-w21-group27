@@ -193,15 +193,9 @@ class TaskItem extends HTMLElement {
     // edit/play buttons.
     if (name === 'completed' || name === 'number') {
       // change the progress bar
-      const oldProgressBar = this.shadowRoot.querySelector(
-        'progress-container'
-      );
-      if (oldProgressBar) {
-        const newProgressBar = this.createProgressBar();
-        this.shadowRoot
-          .querySelector('section')
-          .replaceChild(newProgressBar, oldProgressBar);
-      }
+
+      if (this.shadowRoot.querySelector('progress-container'))
+        this.updateProgressBar();
 
       const playButton = this.shadowRoot.querySelector('button[job="play"]');
       const editButton = this.shadowRoot.querySelector('button[job="edit"]');
@@ -259,6 +253,33 @@ class TaskItem extends HTMLElement {
     progressContainter.appendChild(progress);
 
     return progressContainter;
+  }
+
+  /**
+   * Method for updating the progress bar for the task-item. The progress bar
+   * element shows the progress of the current task; changes based on the
+   * current and number attributes.
+   */
+  updateProgressBar() {
+    let percent = '0%';
+    // If the task is completed, force the percent to be 100%, else, get the
+    // percentage of the completed pomos by the total amount of estimated pomos.
+    if (this.completed === 'true') {
+      percent = '100%';
+    } else {
+      percent = (this.current / this.number) * 100;
+      if (percent >= 100) {
+        percent = '100%';
+      } else {
+        percent = `${percent.toFixed(2)}%`;
+      }
+    }
+
+    // the div for the progress itserlf and uses the attribute from the newTask object
+    const progressBar = this.shadowRoot.querySelector('progress-container');
+    const progress = progressBar.querySelector('progress-bar');
+    progress.style.width = percent;
+    progress.innerHTML = `${this.current}/${this.number}`;
   }
 
   /**

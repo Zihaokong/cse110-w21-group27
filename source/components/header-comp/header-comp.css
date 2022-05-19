@@ -1,9 +1,16 @@
+:root {
+  --primary-color: #2e4756;
+  --medium-color: #828282;
+  --light-color: #e5e5e5;
+  --btn-color: #fff;
+}
+
 .dot {
   height: 10px;
   width: 10px;
   padding: 10px;
   margin-right: 5px;
-  background-color: #e5e5e5;
+  background-color: var(--light-color);
   border-radius: 77%;
   border: 2px solid #ef7869;
   display: inline-block;

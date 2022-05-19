@@ -57,7 +57,7 @@ class TaskList extends HTMLElement {
       .addEventListener('submit', (e) => this.addTask(e));
 
     // Create and Appened a list container to house task-items
-    const list = document.createElement('ul');
+    const list = document.createElement('section');
     this.shadowRoot.append(list);
 
     // Get tasks from localStorage and, if they exist, create and append them
@@ -76,7 +76,7 @@ class TaskList extends HTMLElement {
     }
 
     // Drag and drop functionality
-    this.dropzone = this.shadowRoot.querySelector('ul');
+    this.dropzone = this.shadowRoot.querySelector('section');
 
     // getter for the list items
     this.nodes = this.dropzone.getElementsByTagName('task-item');
@@ -119,8 +119,8 @@ class TaskList extends HTMLElement {
       this.editTask.bind(this),
       this.setCheck.bind(this)
     );
-    // append the newly created <task-item> to ul
-    this.shadowRoot.querySelector('ul').appendChild(taskItem);
+    // append the newly created <task-item> to section
+    this.shadowRoot.querySelector('section').appendChild(taskItem);
   }
 
   /**
