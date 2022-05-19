@@ -5,7 +5,7 @@ span {
   margin: 5px;
   background-color: var(--light-color);
   border-radius: 77%;
-  border: 2px solid #ef7869;
+  border: 2px solid var(--light-color);
   display: inline-block;
 }
 
@@ -14,7 +14,7 @@ span {
 }
 
 .filled-dot {
-  background-color: #f2998e;
+  background-color: var(--primary-color);
 }
 
 section {

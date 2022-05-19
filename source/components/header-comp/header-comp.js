@@ -133,38 +133,14 @@ class HeaderComp extends HTMLElement {
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
-    if (name === 'completedcycles') {
-      const circleSection = this.shadowRoot.querySelector('section');
+    if (name === 'completedcycles' || name === 'isnewcycle') {
+      const circleSection = this.shadowRoot.querySelector('div');
 
       // check if section is loaded
       if (circleSection) {
-        // reset the section
-        circleSection.innerHTML = `      
-        <span>
-          <h2 id="completed-cycle" style="display: inline; color: #c4c4c4">
-          </h2>
-        </span>`;
-
+        circleSection.innerHTML = '';
         this.renderCounter();
         this.renderCompletedCount();
-      }
-    }
-
-    if (name === 'isnewcycle') {
-      if (newValue === 'true') {
-        const circleSection = this.shadowRoot.querySelector('section');
-        // check if section is loaded
-        if (circleSection) {
-          // reset the section
-          circleSection.innerHTML = `      
-          <span>
-            <h2 id="completed-cycle" style="display: inline; color: #c4c4c4">
-            </h2>
-          </span>`;
-
-          this.renderCounter();
-          this.renderCompletedCount();
-        }
       }
     }
   }
@@ -178,13 +154,13 @@ class HeaderComp extends HTMLElement {
       for (let i = 0; i < 4; i++) {
         const newCycle = document.createElement('span');
         newCycle.setAttribute('class', 'dot');
-        this.shadowRoot.getElementById('cycle-count').prepend(newCycle);
+        this.shadowRoot.querySelector('#cycle-count').prepend(newCycle);
       }
     } else if (this.completedCycles % 4 !== 0) {
       for (let i = 0; i < 4 - (this.completedCycles % 4); i++) {
         const newCycle = document.createElement('span');
         newCycle.setAttribute('class', 'dot');
-        this.shadowRoot.getElementById('cycle-count').prepend(newCycle);
+        this.shadowRoot.querySelector('#cycle-count').prepend(newCycle);
       }
     }
   }

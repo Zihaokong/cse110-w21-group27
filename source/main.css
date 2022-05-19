@@ -7,6 +7,9 @@
   --medium-color: #828282;
   --light-color: #e5e5e5;
   --btn-color: #fff;
+  --btn-hover-color: #64838c;
+  --small-text-color: red;
+  --background-color: rgba(0, 0, 0, 0.25)
 }
 
 .no-style {
@@ -46,12 +49,17 @@ body {
 
 #info{
   width: 2em;
-  background-color: var(--medium-color);
+  color: var(--btn-color);
   font-size: 20px;
   font-weight: 500;
-  color: var(--light-color);
+  background-color: var(--primary-color);
   border-radius: 50px;
   height: 2em;
+}
+
+#info:hover{
+  color: var(--light-color);
+  background: var(--btn-hover-color);
 }
 
 h1 {
@@ -90,7 +98,7 @@ h2 {
 }
 .add-task-btn:hover {
   color: var(--light-color);
-  background: #64838c;
+  background: var(--btn-hover-color);
 }
 
 #add-task-btn-bottom {
@@ -212,10 +220,6 @@ form div {
   width: 2em;
 }
 
-#info:hover{
-  background-color: var(--light-color);
-}
-
 .modal-info{
   position:fixed;
   display: none;
@@ -225,7 +229,7 @@ form div {
   height: 100%;
   width: 100%;
   overflow: auto;
-  background-color: rgba(0, 0, 0, 0.25);
+  background-color: var(--background-color);
 }
 
 .modal-content-info{
@@ -288,7 +292,7 @@ h3{
 }
 
 #small-text{
-  color: red;
+  color: var(--small-text-color);
 }
 
 label {

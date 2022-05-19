@@ -289,7 +289,7 @@ function start(mins, secs) {
  * @param {number} totalSeconds the totally needed seconds for the timer to run
  */
 function secondsTimer(startTime, totalSeconds) {
-  document.getElementById('header').isNewCycle = 'false';
+  document.getElementsByTagName('header-comp')[0].isNewCycle = 'false';
   const currTime = new Date();
   const elapsed = Math.floor((currTime - startTime) / 1000);
   const timeLeft = totalSeconds - elapsed;
@@ -345,7 +345,7 @@ function finishedTask() {
     localStorage.setItem('isPomo', 'false');
     // clear all circles for work session following longbreak
     if (localStorage.getItem('LongBreak') === 'true') {
-      document.getElementById('header').isNewCycle = 'true';
+      document.getElementsByTagName('header-comp')[0].isNewCycle = 'true';
     }
 
     localStorage.setItem('ShortBreak', 'false');
@@ -358,14 +358,14 @@ function finishedTask() {
     document.getElementById('failModal').style.display = 'none';
     isFailed = false;
     if (counter % 4 === 0) {
-      document.getElementById('header').completedCycles = counter;
+      document.getElementsByTagName('header-comp')[0].completedCycles = counter;
       localStorage.setItem('sessionCounter', `${counter}`);
       localStorage.setItem('distractCounter', `${todayDistract}`);
       localStorage.setItem('LongBreak', 'true');
       localStorage.setItem('ShortBreak', 'false');
       displayBreak();
     } else {
-      document.getElementById('header').completedCycles = counter;
+      document.getElementsByTagName('header-comp')[0].completedCycles = counter;
       localStorage.setItem('sessionCounter', `${counter}`);
       localStorage.setItem('distractCounter', `${todayDistract}`);
       localStorage.setItem('ShortBreak', 'true');
