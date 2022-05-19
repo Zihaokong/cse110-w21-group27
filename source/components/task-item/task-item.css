@@ -1,0 +1,234 @@
+button {
+  color: var(--primary-color);
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+button:enabled {
+  text-shadow: 1px 1px 0.1rem var(--medium-color);
+}
+
+button:hover:enabled {
+  animation: button-pop;
+  transform: scale(1.2);
+  animation-duration: 0.25s;
+}
+
+button:focus:enabled {
+  animation: button-click;
+  transform: scale(1);
+  animation-duration: 0.25s;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+button[job="play"] {
+  grid-area: start;
+}
+
+button[job="edit"] {
+  grid-area: edit;
+}
+
+button[job="delete"] {
+  grid-area: delete;
+}
+
+drag-ind {
+  grid-area: drag;
+}
+
+h1 {
+  display: inline-block;
+  margin: 0;
+  text-overflow: ellipsis;
+  overflow-wrap: break-word;
+  word-breaK:break-all;
+  font-size: calc(20px + 0.5vw);
+  grid-area: title;
+}
+
+input {
+  appearance: none;
+  cursor: pointer;
+  grid-area: check;
+  transition: box-shadow 0.2s ease-in-out;
+  transition: background-color 0.2s ease-in-out;
+  box-shadow: 1px 1px 0.1rem var(--primary-color);
+  background-color: var(--light-color);
+}
+
+input:checked {
+  background-color: var(--primary-color);
+  animation: check-pop;
+  transform: scale(1);
+  animation-duration: 0.25s;
+}
+
+input:hover {
+  box-shadow: 1px 1px 0.5rem var(--primary-color);
+}
+
+input:not(:checked):hover {
+  background-color: var(--medium-color);
+}
+
+p {
+  display: inline-block;
+}
+
+progress-bar {
+  display: inline-block;
+  height: 100%;
+  background-color: var(--primary-color);
+  color: var(--light-color);
+  font-size: 1.25rem;
+  text-align: center;
+  transition: width 0.3s ease-in-out;
+}
+
+progress-container {
+  display: inline-block;
+  grid-area: progress;
+  width: 100%;
+  height: 2rem;
+  background-color: var(--medium-color);
+  box-shadow: 1px 1px 0.2rem var(--primary-color);
+}
+
+section {
+  align-content: center;
+  align-items: center;
+  box-shadow: 1px 1px 0.5rem var(--primary-color);
+  cursor: grab;
+  display: grid;
+  grid-template-rows: auto;
+  justify-content: stretch;
+  justify-items: stretch;
+  margin:  10px 0px 10px;
+  opacity: 0.5;
+  transition: box-shadow 0.2s ease-in-out;
+  transition: opacity 0.3s ease-in-out;
+  
+}
+
+section:hover {
+  box-shadow: 1px 1px 0.7rem var(--primary-color);
+  opacity: 1;
+}
+
+.icon {
+  font-family: 'Material Icons';
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+  /* Support for IE. */
+  font-feature-settings: 'liga';
+}
+
+@media (min-width: 900px) {
+  
+  section{
+    grid-auto-columns: 1fr 1fr 10fr 10fr 1fr 1fr 1fr;
+    grid-template-areas:
+      "drag check title progress start edit delete";
+    padding: 10px 0px 10px;
+  }
+  
+  input {
+    height: 2rem;
+    width: 2rem;
+  }
+  
+  h1 {
+    text-align: left;
+  }
+  
+  .icon {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 900px) {
+  
+  section{
+    grid-auto-columns: 1fr 1fr 1fr 1fr;
+    grid-template-areas:
+      "title title title title"
+      "progress progress progress progress"
+      "check start edit delete";
+    padding: 10px 10px 10px;
+  }
+  
+  drag-ind {
+    display: none;
+  }
+  
+  input {
+    height: 3rem;
+    width: 3rem;
+  }
+  
+  h1 {
+    text-align: center;
+  }
+  
+  .icon {
+    font-size: 4rem;
+  }
+}
+
+@keyframes button-pop {
+  0% {
+    transform: scale(1);
+  }
+  
+  50% {
+    transform: scale(1.4);
+  }
+  
+  100% {
+    transform: scale(1.2);
+  }
+}
+
+@keyframes button-click {
+  0% {
+    transform: scale(1.2);
+  }
+  
+  50% {
+    transform: scale(0.9);
+  }
+  
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes check-pop {
+  0% {
+    transform: scale(1);
+  }
+  
+  33% {
+    transform: scale(0.8);
+  }
+  
+  66% {
+    transform: scale(1.1);
+  }
+  
+  100% {
+    transform: scale(1);
+  }
+}

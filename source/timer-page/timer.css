@@ -1,0 +1,269 @@
+@import url(https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap);
+@import url(https://fonts.googleapis.com/icon?family=Material+Icons);
+
+:root {
+--primary-color: #2e4756;
+--medium-color: #828282;
+--light-color: #e5e5e5;
+--btn-color: #fff;
+}
+  
+body{
+    background-image: linear-gradient(to right,#E0EAFC,#CFDEF3);
+    font-family: 'Poppins', sans-serif;
+    overflow-x: hidden;
+}
+
+.no-style {
+    display: none;
+}
+
+#currTask{
+    color:black;
+    font-size: 50px;
+}
+
+.row{
+    width: 100%;
+}
+
+h4{
+    font-size: 100px;
+    font-weight: bold;
+    color: #353535;
+}
+
+.timer{
+    color: black;
+    text-align: center;
+    width: 27.5rem;
+    height: 27.5rem;
+    border: 40px solid rgba(46, 71, 86, 0.25);
+    border-radius: 13.75rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position:relative;
+}
+
+.progress-ring{
+    position:absolute;
+}
+
+.progress-ring-circle {
+    transition: 0.5s;
+    transform: rotate(-90deg);
+    transform-origin: 50% 50%;
+  }
+
+button{
+    /*position: absolute;
+    top:82%;*/
+    margin: 5px;
+    padding: 10px;
+    border: none;
+    font-size: 30px;
+    transition: 0.5s ease-in-out;
+    text-align: center;
+    font-weight: lighter;
+}
+
+.start{
+    left:10%;
+}
+
+#button-container{
+    padding-top: 20px;
+    padding-left: 150px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#container-short{
+    padding-top: 20px;
+    display: none;
+    align-items: center;
+    padding-left: 38%;
+}
+
+#container-long{
+    padding-top: 20px;
+    display: none;
+    align-items: center;
+    padding-left: 38%;
+}
+
+#start-short-btn{
+    color:white;
+    background-color: #2E4756;
+    border-radius: 70px;
+    height:70px ; 
+    width:270px;
+    align-self: center;
+}
+
+.start-break-btn{
+    color:white;
+    background-color: #2E4756;
+    border-radius: 70px;
+    height:70px ; 
+    width:270px;
+    align-self: center;
+}
+
+#distraction-btn{
+    color:white;
+    background-color: #2E4756;
+    border-radius: 70px;
+    height:70px ; 
+    width:270px;
+    align-self: center;
+}
+
+#fail-btn{
+    color:white;
+    background-color: #EF7869;
+    border-radius: 70px;
+    height:70px ; 
+    width:130px;
+}
+
+#start-btn{
+    color:white;
+    background-color: #2E4756;
+    border-radius: 70px;
+    height:70px ; 
+    width:150px;
+    align-self: center;
+}
+
+.modal-break{
+    position:fixed;
+    display: none;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.25);
+}
+
+.modal-content-short_break{
+    background-color: #fefefe;
+    padding: 30px;
+    width: 40%;
+    height: 65%;
+    margin-top: 7.5%;
+    margin-left: 30%;
+    box-shadow: 0 5px 8px 0;
+}
+
+.heading-short_break{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.5rem;
+}
+h3{
+    font-size: 2.5rem;
+    color: #2E4756;
+}
+h2{
+    padding-top: 1.5rem;
+    text-align: center;
+    font-size: 3.5rem;
+    color: #2E4756;
+    
+}
+
+#party-icon{
+    width: 80px;
+    height:70px;
+}
+
+#start-button,#start-button-long {
+    font-family: "Poppins", sans-serif;
+    color: #ffffff;
+    font-size: 2.5rem;
+    font-weight: lighter;
+    width: 50%;
+    height: 30%;
+    border-radius: 40px;
+    background: #2E4756;
+    text-align: center;
+}
+
+#start-button:hover{
+    background: #64838c;
+}
+
+#strt-button{
+    padding-top: 2rem;
+    text-align: center;
+}
+
+.heading-fail{
+    font-size: 3.1rem;
+    color: #2E4756;
+    text-align: center;
+}
+
+#sad-face-container{
+    text-align: center;
+}
+
+#sad-face{
+    width: 120px;
+    height:120px;
+}
+
+.fail-buttons{
+    font-family: "Poppins", sans-serif;
+    color: #ffffff;
+    font-size: 2.5rem;
+    font-weight: lighter;
+    width: 33%;
+    height: 20%;
+    border-radius: 40px;
+    text-align: center;
+}
+
+#fail-button{
+    background: #EF7869;
+}
+
+#cancel-button{
+    background: #C4C4C4;
+}
+
+#fail-button-container{
+    display: flex;
+    justify-content: center;
+}
+
+#heading-break-complete{
+    font-size: 3.5rem;
+    color: #2E4756;
+    text-align: center;
+}
+
+#button-task-container{
+    text-align: center;
+}
+
+.button-task-position{
+    padding-top: 2rem;
+}
+.button-task{
+    font-family: "Poppins", sans-serif;
+    color: #ffffff;
+    font-size: 3rem;
+    font-weight: lighter;
+    width: 80%;
+    height: 60%;
+    border-radius: 50px;
+    text-align: center;
+    background: #2E4756;
+}

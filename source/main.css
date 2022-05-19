@@ -1,15 +1,32 @@
 /* Styles for index.html and Modals */
+@import url(https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap);
+@import url(https://fonts.googleapis.com/icon?family=Material+Icons);
+
+:root {
+  --primary-color: #2e4756;
+  --medium-color: #828282;
+  --light-color: #e5e5e5;
+  --btn-color: #fff;
+  --btn-hover-color: #64838c;
+  --small-text-color: red;
+  --background-color: rgba(0, 0, 0, 0.25)
+}
+
+.no-style {
+  display: none;
+}
 
 /* Body background and font */
 #welcome-message {
   text-align: center;
 }
+
 head,
 body {
-  background: #e5e5e5;
+  background: var(--light-color);
   margin: 0 0;
   overflow-x: hidden;
-  color: #2e4756;
+  color: var(--medium-color);
   font-family: "Poppins", sans-serif;
 }
 
@@ -32,12 +49,17 @@ body {
 
 #info{
   width: 2em;
-  background-color: #828282;
+  color: var(--btn-color);
   font-size: 20px;
   font-weight: 500;
-  color: #ffffff;
+  background-color: var(--primary-color);
   border-radius: 50px;
   height: 2em;
+}
+
+#info:hover{
+  color: var(--light-color);
+  background: var(--btn-hover-color);
 }
 
 h1 {
@@ -50,16 +72,9 @@ h2 {
 }
 
 #header-divider {
-  border: 1px solid #000000 !important;
   margin-left: 7.5rem !important;
   margin-right: 5.5rem !important;
 }
-
-
-hr {
-  border: 1px solid #000000;
-}
-
 
 #todo-title {
   margin-top: 2%;
@@ -74,16 +89,16 @@ hr {
 .add-task-btn {
   float: right;
   font-family: "Poppins", sans-serif;
-  color: #e5e5e5;
+  color: var(--btn-color);
   font-size: 15px;
   font-weight: 550;
   padding: 10px 15px;
   border-radius: 40px;
-  background: #2e4756;
+  background: var(--primary-color);
 }
 .add-task-btn:hover {
-  color: #e5e5e5;
-  background: #64838c;
+  color: var(--light-color);
+  background: var(--btn-hover-color);
 }
 
 #add-task-btn-bottom {
@@ -97,41 +112,6 @@ hr {
   margin-left: 10%;
   margin-bottom: 2%;
 }
-.bottom-add-task{
-  margin-top: 2%;
-  padding-top: 0.5%;
-  padding-left: 1%;
-}
-
-#back-to-top {
-  position: fixed;
-  bottom: 2%;
-  right: 2%;
-  z-index: 99;
-  background-color: #2e4756;
-  color: white;
-  padding: 10px 10px;
-  border-radius: 4px;
-  font-family: "Poppins", sans-serif;
-  font-size: 16px;
-}
-
-#stats-btn{
-  background: #E5E5E5;
-  color: #2e4756 !important;
-  position: absolute;
-  top: 2%;
-  right: 2%;
-  z-index: 99;
-  padding-top: 2px;
-  border-radius: 55%;
-  box-shadow: none;
-  justify-content: center;
-}
-
-#stats-btn > span{
- padding: 2px 5px;
-}
 
 /* Styles for Modals */
 .modal {
@@ -144,19 +124,17 @@ hr {
   width: 100%; /* Full width */
   height: 100%; /* Full height */
   overflow-y: auto !important; /* Enable scroll if needed */
-  background-color: rgb(0, 0, 0); /* Fallback color */
-  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 }
 
 /* Modal Content */
 .modal-content {
-  background-color: #fefefe;
+  background-color: var(--light-color);
   font-size: 1.5rem;
   font-family: "Poppins", sans-serif;
   overflow:auto;
   margin: auto;
   padding: 20px;
-  border: 1px solid #888;
+  border: 1px solid var(--medium-color);
   width: 40%;
 }
 
@@ -176,14 +154,14 @@ form div {
   padding-left: 5%;
 }
 #timer-note{
-  background-color: #fefefe;
+  background-color: var(--light-color);
   font-size: 1.5rem;
 }
 
 
 /* The Close Button */
 .close {
-  color: #aaaaaa;
+  color: var(--medium-color);
   float: right;
   font-size: 28px;
   font-weight: bold;
@@ -191,7 +169,6 @@ form div {
 
 .close:hover,
 .close:focus {
-  color: #000;
   box-shadow: none !important;
   text-decoration: none;
   cursor: pointer;
@@ -203,12 +180,12 @@ form div {
 .submit-btn, .confirm-btn {
   float: right;
   font-family: "Poppins", sans-serif;
-  color: #ffffff;
+  color: var(--light-color);
   font-size: 30px;
   line-height: 45px;
   font-weight: 550;
   border-radius: 40px;
-  background: #2e4756;
+  background: var(--primary-color);
   width: 145px;
   height: 61px;
   margin-right: 23px;
@@ -220,14 +197,14 @@ form div {
 .cancel-btn {
   float: right;
   font-family: "Poppins", sans-serif;
-  color: #ffffff;
+  color: var(--light-color);
   font-size: 30px;
   line-height: 45px;
   font-weight: 550;
   width: 145px;
   height: 61px;
   border-radius: 40px;
-  background: #c4c4c4;
+  background: var(--primary-color);
   align-items: center;
   text-align: center;
 }
@@ -243,10 +220,6 @@ form div {
   width: 2em;
 }
 
-#info:hover{
-  background-color: #c4c4c4;
-}
-
 .modal-info{
   position:fixed;
   display: none;
@@ -256,11 +229,11 @@ form div {
   height: 100%;
   width: 100%;
   overflow: auto;
-  background-color: rgba(0, 0, 0, 0.25);
+  background-color: var(--background-color);
 }
 
 .modal-content-info{
-  background-color: #fefefe;
+  background-color: var(--light-color);
   padding: 30px;
   width: 50%;
   height: 70%;
@@ -319,7 +292,7 @@ h3{
 }
 
 #small-text{
-  color: red;
+  color: var(--small-text-color);
 }
 
 label {
@@ -331,7 +304,7 @@ input[type=text]{
   padding: 12px 20px;
   margin: 8px 0;
   display: inline-block;
-  border: 1px solid #ccc;
+  border: 1px solid var(--light-color);
   border-radius: 4px;
   box-sizing: border-box;
 }
@@ -341,7 +314,7 @@ input[type=number]{
   padding: 12px 20px;
   margin: 8px 0;
   display: inline-block;
-  border: 1px solid #ccc;
+  border: 1px solid var(--light-color);
   border-radius: 4px;
   box-sizing: border-box;
 }
@@ -351,8 +324,21 @@ textarea{
   padding: 12px 20px;
   margin: 8px 0;
   display: inline-block;
-  border: 1px solid #ccc;
+  border: 1px solid var(--light-color);
   border-radius: 4px;
   box-sizing: border-box;
 }
 
+@keyframes button-pop {
+  0% {
+    transform: scale(1);
+  }
+  
+  50% {
+    transform: scale(1.4);
+  }
+  
+  100% {
+    transform: scale(1.2);
+  }
+}
