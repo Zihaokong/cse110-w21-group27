@@ -174,7 +174,7 @@ function resetProgressRing() {
  * Display break complete modal, and sound.
  */
 function displayBreakComplete() {
-  const audio = new Audio('../media/break-tune.mp3');
+  const audio = new Audio('/assets/audio/break-tune.mp3');
   audio.play();
   document.getElementById('breakCompleteModal').style.display = 'block';
 }
@@ -215,7 +215,7 @@ function changeTask() {
  * Display break page, play sound and change appearance of website.
  */
 function displayBreak() {
-  const audio1 = new Audio('../media/work-tune.mp3');
+  const audio1 = new Audio('/assets/audio/work-tune.mp3');
   audio1.play();
   setTimeout(() => {
     resetProgressRing();
