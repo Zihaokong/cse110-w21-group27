@@ -6,7 +6,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="main.css" />
-  <link rel="stylesheet" href="task.css" />
   <!-- Material Icons  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 
@@ -37,11 +36,10 @@
     </div>
     <hr id="header-divider"/>
 
-      <p id="welcome-message"><b>Welcome. Add a task to get started.</b></p>
+    <p id="welcome-message"><b>Welcome. Add a task to get started.</b></p>
  
-
-    <task-list id="main-container">
-      <!-- ToDo from JS will append here -->
+    <task-list>
+      <!-- JS will append here -->
     </task-list>
     <button id="add-task-btn-bottom" class="add-task-btn ">+</button>
     <label for="add-task-btn" class="bottom-add-task">Add Task</label>
@@ -243,7 +241,7 @@
   <script src="main.js"></script>
   <script src="header-comp.js"></script>
   <script src="task-item.js" defer></script>
-  <script src="task.js" defer></script>
+  <script src="task-list.js" defer></script>
 </body>
 
 </html>

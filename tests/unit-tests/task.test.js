@@ -1,6 +1,4 @@
-require('../../source/task');
-require('../../source/task-item');
-
+require('../../source/task-list');
 require('../../source/task-item');
 
 describe('Test task-list that is initially null', () => {
@@ -29,11 +27,7 @@ describe('Test task-list that is initially null', () => {
     document.getElementById('test').appendChild(taskList);
 
     // Test list to make sure that it starts with no task items
-    expect(
-      taskList.shadowRoot
-        .getElementById('main-list')
-        .querySelectorAll('task-item').length
-    ).toBe(0);
+    expect(taskList.shadowRoot.querySelectorAll('task-item').length).toBe(0);
   });
 
   test('Creating a task list where allTasks is null and adding via form', () => {
@@ -48,38 +42,32 @@ describe('Test task-list that is initially null', () => {
     document.getElementById('taskform').submit();
 
     // Expect there to be one task item
-    expect(
-      taskList.shadowRoot
-        .getElementById('main-list')
-        .querySelectorAll('task-item').length
-    ).toBe(1);
+    expect(taskList.shadowRoot.querySelectorAll('task-item').length).toBe(1);
 
     // Test name
     expect(
-      taskList.shadowRoot
-        .getElementById('main-list')
-        .children[0].getAttribute('name')
+      taskList.shadowRoot.querySelectorAll('task-item')[0].getAttribute('name')
     ).toBe('testName');
 
     // Test num
     expect(
       taskList.shadowRoot
-        .getElementById('main-list')
-        .children[0].getAttribute('number')
+        .querySelectorAll('task-item')[0]
+        .getAttribute('number')
     ).toBe('1');
 
     // Test current
     expect(
       taskList.shadowRoot
-        .getElementById('main-list')
-        .children[0].getAttribute('current')
+        .querySelectorAll('task-item')[0]
+        .getAttribute('current')
     ).toBe('0');
 
     // Test completed
     expect(
       taskList.shadowRoot
-        .getElementById('main-list')
-        .children[0].getAttribute('completed')
+        .querySelectorAll('task-item')[0]
+        .getAttribute('completed')
     ).toBe('false');
 
     // Test the allTasks values for the task item
@@ -142,46 +130,38 @@ describe('Test task-list that has pre-existing tasks', () => {
     document.getElementById('test').appendChild(taskList);
 
     // Expect there to be two task items
-    expect(
-      taskList.shadowRoot
-        .getElementById('main-list')
-        .querySelectorAll('task-item').length
-    ).toBe(2);
+    expect(taskList.shadowRoot.querySelectorAll('task-item').length).toBe(2);
 
     // First Child Testing
     // Test id
     expect(
-      taskList.shadowRoot
-        .getElementById('main-list')
-        .children[0].getAttribute('id')
+      taskList.shadowRoot.querySelectorAll('task-item')[0].getAttribute('id')
     ).toBe('1');
 
     // Test name
     expect(
-      taskList.shadowRoot
-        .getElementById('main-list')
-        .children[0].getAttribute('name')
+      taskList.shadowRoot.querySelectorAll('task-item')[0].getAttribute('name')
     ).toBe('name1');
 
     // Test numumber
     expect(
       taskList.shadowRoot
-        .getElementById('main-list')
-        .children[0].getAttribute('number')
+        .querySelectorAll('task-item')[0]
+        .getAttribute('number')
     ).toBe('1');
 
     // Test current
     expect(
       taskList.shadowRoot
-        .getElementById('main-list')
-        .children[0].getAttribute('current')
+        .querySelectorAll('task-item')[0]
+        .getAttribute('current')
     ).toBe('0');
 
     // Test completed
     expect(
       taskList.shadowRoot
-        .getElementById('main-list')
-        .children[0].getAttribute('completed')
+        .querySelectorAll('task-item')[0]
+        .getAttribute('completed')
     ).toBe('false');
 
     // Test the allTasks values for the task item
@@ -192,37 +172,33 @@ describe('Test task-list that has pre-existing tasks', () => {
     // Second Child Testing
     // Test id
     expect(
-      taskList.shadowRoot
-        .getElementById('main-list')
-        .children[1].getAttribute('id')
+      taskList.shadowRoot.querySelectorAll('task-item')[1].getAttribute('id')
     ).toBe('2');
 
     // Test name
     expect(
-      taskList.shadowRoot
-        .getElementById('main-list')
-        .children[1].getAttribute('name')
+      taskList.shadowRoot.querySelectorAll('task-item')[1].getAttribute('name')
     ).toBe('name2');
 
     // Test number
     expect(
       taskList.shadowRoot
-        .getElementById('main-list')
-        .children[1].getAttribute('number')
+        .querySelectorAll('task-item')[1]
+        .getAttribute('number')
     ).toBe('2');
 
     // Test current
     expect(
       taskList.shadowRoot
-        .getElementById('main-list')
-        .children[1].getAttribute('current')
+        .querySelectorAll('task-item')[1]
+        .getAttribute('current')
     ).toBe('1');
 
     // Test completed
     expect(
       taskList.shadowRoot
-        .getElementById('main-list')
-        .children[1].getAttribute('completed')
+        .querySelectorAll('task-item')[1]
+        .getAttribute('completed')
     ).toBe('true');
 
     // Test the allTasks values for the task item
@@ -240,46 +216,38 @@ describe('Test task-list that has pre-existing tasks', () => {
     document.getElementById('task-note').value = 'note3';
     newButton.addEventListener('click', (e) => taskList.addTask(e));
     newButton.click();
-    expect(
-      taskList.shadowRoot
-        .getElementById('main-list')
-        .querySelectorAll('task-item').length
-    ).toBe(3);
+    expect(taskList.shadowRoot.querySelectorAll('task-item').length).toBe(3);
 
     // First Child Testing
     // Test id
     expect(
-      taskList.shadowRoot
-        .getElementById('main-list')
-        .children[0].getAttribute('id')
+      taskList.shadowRoot.querySelectorAll('task-item')[0].getAttribute('id')
     ).toBe('1');
 
     // Test name
     expect(
-      taskList.shadowRoot
-        .getElementById('main-list')
-        .children[0].getAttribute('name')
+      taskList.shadowRoot.querySelectorAll('task-item')[0].getAttribute('name')
     ).toBe('name1');
 
     // Test numumber
     expect(
       taskList.shadowRoot
-        .getElementById('main-list')
-        .children[0].getAttribute('number')
+        .querySelectorAll('task-item')[0]
+        .getAttribute('number')
     ).toBe('1');
 
     // Test current
     expect(
       taskList.shadowRoot
-        .getElementById('main-list')
-        .children[0].getAttribute('current')
+        .querySelectorAll('task-item')[0]
+        .getAttribute('current')
     ).toBe('0');
 
     // Test completed
     expect(
       taskList.shadowRoot
-        .getElementById('main-list')
-        .children[0].getAttribute('completed')
+        .querySelectorAll('task-item')[0]
+        .getAttribute('completed')
     ).toBe('false');
 
     // Test the allTasks values for the task item
@@ -290,37 +258,33 @@ describe('Test task-list that has pre-existing tasks', () => {
     // Second Child Testing
     // Test id
     expect(
-      taskList.shadowRoot
-        .getElementById('main-list')
-        .children[1].getAttribute('id')
+      taskList.shadowRoot.querySelectorAll('task-item')[1].getAttribute('id')
     ).toBe('2');
 
     // Test name
     expect(
-      taskList.shadowRoot
-        .getElementById('main-list')
-        .children[1].getAttribute('name')
+      taskList.shadowRoot.querySelectorAll('task-item')[1].getAttribute('name')
     ).toBe('name2');
 
     // Test number
     expect(
       taskList.shadowRoot
-        .getElementById('main-list')
-        .children[1].getAttribute('number')
+        .querySelectorAll('task-item')[1]
+        .getAttribute('number')
     ).toBe('2');
 
     // Test current
     expect(
       taskList.shadowRoot
-        .getElementById('main-list')
-        .children[1].getAttribute('current')
+        .querySelectorAll('task-item')[1]
+        .getAttribute('current')
     ).toBe('1');
 
     // Test completed
     expect(
       taskList.shadowRoot
-        .getElementById('main-list')
-        .children[1].getAttribute('completed')
+        .querySelectorAll('task-item')[1]
+        .getAttribute('completed')
     ).toBe('true');
 
     // Test the allTasks values for the task item
@@ -331,30 +295,28 @@ describe('Test task-list that has pre-existing tasks', () => {
     // Third Child Testing
     // Test name
     expect(
-      taskList.shadowRoot
-        .getElementById('main-list')
-        .children[2].getAttribute('name')
+      taskList.shadowRoot.querySelectorAll('task-item')[2].getAttribute('name')
     ).toBe('name3');
 
     // Test numumber
     expect(
       taskList.shadowRoot
-        .getElementById('main-list')
-        .children[2].getAttribute('number')
+        .querySelectorAll('task-item')[2]
+        .getAttribute('number')
     ).toBe('3');
 
     // Test current
     expect(
       taskList.shadowRoot
-        .getElementById('main-list')
-        .children[2].getAttribute('current')
+        .querySelectorAll('task-item')[2]
+        .getAttribute('current')
     ).toBe('0');
 
     // Test completed
     expect(
       taskList.shadowRoot
-        .getElementById('main-list')
-        .children[2].getAttribute('completed')
+        .querySelectorAll('task-item')[2]
+        .getAttribute('completed')
     ).toBe('false');
 
     // Test the allTasks values for the task item
@@ -451,37 +413,33 @@ describe('Test task-list dragging', () => {
     // New First Child Testing
     // Test id
     expect(
-      taskList.shadowRoot
-        .getElementById('main-list')
-        .children[0].getAttribute('id')
+      taskList.shadowRoot.querySelectorAll('task-item')[0].getAttribute('id')
     ).toBe('2');
 
     // Test name
     expect(
-      taskList.shadowRoot
-        .getElementById('main-list')
-        .children[0].getAttribute('name')
+      taskList.shadowRoot.querySelectorAll('task-item')[0].getAttribute('name')
     ).toBe('name2');
 
     // Test number
     expect(
       taskList.shadowRoot
-        .getElementById('main-list')
-        .children[0].getAttribute('number')
+        .querySelectorAll('task-item')[0]
+        .getAttribute('number')
     ).toBe('2');
 
     // Test current
     expect(
       taskList.shadowRoot
-        .getElementById('main-list')
-        .children[0].getAttribute('current')
+        .querySelectorAll('task-item')[0]
+        .getAttribute('current')
     ).toBe('1');
 
     // Test completed
     expect(
       taskList.shadowRoot
-        .getElementById('main-list')
-        .children[0].getAttribute('completed')
+        .querySelectorAll('task-item')[0]
+        .getAttribute('completed')
     ).toBe('true');
 
     // Test the allTasks values for the task item
@@ -492,37 +450,33 @@ describe('Test task-list dragging', () => {
     // New Second Child Testing
     // Test id
     expect(
-      taskList.shadowRoot
-        .getElementById('main-list')
-        .children[1].getAttribute('id')
+      taskList.shadowRoot.querySelectorAll('task-item')[1].getAttribute('id')
     ).toBe('1');
 
     // Test name
     expect(
-      taskList.shadowRoot
-        .getElementById('main-list')
-        .children[1].getAttribute('name')
+      taskList.shadowRoot.querySelectorAll('task-item')[1].getAttribute('name')
     ).toBe('name1');
 
     // Test numumber
     expect(
       taskList.shadowRoot
-        .getElementById('main-list')
-        .children[1].getAttribute('number')
+        .querySelectorAll('task-item')[1]
+        .getAttribute('number')
     ).toBe('1');
 
     // Test current
     expect(
       taskList.shadowRoot
-        .getElementById('main-list')
-        .children[1].getAttribute('current')
+        .querySelectorAll('task-item')[1]
+        .getAttribute('current')
     ).toBe('0');
 
     // Test completed
     expect(
       taskList.shadowRoot
-        .getElementById('main-list')
-        .children[1].getAttribute('completed')
+        .querySelectorAll('task-item')[1]
+        .getAttribute('completed')
     ).toBe('false');
 
     // Test the allTasks values for the task item
@@ -616,7 +570,9 @@ describe('Test other event functions', () => {
 
     // Get task item 1's button
     const taskItem = taskList.shadowRoot.getElementById('1');
-    const taskItemButton = taskItem.shadowRoot.getElementById('edit-btn');
+    const taskItemButton = taskItem.shadowRoot.querySelector(
+      'button[job="edit"]'
+    );
 
     // Get edit form
     const editForm = document.getElementById('editform');
@@ -655,7 +611,9 @@ describe('Test other event functions', () => {
 
     // Get task item 1's button
     const taskItem = taskList.shadowRoot.getElementById('1');
-    const taskItemButton = taskItem.shadowRoot.getElementById('delete-btn');
+    const taskItemButton = taskItem.shadowRoot.querySelector(
+      'button[job="delete"]'
+    );
 
     // Define delete event
     const deleteEvent = new Event('click');
@@ -683,7 +641,7 @@ describe('Test other event functions', () => {
 
     // Get task item 1's button
     const taskItem = taskList.shadowRoot.getElementById('1');
-    const taskItemCheck = taskItem.shadowRoot.getElementById('checkmark');
+    const taskItemCheck = taskItem.shadowRoot.querySelector('input');
 
     // Define check event
     const checkEvent = new Event('click');
@@ -714,7 +672,9 @@ describe('Test other event functions', () => {
 
     // Get task item 1's button
     const taskItem = taskList.shadowRoot.getElementById('1');
-    const taskItemPlayBtn = taskItem.shadowRoot.getElementById('play-btn');
+    const taskItemPlayBtn = taskItem.shadowRoot.querySelector(
+      'button[job="play"]'
+    );
 
     // Define play event
     const playEvent = new Event('click');
@@ -776,29 +736,29 @@ describe('stress testing tasks', () => {
       // Test name
       expect(
         taskList.shadowRoot
-          .getElementById('main-list')
-          .children[i].getAttribute(`name`)
+          .querySelectorAll('task-item')
+          [i].getAttribute(`name`)
       ).toBe(`testName${i}`);
 
       // Test numumber
       expect(
         taskList.shadowRoot
-          .getElementById('main-list')
-          .children[i].getAttribute('number')
+          .querySelectorAll('task-item')
+          [i].getAttribute('number')
       ).toBe(`${1 + (i % 10)}`);
 
       // Test current
       expect(
         taskList.shadowRoot
-          .getElementById('main-list')
-          .children[i].getAttribute('current')
+          .querySelectorAll('task-item')
+          [i].getAttribute('current')
       ).toBe('0');
 
       // Test completed
       expect(
         taskList.shadowRoot
-          .getElementById('main-list')
-          .children[i].getAttribute('completed')
+          .querySelectorAll('task-item')
+          [i].getAttribute('completed')
       ).toBe('false');
 
       // Test the allTasks values for the task item

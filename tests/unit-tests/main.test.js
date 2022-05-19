@@ -86,8 +86,8 @@ let statsList = JSON.stringify(statsListArray);
 const currentDate = new Date('3/11/2021');
 let lastVisit = JSON.stringify(currentDate.toLocaleDateString('en-US'));
 const todayPomo = '5';
-const distractCount = '5';
-const sessionCount = '5';
+const distractCount = '6';
+const sessionCount = '7';
 
 // Mock local storage for main.
 Storage.prototype.getItem = jest.fn((item) => {
@@ -133,8 +133,8 @@ describe('"handleLoad" Function Test', () => {
     // If there was not a previous day's data stored, then determineSessionDate
     // does not run, which would mean the info is not reset.
     expect(newPomo).toBe('5');
-    expect(newDistract).toBe('5');
-    expect(newSesion).toBe('5');
+    expect(newDistract).toBe('6');
+    expect(newSesion).toBe('7');
   });
 
   test('Non-empty stats list test', () => {
@@ -241,7 +241,6 @@ describe('"handleUnload" Function Test', () => {
     });
     handleUnload();
     expect(lv).toBe(stringDate);
-    expect(document.getElementById('main-container')).toBe(null);
   });
 });
 
@@ -309,8 +308,8 @@ describe('"determineSessionDate" Function Test', () => {
     });
     determineSessionDate();
     expect(newPomo).toBe('5');
-    expect(newDistract).toBe('5');
-    expect(newSesion).toBe('5');
+    expect(newDistract).toBe('6');
+    expect(newSesion).toBe('7');
   });
 });
 
