@@ -1,5 +1,5 @@
 {
-  "name": "cse110-w21-group27",
+  "name": "cse112-sp22-group8",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -17,17 +17,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Zihaokong/cse110-w21-group27.git"
+    "url": "git+https://github.com/cmwall0605/cse112-sp22-group8.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Zihaokong/cse110-w21-group27/issues"
+    "url": "https://github.com/cmwall0605/cse112-sp22-group8/issues"
   },
-  "homepage": "https://github.com/Zihaokong/cse110-w21-group27#readme",
+  "homepage": "https://github.com/cmwall0605/cse112-sp22-group8#readme",
   "devDependencies": {
-    "cypress": "^6.6.0",
+    "cypress": "^9.6.1",
     "eslint": "^7.2.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-prettier": "^7.2.0",

@@ -1,7 +1,5 @@
-require('../source/task-list');
-require('../source/task-item');
-
-require('../source/task-item');
+require('../../source/task-list');
+require('../../source/task-item');
 
 describe('Test task-list that is initially null', () => {
   beforeEach(() => {

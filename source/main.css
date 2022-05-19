@@ -1,5 +1,9 @@
 /* Styles for index.html and Modals */
 
+.no-style {
+  display: none;
+}
+
 /* Body background and font */
 #welcome-message {
   text-align: center;

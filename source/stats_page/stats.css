@@ -15,11 +15,14 @@ body {
     overflow-x: hidden;
 }
 
+.no-style {
+    display: none;
+}
+
 img {
     margin-bottom: 0px;
     margin-top: 15px;
 }
-
 
 p {
     margin-bottom: 0px;
