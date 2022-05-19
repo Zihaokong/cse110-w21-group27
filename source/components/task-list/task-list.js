@@ -33,8 +33,11 @@ class TaskList extends HTMLElement {
     this.preNodePos = null;
 
     // set styles for shadow elements
-    shadow.innerHTML = `<link rel="stylesheet" href="task-list.css"/>
-      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />`;
+    const styleSheet = document.createElement('link');
+    styleSheet.rel = 'stylesheet';
+    styleSheet.href = '/components/task-list/task-list.css';
+
+    this.shadowRoot.appendChild(styleSheet);
   }
 
   /**
