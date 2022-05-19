@@ -8,7 +8,7 @@ const {
   handleUnload,
   scrollFunc,
   determineSessionDate,
-} = require('../source/main');
+} = require('../../source/main');
 
 // Stat list used to mock previous sessions
 const statsListArray = [

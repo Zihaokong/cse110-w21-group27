@@ -5,6 +5,10 @@ body{
     overflow-x: hidden;
 }
 
+.no-style {
+    display: none;
+}
+
 #currTask{
     color:black;
     font-size: 50px;
