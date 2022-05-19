@@ -1,4 +1,12 @@
 @import url(https://fonts.googleapis.com/icon?family=Material+Icons);
+
+:root {
+  --primary-color: #2e4756;
+  --medium-color: #828282;
+  --light-color: #e5e5e5;
+  --btn-color: #fff;
+}
+
 @media (min-width: 900px) {
   section{
     display: flex;
@@ -85,34 +93,34 @@ progress-container {
   display: inline-block;
   width: 100%;
   height: 2em;
-  background-color: #2e475650;
+  background-color: var(--medium-color);
 }
 
 progress-bar {
   display: inline-block;
   height: 100%;
-  background-color: #2e4756;
-  color: #e5e5e5;
+  background-color: var(--primary-color);
+  color: var(--light-color);
   font-size: 1.25em;
   text-align: center;
 }
 
 input {
-  color: #e5e5e5;
-  border-color: #e5e5e5;
+  color: var(--light-color);
+  border-color: var(--light-color);
   cursor: pointer;
-  height: 3em;
-  width: 3em;
+  height: 2rem;
+  width: 2rem;
 }
 
 input:checked {
-  background-color: #2e4756;
-  border-color: #2e4756;
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
 }
 
 input:hover {
-  border-color: #e5e5e5;
-  box-shadow: 0 0 0 0.2rem rgba(46, 71, 86, 0.3);
+  border-color: var(--light-color);
+  box-shadow: 0 0 0 0.1rem var(--primary-color);
 }
 
 h1 {
@@ -129,17 +137,21 @@ p {
 }
 
 button {
-  color: #2e4756;
+  color: var(--primary-color);
   background-color: transparent;
   border: none;
   cursor: pointer;
-  padding: 0px;
-  transition: font-size 0.3s;
-  
+  padding: 0;
 }
 
 button:hover:enabled {
-  font-size: 5em;
+  animation: button-pop;
+  transform: scale(1.2);
+  animation-duration: 0.25s;
+}
+
+button:active {
+  transform: scale(1);
 }
 
 button:disabled {
@@ -150,7 +162,7 @@ button:disabled {
 .icon {
   font-family: 'Material Icons';
   
-  font-size: 4em;
+  font-size: 3rem;
   
   /* Support for all WebKit browsers. */
   -webkit-font-smoothing: antialiased;
@@ -163,4 +175,18 @@ button:disabled {
 
   /* Support for IE. */
   font-feature-settings: 'liga';
+}
+
+@keyframes button-pop {
+  0% {
+    transform: scale(1);
+  }
+  
+  50% {
+    transform: scale(1.4);
+  }
+  
+  100% {
+    transform: scale(1.2);
+  }
 }
