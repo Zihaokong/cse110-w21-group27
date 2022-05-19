@@ -6,34 +6,27 @@
     <meta name="description" content="Stats page containing statistics relating to completed pomos, average distractions for pomo, and pomo success rate" />
     <title>Pomodoro Timer</title>
 
-    <!-- Material Icons  -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-
-    <!-- Google Font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap" rel="stylesheet" />
-
     <link rel="stylesheet" href="./stats.css" />
     <script src="/components/header-comp/header-comp.js"></script>
     <script src="./stats.js" defer="defer"></script>
   </head>
 
   <body>
+  
+    <!--Javascript Not Enabled Contingency-->
     <noscript>
-      <section style="width: 100%; background-color: black;">
-        <h1 style="text-align: center; font-size: 3em; color: red;">WARNING! Javascript is disabled on your browser!</h1>
+      <section style="width: 100vw; height: 100vh; background-color: black;">
+        <h1 style="margin: 0; text-align: center; font-size: 3em; color: red;">WARNING! Javascript is disabled on your browser!</h1>
         <p style="text-align: center; font-size: 3em; color: red;">This website only works with browsers which support Javascript.</p>
       </section>
     </noscript>
+
+    <!--CSS Not Enabled Contingency-->
     <section class="no-style" style="width: 100%; background-color: black;">
       <h1 style="text-align: center; font-size: 3em; color: red;">WARNING! CSS is not working!</h1>
     </section>
-    <header-comp id="header"></header-comp>
-    <a id="stats-btn" href="../index.html" aria-label="Go back to the main page">
-      <span class="material-icons"> format_list_bulleted </span>
-    </a>
-    <a id="back-to-top" href="#" aria-label="Go back to the top of the page">Top</a>
+
+    <header-comp page="stats"></header-comp>
 
     <main class="main-contents">
 

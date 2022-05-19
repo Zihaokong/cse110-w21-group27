@@ -114,7 +114,6 @@ class TaskItem extends HTMLElement {
   constructShadowDOM() {
     // Set the draggable attribute for task-item mobility
     this.draggable = true;
-
     const section = document.createElement('section');
 
     // Creating the drag icon

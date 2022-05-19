@@ -10,7 +10,7 @@
  */
 class HeaderComp extends HTMLElement {
   static get observedAttributes() {
-    return ['completedcycles', 'isnewcycle'];
+    return ['completedcycles', 'isnewcycle', 'page'];
   }
 
   /**
@@ -38,6 +38,13 @@ class HeaderComp extends HTMLElement {
   }
 
   /**
+   * Set isnewcycle
+   */
+  set page(newValue) {
+    this.setAttribute('page', newValue);
+  }
+
+  /**
    * Gets the amount of completed cycles.
    */
   get completedCycles() {
@@ -52,6 +59,13 @@ class HeaderComp extends HTMLElement {
   }
 
   /**
+   * Gets whether it is newcycle.
+   */
+  get page() {
+    return this.getAttribute('page');
+  }
+
+  /**
    * Called when the header is applied to the DOM; Sets up the header.
    */
   connectedCallback() {
@@ -61,37 +75,57 @@ class HeaderComp extends HTMLElement {
         ? 0
         : localStorage.getItem('sessionCounter');
     this.isNewCycle = this.completedCycles % 4 === 0 ? 'true' : 'false';
+
     // Creates the nav element which houses the info of the header
-    const nav = document.createElement('nav');
-    nav.setAttribute('class', 'top-nav');
+    const section = document.createElement('section');
 
     // Create the date text.
-    const date = document.createElement('h2');
-    date.setAttribute('id', 'date');
+    const date = document.createElement('h1');
     date.innerText = HeaderComp.createDate()
       ? HeaderComp.createDate()
       : `Today's date`;
 
     // Section of the header which shows dots and filled dots to represent
     // progress to a long break.
-    const section = document.createElement('section');
-    section.setAttribute('id', 'cycle-count');
-    section.innerHTML = `      
-    <span>
-      <h2 id="completed-cycle" style="display: inline; color: #c4c4c4">
-      </h2>
-    </span>`;
+    const count = document.createElement('div');
+    count.setAttribute('id', 'cycle-count');
+
+    const navBar = document.createElement('nav');
+
+    const taskLink = document.createElement('button');
+    taskLink.textContent = 'list';
+    taskLink.setAttribute('onClick', 'location.href="/"');
+
+    const statLink = document.createElement('button');
+    statLink.textContent = 'bar_chart';
+    statLink.setAttribute('onClick', 'location.href="/stats-page/stats.html"');
+    switch (this.page) {
+      case 'tasks':
+        taskLink.disabled = true;
+        break;
+      case 'stats':
+        statLink.disabled = true;
+        break;
+      case 'timer':
+        break;
+      default:
+        break;
+    }
+    navBar.appendChild(taskLink);
+    navBar.appendChild(statLink);
 
     // Append the date and section to the nav element
-    nav.appendChild(date);
-    nav.appendChild(section);
+    section.appendChild(date);
+    section.appendChild(count);
+    section.appendChild(navBar);
 
     // Appened the nav and styling to the shadow root.
     const styleSheet = document.createElement('link');
     styleSheet.rel = 'stylesheet';
     styleSheet.href = '/components/header-comp/header-comp.css';
+
     this.shadowRoot.appendChild(styleSheet);
-    this.shadowRoot.appendChild(nav);
+    this.shadowRoot.appendChild(section);
 
     // Setup and render the circles in the cycle counter as well as the date.
     this.renderCounter();

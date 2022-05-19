@@ -1,25 +1,31 @@
 <!DOCTYPE html>
 
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
+  <title>Pomodoro App</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="main.css" />
-  <title>Pomodoro App</title>
 </head>
 
 <body>
+  
+  <!--Javascript Not Enabled Contingency-->
   <noscript>
-    <section style="width: 100%; background-color: black;">
-      <h1 style="text-align: center; font-size: 3em; color: red;">WARNING! Javascript is disabled on your browser!</h1>
+    <section style="width: 100vw; height: 100vh; background-color: black;">
+      <h1 style="margin: 0; text-align: center; font-size: 3em; color: red;">WARNING! Javascript is disabled on your browser!</h1>
       <p style="text-align: center; font-size: 3em; color: red;">This website only works with browsers which support Javascript.</p>
     </section>
   </noscript>
+  
+  <!--CSS Not Enabled Contingency-->
   <section class="no-style" style="width: 100%; background-color: black;">
     <h1 style="text-align: center; font-size: 3em; color: red;">WARNING! CSS is not working!</h1>
   </section>
-  <header-comp id="header"></header-comp>
+  
+  <header-comp page="tasks">
+  </header-comp>
+  
   <main>
     <div id="heading-container">
       <h1 id="todo-title">To-do List</h1>
@@ -29,18 +35,10 @@
       </div>
     </div>
     <hr id="header-divider"/>
-
-    <p id="welcome-message"><b>Welcome. Add a task to get started.</b></p>
- 
+    <p id="welcome-message">Welcome. Add a task to get started.</p>
     <task-list>
-      <!-- JS will append here -->
     </task-list>
     <button id="add-task-btn-bottom" class="add-task-btn ">+</button>
-    <a id="stats-btn" href="./stats-page/stats.html">
-      <span class="material-icons">
-        format_list_bulleted
-      </span>
-    </a>
   </main>
 
   <!-- Modal Goes here -->
@@ -106,8 +104,6 @@
     </div>
   </div>
 
-  
-
   <div id="edit-modal" class="modal">
     <!-- Modal content -->
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -143,7 +139,6 @@
       </div>
     </div>
   </div>
-
 
   <div id="delete-modal" class="modal">
     <div class="modal-dialog modal-dialog-centered" role="document">
