@@ -1,5 +1,5 @@
 {
-    "extends": ["airbnb-base", "prettier"],
+    "extends": ["airbnb-base", "prettier", "plugin:cypress/recommended"],
     "plugins": ["prettier", "jest"],
     "ignorePatterns": ["/build/*"],
     "rules": {

@@ -10,7 +10,7 @@ const {
   displayFailModal,
   failSession,
   quitFailModal,
-} = require('../source/timer_page/timer');
+} = require('../../source/timer_page/timer');
 
 /**
  * Created a mock local storage object since local storage does not exist in the
