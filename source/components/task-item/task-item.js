@@ -144,7 +144,8 @@ class TaskItem extends HTMLElement {
     // Create the style
     const styleSheet = document.createElement('link');
     styleSheet.rel = 'stylesheet';
-    styleSheet.href = '/components/task-item/task-item.css';
+    styleSheet.type = 'text/css';
+    styleSheet.href = '/source/components/task-item/task-item.css';
 
     this.shadowRoot.appendChild(styleSheet);
     this.shadowRoot.appendChild(section);

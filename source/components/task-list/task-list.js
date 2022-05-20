@@ -35,7 +35,8 @@ class TaskList extends HTMLElement {
     // set styles for shadow elements
     const styleSheet = document.createElement('link');
     styleSheet.rel = 'stylesheet';
-    styleSheet.href = '/components/task-list/task-list.css';
+    styleSheet.type = 'text/css';
+    styleSheet.href = '/source/components/task-list/task-list.css';
 
     this.shadowRoot.appendChild(styleSheet);
   }
@@ -133,7 +134,7 @@ class TaskList extends HTMLElement {
     event.preventDefault();
     // create struct and append to global list
     const newTask = {
-      id: Math.random().toString(16).slice(2),
+      id: Math.random().toString(16).slice(2), // Random generation with no check for duplicate is bad, needs to be fixed.
       completed: false,
       name: document.getElementById('task-name').value,
       number: document.getElementById('task-num').value,

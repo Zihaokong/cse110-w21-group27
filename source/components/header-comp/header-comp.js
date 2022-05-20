@@ -122,7 +122,8 @@ class HeaderComp extends HTMLElement {
     // Appened the nav and styling to the shadow root.
     const styleSheet = document.createElement('link');
     styleSheet.rel = 'stylesheet';
-    styleSheet.href = '/components/header-comp/header-comp.css';
+    styleSheet.type = 'text/css';
+    styleSheet.href = '/source/components/header-comp/header-comp.css';
 
     this.shadowRoot.appendChild(styleSheet);
     this.shadowRoot.appendChild(section);
