@@ -54,6 +54,7 @@ nav {
   align-items: center;
   grid-area: stats;
   display: flex;
+  flex-wrap: wrap;
   justify-self: flex-end;
   justify-content: stretch;
   justify-items: center;
