@@ -71,32 +71,30 @@ class TaskList extends HTMLElement {
     });
 
     // (CREATE) Create the name input
-    const nameLabel = document.createElement('label');
-    nameLabel.textContent = 'Task Description: ';
     const nameInput = document.createElement('input');
-    nameInput.placeholder = 'Ex. Study for Midterm';
+    nameInput.placeholder = 'Title';
     nameInput.maxLength = 26;
     nameInput.required = true;
-    nameLabel.append(nameInput);
+    nameInput.setAttribute('content', 'title');
 
     // (CREATE) Creat the count input
-    const countLabel = document.createElement('label');
-    countLabel.textContent = 'Estimated Pomos: ';
     const countInput = document.createElement('input');
+    countInput.placeholder = 'Pomo Count';
     countInput.type = 'number';
     countInput.min = 1;
     countInput.max = 10;
     countInput.required = true;
-    countLabel.append(countInput);
+    countInput.setAttribute('content', 'count');
 
     // (CREATE) Creat the submit button
     const submitButton = document.createElement('button');
-    submitButton.textContent = 'SUBMIT';
+    submitButton.className = 'icon';
+    submitButton.textContent = 'add_circle';
     submitButton.type = 'submit';
 
     // (CREATE) Append the form info to the form
-    form.append(nameLabel);
-    form.append(countLabel);
+    form.append(nameInput);
+    form.append(countInput);
     form.append(submitButton);
 
     // (DEL) Create the delete dialog
@@ -107,7 +105,8 @@ class TaskList extends HTMLElement {
 
     // (DEL) Create the No button
     const cancelButton = document.createElement('button');
-    cancelButton.textContent = 'No';
+    cancelButton.className = 'icon';
+    cancelButton.textContent = 'cancel';
     cancelButton.type = 'cancel';
     cancelButton.addEventListener('click', (e) => {
       deleteDialog.close();
@@ -115,7 +114,8 @@ class TaskList extends HTMLElement {
 
     // (DEL) Create the Yes button
     const confirmButton = document.createElement('button');
-    confirmButton.textContent = 'Yes';
+    confirmButton.className = 'icon';
+    confirmButton.textContent = 'check_circle';
     confirmButton.type = 'confirm';
 
     deleteDialog.append(deleteMessage);
@@ -268,42 +268,11 @@ class TaskList extends HTMLElement {
    * @param {Event} event the event which triggered this function; it's target
    *                      should be the button of the task to be edited.
    */
-  editTask(event) {
-    const editedTask = event.target.getRootNode().host;
-    const targetID = editedTask.id;
-    const taskIndex = this.allTasks.findIndex((elem) => elem.id === targetID);
+  editTask(id, title) {
+    const taskIndex = this.allTasks.findIndex((elem) => elem.id === id);
 
-    // Show the selected task's info in the modal.
-    document.getElementById('edit-note').value = this.allTasks[taskIndex].note;
-    document.getElementById('edit-name').value = editedTask.name;
-    document.getElementById('edit-num').value = editedTask.number;
-
-    // Display the Modal.
-    const editModal = document.getElementById('edit-modal');
-    editModal.style.display = 'block';
-
-    // Create an event listener to the editform so that when it is submitted,
-    // the changes are applied.
-    document.getElementById('editform').addEventListener(
-      'submit',
-      // eslint-disable-next-line no-shadow
-      (event) => {
-        event.preventDefault();
-        const editTaskName = document.getElementById('edit-name').value;
-        const editTaskNum = document.getElementById('edit-num').value;
-        const editTaskNote = document.getElementById('edit-note').value;
-        editedTask.name = editTaskName;
-        editedTask.number = editTaskNum;
-        this.allTasks[taskIndex].name = editTaskName;
-        this.allTasks[taskIndex].number = editTaskNum;
-        this.allTasks[taskIndex].note = editTaskNote;
-        editModal.style.display = 'none';
-        localStorage.setItem('allTasks', JSON.stringify(this.allTasks));
-      },
-      {
-        once: true,
-      }
-    );
+    this.allTasks[taskIndex].name = title;
+    localStorage.setItem('allTasks', JSON.stringify(this.allTasks));
   }
 
   /**

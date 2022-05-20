@@ -17,12 +17,6 @@ button:hover:enabled {
   animation-duration: 0.25s;
 }
 
-button:focus:enabled {
-  animation: button-click;
-  transform: scale(1);
-  animation-duration: 0.25s;
-}
-
 button:disabled {
   cursor: not-allowed;
   opacity: 0.5;
@@ -44,7 +38,11 @@ drag-ind {
   grid-area: drag;
 }
 
-h1 {
+input:checked + h1 {
+  text-decoration: line-through solid var(--primary-color) 3px;
+}
+
+h1  {
   display: inline-block;
   margin: 0;
   text-overflow: ellipsis;
@@ -52,6 +50,12 @@ h1 {
   word-breaK:break-all;
   font-size: calc(20px + 0.5vw);
   grid-area: title;
+  transition: text-decoration 0.2s ease-in-out;
+}
+
+h1[contentEditable="true"] {
+  color: var(--primary-color);
+  cursor: text;
 }
 
 input {
@@ -108,14 +112,18 @@ section {
   box-shadow: 1px 1px 0.5rem var(--primary-color);
   cursor: grab;
   display: grid;
+  gap: 10px;
   grid-template-rows: auto;
   justify-content: stretch;
   justify-items: stretch;
   margin:  10px 0px 10px;
   opacity: 0.5;
+  padding: 10px 0px 10px;
   transition: box-shadow 0.2s ease-in-out;
   transition: opacity 0.3s ease-in-out;
-  
+  animation: button-click;
+  transform: scale(1);
+  animation-duration: 0.25s;
 }
 
 section:hover {
@@ -141,7 +149,6 @@ section:hover {
     grid-auto-columns: 1fr 1fr 10fr 10fr 1fr 1fr 1fr;
     grid-template-areas:
       "drag check title progress start edit delete";
-    padding: 10px 0px 10px;
   }
   
   input {
@@ -166,7 +173,6 @@ section:hover {
       "title title title title"
       "progress progress progress progress"
       "check start edit delete";
-    padding: 10px 10px 10px;
   }
   
   drag-ind {

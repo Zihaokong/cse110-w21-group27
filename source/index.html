@@ -22,57 +22,19 @@
   <section class="no-style" style="width: 100%; background-color: black;">
     <h1 style="text-align: center; font-size: 3em; color: red;">WARNING! CSS is not working!</h1>
   </section>
-  
   <header-comp page="tasks">
   </header-comp>
   
-  <main>
-    <div id="heading-container">
-      <h1 id="todo-title">To-do List</h1>
-      <button id="info" onclick="openInfoModal()">?</button>
-    </div>
-    <hr id="header-divider"/>
-    <task-list>
-    </task-list>
-  </main>
+
+  <div id="heading-container">
+    <h1 id="todo-title">To-do List</h1>
+    <button id="info" onclick="openInfoModal()">?</button>
+  </div>
+  <hr id="header-divider"/>
+  <task-list>
+  </task-list>
 
   <!-- Modal Goes here -->
-  <div id="edit-modal" class="modal">
-    <!-- Modal content -->
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header" id="edit-task-modal-header">
-          <button type="button" class="btn-close close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <form id="editform">
-          <div class="taskform-entry">
-            <label for="taskname">Task: </label>
-            <input type="text" class="taskname form-control" placeholder="Task 1" id="edit-name" required />
-          </div>
-
-          <div class="taskform-entry form-group">
-            <label for="num-pomos">Estimated Pomos: </label>
-            <input type="number" class="num-pomos form-control" placeholder="4" id="edit-num" min="1" max="10"
-              required />
-          </div>
-
-          <div class="taskform-entry">
-            <label for="notes">Notes: </label>
-            <textarea rows="4" cols="30" placeholder="Briefly describe your task." id="edit-note"
-              class="form-control"></textarea>
-          </div>
-
-          <div class="task-btns">
-            <button class="cancel-btn">Cancel</button>
-            <button class="submit-btn" id="edit-save-btn" type="submit">
-              Save
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-
   <div id="info-modal" class="modal-info">
     <div class="modal-content-info">
       <div class="modal-text">
@@ -80,7 +42,6 @@
         <div class="heading-info">
           <h3>Information</h3>
         </div>
-        <hr style="height:2px ;color: #282828;">
         <p>
           <img id="btn1" src="/assets/images/button1.png"> <span class="describe">Add new task to to-do list</span>
         </p>

@@ -112,10 +112,9 @@ class TaskItem extends HTMLElement {
    * during the initial connected callback.
    */
   constructShadowDOM() {
-    // Set the draggable attribute for task-item mobility
     this.draggable = true;
+    // Set the draggable attribute for task-item mobility
     const section = document.createElement('section');
-
     // Creating the drag icon
     const dragIcon = TaskItem.createDrag();
 
@@ -135,7 +134,13 @@ class TaskItem extends HTMLElement {
 
     // Creating the edit-button
     const editButton = this.createEditButton();
-    editButton.addEventListener('click', this.editTask);
+    editButton.addEventListener(
+      'click',
+      () => {
+        this.setUpEdit();
+      },
+      { once: true }
+    );
 
     // Creating the delete-button
     const deleteButton = TaskItem.createDeleteButton();
@@ -145,7 +150,6 @@ class TaskItem extends HTMLElement {
     const styleSheet = document.createElement('link');
     styleSheet.rel = 'stylesheet';
     styleSheet.href = '/components/task-item/task-item.css';
-
     this.shadowRoot.appendChild(styleSheet);
     this.shadowRoot.appendChild(section);
     section.appendChild(dragIcon);
@@ -155,6 +159,36 @@ class TaskItem extends HTMLElement {
     section.appendChild(playButton);
     section.appendChild(editButton);
     section.appendChild(deleteButton);
+  }
+
+  setUpEdit() {
+    this.draggable = false;
+
+    const title = this.shadowRoot.querySelector('h1');
+    title.focus();
+    title.contentEditable = true;
+
+    const bar = this.shadowRoot.querySelector('progress-bar');
+
+    const editButton = this.shadowRoot.querySelector('button[job="edit"]');
+    editButton.addEventListener(
+      'click',
+      () => {
+        this.draggable = true;
+
+        title.contentEditable = false;
+        this.editTask(this.id, title.textContent);
+
+        editButton.addEventListener(
+          'click',
+          () => {
+            this.setUpEdit();
+          },
+          { once: true }
+        );
+      },
+      { once: true }
+    );
   }
 
   /**
@@ -247,7 +281,7 @@ class TaskItem extends HTMLElement {
     const progressContainter = document.createElement('progress-container');
     const progress = document.createElement('progress-bar');
     progress.style.width = percent;
-    progress.innerHTML = `${this.current}/${this.number}`;
+    progress.textContent = `${this.current}/${this.number}`;
 
     progressContainter.appendChild(progress);
 
@@ -275,10 +309,9 @@ class TaskItem extends HTMLElement {
     }
 
     // the div for the progress itserlf and uses the attribute from the newTask object
-    const progressBar = this.shadowRoot.querySelector('progress-container');
-    const progress = progressBar.querySelector('progress-bar');
+    const progress = this.shadowRoot.querySelector('progress-bar');
     progress.style.width = percent;
-    progress.innerHTML = `${this.current}/${this.number}`;
+    progress.textContent = `${this.current}/${this.number}`;
   }
 
   /**
