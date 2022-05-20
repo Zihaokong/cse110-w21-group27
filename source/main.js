@@ -125,6 +125,10 @@ function eventCloseModal(event) {
  * listeners to them which, based on their usage, will open or close the modal.
  */
 function handleLoad() {
+  // set the timer state back to a work session
+  localStorage.setItem('ShortBreak', 'false');
+  localStorage.setItem('LongBreak', 'false');
+
   // Get the add-task-modal
   modal = document.getElementById('add-task-modal');
   // Get the button that opens the modal

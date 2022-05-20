@@ -19,7 +19,7 @@ class TaskList extends HTMLElement {
   constructor() {
     super();
 
-    const shadow = this.attachShadow({
+    this.attachShadow({
       mode: 'open',
     });
 
@@ -46,19 +46,87 @@ class TaskList extends HTMLElement {
    * task-items.
    */
   connectedCallback() {
-    // set the timer state back to a work session
-    localStorage.setItem('ShortBreak', 'false');
-    localStorage.setItem('LongBreak', 'false');
+    // Create the melcome message
+    const welcomeMessage = document.createElement('aside');
+    welcomeMessage.textContent =
+      'Welcome! Add a task to get started on your journey';
 
-    // Add an event listener to the taskform such that when the form is
-    // submitted, it creates a task.
-    document
-      .getElementById('taskform')
-      .addEventListener('submit', (e) => this.addTask(e));
-
-    // Create and Appened a list container to house task-items
+    // Create a list container to house task-items
     const list = document.createElement('section');
+
+    // (CREATE) Create a form for creation
+    const form = document.createElement('form');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      this.addTask(
+        Math.random().toString(16).slice(2),
+        false,
+        nameInput.value,
+        countInput.value,
+        0,
+        ''
+      );
+      nameInput.value = '';
+      countInput.value = '';
+    });
+
+    // (CREATE) Create the name input
+    const nameLabel = document.createElement('label');
+    nameLabel.textContent = 'Task Description: ';
+    const nameInput = document.createElement('input');
+    nameInput.placeholder = 'Ex. Study for Midterm';
+    nameInput.maxLength = 26;
+    nameInput.required = true;
+    nameLabel.append(nameInput);
+
+    // (CREATE) Creat the count input
+    const countLabel = document.createElement('label');
+    countLabel.textContent = 'Estimated Pomos: ';
+    const countInput = document.createElement('input');
+    countInput.type = 'number';
+    countInput.min = 1;
+    countInput.max = 10;
+    countInput.required = true;
+    countLabel.append(countInput);
+
+    // (CREATE) Creat the submit button
+    const submitButton = document.createElement('button');
+    submitButton.textContent = 'SUBMIT';
+    submitButton.type = 'submit';
+
+    // (CREATE) Append the form info to the form
+    form.append(nameLabel);
+    form.append(countLabel);
+    form.append(submitButton);
+
+    // (DEL) Create the delete dialog
+    const deleteDialog = document.createElement('dialog');
+
+    const deleteMessage = document.createElement('p');
+    deleteMessage.textContent = 'Delete Task?';
+
+    // (DEL) Create the No button
+    const cancelButton = document.createElement('button');
+    cancelButton.textContent = 'No';
+    cancelButton.type = 'cancel';
+    cancelButton.addEventListener('click', (e) => {
+      deleteDialog.close();
+    });
+
+    // (DEL) Create the Yes button
+    const confirmButton = document.createElement('button');
+    confirmButton.textContent = 'Yes';
+    confirmButton.type = 'confirm';
+
+    deleteDialog.append(deleteMessage);
+    deleteDialog.append(cancelButton);
+    deleteDialog.append(confirmButton);
+
+    // Apepend the new elements to the shadow root
+    this.shadowRoot.append(form);
+    this.shadowRoot.append(welcomeMessage);
     this.shadowRoot.append(list);
+    this.shadowRoot.append(deleteDialog);
 
     // Get tasks from localStorage and, if they exist, create and append them
     // to the task-list.
@@ -67,9 +135,7 @@ class TaskList extends HTMLElement {
       this.allTasks = [];
     } else {
       this.allTasks = JSON.parse(retrievedObject);
-      if (this.allTasks.length !== 0) {
-        document.getElementById('welcome-message').remove();
-      }
+      if (this.allTasks.length > 0) welcomeMessage.remove();
       for (let i = 0; i < this.allTasks.length; i++) {
         this.renderTask(this.allTasks[i]);
       }
@@ -98,6 +164,42 @@ class TaskList extends HTMLElement {
   }
 
   /**
+   * Function which is triggered by the event of the user submitting a new task
+   * from add task modal; Creates a new task item, adds it to the list, and
+   * saves its properties to All tasks array.
+   * @param {Event} event Event which triggered this function.
+   */
+  addTask(
+    givenId,
+    isCompleted,
+    givenName,
+    totalCount,
+    currentCount,
+    givenNote
+  ) {
+    // create struct and append to global list
+    const newTask = {
+      id: givenId,
+      completed: isCompleted,
+      name: givenName,
+      number: totalCount,
+      current: currentCount,
+      note: givenNote,
+    };
+
+    // Push the new task into allTasks and set the local storage item
+    this.allTasks.push(newTask);
+    localStorage.setItem('allTasks', JSON.stringify(this.allTasks));
+
+    // Remove the welcome message
+    if (this.shadowRoot.querySelector('aside'))
+      this.shadowRoot.querySelector('aside').remove();
+
+    // render HTML on page.
+    this.renderTask(newTask);
+  }
+
+  /**
    * Set up and render a task-item element and then append it to the task-list.
    * @param {Object} taskInfo Info about the task being created.
    * @param {string} taskInfo.id Randomly generated id of the pomo.
@@ -114,45 +216,14 @@ class TaskList extends HTMLElement {
     taskItem.number = taskInfo.number;
     taskItem.completed = taskInfo.completed;
     taskItem.setFunctions(
-      this.playTask.bind(this),
+      TaskList.playTask.bind(this),
       this.deleteTask.bind(this),
       this.editTask.bind(this),
       this.setCheck.bind(this)
     );
     // append the newly created <task-item> to section
-    this.shadowRoot.querySelector('section').appendChild(taskItem);
-  }
-
-  /**
-   * Function which is triggered by the event of the user submitting a new task
-   * from add task modal; Creates a new task item, adds it to the list, and
-   * saves its properties to All tasks array.
-   * @param {Event} event Event which triggered this function.
-   */
-  addTask(event) {
-    event.preventDefault();
-    // create struct and append to global list
-    const newTask = {
-      id: Math.random().toString(16).slice(2),
-      completed: false,
-      name: document.getElementById('task-name').value,
-      number: document.getElementById('task-num').value,
-      current: 0,
-      note: document.getElementById('task-note').value,
-    };
-    // Push the new task into allTasks and set the local storage item
-    this.allTasks.push(newTask);
-    localStorage.setItem('allTasks', JSON.stringify(this.allTasks));
-    // render HTML on page.
-    this.renderTask(newTask);
-
-    // everything else.
-    document.getElementById('taskform').reset();
-    const welcome = document.getElementById('welcome-message');
-    if (welcome) {
-      welcome.remove();
-    }
-    document.getElementById('add-task-modal').style.display = 'none';
+    const taskList = this.shadowRoot.querySelector('section');
+    taskList.insertBefore(taskItem, taskList.firstChild);
   }
 
   /**
@@ -164,30 +235,29 @@ class TaskList extends HTMLElement {
    *                      should be the button of the task to be deleted.
    */
   deleteTask(event) {
-    document.getElementById('delete-modal').style.display = 'block';
-
     // Get the item to delete in the DOM
     const itemToDelete = event.target.getRootNode().host;
-    const { name } = itemToDelete;
+    const { name, id } = itemToDelete;
 
-    // Set up the delete modal
-    document.getElementById('task-delete').innerText = `${name}?`;
-    document.getElementById('confirm-button').addEventListener(
+    const deleteDialog = this.shadowRoot.querySelector('dialog');
+    deleteDialog.querySelector('p').textContent = `Delete Task "${name}"?`;
+    const confirmButton = deleteDialog.querySelector('button[type="confirm"]');
+    confirmButton.addEventListener(
       'click',
       () => {
         for (let i = 0; i < this.allTasks.length; i++) {
-          if (this.allTasks[i].name === name) {
+          if (this.allTasks[i].id === id) {
             this.allTasks.splice(i, 1);
             break;
           }
         }
         localStorage.setItem('allTasks', JSON.stringify(this.allTasks));
-        // Delete item in the DOM
         itemToDelete.remove();
-        document.getElementById('delete-modal').style.display = 'none';
+        deleteDialog.close();
       },
       { once: true }
     );
+    deleteDialog.showModal();
   }
 
   /**
@@ -266,23 +336,12 @@ class TaskList extends HTMLElement {
    * @param {Event} event the event which triggered this function; it's target
    *                      should be the button of the task to be played.
    */
-  playTask(event) {
-    // Display the play modal for the task.
-    document.getElementById('play-modal').style.display = 'block';
-    const targetTask = event.target.getRootNode().host;
-    document.getElementById('timer-name').innerText = targetTask.name;
-    const taskStorageIndex = this.allTasks.findIndex(
-      (elem) => elem.id === targetTask.id
+  static playTask(event) {
+    localStorage.setItem(
+      'currentTask',
+      JSON.stringify(event.target.getRootNode().host.id)
     );
-
-    // make the note from storage appear in the timer modal
-    document.getElementById('timer-note').innerText = this.allTasks[
-      taskStorageIndex
-    ].note;
-
-    // set the current task id to localStorage
-    const currentTask = targetTask.id;
-    localStorage.setItem('currentTask', JSON.stringify(currentTask));
+    window.location = '/timer-page/timer.html';
   }
 
   /**
@@ -323,7 +382,7 @@ class TaskList extends HTMLElement {
       for (let i = 0; i < this.nodes.length; i++) {
         const targetID = this.nodes[i].id;
         const taskInArray = this.allTasks.find((elem) => elem.id === targetID);
-        newArray.push(taskInArray);
+        newArray.unshift(taskInArray);
       }
       this.allTasks = newArray;
       localStorage.setItem('allTasks', JSON.stringify(this.allTasks));
