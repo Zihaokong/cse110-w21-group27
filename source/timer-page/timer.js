@@ -10,7 +10,7 @@ let isFailed = false;
 let isInSession = false;
 let isReload = true;
 // distinguish refresh or back button
-let currentTaskId;
+let currenTaskIndex;
 let allTasks;
 
 let circle;
@@ -22,8 +22,6 @@ let secondsInterval;
 
 // Call the initializer function when the window is loaded.
 window.onload = timerPageInit;
-
-localStorage.setItem('currentTask', '""');
 
 // TODO: More detailed comments may be required.
 /**
@@ -38,17 +36,29 @@ function timerPageInit() {
 
   circle.style.strokeDasharray = circumference;
   circle.style.strokeDashoffset = 0;
-  // add event listeners for buttons on timer page
-  document.getElementById('start-btn').addEventListener('click', startTimer);
+
+  //// Add event listeners for buttons on timer page
+  // The Start button for starting a pomo session
+  document.getElementById('start-btn').addEventListener('click', startButton);
+
+  // The create-task form elements
+  document.getElementById('create-skip').addEventListener('click', startTimer);
+  document.getElementById('create-start').addEventListener('click', createTask);
+
+  // The distraction button and fail button present when a pomo session is in progress
   document
     .getElementById('distraction-btn')
     .addEventListener('click', distractionCount);
   document
     .getElementById('fail-btn')
     .addEventListener('click', displayFailModal);
+
+  // The Start Break button present after a pomo session is completed
   document
     .getElementById('start-break-btn')
     .addEventListener('click', startBreak);
+
+  // Modal buttons
   document
     .getElementById('continue-btn')
     .addEventListener('click', continueTask);
@@ -57,6 +67,7 @@ function timerPageInit() {
   document
     .getElementById('cancel-button')
     .addEventListener('click', quitFailModal);
+
   // set variable denote current timer mode
   localStorage.setItem('isPomo', 'false');
   // render current task name to timer page
@@ -65,12 +76,16 @@ function timerPageInit() {
   if (allTasks && id) {
     for (let i = 0; i < allTasks.length; i++) {
       if (allTasks[i].id === id) {
-        currentTaskId = i;
+        currenTaskIndex = i;
         document.getElementById('currTask').innerHTML =
-          allTasks[currentTaskId].name;
+          allTasks[currenTaskIndex].name;
       }
     }
   }
+
+  // Now that allTasks is defined we can fill in the create-task dropdown
+  taskSelectInit();
+
   resetProgressRing();
   if (localStorage.getItem('ShortBreak') === 'true') {
     displayBreak();
@@ -124,6 +139,17 @@ function timerLengthInit() {
   document.getElementById('LongBreakMinutes').value = localStorage.getItem(
     'LongBreakMinutes'
   );
+}
+
+/**
+ * Used to initialize the task selection dropdown in the create-task form.
+ * Fills the dropdown with the different tasks from the tasks page.
+ */
+function taskSelectInit() {
+  const dropdown = document.getElementById('choose-task');
+  for(let task of allTasks) {
+    dropdown.innerHTML += `<option value="${task.id}">${task.name}</option>`
+  }
 }
 
 /**
@@ -203,8 +229,8 @@ function continueTask() {
   ).innerHTML = `Distraction : ${distractCounter}`;
   renderTimer(localStorage.getItem('TimerMinutes'), 0);
 
-  if(currentTaskId) {
-    document.getElementById('currTask').innerHTML = allTasks[currentTaskId].name;
+  if(currenTaskIndex) {
+    document.getElementById('currTask').innerHTML = allTasks[currenTaskIndex].name;
   } else {
     document.getElementById('currTask').innerHTML = 'No Task Selected';
   }
@@ -266,10 +292,23 @@ function startBreak() {
 }
 
 /**
+ * Open the create-task form or start the pomodoro timer
+ * depending on whether a task is already selected
+ */
+function startButton() {
+  if(currenTaskIndex) {
+    startTimer();
+  } else {
+    // Open the craete-task form
+    hideButtons();
+    document.getElementById('create-task').style.display = '';
+  }
+}
+
+/**
  * Start the pomodoro timer for current task.
  */
 function startTimer() {
-  // enable distraction button during session
   const todayPomos = Number(localStorage.getItem('todayPomo'));
   localStorage.setItem('todayPomo', todayPomos + 1);
 
@@ -391,10 +430,58 @@ function finishedTask() {
     }
 
     // update progress for current task
-    if(currentTaskId) {
-      allTasks[currentTaskId].current += 1;
+    if(currenTaskIndex) {
+      allTasks[currenTaskIndex].current += 1;
     }
     localStorage.setItem('allTasks', JSON.stringify(allTasks));
+  }
+}
+
+/**
+ * Used by the create-task form to create a task
+ * Called when the create-task Start button is called
+ */
+function createTask() {
+  const chosenId = document.getElementById('choose-task').value;
+  const taskName = document.getElementById('task-name').value;
+  const pomoCount = document.getElementById('pomo-count').value;
+
+  if(chosenId) {
+    // If a task was selected from the dropdown, set it as the current
+    //    task and start the timer
+    for (let i = 0; i < allTasks.length; i++) {
+      if (allTasks[i].id === chosenId) {
+        currenTaskIndex = i;
+        document.getElementById('currTask').innerHTML =
+          allTasks[currenTaskIndex].name;
+      }
+    }
+    localStorage.setItem('currentTask', chosenId);
+
+    startTimer();
+
+  } else if(taskName && pomoCount) {
+    // Creating the task and adding it to our task list
+    const randomId = Math.random().toString(16).slice(2);
+
+    currenTaskIndex = allTasks.length;
+    allTasks.push({
+      completed: false,
+      current: 0,
+      id: randomId,
+      name: taskName,
+      note: "",
+      number: pomoCount
+    });
+    localStorage.setItem('allTasks', JSON.stringify(allTasks));
+
+    // Making it the current task and starting the timer
+    localStorage.setItem('currentTask', randomId);
+    document.getElementById('currTask').innerHTML = allTasks[currenTaskIndex].name;
+
+    startTimer();
+  } else {
+    console.log('error here');
   }
 }
 
@@ -437,6 +524,7 @@ function quitFailModal() {
 
 // set the session state back to a work session
 window.onbeforeunload = function WarnReload() {
+  localStorage.setItem('currentTask', '""');
   if (isInSession && isReload) {
     return 'Your timer progress will reset';
   }
@@ -451,8 +539,10 @@ if (typeof exports !== 'undefined') {
     continueTask,
     changeTask,
     startBreak,
+    startButton,
     startTimer,
     start,
+    createTask,
     distractionCount,
     displayFailModal,
     failSession,

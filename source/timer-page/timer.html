@@ -86,7 +86,8 @@
           Choose a task to start
         </label>
         <select id="choose-task">
-          <option value="">Choose task</option>
+          <option value="">-</option>
+          <!-- Tasks will be dynamically loaded here -->
         </select>
 
         <label for="task-name pomo-count" class="label-heading">
@@ -100,8 +101,8 @@
         <input type="number" id="pomo-count">
 
         <div>
-          <button id="create-skip">Skip</button>
-          <button id="create-start">Start</button>
+          <button type="button" id="create-skip">Skip</button>
+          <button type="button" id="create-start">Start</button>
         </div>
       </form>
 
