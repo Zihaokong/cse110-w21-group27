@@ -83,7 +83,7 @@ function timerPageInit() {
       'distraction-btn'
     ).innerHTML = `Distraction : ${distractCounter}`;
 
-    renderTimer(localStorage.getItem('TimerMinutes'), 0);
+    renderTimer(localStorage.getItem('timerMinutes'), 0);
     document.getElementById('start-btn').style.display = 'block';
     document.getElementById('button-container').style.paddingLeft = '0px';
   }
@@ -105,27 +105,27 @@ function timerPageInit() {
  */
 function timerLengthInit() {
   localStorage.setItem(
-    'TimerMinutes',
-    localStorage.getItem('TimerMinutes') || 25
+    'timerMinutes',
+    localStorage.getItem('timerMinutes') || 25
   );
   localStorage.setItem(
-    'ShortBreakMinutes',
-    localStorage.getItem('ShortBreakMinutes') || 5
+    'shortBreakMinutes',
+    localStorage.getItem('shortBreakMinutes') || 5
   );
   localStorage.setItem(
-    'LongBreakMinutes',
-    localStorage.getItem('LongBreakMinutes') || 15
+    'longBreakMinutes',
+    localStorage.getItem('longBreakMinutes') || 15
   );
 
   // render the change input's value
-  document.getElementById('TimerMinutes').value = localStorage.getItem(
-    'TimerMinutes'
+  document.getElementById('timerMinutes').value = localStorage.getItem(
+    'timerMinutes'
   );
-  document.getElementById('ShortBreakMinutes').value = localStorage.getItem(
-    'ShortBreakMinutes'
+  document.getElementById('shortBreakMinutes').value = localStorage.getItem(
+    'shortBreakMinutes'
   );
-  document.getElementById('LongBreakMinutes').value = localStorage.getItem(
-    'LongBreakMinutes'
+  document.getElementById('longBreakMinutes').value = localStorage.getItem(
+    'longBreakMinutes'
   );
 }
 
@@ -137,11 +137,11 @@ function updateTimerLength(lengthType) {
   localStorage.setItem(lengthType, document.getElementById(lengthType).value);
   if (
     !isInSession &&
-    ((lengthType === 'TimerMinutes' &&
+    ((lengthType === 'timerMinutes' &&
       localStorage.getItem('isPomo') === 'false') ||
-      (lengthType === 'ShortBreakMinutes' &&
+      (lengthType === 'shortBreakMinutes' &&
         localStorage.getItem('ShortBreak') === 'true') ||
-      (lengthType === 'LongBreakMinutes' &&
+      (lengthType === 'longBreakMinutes' &&
         localStorage.getItem('LongBreak') === 'true'))
   )
     renderTimer(localStorage.getItem(lengthType), 0);
@@ -194,7 +194,7 @@ function continueTask() {
   document.getElementById(
     'distraction-btn'
   ).innerHTML = `Distraction : ${distractCounter}`;
-  renderTimer(localStorage.getItem('TimerMinutes'), 0);
+  renderTimer(localStorage.getItem('timerMinutes'), 0);
   document.getElementById('currTask').innerHTML = allTasks[currentTaskId].name;
 
   localStorage.setItem(
@@ -224,13 +224,13 @@ function displayBreak() {
         'linear-gradient(to right,#74EBD5,#ACB6E5)';
       document.getElementById('container-short').style.display = 'block';
       document.getElementById('currTask').innerHTML = 'Short Break';
-      renderTimer(localStorage.getItem('ShortBreakMinutes'), 0);
+      renderTimer(localStorage.getItem('shortBreakMinutes'), 0);
     } else {
       document.body.style.backgroundImage =
         'linear-gradient(to right,#ACB6E5,#74EBD5)';
       document.getElementById('container-long').style.display = 'block';
       document.getElementById('currTask').innerHTML = 'Long Break';
-      renderTimer(localStorage.getItem('LongBreakMinutes'), 0);
+      renderTimer(localStorage.getItem('longBreakMinutes'), 0);
     }
     document.getElementById('button-container').style.display = 'none';
   }, 2000);
@@ -242,10 +242,10 @@ function displayBreak() {
 function startBreak() {
   if (localStorage.getItem('ShortBreak') === 'true') {
     document.getElementById('container-short').style.display = 'none';
-    start(localStorage.getItem('ShortBreakMinutes'), 0);
+    start(localStorage.getItem('shortBreakMinutes'), 0);
   } else {
     document.getElementById('container-long').style.display = 'none';
-    start(localStorage.getItem('LongBreakMinutes'), 0);
+    start(localStorage.getItem('longBreakMinutes'), 0);
   }
 }
 
@@ -261,7 +261,7 @@ function startTimer() {
   isFailed = true;
   document.getElementById('start-btn').style.display = 'none';
   document.getElementById('button-container').style.paddingLeft = '150px';
-  start(localStorage.getItem('TimerMinutes'), 0);
+  start(localStorage.getItem('timerMinutes'), 0);
 }
 
 /**

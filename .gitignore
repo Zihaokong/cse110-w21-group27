@@ -16,3 +16,7 @@ build
 .idea/codeStyles/codeStyleConfig.xml
 **/.DS_Store
 .eslintrc.json
+source/.idea/modules.xml
+source/.idea/source.iml
+source/.idea/vcs.xml
+source/.idea/workspace.xml
