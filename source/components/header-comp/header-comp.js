@@ -94,7 +94,7 @@ class HeaderComp extends HTMLElement {
 
     const taskLink = document.createElement('button');
     taskLink.textContent = 'list';
-    taskLink.setAttribute('onClick', 'location.href="/"');
+    taskLink.setAttribute('onClick', 'location.href="/tasks-page/tasks.html"');
 
     const statLink = document.createElement('button');
     statLink.textContent = 'bar_chart';
