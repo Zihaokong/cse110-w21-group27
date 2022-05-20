@@ -41,6 +41,42 @@ class TaskList extends HTMLElement {
   }
 
   /**
+   * Function which is triggered by the event of the user submitting a new task
+   * from add task modal; Creates a new task item, adds it to the list, and
+   * saves its properties to All tasks array.
+   * @param {Event} event Event which triggered this function.
+   */
+  addTask(
+    givenId,
+    isCompleted,
+    givenName,
+    totalCount,
+    currentCount,
+    givenNote
+  ) {
+    // create struct and append to global list
+    const newTask = {
+      id: givenId,
+      completed: isCompleted,
+      name: givenName,
+      number: totalCount,
+      current: currentCount,
+      note: givenNote,
+    };
+
+    // Push the new task into allTasks and set the local storage item
+    this.allTasks.push(newTask);
+    localStorage.setItem('allTasks', JSON.stringify(this.allTasks));
+
+    // Remove the welcome message
+    if (this.shadowRoot.querySelector('aside'))
+      this.shadowRoot.querySelector('aside').remove();
+
+    // render HTML on page.
+    this.renderTask(newTask);
+  }
+
+  /**
    * Invoked each time the task-list is appeneded into a document-connected
    * element; sets up the list and reads localstorage to set up saved
    * task-items.
@@ -164,69 +200,6 @@ class TaskList extends HTMLElement {
   }
 
   /**
-   * Function which is triggered by the event of the user submitting a new task
-   * from add task modal; Creates a new task item, adds it to the list, and
-   * saves its properties to All tasks array.
-   * @param {Event} event Event which triggered this function.
-   */
-  addTask(
-    givenId,
-    isCompleted,
-    givenName,
-    totalCount,
-    currentCount,
-    givenNote
-  ) {
-    // create struct and append to global list
-    const newTask = {
-      id: givenId,
-      completed: isCompleted,
-      name: givenName,
-      number: totalCount,
-      current: currentCount,
-      note: givenNote,
-    };
-
-    // Push the new task into allTasks and set the local storage item
-    this.allTasks.push(newTask);
-    localStorage.setItem('allTasks', JSON.stringify(this.allTasks));
-
-    // Remove the welcome message
-    if (this.shadowRoot.querySelector('aside'))
-      this.shadowRoot.querySelector('aside').remove();
-
-    // render HTML on page.
-    this.renderTask(newTask);
-  }
-
-  /**
-   * Set up and render a task-item element and then append it to the task-list.
-   * @param {Object} taskInfo Info about the task being created.
-   * @param {string} taskInfo.id Randomly generated id of the pomo.
-   * @param {string} taskInfo.name Name of the task.
-   * @param {string} taskInfo.current Current number of completed pomo tasks.
-   * @param {string} taskInfo.number Estimated number of pomos for the task.
-   * @param {string} taskInfo.completed If the pomo completed.
-   */
-  renderTask(taskInfo) {
-    const taskItem = document.createElement('task-item');
-    taskItem.id = taskInfo.id;
-    taskItem.name = taskInfo.name;
-    taskItem.current = taskInfo.current;
-    taskItem.number = taskInfo.number;
-    taskItem.completed = taskInfo.completed;
-    taskItem.setFunctions(
-      TaskList.playTask.bind(this),
-      this.deleteTask.bind(this),
-      this.editTask.bind(this),
-      this.setCheck.bind(this)
-    );
-    // append the newly created <task-item> to section
-    const taskList = this.shadowRoot.querySelector('section');
-    taskList.insertBefore(taskItem, taskList.firstChild);
-  }
-
-  /**
    * Function which is triggered by a delete button event in a task item;
    * displays the delete modal and then creates an event listener on the delete
    * modal which, on submission, deletes the task item from the list element and
@@ -276,58 +249,6 @@ class TaskList extends HTMLElement {
   }
 
   /**
-   * A function which is triggered by an event in task item; on call, it inverts
-   * the task item's completed property and changes the property of that task in
-   * allTasks.
-   * @param {Event} event the event which triggered this function; it's target
-   *                      should be the checkmark of the task being set.
-   */
-  setCheck(event) {
-    const editedTask = event.target.getRootNode().host;
-    const targetID = editedTask.id;
-
-    // change progress bar
-    if (editedTask.completed === 'true') {
-      editedTask.completed = 'false';
-    } else {
-      editedTask.completed = 'true';
-    }
-
-    // get the element Index in the object list
-    const taskIndex = this.allTasks.findIndex((elem) => elem.id === targetID);
-    this.allTasks[taskIndex].completed = !this.allTasks[taskIndex].completed;
-    localStorage.setItem('allTasks', JSON.stringify(this.allTasks));
-  }
-
-  /**
-   * A function which is triggered by a play button event in a task item; on
-   * call, it opens the play modal and sets the current task
-   * @param {Event} event the event which triggered this function; it's target
-   *                      should be the button of the task to be played.
-   */
-  static playTask(event) {
-    localStorage.setItem(
-      'currentTask',
-      JSON.stringify(event.target.getRootNode().host.id)
-    );
-    window.location = '/timer-page/timer.html';
-  }
-
-  /**
-   * When a task is first dragged, this function is called with the given event.
-   * Will set the current task node being dragged for future reference as well
-   * as if it was checked.
-   * @param {Event} event The event which triggered the task to be dragged;
-   *                      it's targer should be the task-item that is going
-   *                      to be dragged.
-   */
-  handleDragStart(event) {
-    this.preNodePos = this.setNodePos(event.clientY);
-    this.selectedNode = event.target;
-    this.checked = this.selectedNode.checkmark.checked;
-  }
-
-  /**
    * While the task is being activly dragged, this function is called;
    * Notes the current position and swaps with another task when the client
    * moves the task over a certain threshhold.
@@ -356,6 +277,85 @@ class TaskList extends HTMLElement {
       this.allTasks = newArray;
       localStorage.setItem('allTasks', JSON.stringify(this.allTasks));
     }
+  }
+
+  /**
+   * When a task is first dragged, this function is called with the given event.
+   * Will set the current task node being dragged for future reference as well
+   * as if it was checked.
+   * @param {Event} event The event which triggered the task to be dragged;
+   *                      it's targer should be the task-item that is going
+   *                      to be dragged.
+   */
+  handleDragStart(event) {
+    this.preNodePos = this.setNodePos(event.clientY);
+    this.selectedNode = event.target;
+    this.checked = this.selectedNode.checkmark.checked;
+  }
+
+  /**
+   * A function which is triggered by a play button event in a task item; on
+   * call, it opens the play modal and sets the current task
+   * @param {Event} event the event which triggered this function; it's target
+   *                      should be the button of the task to be played.
+   */
+  static playTask(event) {
+    localStorage.setItem(
+      'currentTask',
+      JSON.stringify(event.target.getRootNode().host.id)
+    );
+    window.location = '/timer-page/timer.html';
+  }
+
+  /**
+   * Set up and render a task-item element and then append it to the task-list.
+   * @param {Object} taskInfo Info about the task being created.
+   * @param {string} taskInfo.id Randomly generated id of the pomo.
+   * @param {string} taskInfo.name Name of the task.
+   * @param {string} taskInfo.current Current number of completed pomo tasks.
+   * @param {string} taskInfo.number Estimated number of pomos for the task.
+   * @param {string} taskInfo.completed If the pomo completed.
+   */
+  renderTask(taskInfo) {
+    const taskItem = document.createElement('task-item');
+    taskItem.id = taskInfo.id;
+    taskItem.name = taskInfo.name;
+    taskItem.current = taskInfo.current;
+    taskItem.number = taskInfo.number;
+    taskItem.completed = taskInfo.completed;
+    taskItem.setFunctions(
+      TaskList.playTask.bind(this),
+      this.deleteTask.bind(this),
+      this.editTask.bind(this),
+      this.setCheck.bind(this)
+    );
+    // append the newly created <task-item> to section
+    const taskList = this.shadowRoot.querySelector('section');
+    taskList.insertBefore(taskItem, taskList.firstChild);
+  }
+
+  /**
+   * A function which is triggered by an event in task item; on call, it inverts
+   * the task item's completed property and changes the property of that task in
+   * allTasks.
+   * @param {Event} event the event which triggered this function; it's target
+   *                      should be the checkmark of the task being set.
+   */
+  setCheck(event) {
+    const editedTask = event.target.getRootNode().host;
+    const targetID = editedTask.id;
+
+    // change progress bar
+    if (editedTask.completed === 'true') {
+      editedTask.completed = 'false';
+    } else {
+      editedTask.completed = 'true';
+    }
+
+    // get the element Index in the object list
+    const taskIndex = this.allTasks.findIndex((elem) => elem.id === targetID);
+    this.allTasks[taskIndex].completed = !this.allTasks[taskIndex].completed;
+    localStorage.setItem('allTasks', JSON.stringify(this.allTasks));
   }
 
   /**
