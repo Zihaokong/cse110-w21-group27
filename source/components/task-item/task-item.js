@@ -163,8 +163,10 @@ class TaskItem extends HTMLElement {
    */
   constructShadowDOM() {
     this.draggable = true;
+
     // Set the draggable attribute for task-item mobility
     const section = document.createElement('section');
+
     // Creating the drag icon
     const dragIcon = TaskItem.createDrag();
 
@@ -184,13 +186,9 @@ class TaskItem extends HTMLElement {
 
     // Creating the edit-button
     const editButton = this.createEditButton();
-    editButton.addEventListener(
-      'click',
-      () => {
-        this.setUpEdit();
-      },
-      { once: true }
-    );
+    editButton.addEventListener('click', () => {
+      this.setUpEdit();
+    });
 
     // Creating the delete-button
     const deleteButton = TaskItem.createDeleteButton();
@@ -200,6 +198,59 @@ class TaskItem extends HTMLElement {
     const styleSheet = document.createElement('link');
     styleSheet.rel = 'stylesheet';
     styleSheet.href = '/components/task-item/task-item.css';
+
+    // Create the edit form
+    const editForm = document.createElement('form');
+    editForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      this.name = nameInput.value;
+      this.number = countInput.value;
+      this.editTask(this.id, nameInput.value, countInput.value);
+      editForm.setAttribute('permit', 'false');
+      this.draggable = true;
+    });
+    editForm.setAttribute('permit', 'false');
+
+    // (EDIT) Create the name input
+    const nameInput = document.createElement('input');
+    nameInput.placeholder = 'Title';
+    nameInput.maxLength = 26;
+    nameInput.required = true;
+    nameInput.type = 'text';
+    nameInput.setAttribute('content', 'title');
+
+    // (EDIT) Create the count input
+    const countInput = document.createElement('input');
+    countInput.placeholder = 'Pomo Count';
+    countInput.type = 'number';
+    countInput.min = 1;
+    countInput.max = 10;
+    countInput.required = true;
+    countInput.setAttribute('content', 'count');
+
+    // (EDIT) Create the submit button
+    const submitButton = document.createElement('button');
+    submitButton.className = 'icon';
+    submitButton.textContent = 'check_circle';
+    submitButton.type = 'submit';
+
+    // (EDIT) Create the cancel button
+    const cancelButton = document.createElement('button');
+    cancelButton.className = 'icon';
+    cancelButton.textContent = 'cancel';
+    cancelButton.type = 'cancel';
+    cancelButton.addEventListener('click', (e) => {
+      e.preventDefault();
+      editForm.setAttribute('permit', 'false');
+      this.draggable = true;
+    });
+
+    editForm.append(nameInput);
+    editForm.append(countInput);
+    editForm.append(submitButton);
+    editForm.append(cancelButton);
+
+    // Append the items to the shadowRoot
     this.shadowRoot.appendChild(styleSheet);
     this.shadowRoot.appendChild(section);
     section.appendChild(dragIcon);
@@ -209,6 +260,7 @@ class TaskItem extends HTMLElement {
     section.appendChild(playButton);
     section.appendChild(editButton);
     section.appendChild(deleteButton);
+    section.appendChild(editForm);
   }
 
   /**
@@ -343,33 +395,17 @@ class TaskItem extends HTMLElement {
   }
 
   setUpEdit() {
-    this.draggable = false;
-
-    const title = this.shadowRoot.querySelector('h1');
-    title.focus();
-    title.contentEditable = true;
-
-    const bar = this.shadowRoot.querySelector('progress-bar');
-
-    const editButton = this.shadowRoot.querySelector('button[job="edit"]');
-    editButton.addEventListener(
-      'click',
-      () => {
-        this.draggable = true;
-
-        title.contentEditable = false;
-        this.editTask(this.id, title.textContent);
-
-        editButton.addEventListener(
-          'click',
-          () => {
-            this.setUpEdit();
-          },
-          { once: true }
-        );
-      },
-      { once: true }
-    );
+    // Open Edit Form;
+    const form = this.shadowRoot.querySelector('form');
+    if (form.getAttribute('permit') === 'true') {
+      form.setAttribute('permit', 'false');
+      this.draggable = true;
+    } else {
+      form.setAttribute('permit', 'true');
+      this.draggable = false;
+      form.querySelector('input[content="title"]').value = this.name;
+      form.querySelector('input[content="count"]').value = this.number;
+    }
   }
 
   /**

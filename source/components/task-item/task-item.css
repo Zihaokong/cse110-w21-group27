@@ -34,11 +34,21 @@ button[job="delete"] {
   grid-area: delete;
 }
 
+button[type="submit"] {
+  grid-area: delete;
+}
+
+button[type="cancel"] {
+  grid-area: delete;
+}
+
 drag-ind {
   grid-area: drag;
 }
 
-input:checked + h1 {
+
+
+input[type="radio"]:checked + h1 {
   text-decoration: line-through solid var(--primary-color) 3px;
 }
 
@@ -53,12 +63,28 @@ h1  {
   transition: text-decoration 0.2s ease-in-out;
 }
 
-h1[contentEditable="true"] {
-  color: var(--primary-color);
-  cursor: text;
+form {
+  grid-area: form;
+  grid-auto-columns: 1fr 1fr 10fr 10fr 1fr 1fr 1fr;
+  grid-template-areas:
+    ". . editTitle editCount confirm cancel .";
+  align-content: center;
+  align-items: center;
+  display: grid;
+  column-gap: 10px;
+  justify-content: stretch;
+  justify-items: stretch;
+  margin:  0;
+  padding: 0;
+  height: 0;
+  overflow-y: hidden;
 }
 
-input {
+form[permit="true"] {
+  height: 100%;
+}
+
+input[type="checkbox"] {
   appearance: none;
   cursor: pointer;
   grid-area: check;
@@ -68,19 +94,49 @@ input {
   background-color: var(--light-color);
 }
 
-input:checked {
+input[type="checkbox"]:checked {
   background-color: var(--primary-color);
   animation: check-pop;
   transform: scale(1);
   animation-duration: 0.25s;
 }
 
-input:hover {
+input[type="checkbox"]:hover {
   box-shadow: 1px 1px 0.5rem var(--primary-color);
 }
 
-input:not(:checked):hover {
+input[type="checkbox"]:not(:checked):hover {
   background-color: var(--medium-color);
+}
+
+input[content="title"] {
+  grid-area: editTitle;
+  display: inline-block;
+  margin: 0;
+  text-overflow: ellipsis;
+  overflow-wrap: break-word;
+  padding: 0px;
+  word-breaK:break-all;
+  font-size: calc(20px + 0.5vw);
+}
+
+input[content="count"] {
+  grid-area: editCount;
+  display: inline-block;
+  margin: 0;
+  text-overflow: ellipsis;
+  overflow-wrap: break-word;
+  padding: 0px;
+  word-breaK:break-all;
+  font-size: calc(20px + 0.5vw);
+}
+
+button[type="submit"] {
+  grid-area: confirm;
+}
+
+button[type="cancel"] {
+  grid-area: cancel;
 }
 
 p {
@@ -112,8 +168,7 @@ section {
   box-shadow: 1px 1px 0.5rem var(--primary-color);
   cursor: grab;
   display: grid;
-  gap: 10px;
-  grid-template-rows: auto;
+  column-gap: 10px;
   justify-content: stretch;
   justify-items: stretch;
   margin:  10px 0px 10px;
@@ -122,7 +177,8 @@ section {
   transition: box-shadow 0.2s ease-in-out;
   transition: opacity 0.3s ease-in-out;
   animation: new-task;
-  animation-duration: 0.5s;
+  animation-duration: 0.3s;
+  transition: grid-template-rows 0.3s ease-in-out;
 }
 
 section:hover {
@@ -146,11 +202,13 @@ section:hover {
   
   section{
     grid-auto-columns: 1fr 1fr 10fr 10fr 1fr 1fr 1fr;
+    grid-template-rows: auto 1fr;
     grid-template-areas:
-      "drag check title progress start edit delete";
+      "drag check title progress start edit delete"
+      "form form  form  form     form  form form";
   }
   
-  input {
+  input[type="checkbox"] {
     height: 2rem;
     width: 2rem;
   }
@@ -168,6 +226,7 @@ section:hover {
   
   section{
     grid-auto-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
     grid-template-areas:
       "title title title title"
       "progress progress progress progress"
@@ -178,7 +237,7 @@ section:hover {
     display: none;
   }
   
-  input {
+  input[type="checkbox"] {
     height: 3rem;
     width: 3rem;
   }
@@ -240,14 +299,14 @@ section:hover {
 
 @keyframes new-task {
   0% {
-    transform: scale(0);
+    transform: scale(1, 0);
   }
   
   66% {
-    transform: scale(1.1);
+    transform: scale(1, 1.2);
   }
   
   100% {
-    transform: scale(1);
+    transform: scale(1, 1);
   }
 }

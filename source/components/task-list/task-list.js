@@ -241,10 +241,11 @@ class TaskList extends HTMLElement {
    * @param {Event} event the event which triggered this function; it's target
    *                      should be the button of the task to be edited.
    */
-  editTask(id, title) {
+  editTask(id, title, count) {
     const taskIndex = this.allTasks.findIndex((elem) => elem.id === id);
 
     this.allTasks[taskIndex].name = title;
+    this.allTasks[taskIndex].number = count;
     localStorage.setItem('allTasks', JSON.stringify(this.allTasks));
   }
 
