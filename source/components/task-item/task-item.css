@@ -122,8 +122,7 @@ section {
   transition: box-shadow 0.2s ease-in-out;
   transition: opacity 0.3s ease-in-out;
   animation: button-click;
-  transform: scale(1);
-  animation-duration: 0.25s;
+  animation-duration: 0.4s;
 }
 
 section:hover {

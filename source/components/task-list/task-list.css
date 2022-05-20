@@ -72,9 +72,9 @@ button:disabled {
 @media (min-width: 900px) {
   
   form{
-    grid-auto-columns: 2fr 10fr 10fr 1fr 2fr;
+    grid-auto-columns: 1fr 1fr 10fr 10fr 1fr 1fr 1fr;
     grid-template-areas:
-      ". title count submit .";
+      ". . title count submit . .";
   }
   
   .icon {
