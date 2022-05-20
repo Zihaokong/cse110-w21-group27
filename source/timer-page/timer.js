@@ -106,15 +106,21 @@ function timerPageInit() {
 function timerLengthInit() {
   localStorage.setItem(
     'TimerMinutes',
-    localStorage.getItem('TimerMinutes') || 25
+    localStorage.getItem('TimerMinutes') || 1
   );
   localStorage.setItem(
     'ShortBreakMinutes',
-    localStorage.getItem('ShortBreakMinutes') || 5
+    localStorage.getItem('ShortBreakMinutes') || 1
   );
   localStorage.setItem(
     'LongBreakMinutes',
-    localStorage.getItem('LongBreakMinutes') || 15
+    localStorage.getItem('LongBreakMinutes') || 1
+  );
+
+  // Default autoContinue
+  localStorage.setItem(
+    'autoContinue',
+    localStorage.getItem('autoContinue') || 'on'
   );
 
   // render the change input's value
@@ -176,7 +182,13 @@ function resetProgressRing() {
 function displayBreakComplete() {
   const audio = new Audio('/assets/audio/break-tune.mp3');
   audio.play();
-  document.getElementById('breakCompleteModal').style.display = 'block';
+  setTimeout(() => {
+    if (localStorage.getItem('autoContinue') === 'on') {
+      continueTask();
+    } else {
+      document.getElementById('breakCompleteModal').style.display = 'block';
+    }
+  }, 2000);
 }
 
 /**
@@ -201,6 +213,9 @@ function continueTask() {
     'todayPomo',
     Number(localStorage.getItem('todayPomo')) + 1
   );
+  if (localStorage.getItem('autoContinue') === 'on') {
+    startTimer();
+  }
 }
 
 /**
@@ -233,6 +248,9 @@ function displayBreak() {
       renderTimer(localStorage.getItem('LongBreakMinutes'), 0);
     }
     document.getElementById('button-container').style.display = 'none';
+    if (localStorage.getItem('autoContinue') === 'on') {
+      startBreak();
+    }
   }, 2000);
 }
 
@@ -270,6 +288,8 @@ function startTimer() {
  * @param {integer} secs second of timer
  */
 function start(mins, secs) {
+  // mins = 0;
+  // secs = 5;
   isInSession = true;
   const startTime = new Date();
   // display correct distraction counter
@@ -357,21 +377,17 @@ function finishedTask() {
     // hide the fail modal if the timer runs out
     document.getElementById('failModal').style.display = 'none';
     isFailed = false;
+    document.getElementsByTagName('header-comp')[0].completedCycles = counter;
+    localStorage.setItem('sessionCounter', `${counter}`);
+    localStorage.setItem('distractCounter', `${todayDistract}`);
     if (counter % 4 === 0) {
-      document.getElementsByTagName('header-comp')[0].completedCycles = counter;
-      localStorage.setItem('sessionCounter', `${counter}`);
-      localStorage.setItem('distractCounter', `${todayDistract}`);
       localStorage.setItem('LongBreak', 'true');
       localStorage.setItem('ShortBreak', 'false');
-      displayBreak();
     } else {
-      document.getElementsByTagName('header-comp')[0].completedCycles = counter;
-      localStorage.setItem('sessionCounter', `${counter}`);
-      localStorage.setItem('distractCounter', `${todayDistract}`);
       localStorage.setItem('ShortBreak', 'true');
       localStorage.setItem('LongBreak', 'false');
-      displayBreak();
     }
+    displayBreak();
 
     // update progress for current task
     allTasks[currentTaskId].current += 1;
