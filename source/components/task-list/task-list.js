@@ -249,6 +249,19 @@ class TaskList extends HTMLElement {
   }
 
   /**
+   * For measuring the selected node position from the list.
+   */
+  establishNodePositions() {
+    for (let i = 0; i < this.nodes.length; i++) {
+      // info of the element position on the frame
+      const position = this.nodes[i].getBoundingClientRect();
+      const yTop = position.top;
+      const yBottom = position.bottom;
+      this.nodes[i].yPos = yTop + (yBottom - yTop) / 2;
+    }
+  }
+
+  /**
    * While the task is being activly dragged, this function is called;
    * Notes the current position and swaps with another task when the client
    * moves the task over a certain threshhold.
@@ -356,19 +369,6 @@ class TaskList extends HTMLElement {
     const taskIndex = this.allTasks.findIndex((elem) => elem.id === targetID);
     this.allTasks[taskIndex].completed = !this.allTasks[taskIndex].completed;
     localStorage.setItem('allTasks', JSON.stringify(this.allTasks));
-  }
-
-  /**
-   * For measuring the selected node position from the list.
-   */
-  establishNodePositions() {
-    for (let i = 0; i < this.nodes.length; i++) {
-      // info of the element position on the frame
-      const position = this.nodes[i].getBoundingClientRect();
-      const yTop = position.top;
-      const yBottom = position.bottom;
-      this.nodes[i].yPos = yTop + (yBottom - yTop) / 2;
-    }
   }
 
   /**
