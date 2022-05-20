@@ -99,6 +99,11 @@ class HeaderComp extends HTMLElement {
     const statLink = document.createElement('button');
     statLink.textContent = 'bar_chart';
     statLink.setAttribute('onClick', 'location.href="/stats-page/stats.html"');
+
+    const timerLink = document.createElement('button');
+    timerLink.textContent = 'alarm';
+    timerLink.setAttribute('onClick', 'location.href="/timer-page/timer.html"');
+
     switch (this.page) {
       case 'tasks':
         taskLink.disabled = true;
@@ -107,12 +112,14 @@ class HeaderComp extends HTMLElement {
         statLink.disabled = true;
         break;
       case 'timer':
+        timerLink.disabled = true;
         break;
       default:
         break;
     }
     navBar.appendChild(taskLink);
     navBar.appendChild(statLink);
+    navBar.appendChild(timerLink);
 
     // Append the date and section to the nav element
     section.appendChild(date);
