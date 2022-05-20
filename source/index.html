@@ -36,8 +36,11 @@
     </div>
     <hr id="header-divider"/>
     <p id="welcome-message">Welcome. Add a task to get started.</p>
-    <task-list>
-    </task-list>
+
+    <!-- Main Task List item -->
+    <task-list extraStartButton="enable"> </task-list>
+
+
     <button id="add-task-btn-bottom" class="add-task-btn ">+</button>
   </main>
 
@@ -228,9 +231,9 @@
 
 
   <script src="main.js"></script>
-  <script src="/components/header-comp/header-comp.js"></script>
-  <script src="/components/task-item/task-item.js" defer></script>
-  <script src="/components/task-list/task-list.js" defer></script>
+  <script src="./components/header-comp/header-comp.js"></script>
+  <script src="./components/task-item/task-item.js" defer></script>
+  <script src="./components/task-list/task-list.js" defer></script>
 </body>
 
 </html>

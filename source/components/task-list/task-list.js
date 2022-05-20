@@ -133,7 +133,7 @@ class TaskList extends HTMLElement {
     event.preventDefault();
     // create struct and append to global list
     const newTask = {
-      id: Math.random().toString(16).slice(2),
+      id: Math.random().toString(16).slice(2), // TODO This creates a pseudo random ID with no integrity or duplicate checks. We should use a library or some other method to ensure there are no duplicates. -K
       completed: false,
       name: document.getElementById('task-name').value,
       number: document.getElementById('task-num').value,
@@ -367,6 +367,7 @@ class TaskList extends HTMLElement {
 customElements.define('task-list', TaskList);
 
 if (typeof exports !== 'undefined') {
+  // TODO Not sure what this check is for, thoughts? -K
   module.exports = {
     TaskList,
   };
