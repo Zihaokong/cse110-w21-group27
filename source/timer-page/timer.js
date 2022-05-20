@@ -21,7 +21,9 @@ let circumference;
 let secondsInterval;
 
 // Call the initializer function when the window is loaded.
-addEventListener('load', timerPageInit, {once:true});
+window.onload = timerPageInit;
+
+localStorage.setItem('currentTask', '""');
 
 // TODO: More detailed comments may be required.
 /**
@@ -45,10 +47,7 @@ function timerPageInit() {
     .getElementById('fail-btn')
     .addEventListener('click', displayFailModal);
   document
-    .getElementById('start-short-btn')
-    .addEventListener('click', startBreak);
-  document
-    .getElementById('start-long-btn')
+    .getElementById('start-break-btn')
     .addEventListener('click', startBreak);
   document
     .getElementById('continue-btn')
@@ -84,8 +83,6 @@ function timerPageInit() {
     ).innerHTML = `Distraction : ${distractCounter}`;
 
     renderTimer(localStorage.getItem('TimerMinutes'), 0);
-    document.getElementById('start-btn').style.display = 'block';
-    document.getElementById('button-container').style.paddingLeft = '0px';
   }
   // render starting value of timer
 
@@ -171,6 +168,15 @@ function resetProgressRing() {
 }
 
 /**
+ * Hide all the different button elements below the timer
+ */
+function hideButtons() {
+  for(let el of document.querySelector('#button-container').children) {
+    el.style.display = 'none';
+  }
+}
+
+/**
  * Display break complete modal, and sound.
  */
 function displayBreakComplete() {
@@ -186,16 +192,22 @@ function continueTask() {
   document.getElementById('breakCompleteModal').style.display = 'none';
   document.body.style.backgroundImage =
     'linear-gradient(to right,#E0EAFC,#CFDEF3)';
-  document.getElementById('currTask').innerHTML = 'Task';
-  document.getElementById('button-container').style.display = 'flex';
-  document.getElementById('start-btn').style.display = 'block';
-  document.getElementById('button-container').style.paddingLeft = '0px';
+
+  // Making the start button the only visible button
+  hideButtons();
+  document.getElementById('start-btn').style.display = '';
+
   resetProgressRing();
   document.getElementById(
     'distraction-btn'
   ).innerHTML = `Distraction : ${distractCounter}`;
   renderTimer(localStorage.getItem('TimerMinutes'), 0);
-  document.getElementById('currTask').innerHTML = allTasks[currentTaskId].name;
+
+  if(currentTaskId) {
+    document.getElementById('currTask').innerHTML = allTasks[currentTaskId].name;
+  } else {
+    document.getElementById('currTask').innerHTML = 'No Task Selected';
+  }
 
   localStorage.setItem(
     'todayPomo',
@@ -222,17 +234,20 @@ function displayBreak() {
     if (localStorage.getItem('ShortBreak') === 'true') {
       document.body.style.backgroundImage =
         'linear-gradient(to right,#74EBD5,#ACB6E5)';
-      document.getElementById('container-short').style.display = 'block';
       document.getElementById('currTask').innerHTML = 'Short Break';
       renderTimer(localStorage.getItem('ShortBreakMinutes'), 0);
     } else {
       document.body.style.backgroundImage =
         'linear-gradient(to right,#ACB6E5,#74EBD5)';
-      document.getElementById('container-long').style.display = 'block';
       document.getElementById('currTask').innerHTML = 'Long Break';
       renderTimer(localStorage.getItem('LongBreakMinutes'), 0);
     }
-    document.getElementById('button-container').style.display = 'none';
+
+    // Making the start break button the only one visible
+    hideButtons();
+    document.getElementById('start-break-btn').style.display = '';
+    document.getElementById('start-break-btn').disabled = false;
+
   }, 2000);
 }
 
@@ -240,11 +255,12 @@ function displayBreak() {
  * Start counter for break.
  */
 function startBreak() {
+  // Making the start break button the only one visible
+  document.getElementById('start-break-btn').disabled = true;
+
   if (localStorage.getItem('ShortBreak') === 'true') {
-    document.getElementById('container-short').style.display = 'none';
     start(localStorage.getItem('ShortBreakMinutes'), 0);
   } else {
-    document.getElementById('container-long').style.display = 'none';
     start(localStorage.getItem('LongBreakMinutes'), 0);
   }
 }
@@ -257,10 +273,12 @@ function startTimer() {
   const todayPomos = Number(localStorage.getItem('todayPomo'));
   localStorage.setItem('todayPomo', todayPomos + 1);
 
-  document.getElementById('distraction-btn').disabled = false;
   isFailed = true;
-  document.getElementById('start-btn').style.display = 'none';
-  document.getElementById('button-container').style.paddingLeft = '150px';
+
+  hideButtons();
+  document.getElementById('distraction-btn').style.display = '';
+  document.getElementById('fail-btn').style.display = '';
+
   start(localStorage.getItem('TimerMinutes'), 0);
 }
 
@@ -338,8 +356,7 @@ function finishedTask() {
   todayDistract += distractCounter;
   const pomo = localStorage.getItem('isPomo');
   isInSession = false;
-  // disable distraction button
-  document.getElementById('distraction-btn').disabled = true;
+  
   if (pomo === 'true') {
     // we just finished a break session
     localStorage.setItem('isPomo', 'false');
@@ -374,7 +391,9 @@ function finishedTask() {
     }
 
     // update progress for current task
-    allTasks[currentTaskId].current += 1;
+    if(currentTaskId) {
+      allTasks[currentTaskId].current += 1;
+    }
     localStorage.setItem('allTasks', JSON.stringify(allTasks));
   }
 }
@@ -416,9 +435,8 @@ function quitFailModal() {
   document.getElementById('failModal').style.display = 'none';
 }
 
-addEventListener('beforeunload', WarnReload, {once:true});
 // set the session state back to a work session
-function WarnReload() {
+window.onbeforeunload = function WarnReload() {
   if (isInSession && isReload) {
     return 'Your timer progress will reset';
   }
@@ -428,6 +446,7 @@ if (typeof exports !== 'undefined') {
   module.exports = {
     setProgress,
     resetProgressRing,
+    hideButtons,
     displayBreakComplete,
     continueTask,
     changeTask,

@@ -10,7 +10,8 @@
  */
 let statsList;
 
-addEventListener('load', loadHandler, {once:true});
+window.onload = loadHandler;
+window.onbeforeunload = unloadHandler;
 
 /**
  * Change the display of the info-modal modal to open
@@ -145,8 +146,6 @@ function loadHandler() {
 
   // close the modal if click outside
   window.onclick = eventCloseStatsModal;
-
-  addEventListener('beforeunload', unloadHandler, {once:true});
 }
 
 /**

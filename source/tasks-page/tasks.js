@@ -10,7 +10,9 @@ let cancelBtns;
 let spanClose;
 
 // Setting up the function to handle loading task items
-addEventListener('load', handleLoad, {once: true});
+window.onload = handleLoad;
+
+window.onbeforeunload = handleUnload;
 
 /**
  * Function which sets the modal's display to be block
@@ -98,8 +100,6 @@ function handleLoad() {
 
   // close the modal when clicking outside
   window.onclick = eventCloseModal;
-
-  addEventListener('beforeunload', handleUnload, {once: true});
 }
 
 /**

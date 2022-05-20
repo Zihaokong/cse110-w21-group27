@@ -8,7 +8,9 @@
 let statsList;
 
 // Set the onload function to be handleLoad.
-addEventListener('onload', handleLoad);
+window.onload = handleLoad;
+window.onbeforeunload = handleUnload;
+
 
 /**
  * To determine the current date when the user accessing to the index.html.
@@ -68,8 +70,6 @@ function determineSessionDate() {
     statsList = JSON.parse(retrievedStats);
     determineSessionDate();
   }
-
-  addEventListener('onbeforeunload', handleUnload);
 }
 
 /**
@@ -88,4 +88,4 @@ function handleUnload() {
   );
 }
 
-window.location.replace(`/timer-page/timer.html`);
+window.location.replace('/timer-page/timer.html');
