@@ -21,7 +21,7 @@ let circumference;
 let secondsInterval;
 
 // Call the initializer function when the window is loaded.
-window.onload = timerPageInit;
+addEventListener('load', timerPageInit, {once:true});
 
 // TODO: More detailed comments may be required.
 /**
@@ -208,7 +208,7 @@ function continueTask() {
  */
 function changeTask() {
   document.getElementById('breakCompleteModal').style.display = 'none';
-  window.location.href = '../index.html';
+  window.location.href = '../tasks-page/tasks.html';
 }
 
 /**
@@ -402,7 +402,7 @@ function displayFailModal() {
  */
 function failSession() {
   document.getElementById('failModal').style.display = 'none';
-  window.location.href = '../index.html';
+  window.location.href = '../tasks-page/tasks.html';
 }
 
 /**
@@ -416,8 +416,9 @@ function quitFailModal() {
   document.getElementById('failModal').style.display = 'none';
 }
 
+addEventListener('beforeunload', WarnReload, {once:true});
 // set the session state back to a work session
-window.onbeforeunload = function WarnReload() {
+function WarnReload() {
   if (isInSession && isReload) {
     return 'Your timer progress will reset';
   }

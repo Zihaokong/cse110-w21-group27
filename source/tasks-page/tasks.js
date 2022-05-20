@@ -1,10 +1,7 @@
 /**
  * This file defines functions and implements the behaviors for pop-up modals
- * and other Modals for the main page.
+ * and other Modals for the tasks page.
  */
-// Array of stat info objects; these objects include the day, pomo count,
-// # of distractions, and completed pomos.
-let statsList;
 
 // Variables for elements which are found in window load.
 let modal;
@@ -12,8 +9,8 @@ let btns;
 let cancelBtns;
 let spanClose;
 
-// Set the onload function to be handleLoad.
-window.onload = handleLoad;
+// Setting up the function to handle loading task items
+addEventListener('load', handleLoad, {once: true});
 
 /**
  * Function which sets the modal's display to be block
@@ -30,51 +27,6 @@ function openInfoModal() {
 }
 function closeInfoModal() {
   document.getElementById('info-modal').style.display = 'none';
-}
-
-/**
- * To determine the current date when the user accessing to the index.html.
- * Calculate the difference of days since the last visit. If it is not the same
- * work day, create the new object with the current number in counters and add
- * to the list. Reset the counters current work day.
- */
-function determineSessionDate() {
-  // get the last visit date from local Storage and pass as Date object
-  const lastVisit = new Date(JSON.parse(localStorage.getItem('lastVisit')));
-
-  // create current Date object
-  const currentDate = new Date();
-
-  // The difference in day
-  const diffDays = Math.floor(
-    Math.abs(currentDate - lastVisit) / (1000 * 60 * 60 * 24)
-  );
-
-  // if the last visit and current are not the same day
-  if (diffDays !== 0) {
-    const todayPomos = Number(localStorage.getItem('todayPomo'));
-    const todayDistractions = Number(localStorage.getItem('distractCounter'));
-    const todayCompletedPomos = Number(localStorage.getItem('sessionCounter'));
-
-    // create the new object contains the elements of the current stats
-    const newStats = {
-      day: lastVisit.toLocaleDateString('en-US'),
-      pomoCount: todayPomos,
-      distractions: todayDistractions,
-      completedPomos: todayCompletedPomos,
-    };
-
-    // adding the latest stat to the head of the list
-    statsList.unshift(newStats);
-
-    // reseting all the counters for current day
-    localStorage.setItem('todayPomo', 0);
-    localStorage.setItem('distractCounter', 0);
-    localStorage.setItem('sessionCounter', 0);
-
-    // adding the list with new stat to localStorage
-    localStorage.setItem('statsList', JSON.stringify(statsList));
-  }
 }
 
 /*
@@ -120,9 +72,9 @@ function eventCloseModal(event) {
 }
 
 /**
- * Called on window load, sets the stats list from local storage, finds elements
- * in the browser DOM to attach to the element variables, and attaches event
- * listeners to them which, based on their usage, will open or close the modal.
+ * Called on window load, finds elements in the browser DOM to attach to the 
+ * element variables, and attaches event listeners to them which, based on 
+ * their usage, will open or close the modal.
  */
 function handleLoad() {
   // Get the add-task-modal
@@ -133,13 +85,6 @@ function handleLoad() {
   cancelBtns = document.getElementsByClassName('cancel-btn');
   // Get the <span> element that closes the modal
   spanClose = document.getElementsByClassName('close');
-  const retrievedStats = localStorage.getItem('statsList');
-  if (!retrievedStats || retrievedStats === 'undefined') {
-    statsList = [];
-  } else {
-    statsList = JSON.parse(retrievedStats);
-    determineSessionDate();
-  }
 
   // add event listeners for closing Modal
   for (let i = 0; i < spanClose.length; ++i) {
@@ -154,7 +99,7 @@ function handleLoad() {
   // close the modal when clicking outside
   window.onclick = eventCloseModal;
 
-  window.onbeforeunload = handleUnload;
+  addEventListener('beforeunload', handleUnload, {once: true});
 }
 
 /**
@@ -162,15 +107,6 @@ function handleLoad() {
  * trigger determineSessionDate(), and log the currentDate time
  */
 function handleUnload() {
-  // call in case the date has changed before the next pomo
-  determineSessionDate();
-
-  // create current Date object
-  const current = new Date();
-  localStorage.setItem(
-    'lastVisit',
-    JSON.stringify(current.toLocaleDateString('en-US'))
-  );
   if (document.getElementsByTagName('task-list')[0]) {
     document.getElementsByTagName('task-list')[0].remove();
   }
