@@ -106,21 +106,21 @@ function timerPageInit() {
 function timerLengthInit() {
   localStorage.setItem(
     'TimerMinutes',
-    localStorage.getItem('TimerMinutes') || 1
+    localStorage.getItem('TimerMinutes') || 25
   );
   localStorage.setItem(
     'ShortBreakMinutes',
-    localStorage.getItem('ShortBreakMinutes') || 1
+    localStorage.getItem('ShortBreakMinutes') || 5
   );
   localStorage.setItem(
     'LongBreakMinutes',
-    localStorage.getItem('LongBreakMinutes') || 1
+    localStorage.getItem('LongBreakMinutes') || 15
   );
 
   // Default autoContinue
   localStorage.setItem(
     'autoContinue',
-    localStorage.getItem('autoContinue') || 'on'
+    localStorage.getItem('autoContinue') || 'false'
   );
 
   // render the change input's value
@@ -182,13 +182,26 @@ function resetProgressRing() {
 function displayBreakComplete() {
   const audio = new Audio('/assets/audio/break-tune.mp3');
   audio.play();
-  setTimeout(() => {
-    if (localStorage.getItem('autoContinue') === 'on') {
-      continueTask();
-    } else {
-      document.getElementById('breakCompleteModal').style.display = 'block';
-    }
-  }, 2000);
+  document.getElementById('breakCompleteModal').style.display = 'block';
+}
+
+/**
+ * Automatically continue to next phase
+ */
+function autoContinue() {
+  if (localStorage.getItem('ShortBreak') === 'true') {
+    startBreak();
+  } else if (localStorage.getItem('LongBreak') === 'true') {
+    startBreak();
+  } else {
+    continueTask();
+    document.getElementsByTagName('header-comp')[0].completedCycles = Number(
+      localStorage.getItem('sessionCounter')
+    );
+    setTimeout(() => {
+      startTimer();
+    });
+  }
 }
 
 /**
@@ -213,9 +226,6 @@ function continueTask() {
     'todayPomo',
     Number(localStorage.getItem('todayPomo')) + 1
   );
-  if (localStorage.getItem('autoContinue') === 'on') {
-    startTimer();
-  }
 }
 
 /**
@@ -248,9 +258,6 @@ function displayBreak() {
       renderTimer(localStorage.getItem('LongBreakMinutes'), 0);
     }
     document.getElementById('button-container').style.display = 'none';
-    if (localStorage.getItem('autoContinue') === 'on') {
-      startBreak();
-    }
   }, 2000);
 }
 
@@ -392,6 +399,12 @@ function finishedTask() {
     // update progress for current task
     allTasks[currentTaskId].current += 1;
     localStorage.setItem('allTasks', JSON.stringify(allTasks));
+  }
+
+  if (localStorage.getItem('autoContinue') === 'true') {
+    setTimeout(() => {
+      autoContinue();
+    }, 2000);
   }
 }
 
