@@ -1,3 +1,6 @@
+// TODO: Have selecting a task fill in and disable the create a task options
+// TODO: Have a clear button next to the task if its selected
+
 /**
  * This file implements function that start the timer and allow for transitions between work and break sessions
  * It defines functions to update the progress ring and hold the distraction button count
@@ -147,7 +150,7 @@ function timerLengthInit() {
  */
 function taskSelectInit() {
   const dropdown = document.getElementById('choose-task');
-  for(let task of allTasks) {
+  for(let task of (allTasks || [])) {
     dropdown.innerHTML += `<option value="${task.id}">${task.name}</option>`
   }
 }
@@ -272,7 +275,9 @@ function displayBreak() {
     // Making the start break button the only one visible
     hideButtons();
     document.getElementById('start-break-btn').style.display = '';
+    // TODO: make the break button visually disable
     document.getElementById('start-break-btn').disabled = false;
+    document.getElementById('start-break-btn').className = '';
 
   }, 2000);
 }
@@ -283,6 +288,7 @@ function displayBreak() {
 function startBreak() {
   // Making the start break button the only one visible
   document.getElementById('start-break-btn').disabled = true;
+  document.getElementById('start-break-btn').className = 'disable';
 
   if (localStorage.getItem('ShortBreak') === 'true') {
     start(localStorage.getItem('ShortBreakMinutes'), 0);
@@ -481,6 +487,7 @@ function createTask() {
 
     startTimer();
   } else {
+    // TODO
     console.log('error here');
   }
 }

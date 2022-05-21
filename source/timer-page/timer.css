@@ -137,6 +137,10 @@ button{
     align-self: center;
 }
 
+#start-break-btn.disable {
+    opacity: 50%;
+}
+
 #distraction-btn{
     color:white;
     background-color: #2E4756;
