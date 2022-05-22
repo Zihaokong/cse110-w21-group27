@@ -15,3 +15,4 @@ build
 .idea/codeStyles/Project.xml
 .idea/codeStyles/codeStyleConfig.xml
 **/.DS_Store
+.eslintrc.json

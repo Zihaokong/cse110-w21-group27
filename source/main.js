@@ -2,7 +2,6 @@
  * This file defines functions and implements the behaviors for pop-up modals
  * and other Modals for the main page.
  */
-
 // Array of stat info objects; these objects include the day, pomo count,
 // # of distractions, and completed pomos.
 let statsList;
@@ -172,7 +171,9 @@ function handleUnload() {
     'lastVisit',
     JSON.stringify(current.toLocaleDateString('en-US'))
   );
-  document.getElementById('main-container').remove();
+  if (document.getElementsByTagName('task-list')[0]) {
+    document.getElementsByTagName('task-list')[0].remove();
+  }
 }
 
 if (typeof exports !== 'undefined') {

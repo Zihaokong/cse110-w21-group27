@@ -1,15 +1,15 @@
 {
-  "name": "cse110-w21-group27",
-  "version": "1.0.0",
+  "name": "cse112-sp22-group8",
+  "version": "2.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "doc": "jsdoc -c jsdoc.json",
-    "jTest": "jest --coverage",
-    "cTest": "npx cypress run",
-    "test": "npm run jTest",
+    "doc": "jsdoc -c config/jsdoc.json",
+    "jest-test": "jest --coverage",
+    "cypress-test": "npx cypress open --config-file config/cypress.json",
+    "test": "npm run jest-test",
     "cov": "start coverage\\lcov-report\\index.html",
-    "testCov": "npm run jTest && npm run cov",
+    "testCov": "npm run jest-test && npm run cov",
     "docmd": "mkdir docs; jsdoc2md source/*.js source/timer_page/*.js source/stats_page/*.js > docs/Code_Documentation.md"
   },
   "jest": {
@@ -17,17 +17,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Zihaokong/cse110-w21-group27.git"
+    "url": "git+https://github.com/cmwall0605/cse112-sp22-group8.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Zihaokong/cse110-w21-group27/issues"
+    "url": "https://github.com/cmwall0605/cse112-sp22-group8/issues"
   },
-  "homepage": "https://github.com/Zihaokong/cse110-w21-group27#readme",
+  "homepage": "https://github.com/cmwall0605/cse112-sp22-group8#readme",
   "devDependencies": {
-    "cypress": "^6.6.0",
+    "cypress": "^9.6.1",
     "eslint": "^7.2.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-prettier": "^7.2.0",
@@ -47,7 +47,7 @@
     }
   },
   "lint-staged": {
-    "*.js": "eslint --cache --fix"
+    "*.js": "eslint -c config/.eslintrc.json --cache --fix"
   },
   "dependencies": {
     "jsdoc-to-markdown": "^7.0.0"
