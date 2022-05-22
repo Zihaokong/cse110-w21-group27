@@ -253,6 +253,7 @@ function startBreak() {
  * Start the pomodoro timer for current task.
  */
 function startTimer() {
+  document.querySelector('dialog').showModal();
   // enable distraction button during session
   const todayPomos = Number(localStorage.getItem('todayPomo'));
   localStorage.setItem('todayPomo', todayPomos + 1);
