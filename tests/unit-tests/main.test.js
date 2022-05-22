@@ -1,12 +1,6 @@
 const {
-  openModal,
-  closeModal,
-  eventCloseModal,
-  openInfoModal,
-  closeInfoModal,
   handleLoad,
   handleUnload,
-  scrollFunc,
   determineSessionDate,
 } = require('../../source/main');
 
@@ -166,71 +160,6 @@ describe('"handleLoad" Function Test', () => {
   });
 });
 
-describe('"openModal" Function Test', () => {
-  document.body.innerHTML =
-    '<div id="add-task-modal" class="modal">' +
-    '  <button class="cancel-btn">Cancel</button>' +
-    '  <button type="button" class="btn-close close" data-bs-dismiss="modal" aria-label="Close"></button>' +
-    '</div>' +
-    '<button id="add-task-btn" class="add-task-btn">+</button>' +
-    '<div id="main-container"></div>' +
-    '<div id="play-modal" class="modal"></div>' +
-    '<div id="edit-modal" class="modal"></div>' +
-    '<div id="delete-modal" class="modal"></div>';
-
-  test('Test to see if the modal display is set to block after function', () => {
-    const modal = document.getElementById('add-task-modal');
-    modal.style.display = 'none';
-    expect(modal.style.display).toBe('none');
-    openModal();
-    expect(modal.style.display).toBe('block');
-  });
-});
-
-describe('"closeModal" Function Test', () => {
-  test('Test play modal ', () => {
-    const playModal = document.getElementById('play-modal');
-    playModal.style.display = 'block';
-    expect(playModal.style.display).toBe('block');
-    closeModal();
-    expect(playModal.style.display).toBe('none');
-  });
-
-  test('Test edit modal ', () => {
-    const editModal = document.getElementById('edit-modal');
-    editModal.style.display = 'block';
-    expect(editModal.style.display).toBe('block');
-    closeModal();
-    expect(editModal.style.display).toBe('none');
-  });
-
-  test('Test delete modal ', () => {
-    const deleteModal = document.getElementById('delete-modal');
-    deleteModal.style.display = 'block';
-    expect(deleteModal.style.display).toBe('block');
-    closeModal();
-    expect(deleteModal.style.display).toBe('none');
-  });
-});
-
-describe('"eventCloseModal" Function Test', () => {
-  test('Add Task modal closed by this function', () => {
-    const addTaskModal = document.getElementById('add-task-modal');
-    addTaskModal.style.display = 'block';
-
-    // Event of clicking the outer modal area
-    const clickAddTask = new Event('click');
-    Object.defineProperty(clickAddTask, 'target', {
-      writable: false,
-      value: addTaskModal,
-    });
-
-    expect(addTaskModal.style.display).toBe('block');
-    eventCloseModal(clickAddTask);
-    expect(addTaskModal.style.display).toBe('none');
-  });
-});
-
 describe('"handleUnload" Function Test', () => {
   test('Test to see if unloading works as intended', () => {
     const date = new Date();
@@ -310,59 +239,5 @@ describe('"determineSessionDate" Function Test', () => {
     expect(newPomo).toBe('5');
     expect(newDistract).toBe('6');
     expect(newSesion).toBe('7');
-  });
-});
-
-describe('"openInfoModal" Function Test', () => {
-  document.body.innerHTML =
-    '<div id="add-task-modal" class="modal">' +
-    '  <button class="cancel-btn">Cancel</button>' +
-    '  <button type="button" class="btn-close close" data-bs-dismiss="modal" aria-label="Close"></button>' +
-    '</div>' +
-    '<button id="add-task-btn" class="add-task-btn">+</button>' +
-    '<div id="main-container"></div>' +
-    '<div id="play-modal" class="modal"></div>' +
-    '<div id="edit-modal" class="modal"></div>' +
-    '<div id="delete-modal" class="modal"></div>' +
-    '<div id="info-modal" class="modal"></div>';
-
-  test('Open modal test', () => {
-    document.getElementById('info-modal').style.display = 'none';
-    openInfoModal();
-    expect(document.getElementById('info-modal').style.display).toBe('block');
-  });
-});
-
-describe('"closeInfoModal" Function Test', () => {
-  document.body.innerHTML =
-    '<div id="add-task-modal" class="modal">' +
-    '  <button class="cancel-btn">Cancel</button>' +
-    '  <button type="button" class="btn-close close" data-bs-dismiss="modal" aria-label="Close"></button>' +
-    '</div>' +
-    '<button id="add-task-btn" class="add-task-btn">+</button>' +
-    '<div id="main-container"></div>' +
-    '<div id="play-modal" class="modal"></div>' +
-    '<div id="edit-modal" class="modal"></div>' +
-    '<div id="delete-modal" class="modal"></div>' +
-    '<div id="info-modal" class="modal"></div>';
-
-  test('Close modal test', () => {
-    document.getElementById('info-modal').style.display = 'block';
-    closeInfoModal();
-    expect(document.getElementById('info-modal').style.display).toBe('none');
-  });
-});
-
-describe('"scrollFunc" Function Test', () => {
-  test('Make sure scrollFunc does not break', () => {
-    // Cant really test anything as window.scrollTo changes client info, which
-    // we cant really confirm as changed. Just run it to make sure no errors
-    // are thrown and that window.scrollTo is called.
-    let scrollToHasRan = false;
-    window.scrollTo = jest.fn(() => {
-      scrollToHasRan = true;
-    });
-    scrollFunc();
-    expect(scrollToHasRan).toBe(true);
   });
 });

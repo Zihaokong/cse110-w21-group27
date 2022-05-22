@@ -375,7 +375,7 @@ class TaskItem extends HTMLElement {
    */
   createTitle() {
     const title = document.createElement('h1');
-    title.innerHTML = this.name;
+    title.textContent = this.name;
     return title;
   }
 

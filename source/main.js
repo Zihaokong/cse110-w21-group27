@@ -7,7 +7,17 @@
 // # of distractions, and completed pomos.
 let statsList;
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', handleLoad);
+
+window.addEventListener('beforeunload', handleUnload);
+
+/**
+ * Called when the page loads. Set up the short break and long break system.
+ * If the retrieved stats don't exist, then create the stats list as an empty
+ * array. Else, set it up as the stats from storage and determine the session
+ * date.
+ */
+function handleLoad() {
   // set the timer state back to a work session
   localStorage.setItem('ShortBreak', 'false');
   localStorage.setItem('LongBreak', 'false');
@@ -20,9 +30,13 @@ document.addEventListener('DOMContentLoaded', () => {
     statsList = JSON.parse(retrievedStats);
     determineSessionDate();
   }
-});
+}
 
-window.addEventListener('beforeunload', () => {
+/**
+ * Called before the page unloads (changes, exits, etc.), it determines the
+ * session date and sets up the last visit time for the next instance.
+ */
+function handleUnload() {
   // call in case the date has changed before the next pomo
   determineSessionDate();
 
@@ -32,10 +46,7 @@ window.addEventListener('beforeunload', () => {
     'lastVisit',
     JSON.stringify(current.toLocaleDateString('en-US'))
   );
-  if (document.getElementsByTagName('task-list')[0]) {
-    document.getElementsByTagName('task-list')[0].remove();
-  }
-});
+}
 
 /**
  * To determine the current date when the user accessing to the index.html.
@@ -80,4 +91,12 @@ function determineSessionDate() {
     // adding the list with new stat to localStorage
     localStorage.setItem('statsList', JSON.stringify(statsList));
   }
+}
+
+if (typeof exports !== 'undefined') {
+  module.exports = {
+    handleLoad,
+    handleUnload,
+    determineSessionDate,
+  };
 }

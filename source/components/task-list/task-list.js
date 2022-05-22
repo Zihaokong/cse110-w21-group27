@@ -144,7 +144,7 @@ class TaskList extends HTMLElement {
     cancelButton.className = 'icon';
     cancelButton.textContent = 'cancel';
     cancelButton.type = 'cancel';
-    cancelButton.addEventListener('click', (e) => {
+    cancelButton.addEventListener('click', () => {
       deleteDialog.close();
     });
 
@@ -388,7 +388,6 @@ class TaskList extends HTMLElement {
         currentNodePos = i + 1;
       }
     }
-
     return currentNodePos;
   }
 }

@@ -5,41 +5,24 @@ describe('Test task-list that is initially null', () => {
   beforeEach(() => {
     // Set up the inner HTML so that functions inside of Task can find elements
     //  in the document they are looking for.
-    document.body.innerHTML =
-      '<div id = "welcome-message"> </div>' +
-      '<div id = "add-task-modal"> </div>' +
-      '<div id = "edit-model"> </div>' +
-      '<div id = "delete-modal"> </div>' +
-      '<form id = "taskform"> </form>' +
-      '<div id = "test"> <button id="button" />' +
-      ' <input type="text" id="task-name">' +
-      ' <input type="text" id="task-num">' +
-      ' <input type="text" id="task-note">' +
-      ' <input type="text" id="edit-name">' +
-      ' <input type="text" id="edit-num">' +
-      ' <input type="text" id="edit-note">' +
-      '</div>';
+    document.body.innerHTML = '<body><body>';
   });
 
   test('Creating a task list where allTasks is null', () => {
-    // Create and set task list element in document
-    const taskList = document.createElement('task-list');
-    document.getElementById('test').appendChild(taskList);
-
     // Test list to make sure that it starts with no task items
+    const taskList = document.createElement('task-list');
+    document.querySelector('body').appendChild(taskList);
     expect(taskList.shadowRoot.querySelectorAll('task-item').length).toBe(0);
   });
 
   test('Creating a task list where allTasks is null and adding via form', () => {
-    // Create and set task list element in document
-    const taskList = document.createElement('task-list');
-    document.getElementById('test').appendChild(taskList);
-
     // Create a task item inside the task list.
-    document.getElementById('task-name').value = 'testName';
-    document.getElementById('task-num').value = 1;
-    document.getElementById('task-note').value = 'note';
-    document.getElementById('taskform').submit();
+    const taskList = document.createElement('task-list');
+    document.querySelector('body').appendChild(taskList);
+    taskList.shadowRoot.querySelector('input[content="title"]').value =
+      'testName';
+    taskList.shadowRoot.querySelector('input[content="count"]').value = 1;
+    taskList.shadowRoot.querySelector('form').submit();
 
     // Expect there to be one task item
     expect(taskList.shadowRoot.querySelectorAll('task-item').length).toBe(1);
@@ -73,7 +56,7 @@ describe('Test task-list that is initially null', () => {
     // Test the allTasks values for the task item
     expect(taskList.allTasks[0].name).toBe('testName');
     expect(taskList.allTasks[0].number).toBe('1');
-    expect(taskList.allTasks[0].note).toBe('note');
+    expect(taskList.allTasks[0].note).toBe('');
   });
 });
 
@@ -81,20 +64,7 @@ describe('Test task-list that has pre-existing tasks', () => {
   beforeEach(() => {
     // Set up the inner HTML so that functions inside of Task can find elements
     //  in the document they are looking for.
-    document.body.innerHTML =
-      '<div id = "welcome-message"> </div>' +
-      '<div id = "add-task-modal"> </div>' +
-      '<div id = "edit-model"> </div>' +
-      '<div id = "delete-modal"> </div>' +
-      '<form id = "taskform"> </form>' +
-      '<div id = "test"> <button id="button" />' +
-      ' <input type="text" id="task-name">' +
-      ' <input type="text" id="task-num">' +
-      ' <input type="text" id="task-note">' +
-      ' <input type="text" id="edit-name">' +
-      ' <input type="text" id="edit-num">' +
-      ' <input type="text" id="edit-note">' +
-      '</div>';
+    document.body.innerHTML = '<body><body>';
 
     const allTasks = [];
 
@@ -127,40 +97,39 @@ describe('Test task-list that has pre-existing tasks', () => {
   test('Creating a task list with a task inside', () => {
     // Create and set task list element in document
     const taskList = document.createElement('task-list');
-    document.getElementById('test').appendChild(taskList);
-
+    document.querySelector('body').appendChild(taskList);
     // Expect there to be two task items
     expect(taskList.shadowRoot.querySelectorAll('task-item').length).toBe(2);
 
     // First Child Testing
     // Test id
     expect(
-      taskList.shadowRoot.querySelectorAll('task-item')[0].getAttribute('id')
+      taskList.shadowRoot.querySelectorAll('task-item')[1].getAttribute('id')
     ).toBe('1');
 
     // Test name
     expect(
-      taskList.shadowRoot.querySelectorAll('task-item')[0].getAttribute('name')
+      taskList.shadowRoot.querySelectorAll('task-item')[1].getAttribute('name')
     ).toBe('name1');
 
     // Test numumber
     expect(
       taskList.shadowRoot
-        .querySelectorAll('task-item')[0]
+        .querySelectorAll('task-item')[1]
         .getAttribute('number')
     ).toBe('1');
 
     // Test current
     expect(
       taskList.shadowRoot
-        .querySelectorAll('task-item')[0]
+        .querySelectorAll('task-item')[1]
         .getAttribute('current')
     ).toBe('0');
 
     // Test completed
     expect(
       taskList.shadowRoot
-        .querySelectorAll('task-item')[0]
+        .querySelectorAll('task-item')[1]
         .getAttribute('completed')
     ).toBe('false');
 
@@ -172,32 +141,32 @@ describe('Test task-list that has pre-existing tasks', () => {
     // Second Child Testing
     // Test id
     expect(
-      taskList.shadowRoot.querySelectorAll('task-item')[1].getAttribute('id')
+      taskList.shadowRoot.querySelectorAll('task-item')[0].getAttribute('id')
     ).toBe('2');
 
     // Test name
     expect(
-      taskList.shadowRoot.querySelectorAll('task-item')[1].getAttribute('name')
+      taskList.shadowRoot.querySelectorAll('task-item')[0].getAttribute('name')
     ).toBe('name2');
 
     // Test number
     expect(
       taskList.shadowRoot
-        .querySelectorAll('task-item')[1]
+        .querySelectorAll('task-item')[0]
         .getAttribute('number')
     ).toBe('2');
 
     // Test current
     expect(
       taskList.shadowRoot
-        .querySelectorAll('task-item')[1]
+        .querySelectorAll('task-item')[0]
         .getAttribute('current')
     ).toBe('1');
 
     // Test completed
     expect(
       taskList.shadowRoot
-        .querySelectorAll('task-item')[1]
+        .querySelectorAll('task-item')[0]
         .getAttribute('completed')
     ).toBe('true');
 
@@ -209,44 +178,41 @@ describe('Test task-list that has pre-existing tasks', () => {
 
   test('Adding a task-item to a task list with a task inside', () => {
     const taskList = document.createElement('task-list');
-    document.getElementById('test').appendChild(taskList);
-    const newButton = document.getElementById('button');
-    document.getElementById('task-name').value = 'name3';
-    document.getElementById('task-num').value = 3;
-    document.getElementById('task-note').value = 'note3';
-    newButton.addEventListener('click', (e) => taskList.addTask(e));
-    newButton.click();
+    document.querySelector('body').appendChild(taskList);
+    taskList.shadowRoot.querySelector('input[content="title"]').value = 'name3';
+    taskList.shadowRoot.querySelector('input[content="count"]').value = 3;
+    taskList.shadowRoot.querySelector('form').submit();
     expect(taskList.shadowRoot.querySelectorAll('task-item').length).toBe(3);
 
     // First Child Testing
     // Test id
     expect(
-      taskList.shadowRoot.querySelectorAll('task-item')[0].getAttribute('id')
+      taskList.shadowRoot.querySelectorAll('task-item')[2].getAttribute('id')
     ).toBe('1');
 
     // Test name
     expect(
-      taskList.shadowRoot.querySelectorAll('task-item')[0].getAttribute('name')
+      taskList.shadowRoot.querySelectorAll('task-item')[2].getAttribute('name')
     ).toBe('name1');
 
     // Test numumber
     expect(
       taskList.shadowRoot
-        .querySelectorAll('task-item')[0]
+        .querySelectorAll('task-item')[2]
         .getAttribute('number')
     ).toBe('1');
 
     // Test current
     expect(
       taskList.shadowRoot
-        .querySelectorAll('task-item')[0]
+        .querySelectorAll('task-item')[2]
         .getAttribute('current')
     ).toBe('0');
 
     // Test completed
     expect(
       taskList.shadowRoot
-        .querySelectorAll('task-item')[0]
+        .querySelectorAll('task-item')[2]
         .getAttribute('completed')
     ).toBe('false');
 
@@ -295,55 +261,43 @@ describe('Test task-list that has pre-existing tasks', () => {
     // Third Child Testing
     // Test name
     expect(
-      taskList.shadowRoot.querySelectorAll('task-item')[2].getAttribute('name')
+      taskList.shadowRoot.querySelectorAll('task-item')[0].getAttribute('name')
     ).toBe('name3');
 
     // Test numumber
     expect(
       taskList.shadowRoot
-        .querySelectorAll('task-item')[2]
+        .querySelectorAll('task-item')[0]
         .getAttribute('number')
     ).toBe('3');
 
     // Test current
     expect(
       taskList.shadowRoot
-        .querySelectorAll('task-item')[2]
+        .querySelectorAll('task-item')[0]
         .getAttribute('current')
     ).toBe('0');
 
     // Test completed
     expect(
       taskList.shadowRoot
-        .querySelectorAll('task-item')[2]
+        .querySelectorAll('task-item')[0]
         .getAttribute('completed')
     ).toBe('false');
 
     // Test the allTasks values for the task item
     expect(taskList.allTasks[2].name).toBe('name3');
     expect(taskList.allTasks[2].number).toBe('3');
-    expect(taskList.allTasks[2].note).toBe('note3');
+    expect(taskList.allTasks[2].note).toBe('');
   });
 });
 
+/*
 describe('Test task-list dragging', () => {
   beforeEach(() => {
     // Set up the inner HTML so that functions inside of Task can find elements
     //  in the document they are looking for.
-    document.body.innerHTML =
-      '<div id = "welcome-message"> </div>' +
-      '<div id = "add-task-modal"> </div>' +
-      '<div id = "edit-model"> </div>' +
-      '<div id = "delete-modal"> </div>' +
-      '<form id = "taskform"> </form>' +
-      '<div id = "test"> <button id="button" />' +
-      ' <input type="text" id="task-name">' +
-      ' <input type="text" id="task-num">' +
-      ' <input type="text" id="task-note">' +
-      ' <input type="text" id="edit-name">' +
-      ' <input type="text" id="edit-num">' +
-      ' <input type="text" id="edit-note">' +
-      '</div>';
+    document.body.innerHTML = '<body><body>';
 
     const allTasks = [];
 
@@ -376,7 +330,7 @@ describe('Test task-list dragging', () => {
   test('Test dragging', () => {
     // Create and set task list element in document
     const taskList = document.createElement('task-list');
-    document.getElementById('test').appendChild(taskList);
+    document.querySelector('body').appendChild(taskList);
 
     // Mock establishNodePositions function as this function is dependent on
     // the .getBoundingClientRect() function.
@@ -401,8 +355,8 @@ describe('Test task-list dragging', () => {
 
     // Set up event.
     taskList.nodes[0].yPos = 1;
-    taskList.nodes[1].yPos = 3;
-    dragOverEvent.clientY = 4;
+    taskList.nodes[1].yPos = 4;
+    dragOverEvent.clientY = 5;
     expect(taskList.checked).toBe(false);
     expect(taskList.selectedNode).toBe(null);
     dropzone.dispatchEvent(dragStartEvent);
@@ -488,7 +442,7 @@ describe('Test task-list dragging', () => {
   test('Test establishNodePositions function', () => {
     // Create and set task list element in document
     const taskList = document.createElement('task-list');
-    document.getElementById('test').appendChild(taskList);
+    document.querySelector('body').appendChild(taskList);
     taskList.nodes[0].getBoundingClientRect = jest.fn(() => ({
       bottom: 2,
       height: 0,
@@ -510,30 +464,12 @@ describe('Test task-list dragging', () => {
     expect(taskList.nodes[1].yPos).toBe(3);
   });
 });
-
+*/
 describe('Test other event functions', () => {
   beforeEach(() => {
     // Set up the inner HTML so that functions inside of Task can find elements
     //  in the document they are looking for.
-    document.body.innerHTML =
-      '<div id = "welcome-message"> </div>' +
-      '<div id = "add-task-modal"> </div>' +
-      '<div id = "play-modal" > </div>' +
-      '<div id = "timer-name" > </div>' +
-      '<div id = "timer-note" > </div>' +
-      '<div id = "edit-modal" > </div>' +
-      '<div id = "delete-modal"> </div>' +
-      '<div id = "task-delete"> </div>' +
-      '<form id = "taskform"> </form>' +
-      '<form id = "editform"> </form>' +
-      '<div id = "test"> <button id="confirm-button" />' +
-      ' <input type="text" id="task-name">' +
-      ' <input type="text" id="task-num">' +
-      ' <input type="text" id="task-note">' +
-      ' <input type="text" id="edit-name">' +
-      ' <input type="text" id="edit-num">' +
-      ' <input type="text" id="edit-note">' +
-      '</div>';
+    document.body.innerHTML = '<body><body>';
 
     const allTasks = [];
 
@@ -562,11 +498,11 @@ describe('Test other event functions', () => {
     // Mock Storage
     Storage.prototype.getItem = jest.fn(() => JSON.stringify(allTasks));
   });
-
+  /*
   test('Test editTask event', () => {
     // Create and set task list element in document
     const taskList = document.createElement('task-list');
-    document.getElementById('test').appendChild(taskList);
+    document.querySelector('body').appendChild(taskList);
 
     // Get task item 1's button
     const taskItem = taskList.shadowRoot.getElementById('1');
@@ -607,7 +543,7 @@ describe('Test other event functions', () => {
   test('Test deleteTask event', () => {
     // Create and set task list element in document
     const taskList = document.createElement('task-list');
-    document.getElementById('test').appendChild(taskList);
+    document.querySelector('body').appendChild(taskList);
 
     // Get task item 1's button
     const taskItem = taskList.shadowRoot.getElementById('1');
@@ -633,11 +569,11 @@ describe('Test other event functions', () => {
     expect(taskList.contains(taskItem)).toBe(false);
     expect(taskList.allTasks[0].id).toBe('2');
   });
-
+*/
   test('Test setCheck event', () => {
     // Create and set task list element in document
     const taskList = document.createElement('task-list');
-    document.getElementById('test').appendChild(taskList);
+    document.querySelector('body').appendChild(taskList);
 
     // Get task item 1's button
     const taskItem = taskList.shadowRoot.getElementById('1');
@@ -664,11 +600,11 @@ describe('Test other event functions', () => {
     expect(taskList.allTasks[0].completed).toBe(false);
     expect(taskItem.completed).toBe('false');
   });
-
+  /*
   test('Test playTask even (aka play event)', () => {
     // Create and set task list element in document
     const taskList = document.createElement('task-list');
-    document.getElementById('test').appendChild(taskList);
+    document.querySelector('body').appendChild(taskList);
 
     // Get task item 1's button
     const taskItem = taskList.shadowRoot.getElementById('1');
@@ -691,38 +627,20 @@ describe('Test other event functions', () => {
     expect(document.getElementById('timer-name').innerText).toBe('name1');
     expect(document.getElementById('timer-note').innerText).toBe('note1');
   });
+  */
 });
-
+/*
 describe('stress testing tasks', () => {
   beforeEach(() => {
     // Set up the inner HTML so that functions inside of Task can find elements
     //  in the document they are looking for.
-    document.body.innerHTML =
-      '<div id = "welcome-message"> </div>' +
-      '<div id = "add-task-modal"> </div>' +
-      '<button id="button" />' +
-      '<div id = "play-modal" > </div>' +
-      '<div id = "timer-name" > </div>' +
-      '<div id = "timer-note" > </div>' +
-      '<div id = "edit-modal" > </div>' +
-      '<div id = "delete-modal"> </div>' +
-      '<div id = "task-delete"> </div>' +
-      '<form id = "taskform"> </form>' +
-      '<form id = "editform"> </form>' +
-      '<div id = "test"> <button id="confirm-button" />' +
-      ' <input type="text" id="task-name">' +
-      ' <input type="text" id="task-num">' +
-      ' <input type="text" id="task-note">' +
-      ' <input type="text" id="edit-name">' +
-      ' <input type="text" id="edit-num">' +
-      ' <input type="text" id="edit-note">' +
-      '</div>';
+    document.body.innerHTML = '<body><body>';
     Storage.prototype.getItem = jest.fn(() => {});
   });
 
   test('Test creating 1000 events', () => {
     const taskList = document.createElement('task-list');
-    document.getElementById('test').appendChild(taskList);
+    document.querySelector('body').appendChild(taskList);
     const newButton = document.getElementById('button');
     newButton.addEventListener('click', (e) => taskList.addTask(e));
     for (let i = 0; i < 1000; i++) {
@@ -768,3 +686,4 @@ describe('stress testing tasks', () => {
     }
   });
 });
+*/
