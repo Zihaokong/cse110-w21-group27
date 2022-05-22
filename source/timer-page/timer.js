@@ -130,24 +130,6 @@ function timerLengthInit() {
 }
 
 /**
- * Currently, the HTML element's ID should be the same as the name for the local storage.
- * @param {string} lengthType the identifier for which timer's length.
- */
-function updateTimerLength(lengthType) {
-  localStorage.setItem(lengthType, document.getElementById(lengthType).value);
-  if (
-    !isInSession &&
-    ((lengthType === 'timerMinutes' &&
-      localStorage.getItem('isPomo') === 'false') ||
-      (lengthType === 'shortBreakMinutes' &&
-        localStorage.getItem('ShortBreak') === 'true') ||
-      (lengthType === 'longBreakMinutes' &&
-        localStorage.getItem('LongBreak') === 'true'))
-  )
-    renderTimer(localStorage.getItem(lengthType), 0);
-}
-
-/**
  * Change the style of current timer circle.
  * @param {number} percent percentage of current progress bar.
  */
@@ -438,6 +420,5 @@ if (typeof exports !== 'undefined') {
     failSession,
     quitFailModal,
     displayBreak,
-    updateTimerLength,
   };
 }
