@@ -1,0 +1,112 @@
+span {
+  height: 10px;
+  width: 10px;
+  padding: 10px;
+  margin: 5px;
+  background-color: var(--light-color);
+  border-radius: 77%;
+  border: 2px solid var(--light-color);
+  display: inline-block;
+  
+}
+
+.dot {
+  background-color: var(--light-color);
+}
+
+.filled-dot {
+  background-color: var(--primary-color);
+}
+
+section {
+  background-color: var(--primary-color);
+  box-shadow: 1px 1px 0.5rem var(--primary-color);
+  display: grid;
+  grid-auto-columns: 1fr 1fr 1fr 1fr;
+  grid-template-areas:
+    "title stats"
+    "dots stats";
+  grid-template-rows: auto;
+  margin: 0;
+  width: 100%;
+}
+
+div {
+  grid-area: dots;
+  display: flex;
+  justify-self: flex-start;
+  justify-content: center;
+  justify-items: center;
+  align-content: center;
+  align-items: center;
+}
+
+h1 {
+  color:var(--light-color);
+  font-size: 2em;
+  font-weight: 1;
+  grid-area: title;
+  margin: 0;
+  text-align: left;
+}
+nav {
+  align-content: stretch;
+  align-items: center;
+  grid-area: stats;
+  display: flex;
+  justify-self: flex-end;
+  justify-content: stretch;
+  justify-items: center;
+  padding: 10px;
+}
+
+button{
+  background-color: transparent;
+  border: none;
+  color: var(--light-color);
+  cursor: pointer;
+  font-family: 'Material Icons';
+  font-feature-settings: 'liga';
+  font-size: 3em;
+  padding: 10px;
+  justify-self: end;
+  text-shadow: 1px 1px 0.2rem var(--medium-color);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+button:enabled {
+  text-shadow: 1px 1px 0.1rem var(--medium-color);
+}
+
+button:hover:enabled {
+  animation: button-pop;
+  transform: scale(1.2);
+  animation-duration: 0.25s;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+button:hover:enabled {
+  animation: button-pop;
+  transform: scale(1.2);
+  animation-duration: 0.25s;
+}
+
+@keyframes button-pop {
+  0% {
+    transform: scale(1);
+  }
+  
+  50% {
+    transform: scale(1.4);
+  }
+  
+  100% {
+    transform: scale(1.2);
+  }
+}
