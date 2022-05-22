@@ -1,5 +1,5 @@
 # cse110-w21-group8 (AKA Team Cre8tors)
-## Placeholder README
+## README (WORK IN PROGRESS...)
 
 <div id="top"></div>
 <!--
@@ -20,28 +20,24 @@
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
 [![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
+[![CodeFactor][codefactor-shield]][codefactor-url]
+[![Firebase][firebase-shield]][firebase-url]
 [![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
 
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+  <a href="https://pomodoro-timer-c1a2a.web.app/">
+    <img src="/admin/misc/CSE112-Team-8-Cre8tors-Logo.png" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">Best-README-Template</h3>
+  <h3 align="center">Cre8tors</h3>
 
   <p align="center">
-    An awesome README template to jumpstart your projects!
-    <br />
-    <a href="https://github.com/othneildrew/Best-README-Template"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/cmwall0605/cse112-sp22-group8/tree/main/specs"><strong>Explore the specs»</strong></a>
     <br />
     <br />
-    <a href="https://github.com/othneildrew/Best-README-Template">View Demo</a>
+    <a href="https://pomodoro-timer-c1a2a.web.app/">View Demo</a>
     ·
     <a href="https://github.com/othneildrew/Best-README-Template/issues">Report Bug</a>
     ·
@@ -238,16 +234,14 @@ Use this space to list resources you find helpful and would like to give credit 
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
-[contributors-url]: https://github.com/othneildrew/Best-README-Template/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/othneildrew/Best-README-Template.svg?style=for-the-badge
-[forks-url]: https://github.com/othneildrew/Best-README-Template/network/members
-[stars-shield]: https://img.shields.io/github/stars/othneildrew/Best-README-Template.svg?style=for-the-badge
-[stars-url]: https://github.com/othneildrew/Best-README-Template/stargazers
-[issues-shield]: https://img.shields.io/github/issues/othneildrew/Best-README-Template.svg?style=for-the-badge
-[issues-url]: https://github.com/othneildrew/Best-README-Template/issues
+[contributors-shield]: https://img.shields.io/github/contributors/cmwall0605/cse112-sp22-group8?style=for-the-badge
+[contributors-url]: https://github.com/cmwall0605/cse112-sp22-group8/graphs/contributors
+[issues-shield]: https://img.shields.io/github/issues-closed/cmwall0605/cse112-sp22-group8?style=for-the-badge
+[issues-url]: https://github.com/cmwall0605/cse112-sp22-group8/issues
 [license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
 [license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/othneildrew
+[firebase-shield]: https://img.shields.io/badge/firebase-%23039BE5.svg?style=for-the-badge&logo=firebase
+[firebase-url]: https://firebase.google.com/
 [product-screenshot]: images/screenshot.png
+[codefactor-shield]: https://img.shields.io/codefactor/grade/github/cmwall0605/cse112-sp22-group8?style=for-the-badge
+[codefactor-url]: https://www.codefactor.io/repository/github/cmwall0605/cse112-sp22-group8
