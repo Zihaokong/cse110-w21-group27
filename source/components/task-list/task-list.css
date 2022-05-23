@@ -3,8 +3,127 @@
 /*
  * Section for the task container
  */
+ 
+ form {
+  align-content: center;
+  align-items: center;
+  box-shadow: 1px 1px 0.5rem var(--primary-color);
+  display: grid;
+  gap: 10px;
+  grid-template-rows: auto;
+  justify-content: stretch;
+  justify-items: stretch;
+  margin:  10px 0px 10px;
+  opacity: 0.5;
+  transition: box-shadow 0.2s ease-in-out;
+  transition: opacity 0.3s ease-in-out;
+}
+
+form:hover {
+  box-shadow: 1px 1px 0.7rem var(--primary-color);
+  opacity: 1;
+}
+
+input {
+  display: inline-block;
+  margin: 0;
+  text-overflow: ellipsis;
+  overflow-wrap: break-word;
+  padding: 0px;
+  word-breaK:break-all;
+  font-size: calc(20px + 0.5vw);
+  transition: text-decoration 0.2s ease-in-out;
+}
+
+input[content="title"] {
+  grid-area: title;
+
+}
+
+input[content="count"] {
+  grid-area: count;
+}
+
+button {
+  color: var(--primary-color);
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  grid-area: submit;
+  padding: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+button:enabled {
+  text-shadow: 1px 1px 0.1rem var(--medium-color);
+}
+
+button:hover:enabled {
+  animation: button-pop;
+  transform: scale(1.2);
+  animation-duration: 0.25s;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+@media (min-width: 900px) {
+  
+  form{
+    grid-auto-columns: 1fr 1fr 10fr 10fr 1fr 1fr 1fr;
+    grid-template-areas:
+      ". . title count submit . .";
+  }
+  
+  .icon {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 900px) {
+  
+  form{
+    grid-auto-columns: 1fr;
+    grid-template-areas:
+      "title"
+      "count"
+      "submit";
+  }
+  
+  .icon {
+    font-size: 4rem;
+  }
+}
+
+.icon {
+  font-family: 'Material Icons';
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+  /* Support for IE. */
+  font-feature-settings: 'liga';
+}
+
 section {
   list-style-type: none;
-  padding: 0px 50px 0px;
   margin: 0;
+}
+
+@keyframes button-pop {
+  0% {
+    transform: scale(1);
+  }
+  
+  50% {
+    transform: scale(1.4);
+  }
+  
+  100% {
+    transform: scale(1.2);
+  }
 }

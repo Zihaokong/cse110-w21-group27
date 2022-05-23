@@ -15,14 +15,20 @@
     <!--Javascript Not Enabled Contingency-->
     <noscript>
       <section style="width: 100vw; height: 100vh; background-color: black;">
-        <h1 style="margin: 0; text-align: center; font-size: 3em; color: red;">WARNING! Javascript is disabled on your browser!</h1>
-        <p style="text-align: center; font-size: 3em; color: red;">This website only works with browsers which support Javascript.</p>
+        <h1 style="margin: 0; text-align: center; font-size: 3em; color: red;">
+          WARNING! Javascript is disabled on your browser!
+        </h1>
+        <p style="text-align: center; font-size: 3em; color: red;">
+          This website only works with browsers which support Javascript.
+        </p>
       </section>
     </noscript>
     
     <!--CSS Not Enabled Contingency-->
     <section class="no-style" style="width: 100%; background-color: black;">
-      <h1 style="text-align: center; font-size: 3em; color: red;">WARNING! CSS is not working!</h1>
+      <h1 style="text-align: center; font-size: 3em; color: red;">
+        WARNING! CSS is not working!
+      </h1>
     </section>
   
     <header-comp page="timer"></header-comp>
@@ -34,20 +40,16 @@
     <!-- End of simple UI to change timer length-->
 
     <!--Task Heading-->
-    <h1 class="text-center my-5" id="currTask">No Task Selected</h1>
-    <div class="container timer">
-      <div class="row">
-        <div class="col-5">
-          <h4 id="minutes"></h4>
-        </div>
-        <div class="col-2">
-          <h4>:</h4>
-        </div>
-        <div class="col-5">
-          <h4 id="seconds"></h4>
-        </div>
-      </div>
+    <div class="container">
+      <h1 id="currTask">No Task Selected</h1>
+      <button id="deselect-task">cancel</button>
     </div>
+    <div class="container timer">
+      <span class="container">
+        <h4 id="minutes"></h4>
+        <h4>:</h4>
+        <h4 id="seconds"></h4>
+      </span>
 
       <svg class="progress-ring" height="27.5rem" width="27.5rem">
         <circle
@@ -64,7 +66,7 @@
     </div>
 
     <!--Buttons-->
-    <section id="button-container">
+    <section id="button-container" class="container">
       <!-- The page opens with just the start button visible -->
       <button class="startButton" id="start-btn">Start</button>
 
@@ -93,6 +95,11 @@
           <button type="button" id="create-skip">Skip</button>
           <button type="button" id="create-start">Start</button>
         </div>
+
+        <div id="dont-show-container">
+          <input type="checkbox" id="dont-show">
+          <label for="dont-show">Don't show again</label>
+        </div>
       </form>
 
       <!-- The distraction and fail button will be available if a task
@@ -118,9 +125,14 @@
               <button class="button-task" id="continue-btn">
                 Continue Task
               </button>
+              <svg id="auto-continue" height="30" display="none">
+                <rect id="auto-continue-progress"></rect>
+              </svg>
             </div>
             <div class="button-task-position">
-              <button class="button-task" id="change-btn">Change Task</button>
+              <button class="button-task" id="change-btn">
+                Change Task
+              </button>
             </div>
           </div>
         </div>
