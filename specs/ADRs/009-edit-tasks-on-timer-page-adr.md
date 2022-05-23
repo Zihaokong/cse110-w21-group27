@@ -1,6 +1,6 @@
-# RECORD NUMBER - ISSUE
+# 009 - Edit Tasks on Timer Page
 * Date: 05/11/2022
-
+* Status: COMPLETED
 
 ## Context and Problem Statement
 * **Context:**
@@ -13,7 +13,7 @@ Since we are setting the timer as the homepage, we need to be able to edit tasks
   * Enforce task selection
   * Don't enforce task selection
 
-[Userflow diagrams and rough wireframes](./editTasksModalAndTimerPageFlows.pdf)
+[Userflow diagrams and rough wireframes](../design-diagrams/editTasksModalAndTimerPageFlows.pdf)
 
 ## Decision Outcome
 
