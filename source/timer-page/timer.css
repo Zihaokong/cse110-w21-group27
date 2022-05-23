@@ -27,6 +27,7 @@ button{
     transition: 0.5s ease-in-out;
     text-align: center;
     font-weight: lighter;
+    border-radius: 0.5rem;
 }
 
 h2{
@@ -69,18 +70,6 @@ h4{
     transform-origin: 50% 50%;
 }
 
-button{
-    /*position: absolute;
-    top:82%;*/
-    margin: 5px;
-    padding: 10px;
-    border: none;
-    font-size: 30px;
-    transition: 0.5s ease-in-out;
-    text-align: center;
-    font-weight: lighter;
-    border-radius: 0.5rem;
-}
 
 .start{
     left:10%;
