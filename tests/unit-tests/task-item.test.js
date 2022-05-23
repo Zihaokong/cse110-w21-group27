@@ -26,7 +26,7 @@ describe('Task Item Test Constructor', () => {
     // Create Spies for functions called in connectedCallback
     const createDragSpy = jest.spyOn(TaskItem, 'createDrag');
     const createCheckmarkSpy = jest.spyOn(taskItemElement, 'createCheckmark');
-    const createTaskSpy = jest.spyOn(TaskItem, 'createTitle');
+    const createTaskSpy = jest.spyOn(taskItemElement, 'createTitle');
     const createProgressBarSpy = jest.spyOn(
       taskItemElement,
       'createProgressBar'
@@ -87,7 +87,7 @@ describe('Task Item Test Functions', () => {
     const progressBar = taskItemElement.createProgressBar();
     expect(progressBar.firstChild).not.toBe(null);
     expect(progressBar.firstChild.style.width).toBe(percent);
-    expect(progressBar.firstChild.innerHTML).toBe(`${current}/${number}`);
+    expect(progressBar.firstChild.textContent).toBe(`${current}/${number}`);
   });
 
   test('Test createProgressBar @ 100% && completed = false', () => {
@@ -102,7 +102,7 @@ describe('Task Item Test Functions', () => {
     const progressBar = taskItemElement.createProgressBar();
     expect(progressBar.firstChild).not.toBe(null);
     expect(progressBar.firstChild.style.width).toBe(percent);
-    expect(progressBar.firstChild.innerHTML).toBe(`${current}/${number}`);
+    expect(progressBar.firstChild.textContent).toBe(`${current}/${number}`);
   });
 
   test('Test createProgressBar @ > 100% && completed = false', () => {
@@ -117,7 +117,7 @@ describe('Task Item Test Functions', () => {
     const progressBar = taskItemElement.createProgressBar();
     expect(progressBar.firstChild).not.toBe(null);
     expect(progressBar.firstChild.style.width).toBe(percent);
-    expect(progressBar.firstChild.innerHTML).toBe(`${current}/${number}`);
+    expect(progressBar.firstChild.textContent).toBe(`${current}/${number}`);
   });
 
   test('Test createProgressBar @ < 100% && completed = true', () => {
@@ -132,7 +132,7 @@ describe('Task Item Test Functions', () => {
     const progressBar = taskItemElement.createProgressBar();
     expect(progressBar.firstChild).not.toBe(null);
     expect(progressBar.firstChild.style.width).toBe(percent);
-    expect(progressBar.firstChild.innerHTML).toBe(`${current}/${number}`);
+    expect(progressBar.firstChild.textContent).toBe(`${current}/${number}`);
   });
 
   test('Test createProgressBar @ 100% && completed = true', () => {
@@ -147,7 +147,7 @@ describe('Task Item Test Functions', () => {
     const progressBar = taskItemElement.createProgressBar();
     expect(progressBar.firstChild).not.toBe(null);
     expect(progressBar.firstChild.style.width).toBe(percent);
-    expect(progressBar.firstChild.innerHTML).toBe(`${current}/${number}`);
+    expect(progressBar.firstChild.textContent).toBe(`${current}/${number}`);
   });
 
   test('Test createProgressBar @ > 100% && completed = true', () => {
@@ -162,22 +162,30 @@ describe('Task Item Test Functions', () => {
     const progressBar = taskItemElement.createProgressBar();
     expect(progressBar.firstChild).not.toBe(null);
     expect(progressBar.firstChild.style.width).toBe(percent);
-    expect(progressBar.firstChild.innerHTML).toBe(`${current}/${number}`);
+    expect(progressBar.firstChild.textContent).toBe(`${current}/${number}`);
   });
 
   test('Test createTitle', () => {
     const name = 'testname';
-    const title = TaskItem.createTitle(name);
+    const current = 3;
+    const number = 2;
+    const completed = true;
+    const taskItemElement = document.createElement('task-item');
+    taskItemElement.name = name;
+    taskItemElement.completed = completed;
+    taskItemElement.number = number;
+    taskItemElement.current = current;
+    const title = taskItemElement.createTitle();
     expect(title.getAttribute('class')).toBe(null);
     expect(title.tagName).toBe('H1');
-    expect(title.innerHTML).toBe(name);
+    expect(title.textContent).toBe(name);
   });
 
   test('Test createDrag', () => {
     const dragIcon = TaskItem.createDrag();
     expect(dragIcon.getAttribute('class')).toBe('icon');
     expect(dragIcon.tagName).toBe('DRAG-IND');
-    expect(dragIcon.innerHTML).toBe('drag_indicator');
+    expect(dragIcon.textContent).toBe('drag_indicator');
   });
 
   test('Test createCheckmark', () => {

@@ -7,10 +7,46 @@
 // # of distractions, and completed pomos.
 let statsList;
 
-// Set the onload function to be handleLoad.
-window.onload = handleLoad;
-window.onbeforeunload = handleUnload;
+document.addEventListener('DOMContentLoaded', handleLoad);
 
+window.addEventListener('beforeunload', handleUnload);
+
+/**
+ * Called when the page loads. Set up the short break and long break system.
+ * If the retrieved stats don't exist, then create the stats list as an empty
+ * array. Else, set it up as the stats from storage and determine the session
+ * date.
+ */
+function handleLoad() {
+  // set the timer state back to a work session
+  localStorage.setItem('ShortBreak', 'false');
+  localStorage.setItem('LongBreak', 'false');
+
+  // Previous session info if it exists
+  const retrievedStats = localStorage.getItem('statsList');
+  if (!retrievedStats || retrievedStats === 'undefined') {
+    statsList = [];
+  } else {
+    statsList = JSON.parse(retrievedStats);
+    determineSessionDate();
+  }
+}
+
+/**
+ * Called before the page unloads (changes, exits, etc.), it determines the
+ * session date and sets up the last visit time for the next instance.
+ */
+function handleUnload() {
+  // call in case the date has changed before the next pomo
+  determineSessionDate();
+
+  // create current Date object
+  const current = new Date();
+  localStorage.setItem(
+    'lastVisit',
+    JSON.stringify(current.toLocaleDateString('en-US'))
+  );
+}
 
 /**
  * To determine the current date when the user accessing to the index.html.
@@ -57,35 +93,12 @@ function determineSessionDate() {
   }
 }
 
-/**
- * Called on window load, sets the stats list from local storage, finds elements
- * in the browser DOM to attach to the element variables, and attaches event
- * listeners to them which, based on their usage, will open or close the modal.
- */
- function handleLoad() {
-  const retrievedStats = localStorage.getItem('statsList');
-  if (!retrievedStats || retrievedStats === 'undefined') {
-    statsList = [];
-  } else {
-    statsList = JSON.parse(retrievedStats);
-    determineSessionDate();
-  }
-}
-
-/**
- * Closing or leaving page will remove the TaskList object,
- * trigger determineSessionDate(), and log the currentDate time
- */
-function handleUnload() {
-  // call in case the date has changed before the next pomo
-  determineSessionDate();
-
-  // create current Date object
-  const current = new Date();
-  localStorage.setItem(
-    'lastVisit',
-    JSON.stringify(current.toLocaleDateString('en-US'))
-  );
+if (typeof exports !== 'undefined') {
+  module.exports = {
+    handleLoad,
+    handleUnload,
+    determineSessionDate,
+  };
 }
 
 window.location.replace('/timer-page/timer.html');

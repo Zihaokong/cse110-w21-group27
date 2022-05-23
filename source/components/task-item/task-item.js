@@ -99,80 +99,6 @@ class TaskItem extends HTMLElement {
   }
 
   /**
-   * Invoked each time the task-item is appended into a document-connected
-   * element, usually the task-list; creates all of the items of the task in the
-   * task's shadow DOM.
-   */
-  connectedCallback() {
-    if (this.shadowRoot.childNodes.length === 0) this.constructShadowDOM();
-  }
-
-  /**
-   * Constructs the shadow DOM of the task item. Should only be called once
-   * during the initial connected callback.
-   */
-  constructShadowDOM() {
-    // Set the draggable attribute for task-item mobility
-    this.draggable = true;
-    const section = document.createElement('section');
-
-    // Creating the drag icon
-    const dragIcon = TaskItem.createDrag();
-
-    // Creating the checkmark
-    const checkmark = this.createCheckmark();
-    checkmark.addEventListener('click', this.setCheck);
-
-    // Creating title for task
-    const title = TaskItem.createTitle(this.name);
-
-    // Creating the progress-bar
-    const progressBar = this.createProgressBar();
-
-    // Creating the play-button
-    const playButton = this.createPlayButton();
-    playButton.addEventListener('click', this.playTask);
-
-    // Creating the edit-button
-    const editButton = this.createEditButton();
-    editButton.addEventListener('click', this.editTask);
-
-    // Creating the delete-button
-    const deleteButton = TaskItem.createDeleteButton();
-    deleteButton.addEventListener('click', this.deleteTask);
-
-    // Create the style
-    const styleSheet = document.createElement('link');
-    styleSheet.rel = 'stylesheet';
-    styleSheet.href = '/components/task-item/task-item.css';
-
-    this.shadowRoot.appendChild(styleSheet);
-    this.shadowRoot.appendChild(section);
-    section.appendChild(dragIcon);
-    section.appendChild(checkmark);
-    section.appendChild(title);
-    section.appendChild(progressBar);
-    section.appendChild(playButton);
-    section.appendChild(editButton);
-    section.appendChild(deleteButton);
-  }
-
-  /**
-   * Sets all of the functions of this task item associated with systems outside
-   * of the task object (modals, allTasks array in task list)
-   * @param {function} playTask function associated with showing the "play" modal.
-   * @param {function} deleteTask function associated with showing the "delete" modal.
-   * @param {function} editTask function associated with showing the "edit" modal.
-   * @param {function} setCheck function associated with completeing the task.
-   */
-  setFunctions(playTask, deleteTask, editTask, setCheck) {
-    this.playTask = playTask;
-    this.deleteTask = deleteTask;
-    this.editTask = editTask;
-    this.setCheck = setCheck;
-  }
-
-  /**
    * Change one of the attributes of the task. The following are valid
    * attributes: {string}'name', {number}'number', {string}'completed',
    *             {number}'current'
@@ -223,6 +149,193 @@ class TaskItem extends HTMLElement {
   }
 
   /**
+   * Invoked each time the task-item is appended into a document-connected
+   * element, usually the task-list; creates all of the items of the task in the
+   * task's shadow DOM.
+   */
+  connectedCallback() {
+    if (this.shadowRoot.childNodes.length === 0) this.constructShadowDOM();
+  }
+
+  /**
+   * Constructs the shadow DOM of the task item. Should only be called once
+   * during the initial connected callback.
+   */
+  constructShadowDOM() {
+    this.draggable = true;
+
+    // Set the draggable attribute for task-item mobility
+    const section = document.createElement('section');
+
+    // Creating the drag icon
+    const dragIcon = TaskItem.createDrag();
+
+    // Creating the checkmark
+    const checkmark = this.createCheckmark();
+    checkmark.addEventListener('click', this.setCheck);
+
+    // Creating title for task
+    const title = this.createTitle();
+
+    // Creating the progress-bar
+    const progressBar = this.createProgressBar();
+
+    // Creating the play-button
+    const playButton = this.createPlayButton();
+    playButton.addEventListener('click', this.playTask);
+
+    // Creating the edit-button
+    const editButton = this.createEditButton();
+    editButton.addEventListener('click', () => {
+      this.setUpEdit();
+    });
+
+    // Creating the delete-button
+    const deleteButton = TaskItem.createDeleteButton();
+    deleteButton.addEventListener('click', this.deleteTask);
+
+    // Create the style
+    const styleSheet = document.createElement('link');
+    styleSheet.rel = 'stylesheet';
+    styleSheet.href = '/components/task-item/task-item.css';
+
+    // Create the edit form
+    const editForm = document.createElement('form');
+    editForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      this.name = nameInput.value;
+      this.number = countInput.value;
+      this.editTask(this.id, nameInput.value, countInput.value);
+      editForm.setAttribute('permit', 'false');
+      this.draggable = true;
+    });
+    editForm.setAttribute('permit', 'false');
+
+    // (EDIT) Create the name input
+    const nameInput = document.createElement('input');
+    nameInput.placeholder = 'Title';
+    nameInput.maxLength = 26;
+    nameInput.required = true;
+    nameInput.type = 'text';
+    nameInput.setAttribute('content', 'title');
+
+    // (EDIT) Create the count input
+    const countInput = document.createElement('input');
+    countInput.placeholder = 'Pomo Count';
+    countInput.type = 'number';
+    countInput.min = 1;
+    countInput.max = 10;
+    countInput.required = true;
+    countInput.setAttribute('content', 'count');
+
+    // (EDIT) Create the submit button
+    const submitButton = document.createElement('button');
+    submitButton.className = 'icon';
+    submitButton.textContent = 'check_circle';
+    submitButton.type = 'submit';
+
+    // (EDIT) Create the cancel button
+    const cancelButton = document.createElement('button');
+    cancelButton.className = 'icon';
+    cancelButton.textContent = 'cancel';
+    cancelButton.type = 'cancel';
+    cancelButton.addEventListener('click', (e) => {
+      e.preventDefault();
+      editForm.setAttribute('permit', 'false');
+      this.draggable = true;
+    });
+
+    editForm.append(nameInput);
+    editForm.append(countInput);
+    editForm.append(submitButton);
+    editForm.append(cancelButton);
+
+    // Append the items to the shadowRoot
+    this.shadowRoot.appendChild(styleSheet);
+    this.shadowRoot.appendChild(section);
+    section.appendChild(dragIcon);
+    section.appendChild(checkmark);
+    section.appendChild(title);
+    section.appendChild(progressBar);
+    section.appendChild(playButton);
+    section.appendChild(editButton);
+    section.appendChild(deleteButton);
+    section.appendChild(editForm);
+  }
+
+  /**
+   * Method for creating checkbox icon for the task-item. The checkmark element
+   * shows if the task is completed; user can check/uncheck it, which triggers a
+   * completion event.
+   * @returns {HTMLSpanElement} The checkmark element inside the task.
+   */
+  createCheckmark() {
+    // Create the checkmark
+    const checkmarkInput = document.createElement('input');
+    checkmarkInput.setAttribute('type', 'checkbox');
+    const isCompleted = this.completed === 'true';
+    checkmarkInput.checked = isCompleted;
+    return checkmarkInput;
+  }
+
+  /**
+   * Method for creating delete button for the task-item. The delete button
+   * element handles user interaction and triggers a delete event on click.
+   * @returns {HTMLButtonElement} The delete button show on the task-item
+   */
+  static createDeleteButton() {
+    // Create the delete button
+    const deleteButton = document.createElement('button');
+    deleteButton.className = 'icon';
+    deleteButton.setAttribute('job', 'delete');
+    deleteButton.textContent = 'delete';
+    return deleteButton;
+  }
+
+  /**
+   * Method for creating drag icon for the task-item. The drag icon element acts
+   * as a visual indicator that the task can be dragged.
+   * @returns {HTMLSpanElement} The drag element of the task
+   */
+  static createDrag() {
+    const dragIcon = document.createElement('drag-ind');
+    dragIcon.className = 'icon';
+    dragIcon.textContent = 'drag_indicator';
+    return dragIcon;
+  }
+
+  /**
+   * Method for creating edit button for the task-item. The edit button element
+   * handles user interaction and triggers an edit event on click.
+   * @returns {HTMLButtonElement} The edit button on the task-item
+   */
+  createEditButton() {
+    // Create the edit button element
+    const editButton = document.createElement('button');
+    editButton.className = 'icon';
+    editButton.setAttribute('job', 'edit');
+    editButton.textContent = 'mode_edit';
+    editButton.disabled =
+      this.completed === 'true' || parseInt(this.current, 10) > 0;
+    return editButton;
+  }
+
+  /**
+   * Method for creating the play-button. The play button element handles user
+   * interaction and triggers a play event on click.
+   * @return the button element with the play-icon
+   */
+  createPlayButton() {
+    // Create play button element
+    const playButton = document.createElement('button');
+    playButton.className = 'icon';
+    playButton.setAttribute('job', 'play');
+    playButton.textContent = 'play_circle';
+    playButton.disabled = this.completed === 'true';
+    return playButton;
+  }
+
+  /**
    * Method for creating progress bar for the task-item. The progress bar
    * element shows the progress of the current task; changes based on the
    * current and number attributes.
@@ -247,11 +360,52 @@ class TaskItem extends HTMLElement {
     const progressContainter = document.createElement('progress-container');
     const progress = document.createElement('progress-bar');
     progress.style.width = percent;
-    progress.innerHTML = `${this.current}/${this.number}`;
+    progress.textContent = `${this.current}/${this.number}`;
 
     progressContainter.appendChild(progress);
 
     return progressContainter;
+  }
+
+  /**
+   * Method for creating the task name element. The task name element shows the
+   * name of the task; changes based on name attribute.
+   * @param {string} name the name of the task.
+   * @returns {HTMLParagraphElement} The elemet containing the task's name.
+   */
+  createTitle() {
+    const title = document.createElement('h1');
+    title.textContent = this.name;
+    return title;
+  }
+
+  /**
+   * Sets all of the functions of this task item associated with systems outside
+   * of the task object (modals, allTasks array in task list)
+   * @param {function} playTask function associated with showing the "play" modal.
+   * @param {function} deleteTask function associated with showing the "delete" modal.
+   * @param {function} editTask function associated with showing the "edit" modal.
+   * @param {function} setCheck function associated with completeing the task.
+   */
+  setFunctions(playTask, deleteTask, editTask, setCheck) {
+    this.playTask = playTask;
+    this.deleteTask = deleteTask;
+    this.editTask = editTask;
+    this.setCheck = setCheck;
+  }
+
+  setUpEdit() {
+    // Open Edit Form;
+    const form = this.shadowRoot.querySelector('form');
+    if (form.getAttribute('permit') === 'true') {
+      form.setAttribute('permit', 'false');
+      this.draggable = true;
+    } else {
+      form.setAttribute('permit', 'true');
+      this.draggable = false;
+      form.querySelector('input[content="title"]').value = this.name;
+      form.querySelector('input[content="count"]').value = this.number;
+    }
   }
 
   /**
@@ -275,96 +429,12 @@ class TaskItem extends HTMLElement {
     }
 
     // the div for the progress itserlf and uses the attribute from the newTask object
-    const progressBar = this.shadowRoot.querySelector('progress-container');
-    const progress = progressBar.querySelector('progress-bar');
+    const progress = this.shadowRoot.querySelector('progress-bar');
     progress.style.width = percent;
-    progress.innerHTML = `${this.current}/${this.number}`;
-  }
-
-  /**
-   * Method for creating the task name element. The task name element shows the
-   * name of the task; changes based on name attribute.
-   * @param {string} name the name of the task.
-   * @returns {HTMLParagraphElement} The elemet containing the task's name.
-   */
-  static createTitle(name) {
-    const title = document.createElement('h1');
-    title.innerHTML = name;
-    return title;
-  }
-
-  /**
-   * Method for creating drag icon for the task-item. The drag icon element acts
-   * as a visual indicator that the task can be dragged.
-   * @returns {HTMLSpanElement} The drag element of the task
-   */
-  static createDrag() {
-    const dragIcon = document.createElement('drag-ind');
-    dragIcon.className = 'icon';
-    dragIcon.textContent = 'drag_indicator';
-    return dragIcon;
-  }
-
-  /**
-   * Method for creating checkbox icon for the task-item. The checkmark element
-   * shows if the task is completed; user can check/uncheck it, which triggers a
-   * completion event.
-   * @returns {HTMLSpanElement} The checkmark element inside the task.
-   */
-  createCheckmark() {
-    // Create the checkmark
-    const checkmarkInput = document.createElement('input');
-    checkmarkInput.setAttribute('type', 'checkbox');
-    const isCompleted = this.completed === 'true';
-    checkmarkInput.checked = isCompleted;
-    return checkmarkInput;
-  }
-
-  /**
-   * Method for creating the play-button. The play button element handles user
-   * interaction and triggers a play event on click.
-   * @return the button element with the play-icon
-   */
-  createPlayButton() {
-    // Create play button element
-    const playButton = document.createElement('button');
-    playButton.className = 'icon';
-    playButton.setAttribute('job', 'play');
-    playButton.textContent = 'play_circle';
-    playButton.disabled = this.completed === 'true';
-    return playButton;
-  }
-
-  /**
-   * Method for creating edit button for the task-item. The edit button element
-   * handles user interaction and triggers an edit event on click.
-   * @returns {HTMLButtonElement} The edit button on the task-item
-   */
-  createEditButton() {
-    // Create the edit button element
-    const editButton = document.createElement('button');
-    editButton.className = 'icon';
-    editButton.setAttribute('job', 'edit');
-    editButton.textContent = 'mode_edit';
-    editButton.disabled =
-      this.completed === 'true' || parseInt(this.current, 10) > 0;
-    return editButton;
-  }
-
-  /**
-   * Method for creating delete button for the task-item. The delete button
-   * element handles user interaction and triggers a delete event on click.
-   * @returns {HTMLButtonElement} The delete button show on the task-item
-   */
-  static createDeleteButton() {
-    // Create the delete button
-    const deleteButton = document.createElement('button');
-    deleteButton.className = 'icon';
-    deleteButton.setAttribute('job', 'delete');
-    deleteButton.textContent = 'delete';
-    return deleteButton;
+    progress.textContent = `${this.current}/${this.number}`;
   }
 }
+
 customElements.define('task-item', TaskItem);
 
 // Output module for testing

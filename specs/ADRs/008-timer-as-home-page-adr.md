@@ -1,6 +1,6 @@
-# RECORD NUMBER - ISSUE
+# 008 - Timer as Home Page
 * Date: 05/11/2022
-
+* Status: COMPLETED
 
 ## Context and Problem Statement
 * **Context:**
