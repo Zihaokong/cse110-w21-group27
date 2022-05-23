@@ -65,6 +65,19 @@ class HeaderComp extends HTMLElement {
     return this.getAttribute('page');
   }
 
+  attributeChangedCallback(name, oldValue, newValue) {
+    if (name === 'completedcycles' || name === 'isnewcycle') {
+      const circleSection = this.shadowRoot.querySelector('div');
+
+      // check if section is loaded
+      if (circleSection) {
+        circleSection.innerHTML = '';
+        this.renderCounter();
+        this.renderCompletedCount();
+      }
+    }
+  }
+
   /**
    * Called when the header is applied to the DOM; Sets up the header.
    */
@@ -99,6 +112,11 @@ class HeaderComp extends HTMLElement {
     const statLink = document.createElement('button');
     statLink.textContent = 'bar_chart';
     statLink.setAttribute('onClick', 'location.href="/stats-page/stats.html"');
+
+    const timerLink = document.createElement('button');
+    timerLink.textContent = 'timer';
+    timerLink.setAttribute('onClick', 'location.href="/timer-page/timer.html"');
+
     switch (this.page) {
       case 'tasks':
         taskLink.disabled = true;
@@ -107,10 +125,12 @@ class HeaderComp extends HTMLElement {
         statLink.disabled = true;
         break;
       case 'timer':
+        timerLink.disabled = true;
         break;
       default:
         break;
     }
+    navBar.appendChild(timerLink);
     navBar.appendChild(taskLink);
     navBar.appendChild(statLink);
 
@@ -132,37 +152,20 @@ class HeaderComp extends HTMLElement {
     this.renderCompletedCount();
   }
 
-  attributeChangedCallback(name, oldValue, newValue) {
-    if (name === 'completedcycles' || name === 'isnewcycle') {
-      const circleSection = this.shadowRoot.querySelector('div');
-
-      // check if section is loaded
-      if (circleSection) {
-        circleSection.innerHTML = '';
-        this.renderCounter();
-        this.renderCompletedCount();
-      }
-    }
-  }
-
   /**
-   * Creates and renders the unfilled dots using the new cycle and completed
-   * cycles properties.
+   * Creates the text for the date element. Uses the JS Date object to generate
+   * the date.
+   * @returns {string} today's date
    */
-  renderCounter() {
-    if (this.completedCycles === '0' || this.isNewCycle === 'true') {
-      for (let i = 0; i < 4; i++) {
-        const newCycle = document.createElement('span');
-        newCycle.setAttribute('class', 'dot');
-        this.shadowRoot.querySelector('#cycle-count').prepend(newCycle);
-      }
-    } else if (this.completedCycles % 4 !== 0) {
-      for (let i = 0; i < 4 - (this.completedCycles % 4); i++) {
-        const newCycle = document.createElement('span');
-        newCycle.setAttribute('class', 'dot');
-        this.shadowRoot.querySelector('#cycle-count').prepend(newCycle);
-      }
-    }
+  static createDate() {
+    const todayDate = new Date();
+    const options = {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    };
+    return todayDate.toLocaleDateString('en-us', options);
   }
 
   /**
@@ -190,19 +193,23 @@ class HeaderComp extends HTMLElement {
   }
 
   /**
-   * Creates the text for the date element. Uses the JS Date object to generate
-   * the date.
-   * @returns {string} today's date
+   * Creates and renders the unfilled dots using the new cycle and completed
+   * cycles properties.
    */
-  static createDate() {
-    const todayDate = new Date();
-    const options = {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    };
-    return todayDate.toLocaleDateString('en-us', options);
+  renderCounter() {
+    if (this.completedCycles === '0' || this.isNewCycle === 'true') {
+      for (let i = 0; i < 4; i++) {
+        const newCycle = document.createElement('span');
+        newCycle.setAttribute('class', 'dot');
+        this.shadowRoot.querySelector('#cycle-count').prepend(newCycle);
+      }
+    } else if (this.completedCycles % 4 !== 0) {
+      for (let i = 0; i < 4 - (this.completedCycles % 4); i++) {
+        const newCycle = document.createElement('span');
+        newCycle.setAttribute('class', 'dot');
+        this.shadowRoot.querySelector('#cycle-count').prepend(newCycle);
+      }
+    }
   }
 }
 
