@@ -1,6 +1,6 @@
 /**
- * This file defines functions and implements the behaviors for pop-up modals
- * and other Modals for the main page.
+ * Sets up the functions that handle statistic tracking when loading and
+ * unloading the page.
  */
 
 // Array of stat info objects; these objects include the day, pomo count,
@@ -100,3 +100,5 @@ if (typeof exports !== 'undefined') {
     determineSessionDate,
   };
 }
+
+window.location.replace('/timer-page/timer.html');
