@@ -190,17 +190,20 @@ function displayBreakComplete() {
  */
 function autoContinue() {
   if (localStorage.getItem('ShortBreak') === 'true') {
-    startBreak();
-  } else if (localStorage.getItem('LongBreak') === 'true') {
-    startBreak();
-  } else {
-    continueTask();
-    document.getElementsByTagName('header-comp')[0].completedCycles = Number(
-      localStorage.getItem('sessionCounter')
-    );
     setTimeout(() => {
+      startBreak();
+    }, 2000);
+  } else if (localStorage.getItem('LongBreak') === 'true') {
+    setTimeout(() => {
+      startBreak();
+    }, 2000);
+  } else {
+    document.getElementById('auto-continue').style.display = 'inline-block';
+    document.getElementById('continue-btn').style.display = 'none';
+    setTimeout(() => {
+      continueTask();
       startTimer();
-    });
+    }, 5500);
   }
 }
 
@@ -295,8 +298,6 @@ function startTimer() {
  * @param {integer} secs second of timer
  */
 function start(mins, secs) {
-  // mins = 0;
-  // secs = 5;
   isInSession = true;
   const startTime = new Date();
   // display correct distraction counter
@@ -402,9 +403,7 @@ function finishedTask() {
   }
 
   if (localStorage.getItem('autoContinue') === 'true') {
-    setTimeout(() => {
-      autoContinue();
-    }, 2000);
+    autoContinue();
   }
 }
 
