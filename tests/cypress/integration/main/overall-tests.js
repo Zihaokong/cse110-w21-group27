@@ -1,4 +1,6 @@
-const { HeaderComp } = require('../../../../source/header-comp');
+const {
+  HeaderComp,
+} = require('../../../../source/components/header-comp/header-comp');
 // How tests should go:
 // Create Task, edit task, delete task, create twenty tasks, scroll to bottom,
 // use top bottom, check top task, uncheck, run seccesion on first task, run 2
