@@ -104,9 +104,12 @@ button{
 }
 
 #create-task > .label-heading {
+    box-shadow: 0 0 0 0 var(--accent-dark);
     font-size: 1.25rem;
     font-weight: 500;
     line-height: 1.2;
+    margin-bottom: 0.5rem;
+    transition: box-shadow 1s ease;
 }
 
 #create-task > select {

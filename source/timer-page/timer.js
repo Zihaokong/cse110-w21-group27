@@ -534,8 +534,11 @@ function createTask() {
 
     startTimer();
   } else {
-    // TODO
-    console.log('error here');
+    let headings = document.querySelectorAll('.label-heading')
+    for(let i = 0; i < headings.length; i++) {
+      setTimeout(() => headings[i].style.boxShadow = '0 0 2px 3px var(--accent-dark)', i * 1000);
+      setTimeout(() => headings[i].style.boxShadow = '', i * 1000 + 1000);
+    }
   }
 }
 
