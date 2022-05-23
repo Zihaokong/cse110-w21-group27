@@ -1,6 +1,3 @@
-// TODO: Have selecting a task fill in and disable the create a task options
-// TODO: Have a clear button next to the task if its selected
-
 /**
  * This file implements function that start the timer and allow for transitions between work and break sessions
  * It defines functions to update the progress ring and hold the distraction button count
@@ -40,6 +37,9 @@ function timerPageInit() {
   circle.style.strokeDasharray = circumference;
   circle.style.strokeDashoffset = 0;
 
+  // Deselect task button (X) next to the task heading
+  document.getElementById('deselect-task').addEventListener('click', deselectTask);
+
   //// Add event listeners for buttons on timer page
   // The Start button for starting a pomo session
   document.getElementById('start-btn').addEventListener('click', startButton);
@@ -47,6 +47,12 @@ function timerPageInit() {
   // The create-task form elements
   document.getElementById('create-skip').addEventListener('click', startTimer);
   document.getElementById('create-start').addEventListener('click', createTask);
+
+  // The don't show again option
+  document.getElementById('dont-show').addEventListener('input', dontShow);
+
+  // The selection dropdown of the create-menu
+  document.getElementById('choose-task').addEventListener('input', chooseTask);
 
   // The distraction button and fail button present when a pomo session is in progress
   document
@@ -82,8 +88,11 @@ function timerPageInit() {
         currenTaskIndex = i;
         document.getElementById('currTask').innerHTML =
           allTasks[currenTaskIndex].name;
+        document.getElementById('deselect-task').style.display = '';
       }
     }
+  } else {
+    document.getElementById('deselect-task').style.display = 'none';
   }
 
   // Now that allTasks is defined we can fill in the create-task dropdown
@@ -234,8 +243,10 @@ function continueTask() {
 
   if(currenTaskIndex) {
     document.getElementById('currTask').innerHTML = allTasks[currenTaskIndex].name;
+    document.getElementById('deselect-task').style.display = '';
   } else {
     document.getElementById('currTask').innerHTML = 'No Task Selected';
+    document.getElementById('deselect-task').style.display = 'none';
   }
 
   localStorage.setItem(
@@ -264,18 +275,19 @@ function displayBreak() {
       document.body.style.backgroundImage =
         'linear-gradient(to right,#74EBD5,#ACB6E5)';
       document.getElementById('currTask').innerHTML = 'Short Break';
+      document.getElementById('deselect-task').style.display = 'none';
       renderTimer(localStorage.getItem('ShortBreakMinutes'), 0);
     } else {
       document.body.style.backgroundImage =
         'linear-gradient(to right,#ACB6E5,#74EBD5)';
       document.getElementById('currTask').innerHTML = 'Long Break';
+      document.getElementById('deselect-task').style.display = 'none';
       renderTimer(localStorage.getItem('LongBreakMinutes'), 0);
     }
 
     // Making the start break button the only one visible
     hideButtons();
     document.getElementById('start-break-btn').style.display = '';
-    // TODO: make the break button visually disable
     document.getElementById('start-break-btn').disabled = false;
     document.getElementById('start-break-btn').className = '';
 
@@ -298,16 +310,51 @@ function startBreak() {
 }
 
 /**
+ * Deselects the current task
+ */
+function deselectTask() {
+  localStorage.setItem('currentTask', '""');
+  currenTaskIndex = '';
+  document.getElementById('deselect-task').style.display = 'none';
+  document.getElementById('currTask').innerHTML = 'No Task Selected';
+}
+
+/**
  * Open the create-task form or start the pomodoro timer
  * depending on whether a task is already selected
  */
 function startButton() {
-  if(currenTaskIndex) {
+  // If a task is already selected or the create-menu is disabled
+  if(currenTaskIndex || JSON.parse(localStorage.getItem('disable-create-menu'))) {
     startTimer();
+    document.getElementById('deselect-task').style.display = 'none';
   } else {
-    // Open the craete-task form
+    // Open the create-task form
     hideButtons();
     document.getElementById('create-task').style.display = '';
+    document.getElementById('create-task').scrollIntoView({behavior: "smooth"});
+  }
+}
+
+/**
+ * Toggles the task creation menu based on the checkmark.
+ * This is done via the localStorage variable disable-create-menu.
+ */
+function dontShow() {
+  localStorage.setItem('disable-create-menu', document.getElementById('dont-show').checked);
+}
+
+/**
+ * Disables the create a task options if a task was selected.
+ */
+function chooseTask() {
+  // If a task was selected
+  if(document.getElementById('choose-task').value) {
+    document.getElementById('task-name').disabled = true;
+    document.getElementById('pomo-count').disabled = true;
+  } else {
+    document.getElementById('task-name').disabled = false;
+    document.getElementById('pomo-count').disabled = false;
   }
 }
 
@@ -546,7 +593,10 @@ if (typeof exports !== 'undefined') {
     continueTask,
     changeTask,
     startBreak,
+    deselectTask,
     startButton,
+    dontShow,
+    chooseTask,
     startTimer,
     start,
     createTask,

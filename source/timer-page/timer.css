@@ -21,8 +21,16 @@ body{
 }
 
 #currTask{
+    display: inline;
     color:black;
     font-size: 50px;
+}
+
+#deselect-task {
+    background-color: rgba(0, 0, 0, 0);
+    font-family: 'Material Icons';
+    margin: 0;
+    padding: 0;
 }
 
 .row{
@@ -108,7 +116,17 @@ button{
 #create-task > div {
     display: flex;
     justify-content: space-around;
+    align-items: center;
     margin-top: 0.5rem;
+}
+
+#create-task > #dont-show-container {
+    justify-content: center;
+}
+
+#dont-show-container > label {
+    margin-bottom: 0;
+    margin-left: 0.25rem;
 }
 
 #create-start {
