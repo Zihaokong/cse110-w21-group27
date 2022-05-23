@@ -1,4 +1,6 @@
-const { HeaderComp } = require('../../../../source/header-comp');
+const {
+  HeaderComp,
+} = require('../../../../source/components/header-comp/header-comp');
 
 describe('Header Tests', () => {
   const firstName = 'testname1';
