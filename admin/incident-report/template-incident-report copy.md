@@ -1,8 +1,8 @@
-# Team 8: Cre8tors Meeting
+# Team 8: Cre8tors Incident
 ## Details
 **Meeting Type:**  
 **Time:** XX/XX/XXXX XX:XX-XX:XX  
 **Location:**  
-## Issue X: TITLE
+## TITLE
 ### Issue
 ### Resolution
