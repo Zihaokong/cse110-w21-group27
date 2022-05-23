@@ -4,17 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Bootstrap CSS -->
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-    />
-
-    <!-- Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-
     <!--My CSS-->
     <link rel="stylesheet" href="./timer.css" />
 
@@ -38,20 +27,18 @@
   
     <header-comp page="timer"></header-comp>
     <div class="container">
-
       <!--Task Heading-->
       <h1 class="text-center my-5" id="currTask">Task</h1>
+      <div class="timer-grid">
       <div class="container timer">
-        <div class="row">
-          <div class="col-5">
-            <h4 id="minutes"></h4>
-          </div>
-          <div class="col-2">
-            <h4>:</h4>
-          </div>
-          <div class="col-5">
-            <h4 id="seconds"></h4>
-          </div>
+        <div class="grid-item">
+          <h4 id="minutes"></h4>
+        </div>
+        <div class="grid-item">
+          <h4>:</h4>
+        </div>
+        <div class="grid-item">
+          <h4 id="seconds"></h4>
         </div>
 
         <svg class="progress-ring" height="27.5rem" width="27.5rem">
@@ -67,6 +54,7 @@
           />
         </svg>
       </div>
+    </div>
 
       <!--Buttons-->
       <div id="button-container">
