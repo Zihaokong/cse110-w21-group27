@@ -217,11 +217,11 @@ function resetProgressRing() {
  * Hide all the different button elements below the timer
  */
 function hideButtons() {
-  document.querySelector('#button-container').children.forEach((element) => {
-    // TODO: NEED TO REQRITE THIS TO BE STYLED PROPERLY!
-    // eslint-disable-next-line no-param-reassign
-    element.style.display = 'none';
-  });
+  // TODO FIX THIS LINTING ISSUE!
+  // eslint-disable-next-line no-restricted-syntax
+  for (const el of document.querySelector('#button-container').children) {
+    el.style.display = 'none';
+  }
 }
 
 /**
