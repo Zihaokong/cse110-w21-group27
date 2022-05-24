@@ -224,7 +224,7 @@ class HeaderComp extends HTMLElement {
 
     // Create the settings header
     const header = document.createElement('h1');
-    header.textContent = 'Seetings';
+    header.textContent = 'Settings';
 
     // Create the form
     const form = document.createElement('form');
@@ -322,7 +322,7 @@ class HeaderComp extends HTMLElement {
 
     // Auto Increment Option
     const AutoLabel = document.createElement('label');
-    AutoLabel.textContent = 'Long Break Length: ';
+    AutoLabel.textContent = 'Auto Timer Enabled: ';
     const AutoInput = document.createElement('input');
     AutoInput.type = 'checkbox';
     AutoInput.checked = localStorage.getItem('autoContinue') === 'true';
