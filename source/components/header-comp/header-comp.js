@@ -121,7 +121,6 @@ class HeaderComp extends HTMLElement {
     settingButton.addEventListener('click', () => {
       settings.showModal();
     });
-
     const timerLink = document.createElement('button');
     timerLink.textContent = 'timer';
     timerLink.setAttribute('onClick', 'location.href="/timer-page/timer.html"');
@@ -310,7 +309,16 @@ class HeaderComp extends HTMLElement {
     VolumeInput.max = 100;
     VolumeInput.value = localStorage.getItem('volumePercentage') || 100;
     VolumeInput.setAttribute('job', 'volume');
+    const VolumeTest = document.createElement('button');
+    VolumeTest.textContent = 'TEST';
+    VolumeTest.type = 'button';
+    VolumeTest.addEventListener('click', () => {
+      const audio = new Audio('/assets/audio/break-tune.mp3');
+      audio.volume = VolumeInput.value / 100.0;
+      audio.play();
+    });
     VolumeLabel.appendChild(VolumeInput);
+    VolumeLabel.appendChild(VolumeTest);
 
     // Auto Increment Option
     const AutoLabel = document.createElement('label');
@@ -327,8 +335,15 @@ class HeaderComp extends HTMLElement {
 
     const CancelButton = document.createElement('button');
     CancelButton.textContent = 'CANCEL';
-    CancelButton.type = 'cancel';
+    CancelButton.type = 'button';
     CancelButton.addEventListener('click', () => {
+      workSessionInput.value = localStorage.getItem('timerMinutes') || 25;
+      shortBreakSessionInput.value =
+        localStorage.getItem('shortBreakMinutes') || 5;
+      longBreakSessionInput.value =
+        localStorage.getItem('longBreakMinutes') || 15;
+      VolumeInput.value = localStorage.getItem('volumePercentage') || 100;
+      AutoInput.checked = localStorage.getItem('autoContinue') === 'true';
       settings.close();
     });
 
