@@ -6,11 +6,11 @@ if (localStorage.getItem('isNoob') === 'true') {
   // do nothing
 }
 
-document.getElementById('tutorialModal').onclick = () => {
+document.getElementById('tutorialModal').onclick = (event) => {
   // clicked inside modal
   document.getElementById('tutorialModal').style.display = 'none';
 };
-document.querySelector('#tutorialModal > div').onclick = function (event) {
+document.querySelector('#tutorialModal > div').onclick = (event) => {
   // clicked outside modal
   event.stopPropagation();
 };
