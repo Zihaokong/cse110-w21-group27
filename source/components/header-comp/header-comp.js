@@ -223,8 +223,8 @@ class HeaderComp extends HTMLElement {
     const settings = document.createElement('dialog');
 
     // Create the settings header
-    const header = document.createElement('h1');
-    header.textContent = 'Seetings';
+    const header = document.createElement('h2');
+    header.textContent = 'Settings';
 
     // Create the form
     const form = document.createElement('form');
@@ -301,6 +301,9 @@ class HeaderComp extends HTMLElement {
     longBreakSessionLabel.appendChild(longBreakSessionInput);
 
     // Volume Option
+
+    const VolumeContainer = document.createElement('div');
+
     const VolumeLabel = document.createElement('label');
     VolumeLabel.textContent = 'Volume: ';
     const VolumeInput = document.createElement('input');
@@ -309,8 +312,10 @@ class HeaderComp extends HTMLElement {
     VolumeInput.max = 100;
     VolumeInput.value = localStorage.getItem('volumePercentage') || 100;
     VolumeInput.setAttribute('job', 'volume');
+
     const VolumeTest = document.createElement('button');
-    VolumeTest.textContent = 'TEST';
+    VolumeTest.className = '.icon';
+    VolumeTest.textContent = 'volume_up';
     VolumeTest.type = 'button';
     VolumeTest.addEventListener('click', () => {
       const audio = new Audio('/assets/audio/break-tune.mp3');
@@ -318,23 +323,28 @@ class HeaderComp extends HTMLElement {
       audio.play();
     });
     VolumeLabel.appendChild(VolumeInput);
-    VolumeLabel.appendChild(VolumeTest);
+    VolumeContainer.appendChild(VolumeLabel);
+    VolumeContainer.appendChild(VolumeTest);
 
     // Auto Increment Option
     const AutoLabel = document.createElement('label');
-    AutoLabel.textContent = 'Long Break Length: ';
+    AutoLabel.textContent = 'Auto Timer Enabled: ';
     const AutoInput = document.createElement('input');
     AutoInput.type = 'checkbox';
     AutoInput.checked = localStorage.getItem('autoContinue') === 'true';
     AutoInput.setAttribute('job', 'auto');
     AutoLabel.appendChild(AutoInput);
 
+    const buttonContainer = document.createElement('div');
+
     const SubmitButton = document.createElement('button');
-    SubmitButton.textContent = 'SUBMIT';
+    SubmitButton.className = '.icon';
+    SubmitButton.textContent = 'check_circle';
     SubmitButton.type = 'submit';
 
     const CancelButton = document.createElement('button');
-    CancelButton.textContent = 'CANCEL';
+    CancelButton.className = '.icon';
+    CancelButton.textContent = 'cancel';
     CancelButton.type = 'button';
     CancelButton.addEventListener('click', () => {
       workSessionInput.value = localStorage.getItem('timerMinutes') || 25;
@@ -347,13 +357,15 @@ class HeaderComp extends HTMLElement {
       settings.close();
     });
 
+    buttonContainer.appendChild(SubmitButton);
+    buttonContainer.appendChild(CancelButton);
+
     form.appendChild(workSessionLabel);
     form.appendChild(shortBreakSessionLabel);
     form.appendChild(longBreakSessionLabel);
-    form.appendChild(VolumeLabel);
+    form.appendChild(VolumeContainer);
     form.appendChild(AutoLabel);
-    form.appendChild(SubmitButton);
-    form.appendChild(CancelButton);
+    form.appendChild(buttonContainer);
 
     settings.appendChild(header);
     settings.appendChild(form);
