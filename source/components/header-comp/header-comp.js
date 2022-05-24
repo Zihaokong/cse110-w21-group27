@@ -118,7 +118,13 @@ class HeaderComp extends HTMLElement {
 
     const settingButton = document.createElement('button');
     settingButton.textContent = 'settings';
-    settingButton.setAttribute('id', 'settingButton');
+    settingButton.addEventListener('click', () => {
+      settings.showModal();
+    });
+
+    const timerLink = document.createElement('button');
+    timerLink.textContent = 'timer';
+    timerLink.setAttribute('onClick', 'location.href="/timer-page/timer.html"');
 
     switch (this.page) {
       case 'tasks':
@@ -128,10 +134,12 @@ class HeaderComp extends HTMLElement {
         statLink.disabled = true;
         break;
       case 'timer':
+        timerLink.disabled = true;
         break;
       default:
         break;
     }
+    navBar.appendChild(timerLink);
     navBar.appendChild(taskLink);
     navBar.appendChild(statLink);
     navBar.appendChild(settingButton);
@@ -140,6 +148,7 @@ class HeaderComp extends HTMLElement {
     section.appendChild(date);
     section.appendChild(count);
     section.appendChild(navBar);
+
     // Appened the nav and styling to the shadow root.
     const styleSheet = document.createElement('link');
     styleSheet.rel = 'stylesheet';
@@ -147,17 +156,11 @@ class HeaderComp extends HTMLElement {
 
     this.shadowRoot.appendChild(styleSheet);
     this.shadowRoot.appendChild(section);
-    this.shadowRoot
-      .getElementById('settingButton')
-      .addEventListener('click', settingPopUpControl);
 
     // Setup and render the circles in the cycle counter as well as the date.
     this.renderCounter();
     this.renderCompletedCount();
-    this.renderSettingPopUp();
-    document
-      .getElementById('saveSettingButton')
-      .addEventListener('click', updateAll);
+    const settings = this.renderSettings();
   }
 
   attributeChangedCallback(name) {
@@ -173,10 +176,6 @@ class HeaderComp extends HTMLElement {
     }
   }
 
-  /**
-   * Creates and renders the unfilled dots using the new cycle and completed
-   * cycles properties.
-   */
   renderCounter() {
     if (this.completedCycles === '0' || this.isNewCycle === 'true') {
       for (let i = 0; i < 4; i++) {
@@ -220,94 +219,134 @@ class HeaderComp extends HTMLElement {
   /**
    * Create and renders the settings pop up page
    */
-  renderSettingPopUp() {
-    const settingsPopUp = document.createElement('dialog');
-    settingsPopUp.style.display = 'none';
-    settingsPopUp.setAttribute('id', 'settingsPopup');
-    /* Get the values from local storage */
-    const timerMinutes = localStorage.getItem('timerMinutes') || 25;
-    const shortBreakMinutes = localStorage.getItem('shortBreakMinutes') || 5;
-    const longBreakMinutes = localStorage.getItem('longBreakMinutes') || 15;
-    const volumePercentage = localStorage.getItem('volumePercentage') || 100;
-    const timerContinuance =
-      localStorage.getItem('timerContinuance') === 'true'
-        ? 'checked= "true"'
-        : '';
-    settingsPopUp.innerHTML =
-      '<p id="settingsHeader">Settings</p>\n' +
-      '  <div id="settingsContent">\n' +
-      '    <div id="customTimeGroup">\n' +
-      '      <div id="timerMinutesSelector">\n' +
-      '        <label>\n' +
-      '          Work Session length:<br>\n' +
-      `          <input id="timerMinutes" type="number" min="1" max="99" step="1" value="${timerMinutes}">\n` +
-      '        </label>\n' +
-      '      </div>\n' +
-      '      <div id="shortBreakMinutesSelector">\n' +
-      '        <label>\n' +
-      '          Short Break length:<br>\n' +
-      `          <input id="shortBreakMinutes" type="number" min="1" max="99" step="1" value="${shortBreakMinutes}">\n` +
-      '        </label>\n' +
-      '      </div>\n' +
-      '      <div id="longBreakMinutesSelector">\n' +
-      '        <label>\n' +
-      '          Long Break length:<br>\n' +
-      `          <input id="longBreakMinutes" type="number" min="1" max="99" step="1" value="${longBreakMinutes}">\n` +
-      '        </label>\n' +
-      '      </div>\n' +
-      '    </div>\n' +
-      '    <div id="volumeSelector">\n' +
-      '      <label>Control the volumes</label>\n' +
-      `      <input id="volumePercentage" type="range" min="0" max="100" value="${volumePercentage}">\n` +
-      '    </div>\n' +
-      '    <div>\n' +
-      '      <div id="timerContinuanceSelector">\n' +
-      '        <label for="timer continuance">Auto transit into break after work done:</label><br>\n' +
-      '        <label name="timer continuance" className="switch">\n' +
-      `          <input type="checkbox" id="timerContinuance" ${timerContinuance}>\n` +
-      '            <span className="slider round"></span>\n' +
-      '        </label>\n' +
-      '      </div>\n' +
-      '    </div>\n' +
-      '    <button id="saveSettingButton">save</button>\n' +
-      '  </div>';
-    this.document.body.appendChild(settingsPopUp);
+  renderSettings() {
+    // Create the settings dialog
+    const settings = document.createElement('dialog');
+
+    // Create the settings header
+    const header = document.createElement('h1');
+    header.textContent = 'Seetings';
+
+    // Create the form
+    const form = document.createElement('form');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      localStorage.setItem('timerMinutes', workSessionInput.value);
+      localStorage.setItem('shortBreakMinutes', shortBreakSessionInput.value);
+      localStorage.setItem('longBreakMinutes', longBreakSessionInput.value);
+      localStorage.setItem('volumePercentage', VolumeInput.value);
+      localStorage.setItem('autoContinue', AutoInput.checked);
+
+      const shortBreak = localStorage.getItem('ShortBreak') === 'true';
+      const longBreak = localStorage.getItem('LongBreak') === 'true';
+
+      let minutes = 0;
+
+      if (shortBreak) {
+        minutes = shortBreakSessionInput.value;
+      } else if (longBreak) {
+        minutes = longBreakSessionInput.value;
+      } else {
+        minutes = workSessionInput.value;
+      }
+
+      const minuteElement = document.getElementById('minutes');
+      const titleElement = document.getElementById('title_timer');
+
+      if (minuteElement && titleElement) {
+        if (minutes < 10) {
+          minuteElement.innerHTML = `0${minutes}`;
+        } else {
+          minuteElement.innerHTML = `${minutes}`;
+        }
+        titleElement.innerHTML = `${minutes}:00`;
+      }
+
+      settings.close();
+    });
+
+    // Work Session Option
+    const workSessionLabel = document.createElement('label');
+    workSessionLabel.textContent = 'Work Session Length: ';
+    const workSessionInput = document.createElement('input');
+    workSessionInput.type = 'number';
+    workSessionInput.min = 1;
+    workSessionInput.max = 99;
+    workSessionInput.value = localStorage.getItem('timerMinutes') || 25;
+    workSessionInput.setAttribute('job', 'work');
+    workSessionLabel.appendChild(workSessionInput);
+
+    // Short Break Option
+    const shortBreakSessionLabel = document.createElement('label');
+    shortBreakSessionLabel.textContent = 'Short Break Length: ';
+    const shortBreakSessionInput = document.createElement('input');
+    shortBreakSessionInput.type = 'number';
+    shortBreakSessionInput.min = 1;
+    shortBreakSessionInput.max = 99;
+    shortBreakSessionInput.value =
+      localStorage.getItem('shortBreakMinutes') || 5;
+    shortBreakSessionInput.setAttribute('job', 'shortBreak');
+    shortBreakSessionLabel.appendChild(shortBreakSessionInput);
+
+    // Long Break Option
+    const longBreakSessionLabel = document.createElement('label');
+    longBreakSessionLabel.textContent = 'Long Break Length: ';
+    const longBreakSessionInput = document.createElement('input');
+    longBreakSessionInput.type = 'number';
+    longBreakSessionInput.min = 1;
+    longBreakSessionInput.max = 99;
+    longBreakSessionInput.value =
+      localStorage.getItem('longBreakMinutes') || 15;
+    longBreakSessionInput.setAttribute('job', 'longBreak');
+    longBreakSessionLabel.appendChild(longBreakSessionInput);
+
+    // Volume Option
+    const VolumeLabel = document.createElement('label');
+    VolumeLabel.textContent = 'Volume: ';
+    const VolumeInput = document.createElement('input');
+    VolumeInput.type = 'range';
+    VolumeInput.min = 0;
+    VolumeInput.max = 100;
+    VolumeInput.value = localStorage.getItem('volumePercentage') || 100;
+    VolumeInput.setAttribute('job', 'volume');
+    VolumeLabel.appendChild(VolumeInput);
+
+    // Auto Increment Option
+    const AutoLabel = document.createElement('label');
+    AutoLabel.textContent = 'Long Break Length: ';
+    const AutoInput = document.createElement('input');
+    AutoInput.type = 'checkbox';
+    AutoInput.checked = localStorage.getItem('autoContinue') === 'true';
+    AutoInput.setAttribute('job', 'auto');
+    AutoLabel.appendChild(AutoInput);
+
+    const SubmitButton = document.createElement('button');
+    SubmitButton.textContent = 'SUBMIT';
+    SubmitButton.type = 'submit';
+
+    const CancelButton = document.createElement('button');
+    CancelButton.textContent = 'CANCEL';
+    CancelButton.type = 'cancel';
+    CancelButton.addEventListener('click', () => {
+      settings.close();
+    });
+
+    form.appendChild(workSessionLabel);
+    form.appendChild(shortBreakSessionLabel);
+    form.appendChild(longBreakSessionLabel);
+    form.appendChild(VolumeLabel);
+    form.appendChild(AutoLabel);
+    form.appendChild(SubmitButton);
+    form.appendChild(CancelButton);
+
+    settings.appendChild(header);
+    settings.appendChild(form);
+
+    this.shadowRoot.appendChild(settings);
+
+    return settings;
   }
-}
-
-/**
- * Used to control the pop-up of the setting page. If the setting icon is clicked, the setting menu will transit between being displayed and not being diplayed.
- */
-function settingPopUpControl() {
-  document.getElementById('settingsPopup').style.display =
-    document.getElementById('settingsPopup').style.display === 'none'
-      ? 'block'
-      : 'none';
-}
-
-/**
- * A helper function used to update local storage variables
- * @param dataName the name of the local storage variable,
- * currently the HTML element's ID should be the same as the name for the local storage.
- */
-function updateLocalStorage(dataName) {
-  if (dataName === 'timerContinuance') {
-    localStorage.setItem(dataName, document.getElementById(dataName).checked);
-  } else {
-    localStorage.setItem(dataName, document.getElementById(dataName).value);
-  }
-}
-
-/**
- * Update all the local storage variables.
- */
-function updateAll() {
-  [
-    'timerMinutes',
-    'shortBreakMinutes',
-    'timerContinuance',
-    'volumePercentage',
-  ].forEach((data) => updateLocalStorage(data));
 }
 
 customElements.define('header-comp', HeaderComp);

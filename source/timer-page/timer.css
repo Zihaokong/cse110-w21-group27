@@ -275,6 +275,7 @@ input {
 .button-task-position{
     padding-top: 2rem;
 }
+
 .button-task{
     font-family: "Poppins", sans-serif;
     color: #ffffff;
@@ -285,4 +286,24 @@ input {
     border-radius: 50px;
     text-align: center;
     background: #2E4756;
+}
+
+#auto-continue {
+    width: 80%;
+}
+
+#auto-continue-progress {
+    animation: increaseProgress 5s linear;
+    fill: var(--primary-color);
+    height: 100%;
+    width: 100%;
+}
+
+@keyframes increaseProgress {
+    from {
+        width: 0;
+    }
+    to {
+        width:100%;
+    }
 }

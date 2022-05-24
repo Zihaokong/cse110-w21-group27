@@ -117,15 +117,10 @@ function timerLengthInit() {
     localStorage.getItem('longBreakMinutes') || 15
   );
 
-  // render the change input's value
-  document.getElementById('timerMinutes').value = localStorage.getItem(
-    'timerMinutes'
-  );
-  document.getElementById('shortBreakMinutes').value = localStorage.getItem(
-    'shortBreakMinutes'
-  );
-  document.getElementById('longBreakMinutes').value = localStorage.getItem(
-    'longBreakMinutes'
+  // Default autoContinue
+  localStorage.setItem(
+    'autoContinue',
+    localStorage.getItem('autoContinue') || 'false'
   );
 }
 
@@ -157,8 +152,31 @@ function resetProgressRing() {
  */
 function displayBreakComplete() {
   const audio = new Audio('/assets/audio/break-tune.mp3');
+  audio.volume = localStorage.getItem('volumePercentage') / 100.0;
   audio.play();
   document.getElementById('breakCompleteModal').style.display = 'block';
+}
+
+/**
+ * Automatically continue to next phase
+ */
+function autoContinue() {
+  if (localStorage.getItem('ShortBreak') === 'true') {
+    setTimeout(() => {
+      startBreak();
+    }, 2000);
+  } else if (localStorage.getItem('LongBreak') === 'true') {
+    setTimeout(() => {
+      startBreak();
+    }, 2000);
+  } else {
+    document.getElementById('auto-continue').style.display = 'inline-block';
+    document.getElementById('continue-btn').style.display = 'none';
+    setTimeout(() => {
+      continueTask();
+      startTimer();
+    }, 5500);
+  }
 }
 
 /**
@@ -198,6 +216,7 @@ function changeTask() {
  */
 function displayBreak() {
   const audio1 = new Audio('/assets/audio/work-tune.mp3');
+  audio1.volume = localStorage.getItem('volumePercentage') / 100.0;
   audio1.play();
   setTimeout(() => {
     resetProgressRing();
@@ -339,25 +358,25 @@ function finishedTask() {
     // hide the fail modal if the timer runs out
     document.getElementById('failModal').style.display = 'none';
     isFailed = false;
+    document.getElementsByTagName('header-comp')[0].completedCycles = counter;
+    localStorage.setItem('sessionCounter', `${counter}`);
+    localStorage.setItem('distractCounter', `${todayDistract}`);
     if (counter % 4 === 0) {
-      document.getElementsByTagName('header-comp')[0].completedCycles = counter;
-      localStorage.setItem('sessionCounter', `${counter}`);
-      localStorage.setItem('distractCounter', `${todayDistract}`);
       localStorage.setItem('LongBreak', 'true');
       localStorage.setItem('ShortBreak', 'false');
-      displayBreak();
     } else {
-      document.getElementsByTagName('header-comp')[0].completedCycles = counter;
-      localStorage.setItem('sessionCounter', `${counter}`);
-      localStorage.setItem('distractCounter', `${todayDistract}`);
       localStorage.setItem('ShortBreak', 'true');
       localStorage.setItem('LongBreak', 'false');
-      displayBreak();
     }
+    displayBreak();
 
     // update progress for current task
     allTasks[currentTaskId].current += 1;
     localStorage.setItem('allTasks', JSON.stringify(allTasks));
+  }
+
+  if (localStorage.getItem('autoContinue') === 'true') {
+    autoContinue();
   }
 }
 

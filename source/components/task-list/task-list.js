@@ -19,7 +19,7 @@ class TaskList extends HTMLElement {
   constructor() {
     super();
 
-    const shadow = this.attachShadow({
+    this.attachShadow({
       mode: 'open',
     });
 
@@ -41,24 +41,128 @@ class TaskList extends HTMLElement {
   }
 
   /**
+   * Function which is triggered by the event of the user submitting a new task
+   * from add task modal; Creates a new task item, adds it to the list, and
+   * saves its properties to All tasks array.
+   * @param {Event} event Event which triggered this function.
+   */
+  addTask(
+    givenId,
+    isCompleted,
+    givenName,
+    totalCount,
+    currentCount,
+    givenNote
+  ) {
+    // create struct and append to global list
+    const newTask = {
+      id: givenId,
+      completed: isCompleted,
+      name: givenName,
+      number: totalCount,
+      current: currentCount,
+      note: givenNote,
+    };
+
+    // Push the new task into allTasks and set the local storage item
+    this.allTasks.push(newTask);
+    localStorage.setItem('allTasks', JSON.stringify(this.allTasks));
+
+    // Remove the welcome message
+    if (this.shadowRoot.querySelector('aside'))
+      this.shadowRoot.querySelector('aside').remove();
+
+    // render HTML on page.
+    this.renderTask(newTask);
+  }
+
+  /**
    * Invoked each time the task-list is appeneded into a document-connected
    * element; sets up the list and reads localstorage to set up saved
    * task-items.
    */
   connectedCallback() {
-    // set the timer state back to a work session
-    localStorage.setItem('ShortBreak', 'false');
-    localStorage.setItem('LongBreak', 'false');
+    // Create the melcome message
+    const welcomeMessage = document.createElement('aside');
+    welcomeMessage.textContent =
+      'Welcome! Add a task to get started on your journey';
 
-    // Add an event listener to the taskform such that when the form is
-    // submitted, it creates a task.
-    document
-      .getElementById('taskform')
-      .addEventListener('submit', (e) => this.addTask(e));
-
-    // Create and Appened a list container to house task-items
+    // Create a list container to house task-items
     const list = document.createElement('section');
+
+    // (CREATE) Create a form for creation
+    const form = document.createElement('form');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      this.addTask(
+        Math.random().toString(16).slice(2),
+        false,
+        nameInput.value,
+        countInput.value,
+        0,
+        ''
+      );
+      nameInput.value = '';
+      countInput.value = '';
+    });
+
+    // (CREATE) Create the name input
+    const nameInput = document.createElement('input');
+    nameInput.placeholder = 'Title';
+    nameInput.maxLength = 26;
+    nameInput.required = true;
+    nameInput.setAttribute('content', 'title');
+
+    // (CREATE) Creat the count input
+    const countInput = document.createElement('input');
+    countInput.placeholder = 'Pomo Count';
+    countInput.type = 'number';
+    countInput.min = 1;
+    countInput.max = 10;
+    countInput.required = true;
+    countInput.setAttribute('content', 'count');
+
+    // (CREATE) Creat the submit button
+    const submitButton = document.createElement('button');
+    submitButton.className = 'icon';
+    submitButton.textContent = 'add_circle';
+    submitButton.type = 'submit';
+
+    // (CREATE) Append the form info to the form
+    form.append(nameInput);
+    form.append(countInput);
+    form.append(submitButton);
+
+    // (DEL) Create the delete dialog
+    const deleteDialog = document.createElement('dialog');
+
+    const deleteMessage = document.createElement('p');
+    deleteMessage.textContent = 'Delete Task?';
+
+    // (DEL) Create the No button
+    const cancelButton = document.createElement('button');
+    cancelButton.className = 'icon';
+    cancelButton.textContent = 'cancel';
+    cancelButton.type = 'cancel';
+    cancelButton.addEventListener('click', () => {
+      deleteDialog.close();
+    });
+
+    // (DEL) Create the Yes button
+    const confirmButton = document.createElement('button');
+    confirmButton.className = 'icon';
+    confirmButton.textContent = 'check_circle';
+    confirmButton.type = 'confirm';
+
+    deleteDialog.append(deleteMessage);
+    deleteDialog.append(cancelButton);
+    deleteDialog.append(confirmButton);
+
+    // Apepend the new elements to the shadow root
+    this.shadowRoot.append(form);
+    this.shadowRoot.append(welcomeMessage);
     this.shadowRoot.append(list);
+    this.shadowRoot.append(deleteDialog);
 
     // Get tasks from localStorage and, if they exist, create and append them
     // to the task-list.
@@ -67,9 +171,7 @@ class TaskList extends HTMLElement {
       this.allTasks = [];
     } else {
       this.allTasks = JSON.parse(retrievedObject);
-      if (this.allTasks.length !== 0) {
-        document.getElementById('welcome-message').remove();
-      }
+      if (this.allTasks.length > 0) welcomeMessage.remove();
       for (let i = 0; i < this.allTasks.length; i++) {
         this.renderTask(this.allTasks[i]);
       }
@@ -98,6 +200,128 @@ class TaskList extends HTMLElement {
   }
 
   /**
+   * Function which is triggered by a delete button event in a task item;
+   * displays the delete modal and then creates an event listener on the delete
+   * modal which, on submission, deletes the task item from the list element and
+   * all tasks array.
+   * @param {Event} event the event which triggered this function; it's target
+   *                      should be the button of the task to be deleted.
+   */
+  deleteTask(event) {
+    // Get the item to delete in the DOM
+    const itemToDelete = event.target.getRootNode().host;
+    const { name, id } = itemToDelete;
+
+    const deleteDialog = this.shadowRoot.querySelector('dialog');
+    deleteDialog.querySelector('p').textContent = `Delete Task "${name}"?`;
+    const confirmButton = deleteDialog.querySelector('button[type="confirm"]');
+    confirmButton.addEventListener(
+      'click',
+      () => {
+        for (let i = 0; i < this.allTasks.length; i++) {
+          if (this.allTasks[i].id === id) {
+            this.allTasks.splice(i, 1);
+            break;
+          }
+        }
+        localStorage.setItem('allTasks', JSON.stringify(this.allTasks));
+        itemToDelete.remove();
+        deleteDialog.close();
+      },
+      { once: true }
+    );
+    deleteDialog.showModal();
+  }
+
+  /**
+   * A function which is triggered by an edit button event in a task item;
+   * displays the event modal and then creates an event listener on the edit
+   * modal which, on submission, edits an existing task and saves its changes to
+   * allTasks.
+   * @param {Event} event the event which triggered this function; it's target
+   *                      should be the button of the task to be edited.
+   */
+  editTask(id, title, count) {
+    const taskIndex = this.allTasks.findIndex((elem) => elem.id === id);
+
+    this.allTasks[taskIndex].name = title;
+    this.allTasks[taskIndex].number = count;
+    localStorage.setItem('allTasks', JSON.stringify(this.allTasks));
+  }
+
+  /**
+   * For measuring the selected node position from the list.
+   */
+  establishNodePositions() {
+    for (let i = 0; i < this.nodes.length; i++) {
+      // info of the element position on the frame
+      const position = this.nodes[i].getBoundingClientRect();
+      const yTop = position.top;
+      const yBottom = position.bottom;
+      this.nodes[i].yPos = yTop + (yBottom - yTop) / 2;
+    }
+  }
+
+  /**
+   * While the task is being activly dragged, this function is called;
+   * Notes the current position and swaps with another task when the client
+   * moves the task over a certain threshhold.
+   * @param {Event} event Event which triggers the dragging. Used to get the
+   *                      client's current y position.
+   */
+  handleDragOver(event) {
+    event.preventDefault();
+    const currentNodePos = this.setNodePos(event.clientY);
+    // If the currentNodePos changes from the previousNodePos, set the previous
+    //  to the current and swap the selected task with the task associated with
+    //  the currentPosition.
+    if (this.preNodePos !== currentNodePos) {
+      this.preNodePos = currentNodePos;
+      this.dropzone.insertBefore(
+        this.selectedNode,
+        this.dropzone.children[currentNodePos]
+      );
+      // re-ordering item in localStorage
+      const newArray = [];
+      for (let i = 0; i < this.nodes.length; i++) {
+        const targetID = this.nodes[i].id;
+        const taskInArray = this.allTasks.find((elem) => elem.id === targetID);
+        newArray.unshift(taskInArray);
+      }
+      this.allTasks = newArray;
+      localStorage.setItem('allTasks', JSON.stringify(this.allTasks));
+    }
+  }
+
+  /**
+   * When a task is first dragged, this function is called with the given event.
+   * Will set the current task node being dragged for future reference as well
+   * as if it was checked.
+   * @param {Event} event The event which triggered the task to be dragged;
+   *                      it's targer should be the task-item that is going
+   *                      to be dragged.
+   */
+  handleDragStart(event) {
+    this.preNodePos = this.setNodePos(event.clientY);
+    this.selectedNode = event.target;
+    this.checked = this.selectedNode.checkmark.checked;
+  }
+
+  /**
+   * A function which is triggered by a play button event in a task item; on
+   * call, it opens the play modal and sets the current task
+   * @param {Event} event the event which triggered this function; it's target
+   *                      should be the button of the task to be played.
+   */
+  static playTask(event) {
+    localStorage.setItem(
+      'currentTask',
+      JSON.stringify(event.target.getRootNode().host.id)
+    );
+    window.location = '/timer-page/timer.html';
+  }
+
+  /**
    * Set up and render a task-item element and then append it to the task-list.
    * @param {Object} taskInfo Info about the task being created.
    * @param {string} taskInfo.id Randomly generated id of the pomo.
@@ -114,126 +338,14 @@ class TaskList extends HTMLElement {
     taskItem.number = taskInfo.number;
     taskItem.completed = taskInfo.completed;
     taskItem.setFunctions(
-      this.playTask.bind(this),
+      TaskList.playTask.bind(this),
       this.deleteTask.bind(this),
       this.editTask.bind(this),
       this.setCheck.bind(this)
     );
     // append the newly created <task-item> to section
-    this.shadowRoot.querySelector('section').appendChild(taskItem);
-  }
-
-  /**
-   * Function which is triggered by the event of the user submitting a new task
-   * from add task modal; Creates a new task item, adds it to the list, and
-   * saves its properties to All tasks array.
-   * @param {Event} event Event which triggered this function.
-   */
-  addTask(event) {
-    event.preventDefault();
-    // create struct and append to global list
-    const newTask = {
-      id: Math.random().toString(16).slice(2),
-      completed: false,
-      name: document.getElementById('task-name').value,
-      number: document.getElementById('task-num').value,
-      current: 0,
-      note: document.getElementById('task-note').value,
-    };
-    // Push the new task into allTasks and set the local storage item
-    this.allTasks.push(newTask);
-    localStorage.setItem('allTasks', JSON.stringify(this.allTasks));
-    // render HTML on page.
-    this.renderTask(newTask);
-
-    // everything else.
-    document.getElementById('taskform').reset();
-    const welcome = document.getElementById('welcome-message');
-    if (welcome) {
-      welcome.remove();
-    }
-    document.getElementById('add-task-modal').style.display = 'none';
-  }
-
-  /**
-   * Function which is triggered by a delete button event in a task item;
-   * displays the delete modal and then creates an event listener on the delete
-   * modal which, on submission, deletes the task item from the list element and
-   * all tasks array.
-   * @param {Event} event the event which triggered this function; it's target
-   *                      should be the button of the task to be deleted.
-   */
-  deleteTask(event) {
-    document.getElementById('delete-modal').style.display = 'block';
-
-    // Get the item to delete in the DOM
-    const itemToDelete = event.target.getRootNode().host;
-    const { name } = itemToDelete;
-
-    // Set up the delete modal
-    document.getElementById('task-delete').innerText = `${name}?`;
-    document.getElementById('confirm-button').addEventListener(
-      'click',
-      () => {
-        for (let i = 0; i < this.allTasks.length; i++) {
-          if (this.allTasks[i].name === name) {
-            this.allTasks.splice(i, 1);
-            break;
-          }
-        }
-        localStorage.setItem('allTasks', JSON.stringify(this.allTasks));
-        // Delete item in the DOM
-        itemToDelete.remove();
-        document.getElementById('delete-modal').style.display = 'none';
-      },
-      { once: true }
-    );
-  }
-
-  /**
-   * A function which is triggered by an edit button event in a task item;
-   * displays the event modal and then creates an event listener on the edit
-   * modal which, on submission, edits an existing task and saves its changes to
-   * allTasks.
-   * @param {Event} event the event which triggered this function; it's target
-   *                      should be the button of the task to be edited.
-   */
-  editTask(event) {
-    const editedTask = event.target.getRootNode().host;
-    const targetID = editedTask.id;
-    const taskIndex = this.allTasks.findIndex((elem) => elem.id === targetID);
-
-    // Show the selected task's info in the modal.
-    document.getElementById('edit-note').value = this.allTasks[taskIndex].note;
-    document.getElementById('edit-name').value = editedTask.name;
-    document.getElementById('edit-num').value = editedTask.number;
-
-    // Display the Modal.
-    const editModal = document.getElementById('edit-modal');
-    editModal.style.display = 'block';
-
-    // Create an event listener to the editform so that when it is submitted,
-    // the changes are applied.
-    document.getElementById('editform').addEventListener(
-      'submit',
-      // eslint-disable-next-line no-shadow
-      (event) => {
-        event.preventDefault();
-        const editTaskName = document.getElementById('edit-name').value;
-        const editTaskNum = document.getElementById('edit-num').value;
-        const editTaskNote = document.getElementById('edit-note').value;
-        editedTask.name = editTaskName;
-        editedTask.number = editTaskNum;
-        this.allTasks[taskIndex].name = editTaskName;
-        this.allTasks[taskIndex].number = editTaskNum;
-        this.allTasks[taskIndex].note = editTaskNote;
-        editModal.style.display = 'none';
-        localStorage.setItem('allTasks', JSON.stringify(this.allTasks));
-      },
-      {
-        once: true,
-      }
-    );
+    const taskList = this.shadowRoot.querySelector('section');
+    taskList.insertBefore(taskItem, taskList.firstChild);
   }
 
   /**
@@ -261,89 +373,6 @@ class TaskList extends HTMLElement {
   }
 
   /**
-   * A function which is triggered by a play button event in a task item; on
-   * call, it opens the play modal and sets the current task
-   * @param {Event} event the event which triggered this function; it's target
-   *                      should be the button of the task to be played.
-   */
-  playTask(event) {
-    // Display the play modal for the task.
-    document.getElementById('play-modal').style.display = 'block';
-    const targetTask = event.target.getRootNode().host;
-    document.getElementById('timer-name').innerText = targetTask.name;
-    const taskStorageIndex = this.allTasks.findIndex(
-      (elem) => elem.id === targetTask.id
-    );
-
-    // make the note from storage appear in the timer modal
-    document.getElementById('timer-note').innerText = this.allTasks[
-      taskStorageIndex
-    ].note;
-
-    // set the current task id to localStorage
-    const currentTask = targetTask.id;
-    localStorage.setItem('currentTask', JSON.stringify(currentTask));
-  }
-
-  /**
-   * When a task is first dragged, this function is called with the given event.
-   * Will set the current task node being dragged for future reference as well
-   * as if it was checked.
-   * @param {Event} event The event which triggered the task to be dragged;
-   *                      it's targer should be the task-item that is going
-   *                      to be dragged.
-   */
-  handleDragStart(event) {
-    this.preNodePos = this.setNodePos(event.clientY);
-    this.selectedNode = event.target;
-    this.checked = this.selectedNode.checkmark.checked;
-  }
-
-  /**
-   * While the task is being activly dragged, this function is called;
-   * Notes the current position and swaps with another task when the client
-   * moves the task over a certain threshhold.
-   * @param {Event} event Event which triggers the dragging. Used to get the
-   *                      client's current y position.
-   */
-  handleDragOver(event) {
-    event.preventDefault();
-    const currentNodePos = this.setNodePos(event.clientY);
-    // If the currentNodePos changes from the previousNodePos, set the previous
-    //  to the current and swap the selected task with the task associated with
-    //  the currentPosition.
-    if (this.preNodePos !== currentNodePos) {
-      this.preNodePos = currentNodePos;
-      this.dropzone.insertBefore(
-        this.selectedNode,
-        this.dropzone.children[currentNodePos]
-      );
-      // re-ordering item in localStorage
-      const newArray = [];
-      for (let i = 0; i < this.nodes.length; i++) {
-        const targetID = this.nodes[i].id;
-        const taskInArray = this.allTasks.find((elem) => elem.id === targetID);
-        newArray.push(taskInArray);
-      }
-      this.allTasks = newArray;
-      localStorage.setItem('allTasks', JSON.stringify(this.allTasks));
-    }
-  }
-
-  /**
-   * For measuring the selected node position from the list.
-   */
-  establishNodePositions() {
-    for (let i = 0; i < this.nodes.length; i++) {
-      // info of the element position on the frame
-      const position = this.nodes[i].getBoundingClientRect();
-      const yTop = position.top;
-      const yBottom = position.bottom;
-      this.nodes[i].yPos = yTop + (yBottom - yTop) / 2;
-    }
-  }
-
-  /**
    * For deciding which position the selected element goes to as measuring which
    * is the closest parent and closet children
    * this function will call establishNodePositions() for selected node position.
@@ -359,7 +388,6 @@ class TaskList extends HTMLElement {
         currentNodePos = i + 1;
       }
     }
-
     return currentNodePos;
   }
 }
