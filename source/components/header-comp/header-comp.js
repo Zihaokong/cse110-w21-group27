@@ -242,7 +242,7 @@ class HeaderComp extends HTMLElement {
         let timerMinutes = 0;
 
         // Get what the timer minute count should be from local storage.
-        if (localStorage.getItem('ShortBreak') === 'true') {
+        if (localStorage.getItem('shortBreak') === 'true') {
           timerMinutes = shortBreakSessionInput.value;
         } else if (localStorage.getItem('LongBreak') === 'true') {
           timerMinutes = longBreakSessionInput.value;
