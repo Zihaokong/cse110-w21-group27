@@ -8,8 +8,7 @@ let distractCounter = 0;
 
 let isFailed = false;
 // distinguish refresh or back button
-let currentTaskId;
-let currentTaskIndex;
+let currentTaskIndex = -1;
 let allTasks;
 
 let circle;
@@ -84,17 +83,20 @@ function timerPageInit() {
   // render current task name to timer page
   const id = JSON.parse(localStorage.getItem('currentTask'));
   allTasks = JSON.parse(localStorage.getItem('allTasks'));
-  if (allTasks && id) {
+  let flag = false;
+  if (allTasks && id !== '') {
     for (let i = 0; i < allTasks.length; i++) {
       if (allTasks[i].id === id) {
-        currentTaskId = allTasks[i].id;
         currentTaskIndex = i;
         document.getElementById('currTask').innerHTML = allTasks[i].name;
         document.getElementById('deselect-task').style.display = '';
+        flag = true;
       }
     }
-  } else {
+  }
+  if (!flag) {
     document.getElementById('deselect-task').style.display = 'none';
+    localStorage.removeItem('currentTask');
   }
 
   // Now that allTasks is defined we can fill in the create-task dropdown
@@ -249,7 +251,7 @@ function continueTask() {
   ).innerHTML = `Distraction : ${distractCounter}`;
   renderTimer(localStorage.getItem('timerMinutes'), 0);
 
-  if (currentTaskId) {
+  if (currentTaskIndex !== -1) {
     document.getElementById('currTask').innerHTML =
       allTasks[currentTaskIndex].name;
     document.getElementById('deselect-task').style.display = '';
@@ -323,7 +325,6 @@ function startBreak() {
  */
 function deselectTask() {
   localStorage.setItem('currentTask', '""');
-  currentTaskId = '';
   currentTaskIndex = -1;
   document.getElementById('deselect-task').style.display = 'none';
   document.getElementById('currTask').textContent = 'No Task Selected';
@@ -336,7 +337,7 @@ function deselectTask() {
 function startButton() {
   // If a task is already selected or the create-menu is disabled
   if (
-    localStorage.getItem('currentTask') !== '' ||
+    currentTaskIndex !== -1 ||
     JSON.parse(localStorage.getItem('disable-create-menu'))
   ) {
     startTimer();
@@ -495,7 +496,7 @@ function finishedTask() {
     displayBreak();
 
     // update progress for current task
-    if (currentTaskId) {
+    if (currentTaskIndex !== -1) {
       allTasks[currentTaskIndex].current += 1;
     }
     localStorage.setItem('allTasks', JSON.stringify(allTasks));
@@ -520,7 +521,6 @@ function createTask() {
     //    task and start the timer
     for (let i = 0; i < allTasks.length; i++) {
       if (allTasks[i].id === chosenId) {
-        currentTaskId = allTasks[i].id;
         currentTaskIndex = i;
         document.getElementById('currTask').innerHTML =
           allTasks[currentTaskIndex].name;
