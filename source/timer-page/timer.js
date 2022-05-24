@@ -167,9 +167,10 @@ function timerLengthInit() {
  */
 function taskSelectInit() {
   const dropdown = document.getElementById('choose-task');
-  allTasks.forEach((task) => {
-    dropdown.innerHTML += `<option value="${task.id}">${task.name}</option>`;
-  });
+  if (allTasks)
+    allTasks.forEach((task) => {
+      dropdown.innerHTML += `<option value="${task.id}">${task.name}</option>`;
+    });
 }
 
 /**
