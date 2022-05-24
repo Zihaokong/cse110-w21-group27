@@ -32,61 +32,82 @@
     </section>
   
     <header-comp page="timer"></header-comp>
+
+    <!--Task Heading-->
     <div class="container">
-      <!--Task Heading-->
-      <h1 class="text-center my-5" id="currTask">Task</h1>
-      <div class="timer-grid">
-      <div class="container timer">
-        <div class="grid-item">
-          <h4 id="minutes"></h4>
-        </div>
-        <div class="grid-item">
-          <h4>:</h4>
-        </div>
-        <div class="grid-item">
-          <h4 id="seconds"></h4>
-        </div>
+      <h1 id="currTask">No Task Selected</h1>
+      <button id="deselect-task">cancel</button>
+    </div>
+    <div class="container timer">
+      <span class="container">
+        <h4 id="minutes"></h4>
+        <h4>:</h4>
+        <h4 id="seconds"></h4>
+      </span>
 
-        <svg class="progress-ring" height="27.5rem" width="27.5rem">
-          <circle
-            class="progress-ring-circle"
-            id="progress-ring-circle"
-            stroke-width="40"
-            fill="transparent"
-            r="200"
-            cx="13.75rem"
-            cy="13.75rem"
-            stroke="#2E4756"
-          />
-        </svg>
-      </div>
+      <svg class="progress-ring" height="27.5rem" width="27.5rem">
+        <circle
+          class="progress-ring-circle"
+          id="progress-ring-circle"
+          stroke-width="40"
+          fill="transparent"
+          r="200"
+          cx="13.75rem"
+          cy="13.75rem"
+          stroke="#2E4756"
+        />
+      </svg>
     </div>
 
-      <!--Buttons-->
-      <div id="button-container">
-        <div><button class="startButton" id="start-btn">Start</button></div>
-        <button class="distraction" id="distraction-btn" disabled>
-          Distraction : 5
-        </button>
-        <button class="fail" id="fail-btn">Fail</button>
-      </div>
+    <!--Buttons-->
+    <section id="button-container" class="container">
+      <!-- The page opens with just the start button visible -->
+      <button class="startButton" id="start-btn">Start</button>
 
-      <div id="container-short">
-        <div>
-          <button class="start-break-btn" id="start-short-btn">
-            Start Break
-          </button>
-        </div>
-      </div>
+      <!-- The create task form will become visible if start is pressed
+            without a task selected -->
+      <form id="create-task" style="display:none;">
+        <label for="choose-task" class="label-heading">
+          Choose a task to start
+        </label>
+        <select id="choose-task">
+          <option value="">-</option>
+          <!-- Tasks will be dynamically loaded here -->
+        </select>
 
-      <div id="container-long">
+        <label for="task-name pomo-count" class="label-heading">
+          Or create a new one!
+        </label>
+        
+        <label for="task-name">Task Name</label>
+        <input type="text" id="task-name">
+
+        <label for="pomo-count">Pomo Count</label>
+        <input type="number" id="pomo-count" min="1" max="10">
+
         <div>
-          <button class="start-break-btn" id="start-long-btn">
-            Start Break
-          </button>
+          <button type="button" id="create-skip">Skip</button>
+          <button type="button" id="create-start">Start</button>
         </div>
-      </div>
-    </div>
+
+        <div id="dont-show-container">
+          <input type="checkbox" id="dont-show">
+          <label for="dont-show">Don't show again</label>
+        </div>
+      </form>
+
+      <!-- The distraction and fail button will be available if a task
+            is in progress -->
+      <button class="distraction" id="distraction-btn"  style="display:none;">
+        Distraction : 5
+      </button>
+      <button class="fail" id="fail-btn" style="display:none;">Fail</button>
+
+      <!-- The start break button will become visible after a task is complete -->
+      <button id="start-break-btn" style="display:none;">
+        Start Break
+      </button>
+    </section>
 
     <div id="breakCompleteModal" class="modal-break">
       <div class="modal-content-short_break">
@@ -119,7 +140,7 @@
                     Are you sure you want to fail this pomo session?
                 </div>
                 <div id="sad-face-container">
-                    <img id="sad-face" src="/assets/images/sad-face.png" alt="sad-face">
+                    <img id="sad-face" src="../assets/images/sad-face.png" alt="sad-face">
                 </div>
                 <div id="fail-button-container">
                     <button class="fail-buttons" id="fail-button">Fail</button>
@@ -131,6 +152,6 @@
     </div>
 
     <script src="./timer.js"></script>
-    <script src="/components/header-comp/header-comp.js"></script>
+    <script src="../components/header-comp/header-comp.js"></script>
   </body>
 </html>

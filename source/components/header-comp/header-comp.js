@@ -110,7 +110,7 @@ class HeaderComp extends HTMLElement {
 
     const taskLink = document.createElement('button');
     taskLink.textContent = 'list';
-    taskLink.setAttribute('onClick', 'location.href="/"');
+    taskLink.setAttribute('onClick', 'location.href="/tasks-page/tasks.html"');
 
     const statLink = document.createElement('button');
     statLink.textContent = 'bar_chart';
@@ -122,7 +122,7 @@ class HeaderComp extends HTMLElement {
       settings.showModal();
     });
     const timerLink = document.createElement('button');
-    timerLink.textContent = 'timer';
+    timerLink.textContent = 'alarm';
     timerLink.setAttribute('onClick', 'location.href="/timer-page/timer.html"');
 
     switch (this.page) {
