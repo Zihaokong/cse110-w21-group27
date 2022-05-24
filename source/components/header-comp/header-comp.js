@@ -237,29 +237,31 @@ class HeaderComp extends HTMLElement {
       localStorage.setItem('volumePercentage', VolumeInput.value);
       localStorage.setItem('autoContinue', AutoInput.checked);
 
-      const shortBreak = localStorage.getItem('ShortBreak') === 'true';
-      const longBreak = localStorage.getItem('LongBreak') === 'true';
+      // If the page is on the timer, then set up the timer visuals to change.
+      if (this.page === 'timer') {
+        let timerMinutes = 0;
 
-      let minutes = 0;
-
-      if (shortBreak) {
-        minutes = shortBreakSessionInput.value;
-      } else if (longBreak) {
-        minutes = longBreakSessionInput.value;
-      } else {
-        minutes = workSessionInput.value;
-      }
-
-      const minuteElement = document.getElementById('minutes');
-      const titleElement = document.getElementById('title_timer');
-
-      if (minuteElement && titleElement) {
-        if (minutes < 10) {
-          minuteElement.innerHTML = `0${minutes}`;
+        // Get what the timer minute count should be from local storage.
+        if (localStorage.getItem('ShortBreak') === 'true') {
+          timerMinutes = shortBreakSessionInput.value;
+        } else if (localStorage.getItem('LongBreak') === 'true') {
+          timerMinutes = longBreakSessionInput.value;
         } else {
-          minuteElement.innerHTML = `${minutes}`;
+          timerMinutes = workSessionInput.value;
         }
-        titleElement.innerHTML = `${minutes}:00`;
+
+        const minuteElement = document.getElementById('minutes');
+        const titleElement = document.getElementById('title_timer');
+
+        // Set up the minutes and title_timer changes caused by the settings.
+        if (minuteElement && titleElement) {
+          if (timerMinutes < 10) {
+            minuteElement.innerHTML = `0${timerMinutes}`;
+          } else {
+            minuteElement.innerHTML = `${timerMinutes}`;
+          }
+          titleElement.innerHTML = `${timerMinutes}:00`;
+        }
       }
 
       settings.close();

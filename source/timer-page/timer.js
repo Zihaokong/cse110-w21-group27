@@ -83,18 +83,21 @@ function timerPageInit() {
   // render current task name to timer page
   const id = JSON.parse(localStorage.getItem('currentTask'));
   allTasks = JSON.parse(localStorage.getItem('allTasks'));
-  let flag = false;
+
+  // Checks to see i the task id still exists. If it no longer exists, remove
+  // the current task and hide the deelct task tick
+  let taskStillExists = false;
   if (allTasks && id !== '') {
     for (let i = 0; i < allTasks.length; i++) {
       if (allTasks[i].id === id) {
         currentTaskIndex = i;
         document.getElementById('currTask').innerHTML = allTasks[i].name;
         document.getElementById('deselect-task').style.display = '';
-        flag = true;
+        taskStillExists = true;
       }
     }
   }
-  if (!flag) {
+  if (!taskStillExists) {
     document.getElementById('deselect-task').style.display = 'none';
     localStorage.removeItem('currentTask');
   }
