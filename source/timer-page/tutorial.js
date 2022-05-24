@@ -7,10 +7,14 @@ if (localStorage.getItem('isNoob') === 'true') {
 }
 
 document.getElementById('tutorialModal').onclick = (event) => {
-  // clicked inside modal
+  // clicked outside modal
   document.getElementById('tutorialModal').style.display = 'none';
+
+  // Change localStorage's isNoob value on disabling tutorials (or other event)
+  // Here it turns off noob mode as soon as you close out the first tutorial.
+  localStorage.setItem('isNoob', false);
 };
 document.querySelector('#tutorialModal > div').onclick = (event) => {
-  // clicked outside modal
+  // clicked inside modal
   event.stopPropagation();
 };
