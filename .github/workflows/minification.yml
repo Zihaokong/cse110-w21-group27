@@ -3,7 +3,7 @@ name: Minification and Deployment
 on:
   push:
       branches:
-        - main
+        - 84-bug-fix-cicd
 
 jobs:
 
@@ -24,49 +24,5 @@ jobs:
       uses: stefanzweifel/git-auto-commit-action@v3.0.0
       with:
         commit_message: "Github Action: Auto Minified JS and CSS files"
-        branch: ${{ github.ref }}
-
-    - name: rename minified files
-      run: |
-        cd ./minified
-        for file in *.min.* ; do sudo mv $file ${file//min./} ; done
-        cd ..
-        
-    - name: add minfied files to build directory
-      run: |
-        mkdir build
-        cp -a minified/. build
-        
-    - name: copy index file from source to build
-      run: |
-        cp source/index.html build/index.html
-        cp source/timer_page/timer.html build/timer.html
-        cp source/stats_page/stats.html build/stats.html
-        
-    - name: copy images and media from source to build
-      run: |
-        mkdir build/images
-        mkdir build/media
-        cp -a source/images/. build/images
-        cp -a source/media/. build/media
-        
-    - name: create timer_page directory structure
-      run: |
-        cd build
-        mkdir timer_page
-        mv timer-modals.css timer.css timer.js timer.html timer_page
-        cd ..
-
-    - name: create stats_page directory structure
-      run: |
-        cd build
-        mkdir stats_page
-        mv stats.css stats.js stats.html stats_page
-        cd ..
-        
-    - name: Deploy build files
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./build
+        branch: 'deployment'
         
