@@ -12,15 +12,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Checkout Repoistory
     - uses: actions/checkout@v2
 
-    - name: Auto Minify
-      uses: nizarmah/auto-minify@master
-      with:
-        directory: source
-        output: minified
-
-    - name: Auto committing minified files
+    - name: Compress HTML, CSS and JS files in source directory
+      uses: nizarmah/auto-minify@v2.1
+      
+    - name: Commit Minified Files
       uses: stefanzweifel/git-auto-commit-action@v4
       with:
         commit_message: "Github Action: Auto Minified JS and CSS files"
