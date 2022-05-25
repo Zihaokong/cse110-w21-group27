@@ -23,7 +23,8 @@ jobs:
     - name: Commit Minified Files
       uses: stefanzweifel/git-auto-commit-action@v4
       with:
+        push_options: -f
         commit_message: "Github Action: Auto Minified JS and CSS files"
         branch: deployment
-        push_options: -f
+      
         
