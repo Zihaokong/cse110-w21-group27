@@ -54,7 +54,6 @@ jobs:
     - name: Commit Minified Files
       uses: stefanzweifel/git-auto-commit-action@v4
       with:
-        skip_dirty_check: true
         commit_message: "Github Action: Auto Minified JS and CSS files"
         repository: ./deploy
         branch: deployment
