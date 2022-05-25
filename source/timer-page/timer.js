@@ -81,8 +81,8 @@ function timerPageInit() {
   localStorage.setItem('isPomo', 'false');
 
   // render current task name to timer page
-  const id = JSON.parse(localStorage.getItem('currentTask'));
-  allTasks = JSON.parse(localStorage.getItem('allTasks'));
+  const id = JSON.parse(localStorage.getItem('currentTask') || 'null');
+  allTasks = JSON.parse(localStorage.getItem('allTasks') || '[]');
 
   // Checks to see i the task id still exists. If it no longer exists, remove
   // the current task and hide the deelct task tick
