@@ -21,9 +21,9 @@ jobs:
         overwrite: true
 
     - name: Commit Minified Files
-      uses: stefanzweifel/git-auto-commit-action@v4.2.0
+      uses: stefanzweifel/git-auto-commit-action@v4
       with:
         commit_message: "Github Action: Auto Minified JS and CSS files"
         branch: deployment
-        push_options: --force
+        push_options: '--force'
         
