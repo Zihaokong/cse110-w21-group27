@@ -18,7 +18,7 @@ jobs:
       uses: nizarmah/auto-minify@master
       with:
         directory: 'source'
-        output: 'build'
+        output: 'deployment'
         overwrite: true
 
     - name: Commit Minified Files
