@@ -16,6 +16,8 @@ jobs:
 
     - name: Compress HTML, CSS and JS files.
       uses: nizarmah/auto-minify@master
+      with:
+        directory: 'source'
 
     - name: Commit Minified Files
       uses: stefanzweifel/git-auto-commit-action@v4
