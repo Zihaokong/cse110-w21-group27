@@ -54,5 +54,6 @@ jobs:
         commit_message: "Github Action: Auto Minified JS and CSS files"
         repository: ./deploy
         branch: deployment
+        skip_checkout: true
       
         
