@@ -48,6 +48,9 @@ jobs:
         cp -a source/assets/images/. deploy/assets/images/
         cp -a source/assets/audio/. deploy/assets/audio/
       
+    - name: Clean Repo
+      run: git clean  -d  -fx .
+      
     - name: Commit Minified Files
       uses: stefanzweifel/git-auto-commit-action@v4
       with:
