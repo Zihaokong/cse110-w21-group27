@@ -18,13 +18,13 @@ jobs:
       uses: nizarmah/auto-minify@master
       with:
         directory: 'source'
-        output: 'deployment'
         overwrite: true
 
     - name: Commit Minified Files
       uses: stefanzweifel/git-auto-commit-action@v4
       with:
         commit_message: "Github Action: Auto Minified JS and CSS files"
+        repository: 'build'
         branch: deployment
         push_options: --force
         
