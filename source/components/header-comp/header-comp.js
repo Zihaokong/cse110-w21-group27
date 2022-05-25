@@ -17,6 +17,12 @@ class HeaderComp extends HTMLElement {
     this.attachShadow({
       mode: 'open',
     });
+
+    // Check if user is a noob (for use with tutorials)
+    if (!localStorage.getItem('isNoob')) {
+      localStorage.setItem('isNoob', true);
+    }
+    this.isNoob = localStorage.getItem('isNoob');
   }
 
   static get observedAttributes() {

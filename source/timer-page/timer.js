@@ -163,6 +163,28 @@ function timerLengthInit() {
  */
 function taskSelectInit() {
   const dropdown = document.getElementById('choose-task');
+  if (allTasks)
+    allTasks.forEach((task) => {
+      dropdown.innerHTML += `<option value="${task.id}">${task.name}</option>`;
+    });
+}
+
+/**
+ * Currently, the HTML element's ID should be the same as the name for the local storage.
+ * @param {string} lengthType the identifier for which timer's length.
+ */
+function updateTimerLength(lengthType) {
+  localStorage.setItem(lengthType, document.getElementById(lengthType).value);
+  if (
+    !isInSession &&
+    ((lengthType === 'TimerMinutes' &&
+      localStorage.getItem('isPomo') === 'false') ||
+      (lengthType === 'ShortBreakMinutes' &&
+        localStorage.getItem('ShortBreak') === 'true') ||
+      (lengthType === 'LongBreakMinutes' &&
+        localStorage.getItem('LongBreak') === 'true'))
+  )
+    renderTimer(localStorage.getItem(lengthType), 0);
   if (allTasks) {
     allTasks.forEach((task) => {
       dropdown.innerHTML += `<option value="${task.id}">${task.name}</option>`;
