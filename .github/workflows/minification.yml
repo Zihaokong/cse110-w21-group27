@@ -34,14 +34,14 @@ jobs:
         mkdir deploy/stats-page
         mkdir deploy/tasks-page
         mkdir deploy/timer-page
-        mv minified/main.* deploy/
-        mv minified/tutorial.js deploy/
-        mv minified/header-comp.* deploy/components/header-comp
-        mv minified/task-item.* deploy/components/task-item
-        mv minified/task-list.* deploy/components/task-list
-        mv minified/stats.* deploy/stats-page
-        mv minified/tasks.* deploy/tasks-page
-        mv minified/timer.* deploy/timer-page
+        cp minified/main.* deploy/
+        cp minified/tutorial.js deploy/
+        cp minified/header-comp.* deploy/components/header-comp
+        cp minified/task-item.* deploy/components/task-item
+        cp minified/task-list.* deploy/components/task-list
+        cp minified/stats.* deploy/stats-page
+        cp minified/tasks.* deploy/tasks-page
+        cp minified/timer.* deploy/timer-page
         cp source/index.html deploy/index.html
         cp source/timer-page/timer.html deploy/timer-page/timer.html
         cp source/stats-page/stats.html deploy/stats-page/stats.html
