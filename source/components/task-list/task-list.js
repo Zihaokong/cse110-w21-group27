@@ -23,7 +23,7 @@ class TaskList extends HTMLElement {
       mode: 'open',
     });
 
-    this.allTasks = null;
+    this.allTasks = [];
 
     // variables for drag and drop functions
     this.dropzone = null;
@@ -171,9 +171,13 @@ class TaskList extends HTMLElement {
       this.allTasks = [];
     } else {
       this.allTasks = JSON.parse(retrievedObject);
-      if (this.allTasks.length > 0) welcomeMessage.remove();
-      for (let i = 0; i < this.allTasks.length; i++) {
-        this.renderTask(this.allTasks[i]);
+      if (this.allTasks) {
+        if (this.allTasks.length > 0) welcomeMessage.remove();
+        for (let i = 0; i < this.allTasks.length; i++) {
+          this.renderTask(this.allTasks[i]);
+        }
+      } else {
+        this.allTasks = [];
       }
     }
 

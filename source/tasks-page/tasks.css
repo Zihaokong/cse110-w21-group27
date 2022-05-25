@@ -23,7 +23,6 @@
 
 head,
 body {
-  background: var(--light-color);
   margin: 0 0;
   overflow-x: hidden;
   color: var(--medium-color);

@@ -402,6 +402,9 @@ function startTimer() {
  * @param {integer} secs second of timer
  */
 function start(mins, secs) {
+  // Hide nav buttons in header
+  document.querySelector('header-comp').page = 'timerRunning';
+
   const startTime = new Date();
   // display correct distraction counter
   distractCounter = 0;
@@ -461,6 +464,7 @@ function renderTimer(minutes, seconds) {
  * task is finished. It should set the related HTML elements properly and stop the timer.
  */
 function finishedTask() {
+  document.querySelector('header-comp').page = 'timer';
   // console.log('Finished Task');
   clearInterval(secondsInterval);
   let counter = Number(localStorage.getItem('sessionCounter'));

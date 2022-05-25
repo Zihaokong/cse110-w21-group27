@@ -66,22 +66,6 @@ class HeaderComp extends HTMLElement {
   }
 
   /**
-   * Creates the text for the date element. Uses the JS Date object to generate
-   * the date.
-   * @returns {string} today's date
-   */
-  static createDate() {
-    const todayDate = new Date();
-    const options = {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    };
-    return todayDate.toLocaleDateString('en-us', options);
-  }
-
-  /**
    * Called when the header is applied to the DOM; Sets up the header.
    */
   connectedCallback() {
@@ -96,10 +80,23 @@ class HeaderComp extends HTMLElement {
     const section = document.createElement('section');
 
     // Create the date text.
-    const date = document.createElement('h1');
-    date.innerText = HeaderComp.createDate()
-      ? HeaderComp.createDate()
-      : `Today's date`;
+    // const date = document.createElement('h1');
+    // date.innerText = HeaderComp.createDate()
+    //   ? HeaderComp.createDate()
+    //   : `Today's date`;
+
+    // Create image
+    const brand = document.createElement('div');
+    brand.className = 'brand';
+    const logo = document.createElement('img');
+    logo.src = '/assets/images/logo-white.svg';
+    logo.width = '68';
+    logo.height = '68';
+    const title = document.createElement('h1');
+    title.textContent = 'Tomo';
+
+    brand.appendChild(logo);
+    brand.appendChild(title);
 
     // Section of the header which shows dots and filled dots to represent
     // progress to a long break.
@@ -144,7 +141,7 @@ class HeaderComp extends HTMLElement {
     navBar.appendChild(settingButton);
 
     // Append the date and section to the nav element
-    section.appendChild(date);
+    section.appendChild(brand);
     section.appendChild(count);
     section.appendChild(navBar);
 
@@ -162,9 +159,9 @@ class HeaderComp extends HTMLElement {
     const settings = this.renderSettings();
   }
 
-  attributeChangedCallback(name) {
+  attributeChangedCallback(name, oldValue, newValue) {
     if (name === 'completedcycles' || name === 'isnewcycle') {
-      const circleSection = this.shadowRoot.querySelector('div');
+      const circleSection = this.shadowRoot.querySelector('#cycle-count');
 
       // check if section is loaded
       if (circleSection) {
@@ -172,6 +169,14 @@ class HeaderComp extends HTMLElement {
         this.renderCounter();
         this.renderCompletedCount();
       }
+    }
+
+    if (name === 'page' && this.shadowRoot.querySelector('nav')) {
+      console.log(name);
+      console.log(newValue);
+      this.shadowRoot
+        .querySelector('nav')
+        .setAttribute('hidden', newValue === 'timerRunning');
     }
   }
 

@@ -14,7 +14,6 @@
   justify-content: stretch;
   justify-items: stretch;
   margin:  10px 0px 10px;
-  opacity: 0.5;
   transition: box-shadow 0.2s ease-in-out;
   transition: opacity 0.3s ease-in-out;
 }
@@ -33,6 +32,15 @@ input {
   word-breaK:break-all;
   font-size: calc(20px + 0.5vw);
   transition: text-decoration 0.2s ease-in-out;
+}
+
+aside {
+  text-align: center;
+}
+
+dialog {
+  border-style: none;
+  box-shadow: 1px 1px 0.5rem var(--primary-color);
 }
 
 input[content="title"] {
@@ -75,6 +83,7 @@ button:disabled {
     grid-auto-columns: 1fr 1fr 10fr 10fr 1fr 1fr 1fr;
     grid-template-areas:
       ". . title count submit . .";
+    opacity: 0.5;
   }
   
   .icon {
@@ -90,6 +99,7 @@ button:disabled {
       "title"
       "count"
       "submit";
+    opacity: 1;
   }
   
   .icon {
