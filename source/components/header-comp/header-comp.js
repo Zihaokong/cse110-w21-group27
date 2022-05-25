@@ -9,10 +9,6 @@
  * saves cycle count to local storage after every completed session.
  */
 class HeaderComp extends HTMLElement {
-  static get observedAttributes() {
-    return ['completedcycles', 'isnewcycle', 'page'];
-  }
-
   /**
    * Constructor which attaches a shadow root to this element in open mode
    */
@@ -29,25 +25,8 @@ class HeaderComp extends HTMLElement {
     this.isNoob = localStorage.getItem('isNoob');
   }
 
-  /**
-   * sets the amount of completed cycles
-   */
-  set completedCycles(newValue) {
-    this.setAttribute('completedcycles', newValue);
-  }
-
-  /**
-   * Set isnewcycle
-   */
-  set isNewCycle(newValue) {
-    this.setAttribute('isnewcycle', newValue);
-  }
-
-  /**
-   * Set page
-   */
-  set page(newValue) {
-    this.setAttribute('page', newValue);
+  static get observedAttributes() {
+    return ['completedcycles', 'isnewcycle', 'page'];
   }
 
   /**
@@ -58,10 +37,24 @@ class HeaderComp extends HTMLElement {
   }
 
   /**
+   * sets the amount of completed cycles
+   */
+  set completedCycles(newValue) {
+    this.setAttribute('completedcycles', newValue);
+  }
+
+  /**
    * Gets whether it is newcycle.
    */
   get isNewCycle() {
     return this.getAttribute('isnewcycle');
+  }
+
+  /**
+   * Set isnewcycle
+   */
+  set isNewCycle(newValue) {
+    this.setAttribute('isnewcycle', newValue);
   }
 
   /**
@@ -71,17 +64,27 @@ class HeaderComp extends HTMLElement {
     return this.getAttribute('page');
   }
 
-  attributeChangedCallback(name, oldValue, newValue) {
-    if (name === 'completedcycles' || name === 'isnewcycle') {
-      const circleSection = this.shadowRoot.querySelector('div');
+  /**
+   * Set isnewcycle
+   */
+  set page(newValue) {
+    this.setAttribute('page', newValue);
+  }
 
-      // check if section is loaded
-      if (circleSection) {
-        circleSection.innerHTML = '';
-        this.renderCounter();
-        this.renderCompletedCount();
-      }
-    }
+  /**
+   * Creates the text for the date element. Uses the JS Date object to generate
+   * the date.
+   * @returns {string} today's date
+   */
+  static createDate() {
+    const todayDate = new Date();
+    const options = {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    };
+    return todayDate.toLocaleDateString('en-us', options);
   }
 
   /**
@@ -119,6 +122,11 @@ class HeaderComp extends HTMLElement {
     statLink.textContent = 'bar_chart';
     statLink.setAttribute('onClick', 'location.href="/stats-page/stats.html"');
 
+    const settingButton = document.createElement('button');
+    settingButton.textContent = 'settings';
+    settingButton.addEventListener('click', () => {
+      settings.showModal();
+    });
     const timerLink = document.createElement('button');
     timerLink.textContent = 'alarm';
     timerLink.setAttribute('onClick', 'location.href="/timer-page/timer.html"');
@@ -139,6 +147,7 @@ class HeaderComp extends HTMLElement {
     navBar.appendChild(timerLink);
     navBar.appendChild(taskLink);
     navBar.appendChild(statLink);
+    navBar.appendChild(settingButton);
 
     // Append the date and section to the nav element
     section.appendChild(date);
@@ -156,22 +165,36 @@ class HeaderComp extends HTMLElement {
     // Setup and render the circles in the cycle counter as well as the date.
     this.renderCounter();
     this.renderCompletedCount();
+    const settings = this.renderSettings();
   }
 
-  /**
-   * Creates the text for the date element. Uses the JS Date object to generate
-   * the date.
-   * @returns {string} today's date
-   */
-  static createDate() {
-    const todayDate = new Date();
-    const options = {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    };
-    return todayDate.toLocaleDateString('en-us', options);
+  attributeChangedCallback(name) {
+    if (name === 'completedcycles' || name === 'isnewcycle') {
+      const circleSection = this.shadowRoot.querySelector('div');
+
+      // check if section is loaded
+      if (circleSection) {
+        circleSection.innerHTML = '';
+        this.renderCounter();
+        this.renderCompletedCount();
+      }
+    }
+  }
+
+  renderCounter() {
+    if (this.completedCycles === '0' || this.isNewCycle === 'true') {
+      for (let i = 0; i < 4; i++) {
+        const newCycle = document.createElement('span');
+        newCycle.setAttribute('class', 'dot');
+        this.shadowRoot.querySelector('#cycle-count').prepend(newCycle);
+      }
+    } else if (this.completedCycles % 4 !== 0) {
+      for (let i = 0; i < 4 - (this.completedCycles % 4); i++) {
+        const newCycle = document.createElement('span');
+        newCycle.setAttribute('class', 'dot');
+        this.shadowRoot.querySelector('#cycle-count').prepend(newCycle);
+      }
+    }
   }
 
   /**
@@ -199,23 +222,165 @@ class HeaderComp extends HTMLElement {
   }
 
   /**
-   * Creates and renders the unfilled dots using the new cycle and completed
-   * cycles properties.
+   * Create and renders the settings pop up page
    */
-  renderCounter() {
-    if (this.completedCycles === '0' || this.isNewCycle === 'true') {
-      for (let i = 0; i < 4; i++) {
-        const newCycle = document.createElement('span');
-        newCycle.setAttribute('class', 'dot');
-        this.shadowRoot.querySelector('#cycle-count').prepend(newCycle);
+  renderSettings() {
+    // Create the settings dialog
+    const settings = document.createElement('dialog');
+
+    // Create the settings header
+    const header = document.createElement('h2');
+    header.textContent = 'Settings';
+
+    // Create the form
+    const form = document.createElement('form');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      localStorage.setItem('timerMinutes', workSessionInput.value);
+      localStorage.setItem('shortBreakMinutes', shortBreakSessionInput.value);
+      localStorage.setItem('longBreakMinutes', longBreakSessionInput.value);
+      localStorage.setItem('volumePercentage', VolumeInput.value);
+      localStorage.setItem('autoContinue', AutoInput.checked);
+
+      // If the page is on the timer, then set up the timer visuals to change.
+      if (this.page === 'timer') {
+        let timerMinutes = 0;
+
+        // Get what the timer minute count should be from local storage.
+        if (localStorage.getItem('shortBreak') === 'true') {
+          timerMinutes = shortBreakSessionInput.value;
+        } else if (localStorage.getItem('LongBreak') === 'true') {
+          timerMinutes = longBreakSessionInput.value;
+        } else {
+          timerMinutes = workSessionInput.value;
+        }
+
+        const minuteElement = document.getElementById('minutes');
+        const titleElement = document.getElementById('title_timer');
+
+        // Set up the minutes and title_timer changes caused by the settings.
+        if (minuteElement && titleElement) {
+          if (timerMinutes < 10) {
+            minuteElement.innerHTML = `0${timerMinutes}`;
+          } else {
+            minuteElement.innerHTML = `${timerMinutes}`;
+          }
+          titleElement.innerHTML = `${timerMinutes}:00`;
+        }
       }
-    } else if (this.completedCycles % 4 !== 0) {
-      for (let i = 0; i < 4 - (this.completedCycles % 4); i++) {
-        const newCycle = document.createElement('span');
-        newCycle.setAttribute('class', 'dot');
-        this.shadowRoot.querySelector('#cycle-count').prepend(newCycle);
-      }
-    }
+
+      settings.close();
+    });
+
+    // Work Session Option
+    const workSessionLabel = document.createElement('label');
+    workSessionLabel.textContent = 'Work Session Length: ';
+    const workSessionInput = document.createElement('input');
+    workSessionInput.type = 'number';
+    workSessionInput.min = 1;
+    workSessionInput.max = 99;
+    workSessionInput.value = localStorage.getItem('timerMinutes') || 25;
+    workSessionInput.setAttribute('job', 'work');
+    workSessionLabel.appendChild(workSessionInput);
+
+    // Short Break Option
+    const shortBreakSessionLabel = document.createElement('label');
+    shortBreakSessionLabel.textContent = 'Short Break Length: ';
+    const shortBreakSessionInput = document.createElement('input');
+    shortBreakSessionInput.type = 'number';
+    shortBreakSessionInput.min = 1;
+    shortBreakSessionInput.max = 99;
+    shortBreakSessionInput.value =
+      localStorage.getItem('shortBreakMinutes') || 5;
+    shortBreakSessionInput.setAttribute('job', 'shortBreak');
+    shortBreakSessionLabel.appendChild(shortBreakSessionInput);
+
+    // Long Break Option
+    const longBreakSessionLabel = document.createElement('label');
+    longBreakSessionLabel.textContent = 'Long Break Length: ';
+    const longBreakSessionInput = document.createElement('input');
+    longBreakSessionInput.type = 'number';
+    longBreakSessionInput.min = 1;
+    longBreakSessionInput.max = 99;
+    longBreakSessionInput.value =
+      localStorage.getItem('longBreakMinutes') || 15;
+    longBreakSessionInput.setAttribute('job', 'longBreak');
+    longBreakSessionLabel.appendChild(longBreakSessionInput);
+
+    // Volume Option
+
+    const VolumeContainer = document.createElement('div');
+
+    const VolumeLabel = document.createElement('label');
+    VolumeLabel.textContent = 'Volume: ';
+    const VolumeInput = document.createElement('input');
+    VolumeInput.type = 'range';
+    VolumeInput.min = 0;
+    VolumeInput.max = 100;
+    VolumeInput.value = localStorage.getItem('volumePercentage') || 100;
+    VolumeInput.setAttribute('job', 'volume');
+
+    const VolumeTest = document.createElement('button');
+    VolumeTest.className = '.icon';
+    VolumeTest.textContent = 'volume_up';
+    VolumeTest.type = 'button';
+    VolumeTest.addEventListener('click', () => {
+      const audio = new Audio('/assets/audio/break-tune.mp3');
+      audio.volume = VolumeInput.value / 100.0;
+      audio.play();
+    });
+    VolumeLabel.appendChild(VolumeInput);
+    VolumeContainer.appendChild(VolumeLabel);
+    VolumeContainer.appendChild(VolumeTest);
+
+    // Auto Increment Option
+    const AutoLabel = document.createElement('label');
+    AutoLabel.textContent = 'Auto Timer Enabled: ';
+    const AutoInput = document.createElement('input');
+    AutoInput.type = 'checkbox';
+    AutoInput.checked = localStorage.getItem('autoContinue') === 'true';
+    AutoInput.setAttribute('job', 'auto');
+    AutoLabel.appendChild(AutoInput);
+
+    const buttonContainer = document.createElement('div');
+
+    const SubmitButton = document.createElement('button');
+    SubmitButton.className = '.icon';
+    SubmitButton.textContent = 'check_circle';
+    SubmitButton.type = 'submit';
+
+    const CancelButton = document.createElement('button');
+    CancelButton.className = '.icon';
+    CancelButton.textContent = 'cancel';
+    CancelButton.type = 'button';
+    CancelButton.addEventListener('click', () => {
+      workSessionInput.value = localStorage.getItem('timerMinutes') || 25;
+      shortBreakSessionInput.value =
+        localStorage.getItem('shortBreakMinutes') || 5;
+      longBreakSessionInput.value =
+        localStorage.getItem('longBreakMinutes') || 15;
+      VolumeInput.value = localStorage.getItem('volumePercentage') || 100;
+      AutoInput.checked = localStorage.getItem('autoContinue') === 'true';
+      settings.close();
+    });
+
+    buttonContainer.appendChild(SubmitButton);
+    buttonContainer.appendChild(CancelButton);
+
+    form.appendChild(workSessionLabel);
+    form.appendChild(shortBreakSessionLabel);
+    form.appendChild(longBreakSessionLabel);
+    form.appendChild(VolumeContainer);
+    form.appendChild(AutoLabel);
+    form.appendChild(buttonContainer);
+
+    settings.appendChild(header);
+    settings.appendChild(form);
+
+    this.shadowRoot.appendChild(settings);
+
+    return settings;
   }
 }
 

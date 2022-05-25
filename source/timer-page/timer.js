@@ -7,10 +7,8 @@
 let distractCounter = 0;
 
 let isFailed = false;
-let isInSession = false;
-let isReload = true;
 // distinguish refresh or back button
-let currenTaskIndex;
+let currentTaskIndex = -1;
 let allTasks;
 
 let circle;
@@ -81,29 +79,36 @@ function timerPageInit() {
 
   // set variable denote current timer mode
   localStorage.setItem('isPomo', 'false');
+
   // render current task name to timer page
   const id = JSON.parse(localStorage.getItem('currentTask'));
   allTasks = JSON.parse(localStorage.getItem('allTasks'));
-  if (allTasks && id) {
+
+  // Checks to see i the task id still exists. If it no longer exists, remove
+  // the current task and hide the deelct task tick
+  let taskStillExists = false;
+  if (allTasks && id !== '') {
     for (let i = 0; i < allTasks.length; i++) {
       if (allTasks[i].id === id) {
-        currenTaskIndex = i;
-        document.getElementById('currTask').innerHTML =
-          allTasks[currenTaskIndex].name;
+        currentTaskIndex = i;
+        document.getElementById('currTask').innerHTML = allTasks[i].name;
         document.getElementById('deselect-task').style.display = '';
+        taskStillExists = true;
       }
     }
-  } else {
+  }
+  if (!taskStillExists) {
     document.getElementById('deselect-task').style.display = 'none';
+    localStorage.removeItem('currentTask');
   }
 
   // Now that allTasks is defined we can fill in the create-task dropdown
   taskSelectInit();
 
   resetProgressRing();
-  if (localStorage.getItem('ShortBreak') === 'true') {
+  if (localStorage.getItem('shortBreak') === 'true') {
     displayBreak();
-  } else if (localStorage.getItem('LongBreak') === 'true') {
+  } else if (localStorage.getItem('longBreak') === 'true') {
     displayBreak();
   } else {
     localStorage.setItem('isPomo', 'false');
@@ -111,7 +116,7 @@ function timerPageInit() {
       'distraction-btn'
     ).innerHTML = `Distraction : ${distractCounter}`;
 
-    renderTimer(localStorage.getItem('TimerMinutes'), 0);
+    renderTimer(localStorage.getItem('timerMinutes'), 0);
   }
   // render starting value of timer
 
@@ -124,6 +129,8 @@ function timerPageInit() {
       window.history.back();
     }
   });
+  if (!localStorage.getItem('volumePercentage'))
+    localStorage.setItem('volumePercentage', 50);
 }
 
 /**
@@ -131,33 +138,22 @@ function timerPageInit() {
  */
 function timerLengthInit() {
   localStorage.setItem(
-    'TimerMinutes',
-    localStorage.getItem('TimerMinutes') || 25
+    'timerMinutes',
+    localStorage.getItem('timerMinutes') || 25
   );
   localStorage.setItem(
-    'ShortBreakMinutes',
-    localStorage.getItem('ShortBreakMinutes') || 5
+    'shortBreakMinutes',
+    localStorage.getItem('shortBreakMinutes') || 5
   );
   localStorage.setItem(
-    'LongBreakMinutes',
-    localStorage.getItem('LongBreakMinutes') || 15
+    'longBreakMinutes',
+    localStorage.getItem('longBreakMinutes') || 15
   );
 
   // Default autoContinue
   localStorage.setItem(
     'autoContinue',
     localStorage.getItem('autoContinue') || 'false'
-  );
-
-  // render the change input's value
-  document.getElementById('TimerMinutes').value = localStorage.getItem(
-    'TimerMinutes'
-  );
-  document.getElementById('ShortBreakMinutes').value = localStorage.getItem(
-    'ShortBreakMinutes'
-  );
-  document.getElementById('LongBreakMinutes').value = localStorage.getItem(
-    'LongBreakMinutes'
   );
 }
 
@@ -189,6 +185,11 @@ function updateTimerLength(lengthType) {
         localStorage.getItem('LongBreak') === 'true'))
   )
     renderTimer(localStorage.getItem(lengthType), 0);
+  if (allTasks) {
+    allTasks.forEach((task) => {
+      dropdown.innerHTML += `<option value="${task.id}">${task.name}</option>`;
+    });
+  }
 }
 
 /**
@@ -230,6 +231,7 @@ function hideButtons() {
  */
 function displayBreakComplete() {
   const audio = new Audio('/assets/audio/break-tune.mp3');
+  audio.volume = localStorage.getItem('volumePercentage') / 100.0;
   audio.play();
   document.getElementById('breakCompleteModal').style.display = 'block';
 }
@@ -238,11 +240,11 @@ function displayBreakComplete() {
  * Automatically continue to next phase
  */
 function autoContinue() {
-  if (localStorage.getItem('ShortBreak') === 'true') {
+  if (localStorage.getItem('shortBreak') === 'true') {
     setTimeout(() => {
       startBreak();
     }, 2000);
-  } else if (localStorage.getItem('LongBreak') === 'true') {
+  } else if (localStorage.getItem('longBreak') === 'true') {
     setTimeout(() => {
       startBreak();
     }, 2000);
@@ -272,11 +274,11 @@ function continueTask() {
   document.getElementById(
     'distraction-btn'
   ).innerHTML = `Distraction : ${distractCounter}`;
-  renderTimer(localStorage.getItem('TimerMinutes'), 0);
+  renderTimer(localStorage.getItem('timerMinutes'), 0);
 
-  if (currenTaskIndex) {
+  if (currentTaskIndex !== -1) {
     document.getElementById('currTask').innerHTML =
-      allTasks[currenTaskIndex].name;
+      allTasks[currentTaskIndex].name;
     document.getElementById('deselect-task').style.display = '';
   } else {
     document.getElementById('currTask').innerHTML = 'No Task Selected';
@@ -302,21 +304,22 @@ function changeTask() {
  */
 function displayBreak() {
   const audio1 = new Audio('/assets/audio/work-tune.mp3');
+  audio1.volume = localStorage.getItem('volumePercentage') / 100.0;
   audio1.play();
   setTimeout(() => {
     resetProgressRing();
-    if (localStorage.getItem('ShortBreak') === 'true') {
+    if (localStorage.getItem('shortBreak') === 'true') {
       document.body.style.backgroundImage =
         'linear-gradient(to right,#74EBD5,#ACB6E5)';
       document.getElementById('currTask').innerHTML = 'Short Break';
       document.getElementById('deselect-task').style.display = 'none';
-      renderTimer(localStorage.getItem('ShortBreakMinutes'), 0);
+      renderTimer(localStorage.getItem('shortBreakMinutes'), 0);
     } else {
       document.body.style.backgroundImage =
         'linear-gradient(to right,#ACB6E5,#74EBD5)';
       document.getElementById('currTask').innerHTML = 'Long Break';
       document.getElementById('deselect-task').style.display = 'none';
-      renderTimer(localStorage.getItem('LongBreakMinutes'), 0);
+      renderTimer(localStorage.getItem('longBreakMinutes'), 0);
     }
 
     // Making the start break button the only one visible
@@ -335,10 +338,10 @@ function startBreak() {
   document.getElementById('start-break-btn').disabled = true;
   document.getElementById('start-break-btn').className = 'disable';
 
-  if (localStorage.getItem('ShortBreak') === 'true') {
-    start(localStorage.getItem('ShortBreakMinutes'), 0);
+  if (localStorage.getItem('shortBreak') === 'true') {
+    start(localStorage.getItem('shortBreakMinutes'), 0);
   } else {
-    start(localStorage.getItem('LongBreakMinutes'), 0);
+    start(localStorage.getItem('longBreakMinutes'), 0);
   }
 }
 
@@ -347,9 +350,9 @@ function startBreak() {
  */
 function deselectTask() {
   localStorage.setItem('currentTask', '""');
-  currenTaskIndex = '';
+  currentTaskIndex = -1;
   document.getElementById('deselect-task').style.display = 'none';
-  document.getElementById('currTask').innerHTML = 'No Task Selected';
+  document.getElementById('currTask').textContent = 'No Task Selected';
 }
 
 /**
@@ -359,7 +362,7 @@ function deselectTask() {
 function startButton() {
   // If a task is already selected or the create-menu is disabled
   if (
-    currenTaskIndex ||
+    currentTaskIndex !== -1 ||
     JSON.parse(localStorage.getItem('disable-create-menu'))
   ) {
     startTimer();
@@ -412,7 +415,7 @@ function startTimer() {
   document.getElementById('distraction-btn').style.display = '';
   document.getElementById('fail-btn').style.display = '';
 
-  start(localStorage.getItem('TimerMinutes'), 0);
+  start(localStorage.getItem('timerMinutes'), 0);
 }
 
 /**
@@ -421,7 +424,6 @@ function startTimer() {
  * @param {integer} secs second of timer
  */
 function start(mins, secs) {
-  isInSession = true;
   const startTime = new Date();
   // display correct distraction counter
   distractCounter = 0;
@@ -488,18 +490,17 @@ function finishedTask() {
   let todayDistract = Number(localStorage.getItem('distractCounter'));
   todayDistract += distractCounter;
   const pomo = localStorage.getItem('isPomo');
-  isInSession = false;
 
   if (pomo === 'true') {
     // we just finished a break session
     localStorage.setItem('isPomo', 'false');
     // clear all circles for work session following longbreak
-    if (localStorage.getItem('LongBreak') === 'true') {
+    if (localStorage.getItem('longBreak') === 'true') {
       document.getElementsByTagName('header-comp')[0].isNewCycle = 'true';
     }
 
-    localStorage.setItem('ShortBreak', 'false');
-    localStorage.setItem('LongBreak', 'false');
+    localStorage.setItem('shortBreak', 'false');
+    localStorage.setItem('longBreak', 'false');
     displayBreakComplete();
   } else {
     // we just finished a work session
@@ -511,17 +512,17 @@ function finishedTask() {
     localStorage.setItem('sessionCounter', `${counter}`);
     localStorage.setItem('distractCounter', `${todayDistract}`);
     if (counter % 4 === 0) {
-      localStorage.setItem('LongBreak', 'true');
-      localStorage.setItem('ShortBreak', 'false');
+      localStorage.setItem('longBreak', 'true');
+      localStorage.setItem('shortBreak', 'false');
     } else {
-      localStorage.setItem('ShortBreak', 'true');
-      localStorage.setItem('LongBreak', 'false');
+      localStorage.setItem('shortBreak', 'true');
+      localStorage.setItem('longBreak', 'false');
     }
     displayBreak();
 
     // update progress for current task
-    if (currenTaskIndex) {
-      allTasks[currenTaskIndex].current += 1;
+    if (currentTaskIndex !== -1) {
+      allTasks[currentTaskIndex].current += 1;
     }
     localStorage.setItem('allTasks', JSON.stringify(allTasks));
   }
@@ -545,9 +546,9 @@ function createTask() {
     //    task and start the timer
     for (let i = 0; i < allTasks.length; i++) {
       if (allTasks[i].id === chosenId) {
-        currenTaskIndex = i;
+        currentTaskIndex = i;
         document.getElementById('currTask').innerHTML =
-          allTasks[currenTaskIndex].name;
+          allTasks[currentTaskIndex].name;
       }
     }
     localStorage.setItem('currentTask', chosenId);
@@ -557,7 +558,7 @@ function createTask() {
     // Creating the task and adding it to our task list
     const randomId = Math.random().toString(16).slice(2);
 
-    currenTaskIndex = allTasks.length;
+    currentTaskIndex = allTasks.length;
     allTasks.push({
       completed: false,
       current: 0,
@@ -571,7 +572,7 @@ function createTask() {
     // Making it the current task and starting the timer
     localStorage.setItem('currentTask', randomId);
     document.getElementById('currTask').innerHTML =
-      allTasks[currenTaskIndex].name;
+      allTasks[currentTaskIndex].name;
 
     startTimer();
   } else {
@@ -602,7 +603,6 @@ function distractionCount() {
  * Display modal for fail.
  */
 function displayFailModal() {
-  isReload = false;
   document.getElementById('failModal').style.display = 'block';
 }
 
@@ -619,19 +619,10 @@ function failSession() {
  */
 function quitFailModal() {
   // keep session status active if they decide not to fail
-  isReload = true;
   // add confirmation functionality to back button again
   window.history.pushState(null, document.title, window.location.href);
   document.getElementById('failModal').style.display = 'none';
 }
-
-// set the session state back to a work session
-window.onbeforeunload = function WarnReload() {
-  localStorage.setItem('currentTask', '""');
-  if (isInSession && isReload) {
-    return 'Your timer progress will reset';
-  }
-};
 
 if (typeof exports !== 'undefined') {
   module.exports = {
@@ -654,6 +645,5 @@ if (typeof exports !== 'undefined') {
     failSession,
     quitFailModal,
     displayBreak,
-    updateTimerLength,
   };
 }

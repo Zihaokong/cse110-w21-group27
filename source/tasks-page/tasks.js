@@ -74,8 +74,8 @@ function eventCloseModal(event) {
 }
 
 /**
- * Called on window load, finds elements in the browser DOM to attach to the 
- * element variables, and attaches event listeners to them which, based on 
+ * Called on window load, finds elements in the browser DOM to attach to the
+ * element variables, and attaches event listeners to them which, based on
  * their usage, will open or close the modal.
  */
 function handleLoad() {
@@ -115,7 +115,6 @@ function handleUnload() {
 if (typeof exports !== 'undefined') {
   module.exports = {
     openModal,
-    determineSessionDate,
     closeModal,
     eventCloseModal,
     openInfoModal,
