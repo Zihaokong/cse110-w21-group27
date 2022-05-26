@@ -48,13 +48,10 @@ jobs:
         cp -a source/assets/images/. deploy/assets/images/
         cp -a source/assets/audio/. deploy/assets/audio/
       
-    - name: Clean Repo
-      run: git clean  -d  -fx ./deploy
-      
-    - name: Commit Minified Files
-      uses: stefanzweifel/git-auto-commit-action@v4
+    - name: Deploy build files
+      uses: peaceiris/actions-gh-pages@v3
       with:
-        commit_message: "Github Action: Auto Minified JS and CSS files"
-        branch: deployment
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./deploy
       
         
