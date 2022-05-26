@@ -6,7 +6,7 @@ on:
   # When there is a push to master (achieved only by a successful merge)
   push: 
     branches:
-      - main
+      - 84-bug-fix-cicd
     
 # Workflow of testing the code
 jobs:
