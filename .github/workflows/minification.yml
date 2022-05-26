@@ -3,7 +3,7 @@ name: Minification and Deployment
 on:
   push:
       branches:
-        - 84-bug-fix-cicd
+        - main
 
 jobs:
 
