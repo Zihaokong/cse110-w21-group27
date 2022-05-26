@@ -65,9 +65,7 @@ h1  {
 
 form {
   grid-area: form;
-  grid-auto-columns: 1fr 1fr 10fr 10fr 1fr 1fr 1fr;
-  grid-template-areas:
-    ". . editTitle editCount confirm cancel .";
+
   align-content: center;
   align-items: center;
   display: grid;
@@ -172,13 +170,11 @@ section {
   justify-content: stretch;
   justify-items: stretch;
   margin:  10px 0px 10px;
-  opacity: 0.5;
   padding: 10px 0px 10px;
   transition: box-shadow 0.2s ease-in-out;
   transition: opacity 0.3s ease-in-out;
   animation: new-task;
   animation-duration: 0.3s;
-  transition: grid-template-rows 0.3s ease-in-out;
 }
 
 section:hover {
@@ -206,6 +202,13 @@ section:hover {
     grid-template-areas:
       "drag check title progress start edit delete"
       "form form  form  form     form  form form";
+    opacity: 0.5;
+  }
+  
+  form {
+    grid-auto-columns: 1fr 1fr 10fr 10fr 1fr 1fr 1fr;
+    grid-template-areas:
+      ". . editTitle editCount cancel confirm .";
   }
   
   input[type="checkbox"] {
@@ -230,7 +233,17 @@ section:hover {
     grid-template-areas:
       "title title title title"
       "progress progress progress progress"
-      "check start edit delete";
+      "check start edit delete"
+      "form form form form";
+    opacity: 1;
+  }
+  
+  form {
+    grid-auto-columns: 1fr 1fr 1fr 1fr ;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas:
+      "editTitle editTitle editCount editCount"
+      ". cancel confirm .";
   }
   
   drag-ind {

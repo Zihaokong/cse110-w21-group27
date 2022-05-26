@@ -6,6 +6,7 @@
   <title>Pomodoro App</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="tasks.css" />
+  <link rel="shortcut icon" type="image/svg" href="/assets/images/logo-white.svg" />
 </head>
 
 <body>
@@ -25,15 +26,16 @@
   
   <header-comp page="tasks">
   </header-comp>
+  <main>
+    <div id="heading-container">
+      <h1 id="todo-title">To-do List</h1>
+      <button id="info" onclick="openInfoModal()">?</button>
+    </div>
+    <hr id="header-divider"/>
+    <task-list>
+    </task-list>
+  </main>
   
-  <div id="heading-container">
-    <h1 id="todo-title">To-do List</h1>
-    <button id="info" onclick="openInfoModal()">?</button>
-  </div>
-  <hr id="header-divider"/>
-  <task-list>
-  </task-list>
-
   <!-- Modal Goes here -->
   <div id="info-modal" class="modal-info">
     <div class="modal-content-info">

@@ -18,6 +18,11 @@ span {
   background-color: var(--primary-color);
 }
 
+dialog {
+  border-style: none;
+  box-shadow: 1px 1px 0.5rem var(--primary-color);
+}
+
 dialog h2 {
   color: var(--primary-color);
 }
@@ -44,6 +49,17 @@ section {
   width: 100%;
 }
 
+.brand {
+  grid-area: title;
+  padding: 5px;
+}
+
+img {
+  width: 60px;
+  height: 60px;
+  padding: 5px;
+}
+
 div {
   grid-area: dots;
   display: flex;
@@ -62,6 +78,7 @@ h1 {
   margin: 0;
   text-align: left;
 }
+
 nav {
   align-content: stretch;
   align-items: center;
@@ -69,9 +86,13 @@ nav {
   display: flex;
   flex-wrap: wrap;
   justify-self: flex-end;
-  justify-content: stretch;
+  justify-content: flex-end;
   justify-items: center;
   padding: 10px;
+}
+
+nav[hidden='true'] {
+  visibility: hidden;
 }
 
 button{

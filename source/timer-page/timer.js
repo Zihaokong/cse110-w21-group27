@@ -21,7 +21,6 @@ let secondsInterval;
 // Call the initializer function when the window is loaded.
 window.onload = timerPageInit;
 
-// TODO: More detailed comments may be required.
 /**
  * Initialize the timer page. Render required HTML elements.
  */
@@ -81,13 +80,13 @@ function timerPageInit() {
   localStorage.setItem('isPomo', 'false');
 
   // render current task name to timer page
-  const id = JSON.parse(localStorage.getItem('currentTask'));
-  allTasks = JSON.parse(localStorage.getItem('allTasks'));
+  const id = localStorage.getItem('currentTask') || null;
+  allTasks = JSON.parse(localStorage.getItem('allTasks') || '[]');
 
   // Checks to see i the task id still exists. If it no longer exists, remove
   // the current task and hide the deelct task tick
   let taskStillExists = false;
-  if (allTasks && id !== '') {
+  if (allTasks && id) {
     for (let i = 0; i < allTasks.length; i++) {
       if (allTasks[i].id === id) {
         currentTaskIndex = i;
@@ -349,7 +348,7 @@ function startBreak() {
  * Deselects the current task
  */
 function deselectTask() {
-  localStorage.setItem('currentTask', '""');
+  localStorage.removeItem('currentTask');
   currentTaskIndex = -1;
   document.getElementById('deselect-task').style.display = 'none';
   document.getElementById('currTask').textContent = 'No Task Selected';
@@ -424,6 +423,9 @@ function startTimer() {
  * @param {integer} secs second of timer
  */
 function start(mins, secs) {
+  // Hide nav buttons in header
+  document.querySelector('header-comp').page = 'timerRunning';
+
   const startTime = new Date();
   // display correct distraction counter
   distractCounter = 0;
@@ -483,6 +485,9 @@ function renderTimer(minutes, seconds) {
  * task is finished. It should set the related HTML elements properly and stop the timer.
  */
 function finishedTask() {
+  // Set the header componenet's name back to timer to indicate the timer is no
+  // longer running
+  document.querySelector('header-comp').page = 'timer';
   // console.log('Finished Task');
   clearInterval(secondsInterval);
   let counter = Number(localStorage.getItem('sessionCounter'));
