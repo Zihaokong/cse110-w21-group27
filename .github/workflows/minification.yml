@@ -34,8 +34,8 @@ jobs:
         mkdir deploy/stats-page
         mkdir deploy/tasks-page
         mkdir deploy/timer-page
-        mkdir .github
-        mkdir .github/workflows
+        mkdir deploy/.github
+        mkdir deploy/.github/workflows
         cp minified/main.* deploy/
         cp minified/header-comp.* deploy/components/header-comp
         cp minified/task-item.* deploy/components/task-item
