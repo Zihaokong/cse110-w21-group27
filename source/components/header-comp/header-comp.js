@@ -79,12 +79,6 @@ class HeaderComp extends HTMLElement {
     // Creates the nav element which houses the info of the header
     const section = document.createElement('section');
 
-    // Create the date text.
-    // const date = document.createElement('h1');
-    // date.innerText = HeaderComp.createDate()
-    //   ? HeaderComp.createDate()
-    //   : `Today's date`;
-
     // Create image
     const brand = document.createElement('div');
     brand.className = 'brand';
@@ -159,6 +153,13 @@ class HeaderComp extends HTMLElement {
     const settings = this.renderSettings();
   }
 
+  /**
+   * Called when an attribute's value is changed. Specifically used to change
+   * The completed cycles and to remove the nav section when the timer starts.
+   * @param {String} name The name of the attribute being changed
+   * @param {String} oldValue The old value of the given attribute
+   * @param {String} newValue The new value of the given attribute
+   */
   attributeChangedCallback(name, oldValue, newValue) {
     if (name === 'completedcycles' || name === 'isnewcycle') {
       const circleSection = this.shadowRoot.querySelector('#cycle-count');
@@ -180,6 +181,9 @@ class HeaderComp extends HTMLElement {
     }
   }
 
+  /**
+   * Renders the pomo counter in the header (bottom left).
+   */
   renderCounter() {
     if (this.completedCycles === '0' || this.isNewCycle === 'true') {
       for (let i = 0; i < 4; i++) {

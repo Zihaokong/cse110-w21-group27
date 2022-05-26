@@ -21,7 +21,6 @@ let secondsInterval;
 // Call the initializer function when the window is loaded.
 window.onload = timerPageInit;
 
-// TODO: More detailed comments may be required.
 /**
  * Initialize the timer page. Render required HTML elements.
  */
@@ -464,6 +463,8 @@ function renderTimer(minutes, seconds) {
  * task is finished. It should set the related HTML elements properly and stop the timer.
  */
 function finishedTask() {
+  // Set the header componenet's name back to timer to indicate the timer is no
+  // longer running
   document.querySelector('header-comp').page = 'timer';
   // console.log('Finished Task');
   clearInterval(secondsInterval);
