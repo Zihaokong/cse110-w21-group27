@@ -54,5 +54,6 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./deploy
         publish_branch: deployment
+        commit_message: ${{ github.event.head_commit.message }}
       
         
