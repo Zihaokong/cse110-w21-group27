@@ -173,8 +173,6 @@ class HeaderComp extends HTMLElement {
     }
 
     if (name === 'page' && this.shadowRoot.querySelector('nav')) {
-      console.log(name);
-      console.log(newValue);
       this.shadowRoot
         .querySelector('nav')
         .setAttribute('hidden', newValue === 'timerRunning');
