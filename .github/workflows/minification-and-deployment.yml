@@ -1,4 +1,4 @@
-name: Minification and Deployment
+name: Minification and Firebase Deployment
 
 on:
   push:
@@ -34,8 +34,8 @@ jobs:
         mkdir deploy/stats-page
         mkdir deploy/tasks-page
         mkdir deploy/timer-page
-        mkdir .github
-        mkdir .github/workflows
+        mkdir deploy/.github
+        mkdir deploy/.github/workflows
         cp minified/main.* deploy/
         cp minified/header-comp.* deploy/components/header-comp
         cp minified/task-item.* deploy/components/task-item
@@ -52,14 +52,15 @@ jobs:
         cp -a source/assets/audio/. deploy/assets/audio/
         cp source/.firebaserc deploy/
         cp source/firebase.json deploy/
-        cp .github/workflows/firebase-hosting-merge.yml deploy/.github/workflows/
       
     - name: Deploy build files
-      uses: peaceiris/actions-gh-pages@v3
+      uses: FirebaseExtended/action-hosting-deploy@v0
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./deploy
-        publish_branch: deployment
-        commit_message: ${{ github.event.head_commit.message }}
+        entrypoint: "/home/runner/work/cse112-sp22-group8/cse112-sp22-group8/deploy"
+        repoToken: '${{ secrets.GITHUB_TOKEN }}'
+        firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_POMODORO_TIMER_C1A2A }}'
+        channelId: live
+        projectId: pomodoro-timer-c1a2a
+
       
         
