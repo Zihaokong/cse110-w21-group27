@@ -18,6 +18,19 @@ span {
   background-color: var(--primary-color);
 }
 
+dialog h2 {
+  color: var(--primary-color);
+}
+
+dialog button {
+  color: var(--primary-color);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
 section {
   background-color: var(--primary-color);
   box-shadow: 1px 1px 0.5rem var(--primary-color);

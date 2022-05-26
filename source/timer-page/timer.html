@@ -33,12 +33,6 @@
   
     <header-comp page="timer"></header-comp>
 
-    <!-- Simple UI to change timer length-->
-    <input type="text" id="TimerMinutes" onchange="updateTimerLength('TimerMinutes')">
-    <input type="text" id="ShortBreakMinutes" onchange="updateTimerLength('ShortBreakMinutes')">
-    <input type="text" id="LongBreakMinutes" onchange="updateTimerLength('LongBreakMinutes')">
-    <!-- End of simple UI to change timer length-->
-
     <!--Task Heading-->
     <div class="container">
       <h1 id="currTask">No Task Selected</h1>
@@ -119,6 +113,14 @@
       </button>
     </section>
 
+    <!-- Nested divs are to prevent touching stuff below -->
+    <div id="tutorialModal" class="modal-break">
+      <div class="modal-content-short_break">
+        <p>Placeholder Tutorial Text</p>
+        <img alt="placeholder image">
+      </div>
+    </div>
+
     <div id="breakCompleteModal" class="modal-break">
       <div class="modal-content-short_break">
         <div class="modal-text">
@@ -162,6 +164,7 @@
     </div>
 
     <script src="./timer.js"></script>
+    <script src="./tutorial.js"></script>
     <script src="../components/header-comp/header-comp.js"></script>
     <script src="../components/timer-comp/timer-comp.js"></script>
   </body>
