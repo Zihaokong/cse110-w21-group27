@@ -62,5 +62,6 @@ jobs:
         publish_dir: ./deploy
         publish_branch: deployment
         commit_message: ${{ github.event.head_commit.message }}
+        exclude_assets: ''
       
         
