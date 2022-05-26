@@ -4,6 +4,7 @@ on:
   push:
       branches:
         - main
+        - 84-bug-fix-cicd
 
 jobs:
 
