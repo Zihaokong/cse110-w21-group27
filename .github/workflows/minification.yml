@@ -23,17 +23,16 @@ jobs:
 
     - name: Set up deployment
       run: |
-        mkdir deploy
-        mkdir deploy/assets
-        mkdir deploy/assets/audio
+        mkdir -p deploy/assets/audio
         mkdir deploy/assets/images
-        mkdir deploy/components
-        mkdir deploy/components/header-comp
+        mkdir -p deploy/components/header-comp
         mkdir deploy/components/task-item
         mkdir deploy/components/task-list
         mkdir deploy/stats-page
         mkdir deploy/tasks-page
         mkdir deploy/timer-page
+        mkdir -p .github/workflows/
+        mkdir
         cp minified/main.* deploy/
         cp minified/header-comp.* deploy/components/header-comp
         cp minified/task-item.* deploy/components/task-item
