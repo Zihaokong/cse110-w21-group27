@@ -43,36 +43,6 @@ body {
     padding: 0;
 }
 
-h4 {
-    font-size: 100px;
-    font-weight: bold;
-    color: #353535;
-}
-
-.timer {
-    color: black;
-    text-align: center;
-    width: 27.5rem;
-    height: 27.5rem;
-    border: 4px solid var(--medium-color);
-    border-radius: 27.5rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    margin-bottom: 1.25rem;
-}
-
-.progress-ring {
-    position: absolute;
-}
-
-.progress-ring-circle {
-    transition: stroke-dashoffset 0.5s ease;
-    transform: rotate(-90deg);
-    transform-origin: 50% 50%;
-}
-
 button {
     margin: 5px;
     padding: 10px;
@@ -198,6 +168,7 @@ h3 {
     align-self: center;
 }
 
+/*
 .timer-grid {
     display: flex;
     justify-content: center;
@@ -206,7 +177,7 @@ h3 {
 .time-input {
     display: flex;
     justify-content: center;
-}
+}*/
 
 input {
     font-size: 20px;
