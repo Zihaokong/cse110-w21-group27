@@ -318,10 +318,7 @@ class TaskList extends HTMLElement {
    *                      should be the button of the task to be played.
    */
   static playTask(event) {
-    localStorage.setItem(
-      'currentTask',
-      JSON.stringify(event.target.getRootNode().host.id)
-    );
+    localStorage.setItem('currentTask', event.target.getRootNode().host.id);
     window.location = '/timer-page/timer.html';
   }
 
