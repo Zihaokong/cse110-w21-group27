@@ -1,10 +1,9 @@
-name: Minification and Deployment
+name: Minification and Firebase Deployment
 
 on:
   push:
       branches:
         - main
-        - 84-bug-fix-cicd
 
 jobs:
 
