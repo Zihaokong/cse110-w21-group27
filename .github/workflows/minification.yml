@@ -53,7 +53,6 @@ jobs:
         cp -a source/assets/audio/. deploy/assets/audio/
         cp source/.firebaserc deploy/
         cp source/firebase.json deploy/
-        cp .github/workflows/firebase-hosting-merge.yml deploy/.github/workflows/
       
     - name: Deploy build files
       uses: peaceiris/actions-gh-pages@v3
@@ -63,5 +62,6 @@ jobs:
         publish_branch: deployment
         commit_message: ${{ github.event.head_commit.message }}
         exclude_assets: ''
+        destination_dir: build
       
         
