@@ -47,6 +47,7 @@ jobs:
         cp source/stats-page/stats.html deploy/stats-page/stats.html
         cp -a source/assets/images/. deploy/assets/images/
         cp -a source/assets/audio/. deploy/assets/audio/
+        cp config/firebase.json deploy/
       
     - name: Deploy build files
       uses: peaceiris/actions-gh-pages@v3
