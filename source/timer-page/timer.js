@@ -326,7 +326,7 @@ function startBreak() {
  * Deselects the current task
  */
 function deselectTask() {
-  localStorage.removetItem('currentTask');
+  localStorage.removeItem('currentTask');
   currentTaskIndex = -1;
   document.getElementById('deselect-task').style.display = 'none';
   document.getElementById('currTask').textContent = 'No Task Selected';
