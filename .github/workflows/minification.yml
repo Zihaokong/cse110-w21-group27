@@ -55,13 +55,13 @@ jobs:
         cp source/firebase.json deploy/
       
     - name: Deploy build files
-      uses: peaceiris/actions-gh-pages@v3
+      uses: FirebaseExtended/action-hosting-deploy@v0
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./deploy
-        publish_branch: deployment
-        commit_message: ${{ github.event.head_commit.message }}
-        exclude_assets: ''
-        destination_dir: build
+        entrypoint: "/home/runner/work/cse112-sp22-group8/cse112-sp22-group8/deploy"
+        repoToken: '${{ secrets.GITHUB_TOKEN }}'
+        firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_POMODORO_TIMER_C1A2A }}'
+        channelId: live
+        projectId: pomodoro-timer-c1a2a
+
       
         
