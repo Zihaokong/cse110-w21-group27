@@ -80,13 +80,13 @@ function timerPageInit() {
   localStorage.setItem('isPomo', 'false');
 
   // render current task name to timer page
-  const id = JSON.parse(localStorage.getItem('currentTask') || 'null');
+  const id = localStorage.getItem('currentTask') || null;
   allTasks = JSON.parse(localStorage.getItem('allTasks') || '[]');
 
   // Checks to see i the task id still exists. If it no longer exists, remove
   // the current task and hide the deelct task tick
   let taskStillExists = false;
-  if (allTasks && id !== '') {
+  if (allTasks && id) {
     for (let i = 0; i < allTasks.length; i++) {
       if (allTasks[i].id === id) {
         currentTaskIndex = i;
@@ -326,7 +326,7 @@ function startBreak() {
  * Deselects the current task
  */
 function deselectTask() {
-  localStorage.setItem('currentTask', '""');
+  localStorage.removetItem('currentTask');
   currentTaskIndex = -1;
   document.getElementById('deselect-task').style.display = 'none';
   document.getElementById('currTask').textContent = 'No Task Selected';
