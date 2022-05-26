@@ -4,7 +4,6 @@ on:
   push:
       branches:
         - main
-        - 84-bug-fix-cicd
 
 jobs:
 
@@ -36,16 +35,17 @@ jobs:
         mkdir deploy/tasks-page
         mkdir deploy/timer-page
         cp minified/main.* deploy/
-        cp minified/tutorial.js deploy/
         cp minified/header-comp.* deploy/components/header-comp
         cp minified/task-item.* deploy/components/task-item
         cp minified/task-list.* deploy/components/task-list
         cp minified/stats.* deploy/stats-page
         cp minified/tasks.* deploy/tasks-page
         cp minified/timer.* deploy/timer-page
+        cp minified/tutorial.js deploy/timer-page/
         cp source/index.html deploy/index.html
-        cp source/timer-page/timer.html deploy/timer-page/timer.html
-        cp source/stats-page/stats.html deploy/stats-page/stats.html
+        cp source/timer-page/timer.html deploy/timer-page/
+        cp source/tasks-page/tasks.html deploy/tasks-page/
+        cp source/stats-page/stats.html deploy/stats-page/
         cp -a source/assets/images/. deploy/assets/images/
         cp -a source/assets/audio/. deploy/assets/audio/
         cp source/.firebaserc deploy/
