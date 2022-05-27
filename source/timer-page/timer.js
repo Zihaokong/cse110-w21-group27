@@ -11,9 +11,6 @@ let isFailed = false;
 let currentTaskIndex = -1;
 let allTasks;
 
-// The interval function used for timer logic
-let secondsInterval;
-
 // Call the initializer function when the window is loaded.
 window.onload = timerPageInit;
 
@@ -407,7 +404,7 @@ function start() {
   document.getElementsByTagName('timer-comp')[0].dataset.running = 'true';
 }
 
-function timerCompCallback(mutations, observer) {
+function timerCompCallback(mutations) {
   for (let i = 0; i < mutations.length; i++) {
     if (mutations[i].attributeName === 'data-running') {
       if (mutations[i].target.dataset.running === 'false') {
@@ -415,7 +412,6 @@ function timerCompCallback(mutations, observer) {
       }
     } else {
       renderTitle();
-      document.getElementsByTagName('header-comp')[0].isNewCycle = 'false';
     }
   }
 }
@@ -446,6 +442,8 @@ function finishedTask() {
   let todayDistract = Number(localStorage.getItem('distractCounter'));
   todayDistract += distractCounter;
   const pomo = localStorage.getItem('isPomo');
+
+  document.getElementsByTagName('header-comp')[0].isNewCycle = 'false';
 
   if (pomo === 'true') {
     // we just finished a break session

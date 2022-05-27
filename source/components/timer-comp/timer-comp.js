@@ -166,6 +166,7 @@ class TimerComp extends HTMLElement {
    * @param {number} totalSeconds the totally needed seconds for the timer to run
    */
   secondsTimer(startTime, totalSeconds) {
+    // totalSeconds = 5;
     const currTime = new Date();
     const elapsed = Math.floor((currTime - startTime) / 1000);
     const timeLeft = totalSeconds - elapsed;
