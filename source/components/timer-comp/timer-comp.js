@@ -3,13 +3,18 @@
  * also implements the behaviors of timer.
  */
 
-// const { startTimer } = require("../../timer-page/timer");
-
 class TimerComp extends HTMLElement {
+  /**
+   * Returns observed attributes
+   * @returns {object} observed attributes of the web component
+   */
   static get observedAttributes() {
     return ['data-minutes-left', 'data-seconds-left', 'data-running'];
   }
 
+  /**
+   * Constructor which attaches a shadow root to this element in open mode
+   */
   constructor() {
     super();
     this.attachShadow({
@@ -17,30 +22,61 @@ class TimerComp extends HTMLElement {
     });
   }
 
+  /**
+   * Sets minutes on timer
+   * @param {string} newValue minutes left
+   */
   set dataMinutesLeft(newValue) {
     this.setAttribute('data-minutes-left', newValue);
   }
 
+  /**
+   * Sets seconds on timer
+   * @param {string} newValue seconds left
+   */
   set dataSecondsLeft(newValue) {
     this.setAttribute('data-seconds-left', newValue);
   }
 
+  /**
+   * Sets whether timer is running
+   * @param {string} newValue true if timer is running, false otherwise
+   */
   set dataRunning(newValue) {
     this.setAttribute('data-running', newValue);
   }
 
+  /**
+   * Gets number of minutes on timer
+   * @return {string} number of minutes left on timer
+   */
   get dataMinutesLeft() {
     return this.getAttribute('data-minutes-left');
   }
 
+  /**
+   * Gets number of seconds on timer
+   * @return {string} number of seconds left on timer
+   */
   get dataSecondsLeft() {
     return this.getAttribute('data-seconds-left');
   }
 
+  /**
+   * Gets whether timer is running
+   * @return {string} true if timer is running, false otherwise
+   */
   get dataRunning() {
     return this.getAttribute('data-running');
   }
 
+  /**
+   * Called when an attribute is changed. Triggers timer to start. Also
+   * changes display of timer when minutesLeft or secondsLeft are changed.
+   * @param {string} name
+   * @param {*} oldValue
+   * @param {*} newValue
+   */
   attributeChangedCallback(name, oldValue, newValue) {
     if (name === 'data-running') {
       if (newValue === 'true') {
@@ -63,6 +99,10 @@ class TimerComp extends HTMLElement {
     }
   }
 
+  /**
+   * Called when the header is applied to the DOM; Sets up html, links css, and
+   * sets initial timer ring display.
+   */
   connectedCallback() {
     const timerContainer = document.createElement('div');
     timerContainer.setAttribute('class', 'container timer');
@@ -146,7 +186,7 @@ class TimerComp extends HTMLElement {
   }
 
   /**
-   * Set a timer that count down for 60 second.
+   * Start the timer countdown
    */
   start() {
     const startTime = new Date();
@@ -166,7 +206,6 @@ class TimerComp extends HTMLElement {
    * @param {number} totalSeconds the totally needed seconds for the timer to run
    */
   secondsTimer(startTime, totalSeconds) {
-    // totalSeconds = 5;
     const currTime = new Date();
     const elapsed = Math.floor((currTime - startTime) / 1000);
     const timeLeft = totalSeconds - elapsed;
@@ -180,11 +219,14 @@ class TimerComp extends HTMLElement {
       Number(this.dataset.secondsLeft) === 0 &&
       Number(this.dataset.minutesLeft <= 0)
     ) {
-      this.finishedTask();
+      this.stopTimer();
     }
   }
 
-  finishedTask() {
+  /**
+   * When timer reaches zero, stop the timer
+   */
+  stopTimer() {
     this.dataset.running = 'false';
     clearInterval(this.secondsInterval);
   }
