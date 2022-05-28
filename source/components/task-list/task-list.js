@@ -215,7 +215,7 @@ class TaskList extends HTMLElement {
     // Get the item to delete in the DOM
     const itemToDelete = event.target.getRootNode().host;
     const { name, id } = itemToDelete;
-    if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+    if ('ontouchstart' in window) {
       const deleteDialog = this.shadowRoot.querySelector('dialog');
       deleteDialog.querySelector('p').textContent = `Delete Task "${name}"?`;
       const confirmButton = deleteDialog.querySelector(

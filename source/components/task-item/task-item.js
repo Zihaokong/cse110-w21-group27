@@ -194,7 +194,7 @@ class TaskItem extends HTMLElement {
     const deleteButton = TaskItem.createDeleteButton();
 
     deleteButton.addEventListener('click', (e) => {
-      if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+      if ('ontouchstart' in window) {
         this.deleteTask(e);
       } else {
         deleteButton.textContent = 'check_circle';
