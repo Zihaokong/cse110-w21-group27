@@ -53,14 +53,11 @@ h4 {
     align-items: center;
     position: relative;
     margin-bottom: 1.25rem;
-    width: min(calc(100% - 2 * var(--border-size)), 25rem);
+    width: min(90%, 28rem);
 }
 
 .timer>.container {
     position: absolute;
-}
-
-.progress-ring {
 }
 
 .progress-ring-circle {
@@ -81,10 +78,11 @@ button {
     font-size: 2rem;
     text-align: center;
     font-weight: lighter;
-    border-radius: 0.5rem;
+    border-radius: 1rem;
 }
 
-button:hover, button:focus {
+button:hover,
+button:focus {
     color: var(--medium-light-color);
     background: var(--linear-gradient-dark-reverse);
 }
@@ -135,14 +133,12 @@ button:hover, button:focus {
     background: var(--linear-gradient-grey);
 }
 
-#create-skip:focus, #create-skip:hover {
+#create-skip:focus,
+#create-skip:hover {
     background: var(--linear-gradient-grey-reverse);
 }
 
 #start-break-btn {
-    border-radius: 70px;
-    height: 70px;
-    width: 270px;
     align-self: center;
 }
 
@@ -151,27 +147,19 @@ button:hover, button:focus {
 }
 
 #distraction-btn {
-    border-radius: 70px;
-    height: 70px;
-    width: 270px;
     align-self: center;
 }
 
 #fail-btn {
     background: var(--linear-gradient-accent);
-    border-radius: 70px;
-    height: 70px;
-    width: 130px;
 }
 
-#fail-btn:hover, #fail-btn:focus {
+#fail-btn:hover,
+#fail-btn:focus {
     background: var(--linear-gradient-accent-reverse);
 }
 
 #start-btn {
-    border-radius: 70px;
-    height: 70px;
-    width: 150px;
     align-self: center;
 }
 
@@ -193,11 +181,9 @@ input {
 
 .modal-content-short_break {
     background-color: var(--light-color);
-    padding: 30px;
-    width: 40%;
-    height: 65%;
-    margin-top: 7.5%;
-    margin-left: 30%;
+    padding: 1rem;
+    width: min(100%, 17rem);
+    margin: 2rem auto 0 auto;
     box-shadow: 0 5px 8px 0;
 }
 
@@ -231,7 +217,8 @@ input {
     background: var(--linear-gradient-accent);
 }
 
-#fail-button:focus, #fail-button:hover {
+#fail-button:focus,
+#fail-button:hover {
     background: var(--linear-gradient-accent-reverse);
 }
 
@@ -239,7 +226,8 @@ input {
     background: var(--linear-gradient-grey);
 }
 
-#cancel-button:focus, #cancel-button:hover {
+#cancel-button:focus,
+#cancel-button:hover {
     background: var(--linear-gradient-grey-reverse);
 }
 
@@ -249,7 +237,7 @@ input {
 }
 
 #heading-break-complete {
-    font-size: 3.5rem;
+    font-size: 2.5rem;
     color: var(--primary-color);
     text-align: center;
 }
@@ -264,13 +252,6 @@ input {
 
 .button-task {
     font-family: "Poppins", sans-serif;
-    color: var(--btn-color);
-    font-size: 3rem;
-    font-weight: lighter;
-    width: 80%;
-    height: 60%;
-    border-radius: 50px;
-    text-align: center;
 }
 
 #auto-continue {
