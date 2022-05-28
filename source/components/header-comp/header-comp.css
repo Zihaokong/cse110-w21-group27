@@ -60,6 +60,12 @@ img {
   padding: 5px;
 }
 
+a {
+  width: 60px;
+  height: 60px;
+  padding: 5px;
+}
+
 div {
   grid-area: dots;
   display: flex;

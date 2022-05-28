@@ -177,7 +177,6 @@ h3 {
     background-color: #2E4756;
     border-radius: 70px;
     height: 70px;
-    width: 270px;
     align-self: center;
 }
 
@@ -210,6 +209,18 @@ h3 {
 
 input {
     font-size: 20px;
+}
+
+label {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+label span {
+    display: table-cell;
+    vertical-align: middle;
 }
 
 .modal-break {
@@ -315,6 +326,10 @@ input {
 
 #button-task-container {
     text-align: center;
+}
+
+#button-container {
+    align-items: flex-end;
 }
 
 .button-task-position {

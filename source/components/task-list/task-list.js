@@ -215,26 +215,38 @@ class TaskList extends HTMLElement {
     // Get the item to delete in the DOM
     const itemToDelete = event.target.getRootNode().host;
     const { name, id } = itemToDelete;
-
-    const deleteDialog = this.shadowRoot.querySelector('dialog');
-    deleteDialog.querySelector('p').textContent = `Delete Task "${name}"?`;
-    const confirmButton = deleteDialog.querySelector('button[type="confirm"]');
-    confirmButton.addEventListener(
-      'click',
-      () => {
-        for (let i = 0; i < this.allTasks.length; i++) {
-          if (this.allTasks[i].id === id) {
-            this.allTasks.splice(i, 1);
-            break;
+    if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+      const deleteDialog = this.shadowRoot.querySelector('dialog');
+      deleteDialog.querySelector('p').textContent = `Delete Task "${name}"?`;
+      const confirmButton = deleteDialog.querySelector(
+        'button[type="confirm"]'
+      );
+      confirmButton.addEventListener(
+        'click',
+        () => {
+          for (let i = 0; i < this.allTasks.length; i++) {
+            if (this.allTasks[i].id === id) {
+              this.allTasks.splice(i, 1);
+              break;
+            }
           }
+          localStorage.setItem('allTasks', JSON.stringify(this.allTasks));
+          itemToDelete.remove();
+          deleteDialog.close();
+        },
+        { once: true }
+      );
+      deleteDialog.showModal();
+    } else {
+      for (let i = 0; i < this.allTasks.length; i++) {
+        if (this.allTasks[i].id === id) {
+          this.allTasks.splice(i, 1);
+          break;
         }
-        localStorage.setItem('allTasks', JSON.stringify(this.allTasks));
-        itemToDelete.remove();
-        deleteDialog.close();
-      },
-      { once: true }
-    );
-    deleteDialog.showModal();
+      }
+      localStorage.setItem('allTasks', JSON.stringify(this.allTasks));
+      itemToDelete.remove();
+    }
   }
 
   /**

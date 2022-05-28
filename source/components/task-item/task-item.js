@@ -192,7 +192,26 @@ class TaskItem extends HTMLElement {
 
     // Creating the delete-button
     const deleteButton = TaskItem.createDeleteButton();
-    deleteButton.addEventListener('click', this.deleteTask);
+
+    deleteButton.addEventListener('click', (e) => {
+      if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+        this.deleteTask(e);
+      } else {
+        deleteButton.textContent = 'check_circle';
+        deleteButton.addEventListener('click', this.deleteTask, {
+          once: 'true',
+        });
+
+        deleteButton.addEventListener(
+          'mouseout',
+          () => {
+            deleteButton.textContent = 'delete';
+            deleteButton.removeEventListener('click', this.deleteTask);
+          },
+          { once: 'true' }
+        );
+      }
+    });
 
     // Create the style
     const styleSheet = document.createElement('link');
