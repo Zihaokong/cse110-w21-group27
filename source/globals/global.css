@@ -17,6 +17,8 @@
     --accent-medium: #f2998e;
     --accent-dark: #ef7869;
 
+    --spice-color: #74ebd5;
+
     --linear-gradient-dark: linear-gradient(var(--gradient-darker), var(--primary-color));
     --linear-gradient-dark-reverse: linear-gradient(var(--primary-color), var(--gradient-darker));
 

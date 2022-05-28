@@ -262,7 +262,7 @@ function autoContinue() {
  */
 function continueTask() {
   document.getElementById('breakCompleteModal').style.display = 'none';
-  document.body.style.backgroundImage =
+  document.body.style.background =
     'linear-gradient(var(--gradient-light),var(--gradient-medium))';
 
   // Making the start button the only visible button
@@ -308,14 +308,14 @@ function displayBreak() {
   setTimeout(() => {
     resetProgressRing();
     if (localStorage.getItem('shortBreak') === 'true') {
-      document.body.style.backgroundImage =
-        'linear-gradient(var(--gradient-medium),var(--gradient-light))';
+      document.body.style.background =
+        'linear-gradient(var(--spice-color),var(--gradient-medium))';
       document.getElementById('currTask').innerHTML = 'Short Break';
       document.getElementById('deselect-task').style.display = 'none';
       renderTimer(localStorage.getItem('shortBreakMinutes'), 0);
     } else {
-      document.body.style.backgroundImage =
-        'linear-gradient(to right,#ACB6E5,#74EBD5)';
+      document.body.style.background =
+        'linear-gradient(var(--gradient-medium),var(--spice-color))';
       document.getElementById('currTask').innerHTML = 'Long Break';
       document.getElementById('deselect-task').style.display = 'none';
       renderTimer(localStorage.getItem('longBreakMinutes'), 0);

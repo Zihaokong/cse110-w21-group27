@@ -2,7 +2,7 @@
 @import url(https://fonts.googleapis.com/icon?family=Material+Icons);
 
 body {
-    background: var(--gradient-light);
+    background: linear-gradient(var(--gradient-light),var(--gradient-medium));
     font-family: 'Poppins', sans-serif;
     margin: 0;
 }
@@ -144,6 +144,9 @@ button:focus {
 
 #start-break-btn.disable {
     opacity: 50%;
+    color: var(--btn-color);
+    background: var(--linear-gradient-dark);
+    cursor: auto;
 }
 
 #distraction-btn {
@@ -181,8 +184,8 @@ input {
 
 .modal-content-short_break {
     background-color: var(--light-color);
-    padding: 1rem;
-    width: min(100%, 17rem);
+    padding: 1rem 0;
+    width: min(100%, 25rem);
     margin: 2rem auto 0 auto;
     box-shadow: 0 5px 8px 0;
 }
@@ -198,23 +201,17 @@ input {
 }
 
 #sad-face {
-    width: 120px;
-    height: 120px;
+    width: 7.5rem;
+    height: 7.5rem;
 }
 
 .fail-buttons {
     font-family: "Poppins", sans-serif;
-    color: var(--btn-color);
-    font-size: 2.5rem;
-    font-weight: lighter;
-    width: 33%;
-    height: 20%;
-    border-radius: 40px;
-    text-align: center;
 }
 
 #fail-button {
     background: var(--linear-gradient-accent);
+    width: 7ch;
 }
 
 #fail-button:focus,
