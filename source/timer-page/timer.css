@@ -2,7 +2,7 @@
 @import url(https://fonts.googleapis.com/icon?family=Material+Icons);
 
 body {
-    background-image: linear-gradient(to right, #E0EAFC, #CFDEF3);
+    background: var(--gradient-light);
     font-family: 'Poppins', sans-serif;
     margin: 0;
 }
@@ -20,41 +20,47 @@ body {
 
 #currTask {
     display: inline;
-    color: black;
-    font-size: 50px;
-    margin-right: 1rem;
+    color: var(--dark-color);
+    font-size: 3rem;
+    text-align: center;
 }
 
 #deselect-task {
-    background-color: rgba(0, 0, 0, 0);
+    background: transparent;
+    color: var(--dark-color);
+    box-shadow: none;
     cursor: pointer;
     font-family: 'Material Icons';
-    margin: 0;
+    margin: 0 0 0 1rem;
     padding: 0;
 }
 
 h4 {
-    font-size: 100px;
+    font-size: 5rem;
     font-weight: bold;
-    color: #353535;
+    color: var(--dark-color);
 }
 
 .timer {
-    color: black;
+    --border-size: 4px;
+
+    color: var(--dark-color);
     text-align: center;
-    width: 27.5rem;
-    height: 27.5rem;
-    border: 4px solid var(--medium-color);
-    border-radius: 27.5rem;
+    border: var(--border-size) solid var(--medium-color);
+    border-radius: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
     margin-bottom: 1.25rem;
+    width: min(calc(100% - 2 * var(--border-size)), 25rem);
+}
+
+.timer>.container {
+    position: absolute;
 }
 
 .progress-ring {
-    position: absolute;
 }
 
 .progress-ring-circle {
@@ -64,30 +70,23 @@ h4 {
 }
 
 button {
+    color: var(--btn-color);
+    background: var(--linear-gradient-dark);
+    box-shadow: 3px 5px 3px var(--medium-color);
+    cursor: pointer;
+
     margin: 5px;
     padding: 10px;
     border: none;
     font-size: 2rem;
-    transition: 0.5s ease-in-out;
     text-align: center;
     font-weight: lighter;
     border-radius: 0.5rem;
 }
 
-h2 {
-    padding-top: 1.5rem;
-    text-align: center;
-    font-size: 3.5rem;
-    color: #2E4756;
-}
-
-h3 {
-    font-size: 2.5rem;
-    color: #2E4756;
-}
-
-.start {
-    left: 10%;
+button:hover, button:focus {
+    color: var(--medium-light-color);
+    background: var(--linear-gradient-dark-reverse);
 }
 
 #create-task {
@@ -132,26 +131,15 @@ h3 {
     margin-left: 0.25rem;
 }
 
-#create-start {
-    background-color: var(--gradient-dark);
-}
-
 #create-skip {
-    background-color: var(--medium-color);
+    background: var(--linear-gradient-grey);
 }
 
-#start-short-btn {
-    color: white;
-    background-color: #2E4756;
-    border-radius: 70px;
-    height: 70px;
-    width: 270px;
-    align-self: center;
+#create-skip:focus, #create-skip:hover {
+    background: var(--linear-gradient-grey-reverse);
 }
 
 #start-break-btn {
-    color: white;
-    background-color: #2E4756;
     border-radius: 70px;
     height: 70px;
     width: 270px;
@@ -163,8 +151,6 @@ h3 {
 }
 
 #distraction-btn {
-    color: white;
-    background-color: #2E4756;
     border-radius: 70px;
     height: 70px;
     width: 270px;
@@ -172,34 +158,25 @@ h3 {
 }
 
 #fail-btn {
-    color: white;
-    background-color: #EF7869;
+    background: var(--linear-gradient-accent);
     border-radius: 70px;
     height: 70px;
     width: 130px;
 }
 
+#fail-btn:hover, #fail-btn:focus {
+    background: var(--linear-gradient-accent-reverse);
+}
+
 #start-btn {
-    color: white;
-    background-color: #2E4756;
     border-radius: 70px;
     height: 70px;
     width: 150px;
     align-self: center;
 }
 
-.timer-grid {
-    display: flex;
-    justify-content: center;
-}
-
-.time-input {
-    display: flex;
-    justify-content: center;
-}
-
 input {
-    font-size: 20px;
+    font-size: 1.25rem;
 }
 
 .modal-break {
@@ -215,7 +192,7 @@ input {
 }
 
 .modal-content-short_break {
-    background-color: #fefefe;
+    background-color: var(--light-color);
     padding: 30px;
     width: 40%;
     height: 65%;
@@ -224,43 +201,9 @@ input {
     box-shadow: 0 5px 8px 0;
 }
 
-.heading-short_break {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 1.5rem;
-}
-
-#party-icon {
-    width: 80px;
-    height: 70px;
-}
-
-#start-button,
-#start-button-long {
-    font-family: "Poppins", sans-serif;
-    color: #ffffff;
-    font-size: 2.5rem;
-    font-weight: lighter;
-    width: 50%;
-    height: 30%;
-    border-radius: 40px;
-    background: #2E4756;
-    text-align: center;
-}
-
-#start-button:hover {
-    background: #64838c;
-}
-
-#strt-button {
-    padding-top: 2rem;
-    text-align: center;
-}
-
 .heading-fail {
     font-size: 3.1rem;
-    color: #2E4756;
+    color: var(--primary-color);
     text-align: center;
 }
 
@@ -275,7 +218,7 @@ input {
 
 .fail-buttons {
     font-family: "Poppins", sans-serif;
-    color: #ffffff;
+    color: var(--btn-color);
     font-size: 2.5rem;
     font-weight: lighter;
     width: 33%;
@@ -285,11 +228,19 @@ input {
 }
 
 #fail-button {
-    background: #EF7869;
+    background: var(--linear-gradient-accent);
+}
+
+#fail-button:focus, #fail-button:hover {
+    background: var(--linear-gradient-accent-reverse);
 }
 
 #cancel-button {
-    background: #C4C4C4;
+    background: var(--linear-gradient-grey);
+}
+
+#cancel-button:focus, #cancel-button:hover {
+    background: var(--linear-gradient-grey-reverse);
 }
 
 #fail-button-container {
@@ -299,7 +250,7 @@ input {
 
 #heading-break-complete {
     font-size: 3.5rem;
-    color: #2E4756;
+    color: var(--primary-color);
     text-align: center;
 }
 
@@ -313,14 +264,13 @@ input {
 
 .button-task {
     font-family: "Poppins", sans-serif;
-    color: #ffffff;
+    color: var(--btn-color);
     font-size: 3rem;
     font-weight: lighter;
     width: 80%;
     height: 60%;
     border-radius: 50px;
     text-align: center;
-    background: #2E4756;
 }
 
 #auto-continue {

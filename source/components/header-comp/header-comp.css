@@ -132,6 +132,22 @@ button:hover:enabled {
   animation-duration: 0.25s;
 }
 
+#first-button {
+  color: var(--gradient-dark);
+}
+
+#second-button {
+  color: var(--gradient-medium);
+}
+
+#third-button {
+  color: var(--gradient-dark);
+}
+
+#fourth-button {
+  color: var(--gradient-light);
+}
+
 @keyframes button-pop {
   0% {
     transform: scale(1);

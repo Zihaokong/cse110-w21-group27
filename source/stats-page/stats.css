@@ -73,7 +73,7 @@ h3 {
 
 #heading-container {
     align-items: center;
-    border-bottom: 2px solid grey;
+    border-bottom: 2px solid var(--medium-light-color);
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -89,7 +89,7 @@ h3 {
 
 #reset,
 #info {
-    background-color: var(--primary-color);
+    background: linear-gradient(var(--gradient-dark), var(--primary-color));
     border: none;
     border-radius: 40px;
     color: var(--btn-color);
@@ -102,18 +102,19 @@ h3 {
 }
 
 #info {
-    background-color: var(--medium-color);
+    background: linear-gradient(var(--medium-light-color), var(--medium-color));
     font-weight: 500;
     width: 2.5em;
 }
 
-#reset:hover {
-    background: #64838c;
+#reset:hover, #reset:focus {
+    background: linear-gradient(var(--primary-color), var(--gradient-dark));
     color: var(--light-color);
 }
 
-#info:hover {
-    background: var(--light-color);
+#info:hover, #info:focus {
+    background: linear-gradient(var(--medium-color), var(--medium-light-color));
+    color: var(--light-color);
 }
 
 /* BACK TO TOP BUTTON */
@@ -180,7 +181,7 @@ h3 {
 }
 
 .modal-content {
-    background-color: #fff;
+    background-color: var(--light-color);
     border: 1px solid var(--medium-color);
     margin: auto;
     padding: 20px;
@@ -194,7 +195,7 @@ h3 {
 }
 
 .modal-header {
-    border-bottom: 1px solid grey;
+    border-bottom: 1px solid var(--medium-light-color);
     display: flex;
     justify-content: space-between;
     margin-bottom: 25px;
@@ -220,7 +221,7 @@ h3 {
 .close:hover,
 .close:focus {
     box-shadow: none;
-    color: #000;
+    color: var(--dark-color);
     cursor: pointer;
     text-decoration: none;
 }

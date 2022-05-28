@@ -263,7 +263,7 @@ function autoContinue() {
 function continueTask() {
   document.getElementById('breakCompleteModal').style.display = 'none';
   document.body.style.backgroundImage =
-    'linear-gradient(to right,#E0EAFC,#CFDEF3)';
+    'linear-gradient(var(--gradient-light),var(--gradient-medium))';
 
   // Making the start button the only visible button
   hideButtons();
@@ -309,7 +309,7 @@ function displayBreak() {
     resetProgressRing();
     if (localStorage.getItem('shortBreak') === 'true') {
       document.body.style.backgroundImage =
-        'linear-gradient(to right,#74EBD5,#ACB6E5)';
+        'linear-gradient(var(--gradient-medium),var(--gradient-light))';
       document.getElementById('currTask').innerHTML = 'Short Break';
       document.getElementById('deselect-task').style.display = 'none';
       renderTimer(localStorage.getItem('shortBreakMinutes'), 0);
