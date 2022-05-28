@@ -37,7 +37,8 @@ form {
 }
 
 section {
-  background: linear-gradient(var(--gradient-dark), var(--primary-color));;
+  /* background: linear-gradient(var(--gradient-dark), var(--primary-color));; */
+  background: var(--linear-gradient-dark);
   box-shadow: 1px 1px 0.5rem var(--primary-color);
   display: grid;
   grid-auto-columns: 1fr 1fr;
@@ -133,15 +134,15 @@ button:hover:enabled {
 }
 
 #first-button {
-  color: var(--gradient-dark);
+  color: var(--gradient-light);
 }
 
 #second-button {
-  color: var(--gradient-medium);
+  color: var(--gradient-light);
 }
 
 #third-button {
-  color: var(--gradient-dark);
+  color: var(--gradient-light);
 }
 
 #fourth-button {
