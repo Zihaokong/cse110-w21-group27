@@ -382,7 +382,6 @@ function startTimer() {
   isFailed = true;
 
   hideButtons();
-  console.log(document.querySelector('label'));
   document.querySelector('#distraction-set').style.display = '';
   document.getElementById('fail-btn').style.display = '';
 
@@ -390,7 +389,7 @@ function startTimer() {
 }
 
 /**
- * Set a timer that count down for 60 second.
+ * Set a timer that count down.
  * @param {integer} mins minute of timer
  * @param {integer} secs second of timer
  */
@@ -401,7 +400,9 @@ function start(mins, secs) {
   const startTime = new Date();
   // display correct distraction counter
   distractCounter = 0;
-
+  console.log('fsafasfsadfadsfasdf');
+  document.querySelector('#distraction-btn').src =
+    '/assets/images/tomo-excited.png';
   const totalSeconds = mins * 60 + secs;
   renderTimer(mins, secs);
   secondsInterval = setInterval(secondsTimer, 500, startTime, totalSeconds);
