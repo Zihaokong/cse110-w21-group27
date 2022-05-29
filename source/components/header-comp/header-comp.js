@@ -107,15 +107,21 @@ class HeaderComp extends HTMLElement {
     const count = document.createElement('div');
     count.setAttribute('id', 'cycle-count');
 
+    const container = document.createElement('div');
+    container.appendChild(brand);
+    container.appendChild(count);
+
     const navBar = document.createElement('nav');
 
     const taskLink = document.createElement('button');
     taskLink.textContent = 'list';
     taskLink.setAttribute('onClick', 'location.href="/tasks-page/tasks.html"');
+    taskLink.setAttribute('id', 'second-button');
 
     const statLink = document.createElement('button');
     statLink.textContent = 'bar_chart';
     statLink.setAttribute('onClick', 'location.href="/stats-page/stats.html"');
+    statLink.setAttribute('id', 'third-button');
 
     const timerLink = document.createElement('button');
     timerLink.textContent = 'alarm';
@@ -126,6 +132,13 @@ class HeaderComp extends HTMLElement {
     settingButton.addEventListener('click', () => {
       settings.showModal();
     });
+    
+    settingButton.setAttribute('id', 'fourth-button');
+
+    const timerLink = document.createElement('button');
+    timerLink.textContent = 'alarm';
+    timerLink.setAttribute('onClick', 'location.href="/timer-page/timer.html"');
+    timerLink.setAttribute('id', 'first-button');
 
     switch (this.page) {
       case 'tasks':
@@ -146,8 +159,9 @@ class HeaderComp extends HTMLElement {
     navBar.appendChild(settingButton);
 
     // Append the date and section to the nav element
-    section.appendChild(brand);
-    section.appendChild(count);
+    // section.appendChild(brand);
+    // section.appendChild(count);
+    section.appendChild(container);
     section.appendChild(navBar);
 
     // Appened the nav and styling to the shadow root.

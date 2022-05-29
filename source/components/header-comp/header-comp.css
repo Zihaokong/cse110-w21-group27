@@ -11,11 +11,11 @@ span {
 }
 
 .dot {
-  background-color: var(--light-color);
+  background-color: var(--gradient-light);
 }
 
 .filled-dot {
-  background-color: var(--primary-color);
+  background: linear-gradient(var(--accent-light), var(--accent-dark));
 }
 
 dialog {
@@ -37,21 +37,30 @@ form {
 }
 
 section {
-  background-color: var(--primary-color);
+  /* background: linear-gradient(var(--gradient-dark), var(--primary-color));; */
+  background: var(--linear-gradient-dark);
   box-shadow: 1px 1px 0.5rem var(--primary-color);
-  display: grid;
-  grid-auto-columns: 1fr 1fr;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  /* grid-auto-columns: 1fr 1fr;
   grid-template-areas:
     "title stats"
     "dots stats";
-  grid-template-rows: auto;
+  grid-template-rows: auto; */
   margin: 0;
   width: 100%;
 }
 
+section > div {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .brand {
-  grid-area: title;
+  /* grid-area: title; */
   padding: 5px;
+  margin-right: 1rem;
 }
 
 img {
@@ -67,7 +76,7 @@ a {
 }
 
 div {
-  grid-area: dots;
+  /* grid-area: dots; */
   display: flex;
   justify-self: flex-start;
   justify-content: center;
@@ -80,7 +89,7 @@ h1 {
   color:var(--light-color);
   font-size: 2em;
   font-weight: 1;
-  grid-area: title;
+  /* grid-area: title; */
   margin: 0;
   text-align: left;
 }
@@ -92,7 +101,7 @@ nav {
   display: flex;
   flex-wrap: wrap;
   justify-self: flex-end;
-  justify-content: flex-end;
+  /* justify-content: flex-end; */
   justify-items: center;
   padding: 10px;
 }
@@ -136,6 +145,22 @@ button:hover:enabled {
   animation: button-pop;
   transform: scale(1.2);
   animation-duration: 0.25s;
+}
+
+#first-button {
+  color: var(--gradient-light);
+}
+
+#second-button {
+  color: var(--gradient-light);
+}
+
+#third-button {
+  color: var(--gradient-light);
+}
+
+#fourth-button {
+  color: var(--gradient-light);
 }
 
 @keyframes button-pop {
