@@ -1,13 +1,6 @@
-span {
-  height: 10px;
-  width: 10px;
-  padding: 10px;
-  margin: 5px;
-  background-color: var(--light-color);
-  border-radius: 77%;
-  border: 2px solid var(--light-color);
-  display: inline-block;
-  
+.brand {
+  padding: 5px;
+  margin-right: 1rem;
 }
 
 .dot {
@@ -18,102 +11,16 @@ span {
   background: linear-gradient(var(--accent-light), var(--accent-dark));
 }
 
-dialog {
-  border-style: none;
-  box-shadow: 1px 1px 0.5rem var(--primary-color);
-}
-
-dialog h2 {
-  color: var(--primary-color);
-}
-
-dialog button {
-  color: var(--primary-color);
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-}
-
-section {
-  /* background: linear-gradient(var(--gradient-dark), var(--primary-color));; */
-  background: var(--linear-gradient-dark);
-  box-shadow: 1px 1px 0.5rem var(--primary-color);
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  /* grid-auto-columns: 1fr 1fr;
-  grid-template-areas:
-    "title stats"
-    "dots stats";
-  grid-template-rows: auto; */
-  margin: 0;
-  width: 100%;
-}
-
-section > div {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.brand {
-  /* grid-area: title; */
-  padding: 5px;
-  margin-right: 1rem;
-}
-
-img {
-  width: 60px;
-  height: 60px;
-  padding: 5px;
-}
-
 a {
   width: 60px;
   height: 60px;
   padding: 5px;
 }
 
-div {
-  /* grid-area: dots; */
-  display: flex;
-  justify-self: flex-start;
-  justify-content: center;
-  justify-items: center;
-  align-content: center;
-  align-items: center;
-}
-
-h1 {
-  color:var(--light-color);
-  font-size: 2em;
-  font-weight: 1;
-  /* grid-area: title; */
-  margin: 0;
-  text-align: left;
-}
-
-nav {
-  align-content: stretch;
-  align-items: center;
-  grid-area: stats;
-  display: flex;
-  flex-wrap: wrap;
-  justify-self: flex-end;
-  /* justify-content: flex-end; */
-  justify-items: center;
-  padding: 10px;
-}
-
-nav[hidden='true'] {
-  visibility: hidden;
-}
-
 button{
   background-color: transparent;
   border: none;
-  color: var(--light-color);
+  color: var(--gradient-light);
   cursor: pointer;
   font-family: 'Material Icons';
   font-feature-settings: 'liga';
@@ -147,20 +54,96 @@ button:hover:enabled {
   animation-duration: 0.25s;
 }
 
-#first-button {
-  color: var(--gradient-light);
+dialog {
+  border-style: none;
+  box-shadow: 1px 1px 0.5rem var(--primary-color);
 }
 
-#second-button {
-  color: var(--gradient-light);
+dialog h2 {
+  color: var(--primary-color);
 }
 
-#third-button {
-  color: var(--gradient-light);
+dialog button {
+  color: var(--primary-color);
 }
 
-#fourth-button {
-  color: var(--gradient-light);
+div {
+  display: flex;
+  justify-self: flex-start;
+  justify-content: center;
+  justify-items: center;
+  align-content: center;
+  align-items: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+h1 {
+  color:var(--light-color);
+  font-size: 2em;
+  font-weight: 1;
+  /* grid-area: title; */
+  margin: 0;
+  text-align: left;
+}
+
+nav {
+  align-content: stretch;
+  align-items: center;
+  grid-area: stats;
+  display: flex;
+  flex-wrap: wrap;
+  justify-self: flex-end;
+  /* justify-content: flex-end; */
+  justify-items: center;
+  padding: 10px;
+}
+
+nav[hidden='true'] {
+  visibility: hidden;
+}
+
+section {
+  background: var(--linear-gradient-dark);
+  box-shadow: 1px 1px 0.5rem var(--primary-color);
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  width: 100%;
+}
+
+section > div {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+span {
+  height: 10px;
+  width: 10px;
+  padding: 10px;
+  margin: 5px;
+  background-color: var(--light-color);
+  border-radius: 77%;
+  border: 2px solid var(--light-color);
+  display: inline-block;
+  
+}
+
+@media (min-width: 700px) {
+  
+  section{
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 700px) {
+  
+  section{
+    justify-content: center;
+  }
 }
 
 @keyframes button-pop {

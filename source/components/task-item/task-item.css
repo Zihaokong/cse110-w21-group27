@@ -162,7 +162,7 @@ section {
   column-gap: 10px;
   justify-content: stretch;
   justify-items: stretch;
-  margin:  10px 0px 10px;
+  margin:  20px 0px 2 0px;
   padding: 10px 0px 10px;
   transition: box-shadow 0.2s ease-in-out;
   transition: opacity 0.3s ease-in-out;

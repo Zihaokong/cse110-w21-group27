@@ -4,7 +4,41 @@
  * Section for the task container
  */
  
- form {
+aside {
+  text-align: center;
+}
+ 
+ button {
+  color: var(--primary-color);
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  grid-area: submit;
+  padding: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+button:enabled {
+  text-shadow: 1px 1px 0.1rem var(--medium-color);
+}
+
+button:hover:enabled {
+  animation: button-pop;
+  transform: scale(1.2);
+  animation-duration: 0.25s;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+ 
+dialog {
+  border-style: none;
+  box-shadow: 1px 1px 0.5rem var(--primary-color);
+}
+
+form {
   align-content: center;
   align-items: center;
   box-shadow: 1px 1px 0.5rem var(--primary-color);
@@ -34,15 +68,6 @@ input {
   transition: text-decoration 0.2s ease-in-out;
 }
 
-aside {
-  text-align: center;
-}
-
-dialog {
-  border-style: none;
-  box-shadow: 1px 1px 0.5rem var(--primary-color);
-}
-
 input[content="title"] {
   grid-area: title;
 
@@ -50,31 +75,6 @@ input[content="title"] {
 
 input[content="count"] {
   grid-area: count;
-}
-
-button {
-  color: var(--primary-color);
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  grid-area: submit;
-  padding: 0;
-  transition: opacity 0.3s ease-in-out;
-}
-
-button:enabled {
-  text-shadow: 1px 1px 0.1rem var(--medium-color);
-}
-
-button:hover:enabled {
-  animation: button-pop;
-  transform: scale(1.2);
-  animation-duration: 0.25s;
-}
-
-button:disabled {
-  cursor: not-allowed;
-  opacity: 0.5;
 }
 
 @media (min-width: 900px) {
@@ -117,11 +117,6 @@ button:disabled {
   -moz-osx-font-smoothing: grayscale;
   /* Support for IE. */
   font-feature-settings: 'liga';
-}
-
-section {
-  list-style-type: none;
-  margin: 0;
 }
 
 @keyframes button-pop {

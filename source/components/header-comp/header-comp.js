@@ -116,12 +116,10 @@ class HeaderComp extends HTMLElement {
     const taskLink = document.createElement('button');
     taskLink.textContent = 'list';
     taskLink.setAttribute('onClick', 'location.href="/tasks-page/tasks.html"');
-    taskLink.setAttribute('id', 'second-button');
 
     const statLink = document.createElement('button');
     statLink.textContent = 'bar_chart';
     statLink.setAttribute('onClick', 'location.href="/stats-page/stats.html"');
-    statLink.setAttribute('id', 'third-button');
 
     const timerLink = document.createElement('button');
     timerLink.textContent = 'alarm';
@@ -132,13 +130,6 @@ class HeaderComp extends HTMLElement {
     settingButton.addEventListener('click', () => {
       settings.showModal();
     });
-    
-    settingButton.setAttribute('id', 'fourth-button');
-
-    const timerLink = document.createElement('button');
-    timerLink.textContent = 'alarm';
-    timerLink.setAttribute('onClick', 'location.href="/timer-page/timer.html"');
-    timerLink.setAttribute('id', 'first-button');
 
     switch (this.page) {
       case 'tasks':
