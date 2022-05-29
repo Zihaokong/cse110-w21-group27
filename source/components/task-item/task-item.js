@@ -273,6 +273,7 @@ class TaskItem extends HTMLElement {
     // Create the checkmark
     const checkmarkInput = document.createElement('input');
     checkmarkInput.setAttribute('type', 'checkbox');
+    checkmarkInput.title = 'Mark task as completed/uncompleted';
     const isCompleted = this.completed === 'true';
     checkmarkInput.checked = isCompleted;
     return checkmarkInput;
@@ -289,6 +290,7 @@ class TaskItem extends HTMLElement {
     deleteButton.className = 'icon';
     deleteButton.setAttribute('job', 'delete');
     deleteButton.textContent = 'delete';
+    deleteButton.title = `Delete Task`;
     return deleteButton;
   }
 
@@ -315,6 +317,7 @@ class TaskItem extends HTMLElement {
     editButton.className = 'icon';
     editButton.setAttribute('job', 'edit');
     editButton.textContent = 'mode_edit';
+    editButton.title = 'Edit Task';
     editButton.disabled =
       this.completed === 'true' || parseInt(this.current, 10) > 0;
     return editButton;
@@ -331,6 +334,7 @@ class TaskItem extends HTMLElement {
     playButton.className = 'icon';
     playButton.setAttribute('job', 'play');
     playButton.textContent = 'play_circle';
+    playButton.title = 'Start task';
     playButton.disabled = this.completed === 'true';
     return playButton;
   }

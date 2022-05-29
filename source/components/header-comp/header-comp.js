@@ -107,19 +107,23 @@ class HeaderComp extends HTMLElement {
 
     const taskLink = document.createElement('button');
     taskLink.textContent = 'list';
+    taskLink.title = 'Go to Tasks';
     taskLink.setAttribute('onClick', 'location.href="/tasks-page/tasks.html"');
 
     const statLink = document.createElement('button');
     statLink.textContent = 'bar_chart';
+    statLink.title = 'Go to Stats';
     statLink.setAttribute('onClick', 'location.href="/stats-page/stats.html"');
 
     const settingButton = document.createElement('button');
     settingButton.textContent = 'settings';
+    settingButton.title = 'Settings';
     settingButton.addEventListener('click', () => {
       settings.showModal();
     });
     const timerLink = document.createElement('button');
     timerLink.textContent = 'alarm';
+    timerLink.title = 'Go to Timer';
     timerLink.setAttribute('onClick', 'location.href="/timer-page/timer.html"');
 
     switch (this.page) {
