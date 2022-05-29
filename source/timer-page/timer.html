@@ -100,9 +100,10 @@
 
       <!-- The distraction and fail button will be available if a task
             is in progress -->
-      <button class="distraction" id="distraction-btn"  style="display:none;">
-        Distraction : 5
-      </button>
+      <label id="distraction-set" style="display:none;"> 
+        <span>Distraction Level:</span>
+        <input id="distraction-btn" type="image" src="/assets/images/tomo-excited.png" alt="happy face">
+      </label>
       <button class="fail" id="fail-btn" style="display:none;">Fail</button>
 
       <!-- The start break button will become visible after a task is complete -->
@@ -121,6 +122,9 @@
 
     <div id="breakCompleteModal" class="modal-break">
       <div class="modal-content-short_break">
+        <div id="sad-face-container">
+          <img id="sad-face" src="../assets/images/tomo-nice.png" alt="sad face">
+        </div>
         <div class="modal-text">
           <div id="heading-break-complete">Break Complete</div>
           <hr style="border-width: 3px; color: #c4c4c4" />
@@ -150,7 +154,7 @@
                     Are you sure you want to fail this pomo session?
                 </div>
                 <div id="sad-face-container">
-                    <img id="sad-face" src="../assets/images/sad-face.png" alt="sad-face">
+                    <img id="sad-face" src="../assets/images/tomo-sad.png" alt="sad-face">
                 </div>
                 <div id="fail-button-container">
                     <button class="fail-buttons" id="fail-button">Fail</button>

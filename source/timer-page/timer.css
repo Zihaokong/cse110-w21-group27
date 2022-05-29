@@ -154,6 +154,10 @@ button:focus {
 }
 
 #distraction-btn {
+    color: white;
+    background-color: #2E4756;
+    border-radius: 70px;
+    height: 70px;
     align-self: center;
 }
 
@@ -172,6 +176,18 @@ button:focus {
 
 input {
     font-size: 1.25rem;
+}
+
+label {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+label span {
+    display: table-cell;
+    vertical-align: middle;
 }
 
 .modal-break {
@@ -245,6 +261,10 @@ input {
 
 #button-task-container {
     text-align: center;
+}
+
+#button-container {
+    align-items: flex-end;
 }
 
 .button-task-position {

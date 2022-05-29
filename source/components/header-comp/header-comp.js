@@ -75,6 +75,10 @@ class HeaderComp extends HTMLElement {
    * Called when the header is applied to the DOM; Sets up the header.
    */
   connectedCallback() {
+    localStorage.setItem('shortBreak', 'false');
+
+    localStorage.setItem('longBreak', 'false');
+
     // Get the session counter from storage.
     this.completedCycles =
       localStorage.getItem('sessionCounter') === null
@@ -119,11 +123,16 @@ class HeaderComp extends HTMLElement {
     statLink.setAttribute('onClick', 'location.href="/stats-page/stats.html"');
     statLink.setAttribute('id', 'third-button');
 
+    const timerLink = document.createElement('button');
+    timerLink.textContent = 'alarm';
+    timerLink.setAttribute('onClick', 'location.href="/timer-page/timer.html"');
+
     const settingButton = document.createElement('button');
     settingButton.textContent = 'settings';
     settingButton.addEventListener('click', () => {
       settings.showModal();
     });
+    
     settingButton.setAttribute('id', 'fourth-button');
 
     const timerLink = document.createElement('button');

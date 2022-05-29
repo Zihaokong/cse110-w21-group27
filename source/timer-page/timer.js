@@ -111,9 +111,6 @@ function timerPageInit() {
     displayBreak();
   } else {
     localStorage.setItem('isPomo', 'false');
-    document.getElementById(
-      'distraction-btn'
-    ).innerHTML = `Distraction : ${distractCounter}`;
 
     renderTimer(localStorage.getItem('timerMinutes'), 0);
   }
@@ -166,29 +163,6 @@ function taskSelectInit() {
     allTasks.forEach((task) => {
       dropdown.innerHTML += `<option value="${task.id}">${task.name}</option>`;
     });
-}
-
-/**
- * Currently, the HTML element's ID should be the same as the name for the local storage.
- * @param {string} lengthType the identifier for which timer's length.
- */
-function updateTimerLength(lengthType) {
-  localStorage.setItem(lengthType, document.getElementById(lengthType).value);
-  if (
-    !isInSession &&
-    ((lengthType === 'TimerMinutes' &&
-      localStorage.getItem('isPomo') === 'false') ||
-      (lengthType === 'ShortBreakMinutes' &&
-        localStorage.getItem('ShortBreak') === 'true') ||
-      (lengthType === 'LongBreakMinutes' &&
-        localStorage.getItem('LongBreak') === 'true'))
-  )
-    renderTimer(localStorage.getItem(lengthType), 0);
-  if (allTasks) {
-    allTasks.forEach((task) => {
-      dropdown.innerHTML += `<option value="${task.id}">${task.name}</option>`;
-    });
-  }
 }
 
 /**
@@ -270,9 +244,6 @@ function continueTask() {
   document.getElementById('start-btn').style.display = '';
 
   resetProgressRing();
-  document.getElementById(
-    'distraction-btn'
-  ).innerHTML = `Distraction : ${distractCounter}`;
   renderTimer(localStorage.getItem('timerMinutes'), 0);
 
   if (currentTaskIndex !== -1) {
@@ -411,14 +382,14 @@ function startTimer() {
   isFailed = true;
 
   hideButtons();
-  document.getElementById('distraction-btn').style.display = '';
+  document.querySelector('#distraction-set').style.display = '';
   document.getElementById('fail-btn').style.display = '';
 
   start(localStorage.getItem('timerMinutes'), 0);
 }
 
 /**
- * Set a timer that count down for 60 second.
+ * Set a timer that count down.
  * @param {integer} mins minute of timer
  * @param {integer} secs second of timer
  */
@@ -429,10 +400,9 @@ function start(mins, secs) {
   const startTime = new Date();
   // display correct distraction counter
   distractCounter = 0;
-  document.getElementById(
-    'distraction-btn'
-  ).innerHTML = `Distraction : ${distractCounter}`;
-
+  console.log('fsafasfsadfadsfasdf');
+  document.querySelector('#distraction-btn').src =
+    '/assets/images/tomo-excited.png';
   const totalSeconds = mins * 60 + secs;
   renderTimer(mins, secs);
   secondsInterval = setInterval(secondsTimer, 500, startTime, totalSeconds);
@@ -479,7 +449,6 @@ function renderTimer(minutes, seconds) {
   }
 }
 
-// TODO: Maybe more detailed comments on this.
 /**
  * The function to be called when a timer runs out, or in another word when the
  * task is finished. It should set the related HTML elements properly and stop the timer.
@@ -599,9 +568,28 @@ function createTask() {
  */
 function distractionCount() {
   distractCounter += 1;
-  document.getElementById(
-    'distraction-btn'
-  ).innerHTML = `Distraction : ${distractCounter}`;
+
+  let source;
+
+  switch (distractCounter) {
+    case 0:
+      source = '/assets/images/tomo-excited.png';
+      break;
+    case 1:
+      source = '/assets/images/tomo-happy.png';
+      break;
+    case 2:
+      source = '/assets/images/tomo-neutral.png';
+      break;
+    case 3:
+      source = '/assets/images/tomo-meh.png';
+      break;
+    default:
+      source = '/assets/images/tomo-bleh.png';
+      break;
+  }
+
+  document.querySelector('#distraction-btn').src = source;
 }
 
 /**
