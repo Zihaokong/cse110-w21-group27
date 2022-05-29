@@ -103,6 +103,10 @@ class HeaderComp extends HTMLElement {
     const count = document.createElement('div');
     count.setAttribute('id', 'cycle-count');
 
+    const container = document.createElement('div');
+    container.appendChild(brand);
+    container.appendChild(count);
+
     const navBar = document.createElement('nav');
 
     const taskLink = document.createElement('button');
@@ -146,8 +150,9 @@ class HeaderComp extends HTMLElement {
     navBar.appendChild(settingButton);
 
     // Append the date and section to the nav element
-    section.appendChild(brand);
-    section.appendChild(count);
+    // section.appendChild(brand);
+    // section.appendChild(count);
+    section.appendChild(container);
     section.appendChild(navBar);
 
     // Appened the nav and styling to the shadow root.
