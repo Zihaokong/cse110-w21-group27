@@ -40,26 +40,9 @@
       <h1 id="currTask">No Task Selected</h1>
       <button id="deselect-task">cancel</button>
     </div>
-    <div class="container timer">
-      <span class="container">
-        <h4 id="minutes"></h4>
-        <h4>:</h4>
-        <h4 id="seconds"></h4>
-      </span>
 
-      <svg class="progress-ring" viewBox="0 0 440 440">
-        <circle
-          class="progress-ring-circle"
-          id="progress-ring-circle"
-          stroke-width="40"
-          fill="transparent"
-          r="200"
-          cx="50%"
-          cy="50%"
-          stroke="#2E4756"
-        />
-      </svg>
-    </div>
+    <!--Timer component-->
+    <timer-comp data-running="false"></timer-comp>
 
     <!--Buttons-->
     <section id="button-container" class="container">
@@ -168,5 +151,6 @@
     <script src="./timer.js"></script>
     <script src="./tutorial.js"></script>
     <script src="../components/header-comp/header-comp.js"></script>
+    <script src="../components/timer-comp/timer-comp.js"></script>
   </body>
 </html>

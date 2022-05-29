@@ -11,13 +11,6 @@ let isFailed = false;
 let currentTaskIndex = -1;
 let allTasks;
 
-let circle;
-let radius;
-let circumference;
-
-// The interval function used for timer logic
-let secondsInterval;
-
 // Call the initializer function when the window is loaded.
 window.onload = timerPageInit;
 
@@ -26,13 +19,6 @@ window.onload = timerPageInit;
  */
 function timerPageInit() {
   timerLengthInit();
-  circle = document.getElementById('progress-ring-circle');
-  const r = circle.getAttribute('r');
-  radius = parseInt(r, 10);
-  circumference = radius * 2 * Math.PI;
-
-  circle.style.strokeDasharray = circumference;
-  circle.style.strokeDashoffset = 0;
 
   // Deselect task button (X) next to the task heading
   document
@@ -76,6 +62,11 @@ function timerPageInit() {
     .getElementById('cancel-button')
     .addEventListener('click', quitFailModal);
 
+  const timerComp = document.getElementsByTagName('timer-comp')[0];
+  const observeConfig = { attributes: true, childList: false, subtree: false };
+  const timerObserver = new MutationObserver(timerCompCallback);
+  timerObserver.observe(timerComp, observeConfig);
+
   // set variable denote current timer mode
   localStorage.setItem('isPomo', 'false');
 
@@ -104,7 +95,6 @@ function timerPageInit() {
   // Now that allTasks is defined we can fill in the create-task dropdown
   taskSelectInit();
 
-  resetProgressRing();
   if (localStorage.getItem('shortBreak') === 'true') {
     displayBreak();
   } else if (localStorage.getItem('longBreak') === 'true') {
@@ -112,7 +102,10 @@ function timerPageInit() {
   } else {
     localStorage.setItem('isPomo', 'false');
 
-    renderTimer(localStorage.getItem('timerMinutes'), 0);
+    timerComp.dataset.minutesLeft = localStorage.getItem('timerMinutes');
+    timerComp.dataset.secondsLeft = 0;
+
+    setTimer(localStorage.getItem('timerMinutes'), 0);
   }
   // render starting value of timer
 
@@ -189,6 +182,29 @@ function resetProgressRing() {
 }
 
 /**
+ * Currently, the HTML element's ID should be the same as the name for the local storage.
+ * @param {string} lengthType the identifier for which timer's length.
+ */
+function updateTimerLength(lengthType) {
+  localStorage.setItem(lengthType, document.getElementById(lengthType).value);
+  if (
+    !isInSession &&
+    ((lengthType === 'TimerMinutes' &&
+      localStorage.getItem('isPomo') === 'false') ||
+      (lengthType === 'ShortBreakMinutes' &&
+        localStorage.getItem('ShortBreak') === 'true') ||
+      (lengthType === 'LongBreakMinutes' &&
+        localStorage.getItem('LongBreak') === 'true'))
+  )
+    setTimer(localStorage.getItem(lengthType), 0);
+  if (allTasks) {
+    allTasks.forEach((task) => {
+      dropdown.innerHTML += `<option value="${task.id}">${task.name}</option>`;
+    });
+  }
+}
+
+/**
  * Hide all the different button elements below the timer
  */
 function hideButtons() {
@@ -245,6 +261,11 @@ function continueTask() {
 
   resetProgressRing();
   renderTimer(localStorage.getItem('timerMinutes'), 0);
+  // resetProgressRing();
+  document.getElementById(
+    'distraction-btn'
+  ).innerHTML = `Distraction : ${distractCounter}`;
+  setTimer(localStorage.getItem('timerMinutes'), 0);
 
   if (currentTaskIndex !== -1) {
     document.getElementById('currTask').innerHTML =
@@ -277,19 +298,19 @@ function displayBreak() {
   audio1.volume = localStorage.getItem('volumePercentage') / 100.0;
   audio1.play();
   setTimeout(() => {
-    resetProgressRing();
+    // resetProgressRing();
     if (localStorage.getItem('shortBreak') === 'true') {
       document.body.style.background =
         'linear-gradient(var(--spice-color),var(--gradient-medium))';
       document.getElementById('currTask').innerHTML = 'Short Break';
       document.getElementById('deselect-task').style.display = 'none';
-      renderTimer(localStorage.getItem('shortBreakMinutes'), 0);
+      setTimer(localStorage.getItem('shortBreakMinutes'), 0);
     } else {
       document.body.style.background =
         'linear-gradient(var(--gradient-medium),var(--spice-color))';
       document.getElementById('currTask').innerHTML = 'Long Break';
       document.getElementById('deselect-task').style.display = 'none';
-      renderTimer(localStorage.getItem('longBreakMinutes'), 0);
+      setTimer(localStorage.getItem('longBreakMinutes'), 0);
     }
 
     // Making the start break button the only one visible
@@ -309,9 +330,9 @@ function startBreak() {
   document.getElementById('start-break-btn').className = 'disable';
 
   if (localStorage.getItem('shortBreak') === 'true') {
-    start(localStorage.getItem('shortBreakMinutes'), 0);
+    start();
   } else {
-    start(localStorage.getItem('longBreakMinutes'), 0);
+    start();
   }
 }
 
@@ -384,7 +405,7 @@ function startTimer() {
   hideButtons();
   document.querySelector('#distraction-set').style.display = '';
   document.getElementById('fail-btn').style.display = '';
-
+  
   start(localStorage.getItem('timerMinutes'), 0);
 }
 
@@ -406,45 +427,48 @@ function start(mins, secs) {
   const totalSeconds = mins * 60 + secs;
   renderTimer(mins, secs);
   secondsInterval = setInterval(secondsTimer, 500, startTime, totalSeconds);
+  // display correct distraction counter
+  distractCounter = 0;
+  document.getElementById(
+    'distraction-btn'
+  ).innerHTML = `Distraction : ${distractCounter}`;
+
+  start();
 }
 
-/**
- * The helper function used for setInterval() to achieve the dynamic timer functionality.
- * @param {number} startTime the start time for the timer
- * @param {number} totalSeconds the totally needed seconds for the timer to run
- */
-function secondsTimer(startTime, totalSeconds) {
-  document.getElementsByTagName('header-comp')[0].isNewCycle = 'false';
-  const currTime = new Date();
-  const elapsed = Math.floor((currTime - startTime) / 1000);
-  const timeLeft = totalSeconds - elapsed;
-  const minutes = Math.floor(timeLeft / 60);
-  const seconds = timeLeft % 60;
+function setTimer(minutes, seconds) {
+  const timerComp = document.getElementsByTagName('timer-comp')[0];
+  timerComp.dataset.minutesLeft = minutes;
+  timerComp.dataset.secondsLeft = seconds;
+}
 
-  const finishedPercent = 100 - (timeLeft / totalSeconds) * 100;
-  setProgress(finishedPercent);
-  renderTimer(minutes, seconds);
-  if (seconds === 0 && minutes <= 0) {
-    finishedTask();
+function start() {
+  document.getElementsByTagName('timer-comp')[0].dataset.running = 'true';
+}
+
+function timerCompCallback(mutations) {
+  for (let i = 0; i < mutations.length; i++) {
+    if (mutations[i].attributeName === 'data-running') {
+      if (mutations[i].target.dataset.running === 'false') {
+        finishedTask();
+      }
+    } else {
+      renderTitle();
+    }
   }
 }
 
 /**
- * Dynamically renders the HTML elements of the running timer.
- * @param  {number} minutes minutes of the timer
- * @param {number} seconds seconds of the timer
+ * Renders the timer in the title based on attributes of timer component
  */
-function renderTimer(minutes, seconds) {
-  if (minutes < 10) {
-    document.getElementById('minutes').innerHTML = `0${minutes}`;
-  } else {
-    document.getElementById('minutes').innerHTML = `${minutes}`;
-  }
+function renderTitle() {
+  const timer = document.getElementsByTagName('timer-comp')[0];
+  const minutes = timer.dataset.minutesLeft;
+  const seconds = timer.dataset.secondsLeft;
+
   if (seconds < 10) {
-    document.getElementById('seconds').innerHTML = `0${seconds}`;
     document.getElementById('title_timer').innerHTML = `${minutes}:0${seconds}`;
   } else {
-    document.getElementById('seconds').innerHTML = `${seconds}`;
     document.getElementById('title_timer').innerHTML = `${minutes}:${seconds}`;
   }
 }
@@ -454,16 +478,20 @@ function renderTimer(minutes, seconds) {
  * task is finished. It should set the related HTML elements properly and stop the timer.
  */
 function finishedTask() {
+  
   // Set the header componenet's name back to timer to indicate the timer is no
   // longer running
   document.querySelector('header-comp').page = 'timer';
   // console.log('Finished Task');
   clearInterval(secondsInterval);
+  
   let counter = Number(localStorage.getItem('sessionCounter'));
   counter += 1;
   let todayDistract = Number(localStorage.getItem('distractCounter'));
   todayDistract += distractCounter;
   const pomo = localStorage.getItem('isPomo');
+
+  document.getElementsByTagName('header-comp')[0].isNewCycle = 'false';
 
   if (pomo === 'true') {
     // we just finished a break session
@@ -619,8 +647,6 @@ function quitFailModal() {
 
 if (typeof exports !== 'undefined') {
   module.exports = {
-    setProgress,
-    resetProgressRing,
     hideButtons,
     displayBreakComplete,
     continueTask,

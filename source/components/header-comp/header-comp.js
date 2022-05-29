@@ -267,23 +267,17 @@ class HeaderComp extends HTMLElement {
         // Get what the timer minute count should be from local storage.
         if (localStorage.getItem('shortBreak') === 'true') {
           timerMinutes = shortBreakSessionInput.value;
-        } else if (localStorage.getItem('LongBreak') === 'true') {
+        } else if (localStorage.getItem('longBreak') === 'true') {
           timerMinutes = longBreakSessionInput.value;
         } else {
           timerMinutes = workSessionInput.value;
         }
 
-        const minuteElement = document.getElementById('minutes');
-        const titleElement = document.getElementById('title_timer');
-
         // Set up the minutes and title_timer changes caused by the settings.
-        if (minuteElement && titleElement) {
-          if (timerMinutes < 10) {
-            minuteElement.innerHTML = `0${timerMinutes}`;
-          } else {
-            minuteElement.innerHTML = `${timerMinutes}`;
-          }
-          titleElement.innerHTML = `${timerMinutes}:00`;
+        const timerComp = document.getElementsByTagName('timer-comp')[0];
+        if (timerComp.dataset.running === 'false') {
+          timerComp.dataset.minutesLeft = timerMinutes;
+          timerComp.dataset.secondsLeft = 0;
         }
       }
 
