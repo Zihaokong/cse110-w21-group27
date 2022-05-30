@@ -26,6 +26,18 @@ button:focus {
     background: var(--linear-gradient-dark-reverse);
 }
 
+#auto-continue {
+    height: 50px;
+    width: 80%;
+}
+
+#auto-continue-progress {
+    animation: increaseProgress 5s linear;
+    fill: var(--primary-color);
+    height: 100%;
+    width: 100%;
+}
+
 #create-task {
     display: flex;
     flex-direction: column;
@@ -208,17 +220,6 @@ label span {
 
 .button-task {
     font-family: "Poppins", sans-serif;
-}
-
-#auto-continue {
-    width: 80%;
-}
-
-#auto-continue-progress {
-    animation: increaseProgress 5s linear;
-    fill: var(--primary-color);
-    height: 100%;
-    width: 100%;
 }
 
 @keyframes increaseProgress {

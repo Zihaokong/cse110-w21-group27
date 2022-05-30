@@ -148,12 +148,7 @@ function autoContinue() {
       startBreak();
     }, 2000);
   } else {
-    document.getElementById('auto-continue').style.display = 'inline-block';
-    document.getElementById('continue-btn').style.display = 'none';
-    setTimeout(() => {
-      continueTask();
-      startTimer();
-    }, 5500);
+    document.querySelector('timer-buttons').setupAutoContinue();
   }
 }
 

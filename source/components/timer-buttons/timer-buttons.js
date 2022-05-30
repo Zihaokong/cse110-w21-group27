@@ -80,7 +80,10 @@ class TimerButtons extends HTMLElement {
       'Start Break'
     );
     startBreakButton.style.display = 'none';
-    startBreakButton.addEventListener('click', () => this.startBreak());
+    startBreakButton.addEventListener('click', () => {
+      this.hideButtons();
+      this.startBreak();
+    });
 
     const taskForm = this.buildCreateTaskForm();
 
@@ -215,7 +218,9 @@ class TimerButtons extends HTMLElement {
     const dontShowCheckBox = document.createElement('input');
     dontShowCheckBox.setAttribute('type', 'checkbox');
     dontShowCheckBox.setAttribute('id', 'dont-show');
-    dontShowCheckBox.addEventListener('input', () => this.dontShow());
+    dontShowCheckBox.addEventListener('input', () => {
+      localStorage.setItem('autoContinue', dontShowCheckBox.checked);
+    });
 
     dontShowContainer.appendChild(dontShowLabel);
     dontShowContainer.appendChild(dontShowCheckBox);
@@ -275,8 +280,8 @@ class TimerButtons extends HTMLElement {
     );
     const autoContinue = TimerButtons.createElementWithAttributes(
       'svg',
-      ['id', 'height', 'display'],
-      ['auto-continue', '30', 'none']
+      ['id', 'display'],
+      ['auto-continue', 'none']
     );
     const autoContinueProgress = TimerButtons.createElementWithAttributes(
       'rect',
@@ -405,7 +410,6 @@ class TimerButtons extends HTMLElement {
       this.startSession();
     } else {
       const allTasks = this.getTasks();
-      console.log(allTasks);
       if (allTasks) {
         allTasks.forEach((task) => {
           this.shadowRoot.getElementById(
@@ -468,6 +472,16 @@ class TimerButtons extends HTMLElement {
   displayBreakComplete() {
     this.shadowRoot.getElementById('breakCompleteModal').style.display =
       'block';
+  }
+
+  setupAutoContinue() {
+    this.shadowRoot.getElementById('auto-continue').style.display =
+      'inline-block';
+    this.shadowRoot.getElementById('continue-btn').style.display = 'none';
+    setTimeout(() => {
+      this.continueTask();
+      this.startSession();
+    }, 5500);
   }
 
   /**
