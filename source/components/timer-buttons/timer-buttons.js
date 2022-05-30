@@ -112,7 +112,6 @@ class TimerButtons extends HTMLElement {
     } else {
       element.setAttribute(attributes, attrValues);
     }
-
     element.textContent = content;
 
     return element;
@@ -124,11 +123,13 @@ class TimerButtons extends HTMLElement {
     createTaskForm.setAttribute('id', 'create-task');
     createTaskForm.style.display = 'none';
 
-    createTaskForm.addEventListener('submit', () => {
-      const chosenId = document.getElementById('choose-task').value;
-      const taskName = document.getElementById('task-name').value;
-      const pomoCount = document.getElementById('pomo-count').value;
+    createTaskForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const chosenId = this.shadowRoot.getElementById('choose-task').value;
+      const taskName = this.shadowRoot.getElementById('task-name').value;
+      const pomoCount = this.shadowRoot.getElementById('pomo-count').value;
       this.createTask(chosenId, taskName, pomoCount);
+      this.startSession();
     });
 
     // Set up the label for the choose task section.
@@ -403,6 +404,15 @@ class TimerButtons extends HTMLElement {
     if (this.getTask()) {
       this.startSession();
     } else {
+      const allTasks = this.getTasks();
+      console.log(allTasks);
+      if (allTasks) {
+        allTasks.forEach((task) => {
+          this.shadowRoot.getElementById(
+            'choose-task'
+          ).innerHTML += `<option value="${task.id}">${task.name}</option>`;
+        });
+      }
       // Open the create-task form
       this.hideButtons();
       this.shadowRoot.getElementById('create-task').style.display = '';

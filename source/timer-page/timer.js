@@ -227,23 +227,21 @@ function timerCompCallback(mutations) {
         finishedTask();
       }
     } else {
-      renderTitle();
+      // render the title
+      const timer = document.getElementsByTagName('timer-comp')[0];
+      const minutes = timer.dataset.minutesLeft;
+      const seconds = timer.dataset.secondsLeft;
+
+      if (seconds < 10) {
+        document.getElementById(
+          'title_timer'
+        ).innerHTML = `${minutes}:0${seconds}`;
+      } else {
+        document.getElementById(
+          'title_timer'
+        ).innerHTML = `${minutes}:${seconds}`;
+      }
     }
-  }
-}
-
-/**
- * Renders the timer in the title based on attributes of timer component
- */
-function renderTitle() {
-  const timer = document.getElementsByTagName('timer-comp')[0];
-  const minutes = timer.dataset.minutesLeft;
-  const seconds = timer.dataset.secondsLeft;
-
-  if (seconds < 10) {
-    document.getElementById('title_timer').innerHTML = `${minutes}:0${seconds}`;
-  } else {
-    document.getElementById('title_timer').innerHTML = `${minutes}:${seconds}`;
   }
 }
 
@@ -362,8 +360,6 @@ function createTask(chosenId, taskName, pomoCount) {
       }
     }
     localStorage.setItem('currentTask', chosenId);
-
-    startTimer();
   } else if (taskName && pomoCount) {
     // Creating the task and adding it to our task list
     const randomId = Math.random().toString(16).slice(2);
@@ -383,8 +379,6 @@ function createTask(chosenId, taskName, pomoCount) {
     localStorage.setItem('currentTask', randomId);
     document.getElementById('currTask').innerHTML =
       allTasks[currentTaskIndex].name;
-
-    startTimer();
   } else {
     const headings = document.querySelectorAll('.label-heading');
     for (let i = 0; i < headings.length; i++) {
