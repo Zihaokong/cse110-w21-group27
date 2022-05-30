@@ -43,15 +43,15 @@ button:hover:enabled {
   animation-duration: 0.25s;
 }
 
+button:active:enabled {
+  animation: button-click;
+  transform: scale(1);
+  animation-duration: 0.25s;
+}
+
 button:disabled {
   cursor: not-allowed;
   opacity: 0.5;
-}
-
-button:hover:enabled {
-  animation: button-pop;
-  transform: scale(1.2);
-  animation-duration: 0.25s;
 }
 
 dialog {
@@ -157,5 +157,19 @@ span {
   
   100% {
     transform: scale(1.2);
+  }
+}
+
+@keyframes button-click {
+  0% {
+    transform: scale(1.2);
+  }
+  
+  50% {
+    transform: scale(0.8);
+  }
+  
+  100% {
+    transform: scale(1);
   }
 }

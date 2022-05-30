@@ -1,64 +1,82 @@
 section {
-    margin: auto;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
 }
 
-button {
-    color: var(--btn-color);
-    background: var(--linear-gradient-dark);
-    box-shadow: 3px 5px 3px var(--medium-color);
-    cursor: pointer;
+button,
+#distraction-btn {
+  color: var(--btn-color);
+  background: var(--linear-gradient-dark);
+  box-shadow: 2px 2px 3px var(--medium-color);
+  cursor: pointer;
 
-    margin: 5px;
-    padding: 10px;
-    border: none;
-    font-size: 2rem;
-    text-align: center;
-    font-weight: lighter;
-    border-radius: 1rem;
+  margin: 5px;
+  padding: 10px;
+  border: none;
+  font-size: 2rem;
+  text-align: center;
+  font-weight: lighter;
+  border-radius: 1rem;
 }
 
 button:hover,
-button:focus {
-    color: var(--medium-light-color);
-    background: var(--linear-gradient-dark-reverse);
+#distraction-btn:hover {
+  animation: button-pop;
+  transform: scale(1.2);
+  animation-duration: 0.25s;
+}
+
+button:active, 
+#distraction-btn:active {
+  animation: button-click;
+  transform: scale(1);
+  animation-duration: 0.25s;
+}
+
+dialog {
+  border-style: none;
+  box-shadow: 1px 1px 0.5rem var(--primary-color);
 }
 
 #auto-continue {
-    background-color: var(--medium-color);
-    height: 30px;
-    width: 80%;
+  background-color: var(--medium-color);
+  height: 30px;
+  width: 80%;
 }
 
 #auto-continue-progress {
-    animation: increaseProgress 5s linear;
-    background-color: var(--primary-color);
-    height: 100%;
-    width: 100%;
+  background-color: var(--primary-color);
+  height: 100%;
+  width: 0%;
+}
+
+#auto-continue-progress[running='true'] {
+  width: 100%;
+  transition: width 5s linear;
 }
 
 #create-task {
-    display: flex;
-    flex-direction: column;
-    padding: 1rem;
-    background-color: var(--light-color);
-    border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  background-color: var(--light-color);
+  border-radius: 1rem;
 }
 
 #create-task>label {
-    margin-top: 0.5rem;
-    margin-bottom: 0;
+  margin-top: 0.5rem;
+  margin-bottom: 0;
 }
 
 #create-task>.label-heading {
-    box-shadow: 0 0 0 0 var(--accent-dark);
-    font-size: 1.25rem;
-    font-weight: 500;
-    line-height: 1.2;
-    margin-bottom: 0.5rem;
-    transition: box-shadow 1s ease;
+  box-shadow: 0 0 0 0 var(--accent-dark);
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+  transition: box-shadow 1s ease;
 }
 
 #create-task>select {
@@ -77,158 +95,111 @@ button:focus {
 }
 
 #dont-show-container>label {
-    margin-bottom: 0;
-    margin-left: 0.25rem;
+  margin-bottom: 0;
+  margin-left: 0.25rem;
 }
 
 #create-skip {
-    background: var(--linear-gradient-grey);
+  background: var(--linear-gradient-grey);
 }
 
 #create-skip:focus,
 #create-skip:hover {
-    background: var(--linear-gradient-grey-reverse);
+  background: var(--linear-gradient-grey-reverse);
 }
 
 #start-break-btn {
-    align-self: center;
+  align-self: center;
 }
 
 #start-break-btn.disable {
-    opacity: 50%;
-    color: var(--btn-color);
-    background: var(--linear-gradient-dark);
-    cursor: auto;
+  opacity: 50%;
+  color: var(--btn-color);
+  background: var(--linear-gradient-dark);
+  cursor: auto;
 }
 
 #distraction-btn {
-    color: white;
-    background-color: #2E4756;
-    border-radius: 70px;
-    height: 70px;
-    align-self: center;
-}
-
-#fail-btn {
-    background: var(--linear-gradient-accent);
-}
-
-#fail-btn:hover,
-#fail-btn:focus {
-    background: var(--linear-gradient-accent-reverse);
+  height: 40px;
 }
 
 #start-btn {
-    align-self: center;
+  align-self: center;
 }
 
 input {
-    font-size: 1.25rem;
+  font-size: 1.25rem;
 }
 
 label {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 label span {
-    display: table-cell;
-    vertical-align: middle;
+  display: table-cell;
+  vertical-align: middle;
 }
 
-.modal-break {
-    position: fixed;
-    display: none;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.25);
+h2 {
+  font-size: 3.1rem;
+  color: var(--primary-color);
+  text-align: center;
+  margin: 0px;
 }
 
-.modal-content-short_break {
-    background-color: var(--light-color);
-    padding: 1rem 0;
-    width: min(100%, 25rem);
-    margin: 2rem auto 0 auto;
-    box-shadow: 0 5px 8px 0;
+#face-container {
+  display: flex;
+  justify-content: center;
 }
 
-.heading-fail {
-    font-size: 3.1rem;
-    color: var(--primary-color);
-    text-align: center;
-}
-
-#sad-face-container {
-    text-align: center;
-}
-
-#sad-face {
-    width: 7.5rem;
-    height: 7.5rem;
-}
-
-.fail-buttons {
-    font-family: "Poppins", sans-serif;
-}
-
-#fail-button {
-    background: var(--linear-gradient-accent);
-    width: 7ch;
-}
-
-#fail-button:focus,
-#fail-button:hover {
-    background: var(--linear-gradient-accent-reverse);
-}
-
-#cancel-button {
-    background: var(--linear-gradient-grey);
-}
-
-#cancel-button:focus,
-#cancel-button:hover {
-    background: var(--linear-gradient-grey-reverse);
-}
-
-#fail-button-container {
-    display: flex;
-    justify-content: center;
-}
-
-#heading-break-complete {
-    font-size: 2.5rem;
-    color: var(--primary-color);
-    text-align: center;
+#fail-buttons {
+  display: flex;
+  justify-content: center;
 }
 
 #button-task-container {
-    text-align: center;
+  text-align: center;
 }
 
 #button-container {
-    align-items: flex-end;
+  align-items: flex-end;
 }
 
 .button-task-position {
-    padding-top: 2rem;
+  padding-top: 2rem;
 }
 
 .button-task {
-    font-family: "Poppins", sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
-@keyframes increaseProgress {
-    from {
-        width: 0;
-    }
+@keyframes button-pop {
+  0% {
+    transform: scale(1);
+  }
+  
+  50% {
+    transform: scale(1.4);
+  }
+  
+  100% {
+    transform: scale(1.2);
+  }
+}
 
-    to {
-        width: 100%;
-    }
+@keyframes button-click {
+  0% {
+    transform: scale(1.2);
+  }
+  
+  50% {
+    transform: scale(0.9);
+  }
+  
+  100% {
+    transform: scale(1);
+  }
 }

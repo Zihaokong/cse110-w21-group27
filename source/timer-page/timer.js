@@ -42,7 +42,6 @@ function timerOnLoad() {
     .querySelector('timer-buttons')
     .setFunctions(
       changeTask,
-      chooseTask,
       continueTask,
       createTask,
       failSession,
@@ -109,20 +108,6 @@ function timerOnLoad() {
   });
   if (!localStorage.getItem('volumePercentage'))
     localStorage.setItem('volumePercentage', 50);
-}
-
-/**
- * Disables the create a task options if a task was selected.
- */
-function chooseTask() {
-  // If a task was selected
-  if (document.getElementById('choose-task').value) {
-    document.getElementById('task-name').disabled = true;
-    document.getElementById('pomo-count').disabled = true;
-  } else {
-    document.getElementById('task-name').disabled = false;
-    document.getElementById('pomo-count').disabled = false;
-  }
 }
 
 function getTask() {

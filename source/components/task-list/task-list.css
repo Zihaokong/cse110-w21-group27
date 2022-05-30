@@ -28,6 +28,12 @@ button:hover:enabled {
   animation-duration: 0.25s;
 }
 
+button:active:enabled {
+  animation: button-click;
+  transform: scale(1);
+  animation-duration: 0.25s;
+}
+
 button:disabled {
   cursor: not-allowed;
   opacity: 0.5;

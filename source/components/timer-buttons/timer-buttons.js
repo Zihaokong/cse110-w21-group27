@@ -25,13 +25,13 @@ class TimerButtons extends HTMLElement {
 
     const breakModal = this.createBreakEndDialog();
 
-    const failModal = this.createFailDialog();
+    const failDialog = this.createFailDialog();
 
     const buttonContainer = this.createButtons();
 
     this.shadowRoot.appendChild(buttonContainer);
     this.shadowRoot.appendChild(breakModal);
-    this.shadowRoot.appendChild(failModal);
+    this.shadowRoot.appendChild(failDialog);
     this.shadowRoot.appendChild(styleSheet);
   }
 
@@ -45,26 +45,14 @@ class TimerButtons extends HTMLElement {
     );
     startButton.addEventListener('click', () => this.openTaskForm());
 
-    const distractionLabel = TimerButtons.createElementWithAttributes(
-      'label',
-      ['id'],
-      ['distraction-set'],
-      ''
-    );
-    distractionLabel.style.display = 'none';
-    const distractionSpan = document.createElement('span');
-    distractionSpan.textContent = 'Distraction Level: ';
-
     const distractionInput = TimerButtons.createElementWithAttributes(
       'input',
       ['id', 'type', 'src', 'alt'],
       ['distraction-btn', 'image', '/assets/images/tomo-excited.png', 'None'],
       ''
     );
+    distractionInput.style.display = 'none';
     distractionInput.addEventListener('click', this.countDistraction);
-
-    distractionLabel.appendChild(distractionSpan);
-    distractionLabel.appendChild(distractionInput);
 
     const failButton = TimerButtons.createButton(
       'class',
@@ -89,7 +77,7 @@ class TimerButtons extends HTMLElement {
 
     buttonContainer.appendChild(startButton);
     buttonContainer.appendChild(taskForm);
-    buttonContainer.appendChild(distractionLabel);
+    buttonContainer.appendChild(distractionInput);
     buttonContainer.appendChild(failButton);
     buttonContainer.appendChild(startBreakButton);
 
@@ -145,7 +133,13 @@ class TimerButtons extends HTMLElement {
     const chooseTaskSelect = document.createElement('select');
     chooseTaskSelect.setAttribute('id', 'choose-task');
     chooseTaskSelect.addEventListener('input', () => {
-      this.chooseTask(document.getElementById('choose-task').value);
+      if (this.shadowRoot.getElementById('choose-task').value) {
+        this.shadowRoot.getElementById('task-name').disabled = true;
+        this.shadowRoot.getElementById('pomo-count').disabled = true;
+      } else {
+        this.shadowRoot.getElementById('task-name').disabled = false;
+        this.shadowRoot.getElementById('pomo-count').disabled = false;
+      }
     });
 
     // Seet up the the default task option for the selection
@@ -239,39 +233,35 @@ class TimerButtons extends HTMLElement {
   }
 
   createBreakEndDialog() {
-    const breakCompleteModal = TimerButtons.createElementWithAttributes(
-      'div',
-      ['id', 'class'],
-      ['breakCompleteModal', 'modal-break']
-    );
-    const modalContentShortBreak = TimerButtons.createElementWithAttributes(
-      'div',
-      'class',
-      'modal-content-short_break'
-    );
-    const modalText = TimerButtons.createElementWithAttributes(
-      'div',
-      'class',
-      'modal-text'
-    );
-    const breakCompleteHeading = TimerButtons.createElementWithAttributes(
+    const breakCompleteDialog = document.createElement('dialog');
+    breakCompleteDialog.id = 'breakCompleteDialog';
+
+    const header = document.createElement('h2');
+    header.textContent = 'Break Complete';
+
+    const happyFaceContainer = TimerButtons.createElementWithAttributes(
       'div',
       'id',
-      'heading-break-complete',
-      'Break Complete'
+      'face-container'
     );
-    const hr = document.createElement('hr');
-    hr.style = 'border-width: 3px; color: #c4c4c4';
+    const happyFaceImg = TimerButtons.createElementWithAttributes(
+      'img',
+      ['src', 'alt', 'height'],
+      ['/assets/images/tomo-nice.png', 'happy face', '100px']
+    );
+
     const buttonTaskContainer = TimerButtons.createElementWithAttributes(
       'div',
       'id',
       'button-task-container'
     );
+
     const continueTaskPosition = TimerButtons.createElementWithAttributes(
       'div',
       'class',
       'button-task-position'
     );
+
     const continueTaskButton = TimerButtons.createElementWithAttributes(
       'button',
       ['id', 'class'],
@@ -299,11 +289,10 @@ class TimerButtons extends HTMLElement {
       ['change-btn', 'button-task'],
       'Change Task'
     );
-    breakCompleteModal.appendChild(modalContentShortBreak);
-    modalContentShortBreak.appendChild(modalText);
-    modalText.appendChild(breakCompleteHeading);
-    modalText.appendChild(hr);
-    modalText.appendChild(buttonTaskContainer);
+    breakCompleteDialog.appendChild(header);
+    breakCompleteDialog.appendChild(happyFaceContainer);
+    happyFaceContainer.appendChild(happyFaceImg);
+    breakCompleteDialog.appendChild(buttonTaskContainer);
     buttonTaskContainer.appendChild(continueTaskPosition);
     buttonTaskContainer.appendChild(changeTaskPosition);
     changeTaskPosition.appendChild(changeTaskButton);
@@ -311,75 +300,64 @@ class TimerButtons extends HTMLElement {
     autoContinue.appendChild(autoContinueProgress);
     continueTaskPosition.appendChild(continueTaskButton);
     continueTaskButton.addEventListener('click', () => {
-      breakCompleteModal.style.display = 'none';
+      breakCompleteDialog.close();
       this.hideButtons();
       this.shadowRoot.querySelector('.start-button').style.display = '';
       this.continueTask();
     });
     changeTaskButton.addEventListener('click', () => this.changeTask());
-    return breakCompleteModal;
+    return breakCompleteDialog;
   }
 
   createFailDialog() {
-    const failModal = TimerButtons.createElementWithAttributes(
-      'div',
-      ['id', 'class'],
-      ['failModal', 'modal-break']
-    );
-    const modalContentShortBreak = TimerButtons.createElementWithAttributes(
-      'div',
-      'class',
-      'modal-content-short_break'
-    );
-    const modalText = TimerButtons.createElementWithAttributes(
-      'div',
-      'class',
-      'modal-text'
-    );
-    const failHeading = TimerButtons.createElementWithAttributes(
-      'div',
-      'class',
-      'heading-fail',
-      'Are you sure you want to fail this pomo session?'
-    );
+    const failDialog = document.createElement('dialog');
+
+    failDialog.id = 'failDialog';
+
+    const header = document.createElement('h2');
+    header.textContent = 'Are You Sure?';
+
     const sadFaceContainer = TimerButtons.createElementWithAttributes(
       'div',
-      'class',
-      'sad-face-container'
+      'id',
+      'face-container'
     );
+
     const sadFaceImg = TimerButtons.createElementWithAttributes(
       'img',
-      ['id', 'src', 'alt'],
-      ['sad-face', '../assets/images/sad-face.png', 'sad-face']
+      ['src', 'alt', 'height'],
+      ['/assets/images/tomo-sad.png', 'sad face', '100px']
     );
+
     const failButtonContainer = TimerButtons.createElementWithAttributes(
       'div',
       'id',
-      'fail-button-container'
+      'fail-buttons'
     );
+
     const failButton = TimerButtons.createElementWithAttributes(
       'button',
       ['id', 'class'],
       ['fail-button', 'fail-buttons'],
       'Fail'
     );
+
     const cancelButton = TimerButtons.createElementWithAttributes(
       'button',
       ['id', 'class'],
       ['fail-button', 'Cancel-buttons'],
       'Cancel'
     );
-    failModal.appendChild(modalContentShortBreak);
-    modalContentShortBreak.appendChild(modalText);
-    modalText.appendChild(failHeading);
-    modalText.appendChild(sadFaceContainer);
+
+    failDialog.appendChild(header);
+    failDialog.appendChild(sadFaceContainer);
     sadFaceContainer.appendChild(sadFaceImg);
-    modalText.appendChild(failButtonContainer);
+    failDialog.appendChild(failButtonContainer);
     failButtonContainer.appendChild(failButton);
     failButtonContainer.appendChild(cancelButton);
     cancelButton.addEventListener('click', () => this.hideFailDialog());
     failButton.addEventListener('click', () => this.failSession());
-    return failModal;
+    return failDialog;
   }
 
   /**
@@ -397,7 +375,7 @@ class TimerButtons extends HTMLElement {
    * Display modal for fail.
    */
   openFailDialog() {
-    this.shadowRoot.getElementById('failModal').style.display = 'block';
+    this.shadowRoot.getElementById('failDialog').showModal();
   }
 
   /**
@@ -430,7 +408,7 @@ class TimerButtons extends HTMLElement {
     this.shadowRoot.querySelector('#distraction-btn').src =
       '/assets/images/tomo-excited.png';
     this.hideButtons();
-    this.shadowRoot.querySelector('#distraction-set').style.display = '';
+    this.shadowRoot.querySelector('#distraction-btn').style.display = '';
     this.shadowRoot.querySelector('.fail-button').style.display = '';
     this.startTimer();
   }
@@ -470,20 +448,23 @@ class TimerButtons extends HTMLElement {
    * Display break complete modal, and sound.
    */
   displayBreakComplete(isAuto) {
-    this.shadowRoot.getElementById('breakCompleteModal').style.display =
-      'block';
     if (isAuto) {
       this.shadowRoot.getElementById('auto-continue').style.display =
         'inline-block';
+      this.shadowRoot
+        .getElementById('auto-continue-progress')
+        .setAttribute('running', 'true');
       this.shadowRoot.getElementById('continue-btn').style.display = 'none';
       setTimeout(() => {
-        this.shadowRoot.getElementById('breakCompleteModal').style.display =
-          'none';
+        this.shadowRoot.getElementById('breakCompleteDialog').close();
         this.continueTask();
         this.startSession();
-        this.hideButtons();
+        this.shadowRoot
+          .getElementById('auto-continue-progress')
+          .setAttribute('running', 'false');
       }, 5500);
     } else {
+      this.shadowRoot.getElementById('breakCompleteDialog').showModal();
       this.shadowRoot.getElementById('auto-continue').style.display = 'none';
       this.shadowRoot.getElementById('continue-btn').style.display =
         'inline-block';
@@ -497,7 +478,7 @@ class TimerButtons extends HTMLElement {
     // keep session status active if they decide not to fail
     // add confirmation functionality to back button again
     window.history.pushState(null, document.title, window.location.href);
-    this.shadowRoot.getElementById('failModal').style.display = 'none';
+    this.shadowRoot.getElementById('failDialog').close();
   }
 
   /**
@@ -537,7 +518,6 @@ class TimerButtons extends HTMLElement {
 
   setFunctions(
     changeTask,
-    chooseTask,
     continueTask,
     createTask,
     failSession,
@@ -549,7 +529,6 @@ class TimerButtons extends HTMLElement {
     this.startTimer = startTimer;
     this.createTask = createTask;
     this.continueTask = continueTask;
-    this.chooseTask = chooseTask;
     this.failSession = failSession;
     this.getTask = getTask;
     this.getTasks = getTasks;
