@@ -33,6 +33,7 @@ jobs:
         mkdir deploy/components/task-list
         mkdir deploy/components/timer-comp
         mkdir deploy/components/timer-buttons
+        mkdir deploy/globals
         mkdir deploy/stats-page
         mkdir deploy/tasks-page
         mkdir deploy/timer-page
@@ -49,6 +50,7 @@ jobs:
         cp minified/task-list.* deploy/components/task-list
         cp minified/timer-comp.* deploy/components/timer-comp
         cp minified/timer-buttons.* deploy/components/timer-buttons
+        cp minified/global.css deploy/globals
         cp minified/stats.* deploy/stats-page
         cp source/stats-page/stats.html deploy/stats-page/
         cp minified/tasks.* deploy/tasks-page
