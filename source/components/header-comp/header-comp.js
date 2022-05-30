@@ -75,6 +75,10 @@ class HeaderComp extends HTMLElement {
    * Called when the header is applied to the DOM; Sets up the header.
    */
   connectedCallback() {
+    localStorage.setItem('shortBreak', 'false');
+
+    localStorage.setItem('longBreak', 'false');
+
     // Get the session counter from storage.
     this.completedCycles =
       localStorage.getItem('sessionCounter') === null
@@ -103,6 +107,10 @@ class HeaderComp extends HTMLElement {
     const count = document.createElement('div');
     count.setAttribute('id', 'cycle-count');
 
+    const container = document.createElement('div');
+    container.appendChild(brand);
+    container.appendChild(count);
+
     const navBar = document.createElement('nav');
 
     const taskLink = document.createElement('button');
@@ -121,6 +129,7 @@ class HeaderComp extends HTMLElement {
     settingButton.addEventListener('click', () => {
       settings.showModal();
     });
+
     const timerLink = document.createElement('button');
     timerLink.textContent = 'alarm';
     timerLink.title = 'Go to Timer';
@@ -145,8 +154,9 @@ class HeaderComp extends HTMLElement {
     navBar.appendChild(settingButton);
 
     // Append the date and section to the nav element
-    section.appendChild(brand);
-    section.appendChild(count);
+    // section.appendChild(brand);
+    // section.appendChild(count);
+    section.appendChild(container);
     section.appendChild(navBar);
 
     // Appened the nav and styling to the shadow root.
@@ -261,23 +271,17 @@ class HeaderComp extends HTMLElement {
         // Get what the timer minute count should be from local storage.
         if (localStorage.getItem('shortBreak') === 'true') {
           timerMinutes = shortBreakSessionInput.value;
-        } else if (localStorage.getItem('LongBreak') === 'true') {
+        } else if (localStorage.getItem('longBreak') === 'true') {
           timerMinutes = longBreakSessionInput.value;
         } else {
           timerMinutes = workSessionInput.value;
         }
 
-        const minuteElement = document.getElementById('minutes');
-        const titleElement = document.getElementById('title_timer');
-
         // Set up the minutes and title_timer changes caused by the settings.
-        if (minuteElement && titleElement) {
-          if (timerMinutes < 10) {
-            minuteElement.innerHTML = `0${timerMinutes}`;
-          } else {
-            minuteElement.innerHTML = `${timerMinutes}`;
-          }
-          titleElement.innerHTML = `${timerMinutes}:00`;
+        const timerComp = document.getElementsByTagName('timer-comp')[0];
+        if (timerComp.dataset.running === 'false') {
+          timerComp.dataset.minutesLeft = timerMinutes;
+          timerComp.dataset.secondsLeft = 0;
         }
       }
 

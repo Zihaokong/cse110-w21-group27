@@ -1,0 +1,205 @@
+section {
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+button,
+#distraction-btn {
+  color: var(--btn-color);
+  background: var(--linear-gradient-dark);
+  box-shadow: 2px 2px 3px var(--medium-color);
+  cursor: pointer;
+
+  margin: 5px;
+  padding: 10px;
+  border: none;
+  font-size: 2rem;
+  text-align: center;
+  font-weight: lighter;
+  border-radius: 1rem;
+}
+
+button:hover,
+#distraction-btn:hover {
+  animation: button-pop;
+  transform: scale(1.2);
+  animation-duration: 0.25s;
+}
+
+button:active, 
+#distraction-btn:active {
+  animation: button-click;
+  transform: scale(1);
+  animation-duration: 0.25s;
+}
+
+dialog {
+  border-style: none;
+  box-shadow: 1px 1px 0.5rem var(--primary-color);
+}
+
+#auto-continue {
+  background-color: var(--medium-color);
+  height: 30px;
+  width: 80%;
+}
+
+#auto-continue-progress {
+  background-color: var(--primary-color);
+  height: 100%;
+  width: 0%;
+}
+
+#auto-continue-progress[running='true'] {
+  width: 100%;
+  transition: width 5s linear;
+}
+
+#create-task {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  background-color: var(--light-color);
+  border-radius: 1rem;
+}
+
+#create-task>label {
+  margin-top: 0.5rem;
+  margin-bottom: 0;
+}
+
+#create-task>.label-heading {
+  box-shadow: 0 0 0 0 var(--accent-dark);
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+  transition: box-shadow 1s ease;
+}
+
+#create-task>select {
+    margin-bottom: 0.5rem;
+}
+
+#create-task>div {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 0.5rem;
+}
+
+#create-task>#dont-show-container {
+    justify-content: center;
+}
+
+#dont-show-container>label {
+  margin-bottom: 0;
+  margin-left: 0.25rem;
+}
+
+#create-skip {
+  background: var(--linear-gradient-grey);
+}
+
+#create-skip:focus,
+#create-skip:hover {
+  background: var(--linear-gradient-grey-reverse);
+}
+
+#start-break-btn {
+  align-self: center;
+}
+
+#start-break-btn.disable {
+  opacity: 50%;
+  color: var(--btn-color);
+  background: var(--linear-gradient-dark);
+  cursor: auto;
+}
+
+#distraction-btn {
+  height: 40px;
+}
+
+#start-btn {
+  align-self: center;
+}
+
+input {
+  font-size: 1.25rem;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+label span {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+h2 {
+  font-size: 3.1rem;
+  color: var(--primary-color);
+  text-align: center;
+  margin: 0px;
+}
+
+#face-container {
+  display: flex;
+  justify-content: center;
+}
+
+#fail-buttons {
+  display: flex;
+  justify-content: center;
+}
+
+#button-task-container {
+  text-align: center;
+}
+
+#button-container {
+  align-items: flex-end;
+}
+
+.button-task-position {
+  padding-top: 2rem;
+}
+
+.button-task {
+  font-family: "Poppins", sans-serif;
+}
+
+@keyframes button-pop {
+  0% {
+    transform: scale(1);
+  }
+  
+  50% {
+    transform: scale(1.4);
+  }
+  
+  100% {
+    transform: scale(1.2);
+  }
+}
+
+@keyframes button-click {
+  0% {
+    transform: scale(1.2);
+  }
+  
+  50% {
+    transform: scale(0.9);
+  }
+  
+  100% {
+    transform: scale(1);
+  }
+}
