@@ -12,7 +12,7 @@
     <title id="title_timer">Pomodoro Timer</title>
   </head>
 
-  <body onload="timerPageInit()">
+  <body>
   
     <!--Javascript Not Enabled Contingency-->
     <noscript>
@@ -41,116 +41,13 @@
       <button id="deselect-task">cancel</button>
     </div>
 
-    <!--Timer component-->
     <timer-comp data-running="false"></timer-comp>
 
-    <!--Buttons-->
-    <section id="button-container" class="container">
-      <!-- The page opens with just the start button visible -->
-      <button class="startButton" id="start-btn">Start</button>
-
-      <!-- The create task form will become visible if start is pressed
-            without a task selected -->
-      <form id="create-task" style="display:none;">
-        <label for="choose-task" class="label-heading">
-          Choose a task to start
-        </label>
-        <select id="choose-task">
-          <option value="">-</option>
-          <!-- Tasks will be dynamically loaded here -->
-        </select>
-
-        <label for="task-name pomo-count" class="label-heading">
-          Or create a new one!
-        </label>
-        
-        <label for="task-name">Task Name</label>
-        <input type="text" id="task-name">
-
-        <label for="pomo-count">Pomo Count</label>
-        <input type="number" id="pomo-count" min="1" max="10">
-
-        <div>
-          <button type="button" id="create-skip">Skip</button>
-          <button type="button" id="create-start">Start</button>
-        </div>
-
-        <div id="dont-show-container">
-          <input type="checkbox" id="dont-show">
-          <label for="dont-show">Don't show again</label>
-        </div>
-      </form>
-
-      <!-- The distraction and fail button will be available if a task
-            is in progress -->
-      <label id="distraction-set" style="display:none;"> 
-        <span>Distraction Level:</span>
-        <input id="distraction-btn" type="image" src="/assets/images/tomo-excited.png" alt="happy face">
-      </label>
-      <button class="fail" id="fail-btn" style="display:none;">Fail</button>
-
-      <!-- The start break button will become visible after a task is complete -->
-      <button id="start-break-btn" style="display:none;">
-        Start Break
-      </button>
-    </section>
-
-    <!-- Nested divs are to prevent touching stuff below -->
-    <div id="tutorialModal" class="modal-break">
-      <div class="modal-content-short_break">
-        <p>Placeholder Tutorial Text</p>
-        <img alt="placeholder image">
-      </div>
-    </div>
-
-    <div id="breakCompleteModal" class="modal-break">
-      <div class="modal-content-short_break">
-        <div id="sad-face-container">
-          <img id="sad-face" src="../assets/images/tomo-nice.png" alt="sad face">
-        </div>
-        <div class="modal-text">
-          <div id="heading-break-complete">Break Complete</div>
-          <hr style="border-width: 3px; color: #c4c4c4" />
-          <div id="button-task-container">
-            <div class="button-task-position">
-              <button class="button-task" id="continue-btn">
-                Continue Task
-              </button>
-              <svg id="auto-continue" height="30" display="none">
-                <rect id="auto-continue-progress"></rect>
-              </svg>
-            </div>
-            <div class="button-task-position">
-              <button class="button-task" id="change-btn">
-                Change Task
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div id="failModal" class="modal-break">
-        <div class="modal-content-short_break">
-            <div class="modal-text">
-                <div class="heading-fail">
-                    Are you sure you want to fail this pomo session?
-                </div>
-                <div id="sad-face-container">
-                    <img id="sad-face" src="../assets/images/tomo-sad.png" alt="sad-face">
-                </div>
-                <div id="fail-button-container">
-                    <button class="fail-buttons" id="fail-button">Fail</button>
-                    <button class="fail-buttons" id="cancel-button">Cancel</button>
-                </div>
-            </div>
-        </div>
-      </div>
-    </div>
-
+    <timer-buttons></timer-buttons>
+    
     <script src="./timer.js"></script>
-    <script src="./tutorial.js"></script>
     <script src="../components/header-comp/header-comp.js"></script>
     <script src="../components/timer-comp/timer-comp.js"></script>
+    <script src="../components/timer-buttons/timer-buttons.js"></script>
   </body>
 </html>

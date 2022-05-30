@@ -28,3 +28,7 @@
     --linear-gradient-accent: linear-gradient(var(--accent-medium), var(--accent-dark));
     --linear-gradient-accent-reverse: linear-gradient(var(--accent-dark), var(--accent-medium));
 }
+
+body {
+    min-height: 100vh;
+}

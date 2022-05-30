@@ -124,19 +124,18 @@ class TimerComp extends HTMLElement {
       'svg'
     );
     progressRing.setAttribute('class', 'progress-ring');
-    progressRing.setAttribute('height', '27.5em');
-    progressRing.setAttribute('width', '27.5em');
-
+    progressRing.setAttribute('viewBox', '0 0 440 440');
     const progressRingCircle = document.createElementNS(
       'http://www.w3.org/2000/svg',
       'circle'
     );
     progressRingCircle.setAttribute('id', 'progress-ring-circle');
+    progressRingCircle.setAttribute('class', 'progress-ring-circle');
     progressRingCircle.setAttribute('stroke-width', '40');
     progressRingCircle.setAttribute('fill', 'transparent');
     progressRingCircle.setAttribute('r', '200');
-    progressRingCircle.setAttribute('cx', '13.75em');
-    progressRingCircle.setAttribute('cy', '13.75em');
+    progressRingCircle.setAttribute('cx', '50%');
+    progressRingCircle.setAttribute('cy', '50%');
     progressRingCircle.setAttribute('stroke', '#2E4756');
 
     timerContainer.appendChild(numberDisplay);
