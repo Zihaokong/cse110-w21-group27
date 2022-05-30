@@ -145,10 +145,11 @@ function autoContinue() {
     localStorage.getItem('longBreak') === 'true'
   ) {
     setTimeout(() => {
+      document.querySelector('timer-buttons').hideButtons();
       startBreak();
     }, 2000);
   } else {
-    document.querySelector('timer-buttons').setupAutoContinue();
+    document.querySelector('timer-buttons').displayBreakComplete(true);
   }
 }
 
@@ -275,7 +276,7 @@ function finishedTask() {
     audio.play();
 
     // Show break complete.
-    document.querySelector('timer-buttons').displayBreakComplete();
+    document.querySelector('timer-buttons').displayBreakComplete(false);
   } else {
     // we just finished a work session
     localStorage.setItem('isPomo', 'true');

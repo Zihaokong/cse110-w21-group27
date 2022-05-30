@@ -27,13 +27,14 @@ button:focus {
 }
 
 #auto-continue {
-    height: 50px;
+    background-color: var(--medium-color);
+    height: 30px;
     width: 80%;
 }
 
 #auto-continue-progress {
     animation: increaseProgress 5s linear;
-    fill: var(--primary-color);
+    background-color: var(--primary-color);
     height: 100%;
     width: 100%;
 }

@@ -279,12 +279,12 @@ class TimerButtons extends HTMLElement {
       'Continue Task'
     );
     const autoContinue = TimerButtons.createElementWithAttributes(
-      'svg',
-      ['id', 'display'],
-      ['auto-continue', 'none']
+      'div',
+      ['id'],
+      ['auto-continue']
     );
     const autoContinueProgress = TimerButtons.createElementWithAttributes(
-      'rect',
+      'div',
       'id',
       'auto-continue-progress'
     );
@@ -307,9 +307,9 @@ class TimerButtons extends HTMLElement {
     buttonTaskContainer.appendChild(continueTaskPosition);
     buttonTaskContainer.appendChild(changeTaskPosition);
     changeTaskPosition.appendChild(changeTaskButton);
-    continueTaskPosition.appendChild(continueTaskButton);
     continueTaskPosition.appendChild(autoContinue);
     autoContinue.appendChild(autoContinueProgress);
+    continueTaskPosition.appendChild(continueTaskButton);
     continueTaskButton.addEventListener('click', () => {
       breakCompleteModal.style.display = 'none';
       this.hideButtons();
@@ -469,19 +469,25 @@ class TimerButtons extends HTMLElement {
   /**
    * Display break complete modal, and sound.
    */
-  displayBreakComplete() {
+  displayBreakComplete(isAuto) {
     this.shadowRoot.getElementById('breakCompleteModal').style.display =
       'block';
-  }
-
-  setupAutoContinue() {
-    this.shadowRoot.getElementById('auto-continue').style.display =
-      'inline-block';
-    this.shadowRoot.getElementById('continue-btn').style.display = 'none';
-    setTimeout(() => {
-      this.continueTask();
-      this.startSession();
-    }, 5500);
+    if (isAuto) {
+      this.shadowRoot.getElementById('auto-continue').style.display =
+        'inline-block';
+      this.shadowRoot.getElementById('continue-btn').style.display = 'none';
+      setTimeout(() => {
+        this.shadowRoot.getElementById('breakCompleteModal').style.display =
+          'none';
+        this.continueTask();
+        this.startSession();
+        this.hideButtons();
+      }, 5500);
+    } else {
+      this.shadowRoot.getElementById('auto-continue').style.display = 'none';
+      this.shadowRoot.getElementById('continue-btn').style.display =
+        'inline-block';
+    }
   }
 
   /**
