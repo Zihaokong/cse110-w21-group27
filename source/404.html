@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Pomodoro App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="../globals/global.css" />
+  <link rel="shortcut icon" type="image/svg" href="/assets/images/logo-white.svg" />
+  <style>
+    /* Styles for index.html and Modals */
+    @import url(https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap);
+    @import url(https://fonts.googleapis.com/icon?family=Material+Icons);
+
+    .no-style {
+      display: none;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    body {
+      margin: 0 0;
+      overflow-x: hidden;
+      color: var(--primary-color);
+      font-family: "Poppins", sans-serif;
+    }
+
+    h1 {
+      margin: 0;
+      text-align: center;
+      font-size: 5rem;
+    }
+
+    img {
+      width: 200px;
+      height: auto;
+    }
+
+    main {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 30px;
+      margin: 50px;
+      height: 100%;
+    }
+
+    p {
+      margin: 0;
+      text-align: center;
+      font-size: 3rem;
+    }
+  </style>
+</head>
+
+<body>
+  
+  <!--Javascript Not Enabled Contingency-->
+  <noscript>
+    <section style="width: 100vw; height: 100vh; background-color: black;">
+      <h1 style="margin: 0; text-align: center; font-size: 3em; color: red;">WARNING! Javascript is disabled on your browser!</h1>
+      <p style="text-align: center; font-size: 3em; color: red;">This website only works with browsers which support Javascript.</p>
+    </section>
+  </noscript>
+  
+  <!--CSS Not Enabled Contingency-->
+  <section class="no-style" style="width: 100%; background-color: black;">
+    <h1 style="text-align: center; font-size: 3em; color: red;">WARNING! CSS is not working!</h1>
+  </section>
+  
+  <header-comp page="404">
+  </header-comp>
+  <main>
+    <h1>404 ERROR!</h1>
+    <img src="/assets/images/tomo-dazed.png" alt="Dazed Face" height="100px" width="100px ">
+    <p>Page not Found!</p>
+    <a href="/timer-page/timer.html">Return to Timer Page</a>
+    <a href="/tasks-page/tasks.html">Return to Tasks Page</a>
+    <a href="/stats-page/stats.html">Return to Stats Page</a>
+  </main>
+
+  <script src="/components/header-comp/header-comp.js"></script>
+</body>
+
+</html>

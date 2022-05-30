@@ -31,27 +31,32 @@ jobs:
         mkdir deploy/components/header-comp
         mkdir deploy/components/task-item
         mkdir deploy/components/task-list
+        mkdir deploy/components/timer-comp
+        mkdir deploy/components/timer-buttons
         mkdir deploy/stats-page
         mkdir deploy/tasks-page
         mkdir deploy/timer-page
         mkdir deploy/.github
         mkdir deploy/.github/workflows
+        cp source/.firebaserc deploy/
+        cp source/firebase.json deploy/
         cp minified/main.* deploy/
+        cp source/index.html deploy/index.html
+        cp source/404.html deploy/404.html
+        cp minified/tutorial.js deploy/timer-page/
         cp minified/header-comp.* deploy/components/header-comp
         cp minified/task-item.* deploy/components/task-item
         cp minified/task-list.* deploy/components/task-list
+        cp minified/timer-comp.* deploy/components/timer-comp
+        cp minified/timer-buttons.* deploy/components/timer-buttons
         cp minified/stats.* deploy/stats-page
-        cp minified/tasks.* deploy/tasks-page
-        cp minified/timer.* deploy/timer-page
-        cp minified/tutorial.js deploy/timer-page/
-        cp source/index.html deploy/index.html
-        cp source/timer-page/timer.html deploy/timer-page/
-        cp source/tasks-page/tasks.html deploy/tasks-page/
         cp source/stats-page/stats.html deploy/stats-page/
+        cp minified/tasks.* deploy/tasks-page
+        cp source/tasks-page/tasks.html deploy/tasks-page/
+        cp minified/timer.* deploy/timer-page
+        cp source/timer-page/timer.html deploy/timer-page/
         cp -a source/assets/images/. deploy/assets/images/
         cp -a source/assets/audio/. deploy/assets/audio/
-        cp source/.firebaserc deploy/
-        cp source/firebase.json deploy/
       
     - name: Deploy build files
       uses: FirebaseExtended/action-hosting-deploy@v0

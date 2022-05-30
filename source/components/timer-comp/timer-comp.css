@@ -1,0 +1,37 @@
+.container {
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.timer>.container {
+  position: absolute;
+}
+
+h4 {
+  font-size: 5rem;
+  font-weight: bold;
+  color: var(--dark-color);
+}
+
+.timer {
+  --border-size: 4px;
+
+  color: var(--dark-color);
+  text-align: center;
+  border: var(--border-size) solid var(--medium-color);
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin-bottom: 1.25rem;
+  width: min(90%, 28rem);
+}
+
+#progress-ring-circle {
+  transition: stroke-dashoffset 0.5s ease;
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+}
