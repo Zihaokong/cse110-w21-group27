@@ -43,12 +43,19 @@ class TimerButtons extends HTMLElement {
       'start-button',
       'Start'
     );
+    startButton.title = 'Start Work Session';
     startButton.addEventListener('click', () => this.openTaskForm());
 
     const distractionInput = TimerButtons.createElementWithAttributes(
       'input',
-      ['id', 'type', 'src', 'alt'],
-      ['distraction-btn', 'image', '/assets/images/tomo-excited.png', 'None'],
+      ['id', 'type', 'src', 'alt', 'title'],
+      [
+        'distraction-btn',
+        'image',
+        '/assets/images/tomo-excited.png',
+        'None',
+        'Press If Distracted!',
+      ],
       ''
     );
     distractionInput.style.display = 'none';
@@ -59,6 +66,7 @@ class TimerButtons extends HTMLElement {
       'fail-button',
       'Fail'
     );
+    failButton.title = 'Fail Work Session';
     failButton.style.display = 'none';
     failButton.addEventListener('click', () => this.openFailDialog());
 
@@ -67,6 +75,7 @@ class TimerButtons extends HTMLElement {
       'break-button',
       'Start Break'
     );
+    startBreakButton.title = 'Start Break Session';
     startBreakButton.style.display = 'none';
     startBreakButton.addEventListener('click', () => {
       this.hideButtons();
@@ -187,6 +196,7 @@ class TimerButtons extends HTMLElement {
       'create-skip',
       'Skip'
     );
+    createSkipButton.title = 'Skip Task and Start Work Session';
     createSkipButton.type = 'button';
     createSkipButton.addEventListener('click', () => {
       this.startSession();
@@ -197,7 +207,7 @@ class TimerButtons extends HTMLElement {
       'create-start',
       'Start'
     );
-
+    createTaskButtonsContainer.title = 'Start Work Session';
     createTaskButtonsContainer.appendChild(createSkipButton);
     createTaskButtonsContainer.appendChild(createStartButton);
 
