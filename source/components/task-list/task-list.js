@@ -108,14 +108,17 @@ class TaskList extends HTMLElement {
 
     // (CREATE) Create the name input
     const nameInput = document.createElement('input');
-    nameInput.placeholder = 'Title';
+    nameInput.placeholder = 'My new task...';
+    nameInput.title = 'Give your task a title';
     nameInput.maxLength = 26;
     nameInput.required = true;
     nameInput.setAttribute('content', 'title');
 
-    // (CREATE) Creat the count input
+    // (CREATE) Create the count input
     const countInput = document.createElement('input');
-    countInput.placeholder = 'Pomo Count';
+    countInput.placeholder = '# of work sessions...';
+    countInput.title =
+      'Estimate how many pomodoro sessions you will need for this task';
     countInput.type = 'number';
     countInput.min = 1;
     countInput.max = 10;
@@ -126,6 +129,7 @@ class TaskList extends HTMLElement {
     const submitButton = document.createElement('button');
     submitButton.className = 'icon';
     submitButton.textContent = 'add_circle';
+    submitButton.title = 'Add Task';
     submitButton.type = 'submit';
 
     // (CREATE) Append the form info to the form
