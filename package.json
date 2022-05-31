@@ -10,7 +10,8 @@
     "test": "npm run jest-test",
     "cov": "start coverage\\lcov-report\\index.html",
     "testCov": "npm run jest-test && npm run cov",
-    "docmd": "mkdir docs; jsdoc2md \"./source/**/*.js\" > docs/Code-Documentation.md"
+    "docmd": "mkdir docs; jsdoc2md \"./source/**/*.js\" > docs/Code-Documentation.md",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "eslint": "^8.16.0",

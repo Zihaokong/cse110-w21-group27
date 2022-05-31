@@ -30,7 +30,7 @@ function timerOnLoad() {
     'longBreakMinutes',
     localStorage.getItem('longBreakMinutes') || 15
   );
-fsdfsdasafddsfsdfasdfs
+
   // Default autoContinue to false
   localStorage.setItem(
     'autoContinue',
