@@ -11,14 +11,8 @@ class StatsCard extends HTMLElement {
   }
 
   connectedCallback() {
-    const {
-      srcUrl,
-      altText,
-      imgWidth,
-      imgHeight,
-      stat,
-      cardTitle,
-    } = this.getContent();
+    const { srcUrl, altText, imgWidth, imgHeight, stat, cardTitle } =
+      this.getContent();
 
     const template = document.createElement('template');
     template.innerHTML = `
@@ -75,12 +69,7 @@ class StatsCard extends HTMLElement {
 
   calculateStat() {
     const statLength = this.getAttribute('stat-length');
-
-    let statsList = JSON.parse(localStorage.getItem('statsList'));
-    if (statsList == null) {
-      statsList = [];
-    }
-
+    const statsList = JSON.parse(localStorage.getItem('statsList')) ?? [];
     const today = new Date();
     let numPomos = Number(localStorage.getItem('todayPomo'));
     let completedPomos = Number(localStorage.getItem('sessionCounter'));
