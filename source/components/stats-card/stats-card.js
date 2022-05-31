@@ -5,7 +5,7 @@ class StatsCard extends HTMLElement {
 
     const styleSheet = document.createElement('link');
     styleSheet.rel = 'stylesheet';
-    styleSheet.href = './stats-card.css';
+    styleSheet.href = '/components/stats-card/stats-card.css';
 
     this.shadowRoot.appendChild(styleSheet);
   }

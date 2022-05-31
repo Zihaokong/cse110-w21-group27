@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="./stats.css" />
     <link rel="shortcut icon" type="image/svg" href="/assets/images/logo-white.svg" />
     <script src="/components/header-comp/header-comp.js"></script>
+    <script src="/components/stats-row/stats-row.js" defer="defer"></script>
+    <script src="/components/stats-card/stats-card.js" defer="defer"></script>
     <script src="./stats.js" defer="defer"></script>
   </head>
 
@@ -46,68 +48,23 @@
         </div>
       </div>
 
-      <section>
-        <h2>Today</h2>
-        <div class="stats-row">
-          <article class="block-contents">
-            <img src="/assets/images/check.png" alt="checkmark symbol indicating completed pomos" width="40" height="39" />
-            <p id="todayPomos">0</p>
-            <h3>completed pomos</h3>
-          </article>
-          <article class="block-contents">
-            <img src="/assets/images/warning.png" alt="warning symbol indicating average distractions per pomo" width="39" height="38" />
-            <p id="todayAvgDistractions">0</p>
-            <h3>average distractions per pomo</h3>
-          </article>
-          <article class="block-contents">
-            <img src="/assets/images/star.png" alt="star symbol indicating pomo success rate" width="39" height="39" />
-            <p id="todaySuccess">0%</p>
-            <h3>pomo success rate</h3>
-          </article>
-        </div>
-      </section>
+      <stats-row>
+        <stats-card stat-type="completed" stat-length="1" slot="stats-card"></stats-card>
+        <stats-card stat-type="distractions" stat-length="1" slot="stats-card"></stats-card>
+        <stats-card stat-type="success" stat-length="1" slot="stats-card"></stats-card>
+      </stats-row>
 
-      <section>
-        <h2>Last 7 Days</h2>
-        <div class="stats-row">
-          <article class="block-contents">
-            <img src="/assets/images/check.png" alt="checkmark symbol indicating completed pomos" width="40" height="39" />
-            <p id="weekPomos">0</p>
-            <h3>completed pomos</h3>
-          </article>
-          <article class="block-contents">
-            <img src="/assets/images/warning.png" alt="warning symbol indicating average distractions per pomo" width="39" height="38" />
-            <p id="weekAvgDistractions">0</p>
-            <h3>average distractions per pomo</h3>
-          </article>
-          <article class="block-contents">
-            <img src="/assets/images/star.png" alt="star symbol indicating pomo success rate" width="39" height="39" />
-            <p id="weekSuccess">0%</p>
-            <h3>pomo success rate</h3>
-          </article>
-        </div>
-      </section>
+      <stats-row>
+        <stats-card stat-type="completed" stat-length="7" slot="stats-card"></stats-card>
+        <stats-card stat-type="distractions" stat-length="7" slot="stats-card"></stats-card>
+        <stats-card stat-type="success" stat-length="7" slot="stats-card"></stats-card>
+      </stats-row>
 
-      <section>
-        <h2>Last 30 Days</h2>
-        <div class="stats-row">
-          <article class="block-contents">
-            <img src="/assets/images/check.png" alt="checkmark symbol indicating completed pomos" width="40" height="39" />
-            <p id="monthPomos">0</p>
-            <h3>completed pomos</h3>
-          </article>
-          <article class="block-contents">
-            <img src="/assets/images/warning.png" alt="warning symbol indicating average distractions per pomo" width="39" height="38" />
-            <p id="monthAvgDistractions">0</p>
-            <h3>average distractions per pomo</h3>
-          </article>
-          <article class="block-contents">
-            <img src="/assets/images/star.png" alt="star symbol indicating pomo success rate" width="39" height="39" />
-            <p id="monthSuccess">0%</p>
-            <h3>pomo success rate</h3>
-          </article>
-        </div>
-      </section>
+      <stats-row>
+        <stats-card stat-type="completed" stat-length="30" slot="stats-card"></stats-card>
+        <stats-card stat-type="distractions" stat-length="30" slot="stats-card"></stats-card>
+        <stats-card stat-type="success" stat-length="30" slot="stats-card"></stats-card>
+      </stats-row>
 
     </main>
 
