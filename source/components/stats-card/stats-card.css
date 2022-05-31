@@ -1,0 +1,26 @@
+:host {
+    border-radius: 10px;
+    box-shadow: 0.25px 2px 5px 1px rgba(0, 0, 0, 0.25);
+    flex-grow: 1;
+    margin: 2%;
+    text-align: center;
+    width: 250px;
+}
+
+img {
+    margin-bottom: 0px;
+    margin-top: 15px;
+}
+
+p {
+    color: var(--primary-color);
+    font-size: 2rem;
+    font-weight: 900;
+    margin-bottom: 0px;
+    margin-top: 15px;
+    padding-bottom: 0.2em;
+}
+
+h3 {
+    font-size: 1.5rem;
+}
