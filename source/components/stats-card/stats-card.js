@@ -91,13 +91,11 @@ class StatsCard extends HTMLElement {
         statsList.splice(statsList.indexOf(statsItem));
       }
 
-      if (daysPassed < 0 || daysPassed > statLength) {
-        break;
+      if (daysPassed === 0 || daysPassed < statLength) {
+        numPomos += statsItem.pomoCount;
+        distractions += statsItem.distractions;
+        completedPomos += statsItem.completedPomos;
       }
-
-      numPomos += statsItem.pomoCount;
-      distractions += statsItem.distractions;
-      completedPomos += statsItem.completedPomos;
     }
 
     let avgDistractions = '';
