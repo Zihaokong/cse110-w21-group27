@@ -3,10 +3,6 @@
 
 :root {
     font-family: "Poppins", sans-serif;
-    --primary-color: #2e4756;
-    --medium-color: #828282;
-    --light-color: #e5e5e5;
-    --btn-color: #fff;
 }
 
 html {
@@ -14,7 +10,7 @@ html {
 }
 
 body {
-    margin: 0px;
+    margin: 0;
 }
 
 .no-style {
@@ -22,13 +18,13 @@ body {
 }
 
 img {
-    margin-bottom: 0px;
-    margin-top: 15px;
+    margin-bottom: 0;
+    margin-top: 1rem;
 }
 
 p {
-    margin-bottom: 0px;
-    margin-top: 15px;
+    margin-bottom: 0;
+    margin-top: 1rem;
     font-size: 1.5rem;
     font-weight: 400;
     padding-bottom: 0.2em;
@@ -77,12 +73,12 @@ h3 {
 
 #heading-container {
     align-items: center;
-    border-bottom: 2px solid grey;
+    border-bottom: 2px solid var(--medium-light-color);
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    margin-bottom: 2%;
-    padding-bottom: 10px;
+    margin: 0 1rem 2% 1rem;
+    padding-bottom: 0.5rem;
 }
 
 #heading-container-btns {
@@ -93,31 +89,37 @@ h3 {
 
 #reset,
 #info {
-    background-color: var(--primary-color);
+    background: var(--linear-gradient-dark);
     border: none;
-    border-radius: 40px;
+    box-shadow: 2px 3px 2px var(--medium-light-color);
+    border-radius: 1rem;
     color: var(--btn-color);
     cursor: pointer;
     font-size: 1.25rem;
     height: 2.5em;
-    margin-left: 20px;
-    margin-right: 20px;
     width: 5em;
 }
 
+#reset {
+    margin-right: 1rem;
+}
+
 #info {
-    background-color: var(--medium-color);
+    background: var(--linear-gradient-grey);
     font-weight: 500;
     width: 2.5em;
+    margin-left: 1rem;
+    border-radius: 100%;
 }
 
-#reset:hover {
-    background: #64838c;
-    color: var(--light-color);
+#reset:hover, #reset:focus {
+    background: var(--linear-gradient-dark-reverse);
+    color: var(--medium-light-color);
 }
 
-#info:hover {
-    background: var(--light-color);
+#info:hover, #info:focus {
+    background: var(--linear-gradient-grey-reverse);
+    color: var(--medium-light-color);
 }
 
 /* BACK TO TOP BUTTON */
@@ -131,7 +133,7 @@ h3 {
     cursor: pointer;
     font-family: "Poppins", sans-serif;
     font-size: 1rem;
-    padding: 10px 10px;
+    padding: 0.5rem 0.5rem;
     position: fixed;
     right: 2%;
     text-decoration: none;
@@ -143,6 +145,7 @@ h3 {
 .main-contents {
     display: grid;
     padding-bottom: 5em;
+    margin: 1rem;
 }
 
 .stats-row {
@@ -153,12 +156,13 @@ h3 {
 /* STATS BLOCKS */
 
 .block-contents {
-    border-radius: 10px;
+    border-radius: 0.5rem;
     box-shadow: 0.25px 2px 5px 1px rgba(0, 0, 0, 0.25);
     flex-grow: 1;
     margin: 2%;
+    padding: 0 0.5rem;
     text-align: center;
-    width: 250px;
+    width: 15rem;
 
 }
 
@@ -175,7 +179,7 @@ h3 {
     display: none;
     height: 100%;
     left: 0;
-    padding-top: 100px;
+    padding-top: 6rem;
     overflow: auto;
     position: fixed;
     top: 0;
@@ -184,10 +188,10 @@ h3 {
 }
 
 .modal-content {
-    background-color: #fff;
+    background-color: var(--light-color);
     border: 1px solid var(--medium-color);
     margin: auto;
-    padding: 20px;
+    padding: 1.25rem;
     width: 70%;
 }
 
@@ -198,11 +202,11 @@ h3 {
 }
 
 .modal-header {
-    border-bottom: 1px solid grey;
+    border-bottom: 1px solid var(--medium-light-color);
     display: flex;
     justify-content: space-between;
-    margin-bottom: 25px;
-    padding: 10px;
+    margin-bottom: 1.5rem;
+    padding: 0.5rem;
 }
 
 .modal-header > h3 {
@@ -224,7 +228,7 @@ h3 {
 .close:hover,
 .close:focus {
     box-shadow: none;
-    color: #000;
+    color: var(--dark-color);
     cursor: pointer;
     text-decoration: none;
 }
