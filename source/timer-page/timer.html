@@ -5,10 +5,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!--My CSS-->
-    <link rel="stylesheet" href="../globals/global.css" />
-    <link rel="stylesheet" href="./timer.css" />
+    <link rel="stylesheet" href="/globals/global.css" />
     <link rel="shortcut icon" type="image/svg" href="/assets/images/logo-white.svg" />
+    <style>
+      body {
+        background: linear-gradient(var(--gradient-light),var(--gradient-medium));
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+      }
 
+      .container {
+        margin: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      #currTask {
+        display: inline;
+        color: var(--dark-color);
+        font-size: 3rem;
+        text-align: center;
+      }
+
+      #deselect-task {
+        border: none;
+        background: transparent;
+        color: var(--dark-color);
+        cursor: pointer;
+        font-family: 'Material Icons';
+        font-size: 2rem;
+        font-weight: lighter;
+        margin: 0 0 0 1rem;
+        padding: 0;
+        text-align: center;
+      }
+
+      @keyframes increaseProgress {
+        from {
+          width: 0;
+        }
+
+        to {
+          width: 100%;
+        }
+      }
+    </style>
     <title id="title_timer">Pomodoro Timer</title>
   </head>
 

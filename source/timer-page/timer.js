@@ -189,7 +189,7 @@ function startTimer() {
     'todayPomo',
     Number(localStorage.getItem('todayPomo')) + 1
   );
-  localStorage.setItem('distractCounter', 0);
+  localStorage.setItem('currentDistractCounter', 0);
   document.getElementById('deselect-task').style.display = 'none';
   failOnExit = true;
   document.getElementsByTagName('timer-comp')[0].dataset.running = 'true';

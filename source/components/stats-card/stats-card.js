@@ -18,7 +18,7 @@ class StatsCard extends HTMLElement {
     template.innerHTML = `
             <article class="block-contents">
                 <img src="${srcUrl}" alt="${altText}" width="${imgWidth}" height="${imgHeight}" />
-                <p id="todayPomos">${stat}</p>
+                <p id="stat">${stat}</p>
                 <h3>${cardTitle}</h3>
             </article>
         `;
@@ -61,7 +61,7 @@ class StatsCard extends HTMLElement {
         stat = this.calculateStat().successRate;
         break;
       default:
-        console.log('Bad attribute');
+        break;
     }
 
     return { srcUrl, altText, imgWidth, imgHeight, stat, cardTitle };
@@ -100,11 +100,19 @@ class StatsCard extends HTMLElement {
       avgDistractions = '0';
       successRate = '0%';
     } else {
-      avgDistractions = (distractions / completedPomos).toFixed(1);
+      avgDistractions = (distractions / numPomos).toFixed(1);
       successRate = `${((completedPomos / numPomos) * 100).toFixed(2)}%`;
     }
 
     return { completedPomos, avgDistractions, successRate };
+  }
+
+  reset() {
+    this.calculateStat();
+    const { stat } = this.getContent();
+
+    const value = this.shadowRoot.getElementById('stat');
+    value.textContent = stat;
   }
 }
 

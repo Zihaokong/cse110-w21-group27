@@ -1,34 +1,41 @@
+@import url(https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap);
+@import url(https://fonts.googleapis.com/icon?family=Material+Icons);
+
 :root {
-    --dark-color: #353535;
-    --medium-color: #828282;
-    --medium-light-color: #c4c4c4;
-    --light-color: #e5e5e5;
+  --dark-color: #353535;
+  --medium-color: #828282;
+  --medium-light-color: #c4c4c4;
+  --light-color: #e5e5e5;
 
-    --btn-color: #fff;
-    --btn-hover-color: #64838c;
+  --btn-color: #fff;
+  --btn-hover-color: #64838c;
 
-    --primary-color: #2e4756;
-    --gradient-light: #cfdef3;
-    --gradient-medium: #acb6e5;
-    --gradient-dark: #86a8e7;
-    --gradient-darker: #4f658f;
-    
-    --accent-light: #f9bcb4;
-    --accent-medium: #f2998e;
-    --accent-dark: #ef7869;
+  --primary-color: #2e4756;
+  --gradient-light: #cfdef3;
+  --gradient-medium: #acb6e5;
+  --gradient-dark: #86a8e7;
+  --gradient-darker: #4f658f;
+  
+  --accent-light: #f9bcb4;
+  --accent-medium: #f2998e;
+  --accent-dark: #ef7869;
 
-    --spice-color: #74ebd5;
+  --spice-color: #74ebd5;
 
-    --linear-gradient-dark: linear-gradient(var(--gradient-darker), var(--primary-color));
-    --linear-gradient-dark-reverse: linear-gradient(var(--primary-color), var(--gradient-darker));
+  --linear-gradient-dark: linear-gradient(var(--gradient-darker), var(--primary-color));
+  --linear-gradient-dark-reverse: linear-gradient(var(--primary-color), var(--gradient-darker));
 
-    --linear-gradient-grey: linear-gradient(var(--medium-light-color), var(--medium-color));
-    --linear-gradient-grey-reverse: linear-gradient(var(--medium-color), var(--medium-light-color));
+  --linear-gradient-grey: linear-gradient(var(--medium-light-color), var(--medium-color));
+  --linear-gradient-grey-reverse: linear-gradient(var(--medium-color), var(--medium-light-color));
 
-    --linear-gradient-accent: linear-gradient(var(--accent-medium), var(--accent-dark));
-    --linear-gradient-accent-reverse: linear-gradient(var(--accent-dark), var(--accent-medium));
+  --linear-gradient-accent: linear-gradient(var(--accent-medium), var(--accent-dark));
+  --linear-gradient-accent-reverse: linear-gradient(var(--accent-dark), var(--accent-medium));
 }
 
 body {
-    min-height: 100vh;
+  min-height: 100vh;
+}
+
+.no-style {
+  display: none; 
 }
