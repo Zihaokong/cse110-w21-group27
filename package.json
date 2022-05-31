@@ -12,7 +12,13 @@
     "cov": "start coverage\\lcov-report\\index.html",
     "testCov": "npm run jest-test && npm run cov",
     "docmd": "mkdir docs; jsdoc2md \"./source/**/*.js\" > docs/Code-Documentation.md",
-    "prepare": "husky install"
+    "setupESLint-windows": "copy .\\config\\.eslintrc.json .\\.eslintrc.json",
+    "setupESLint": "cp ./config/.eslintrc.json ./.eslintrc.json",
+    "installHusky": "husky install",
+    "setupPrecommit": "npx husky add .husky/pre-commit \"npx lint-staged\"",
+    "setupHusky": "npm run installHusky && npm run setupPrecommit",
+    "setup": "npm run setupESLint & npm run setupHusky",
+    "setup-windows": "npm run setupESLint-windows & npm run setupHusky"
   },
   "devDependencies": {
     "eslint": "^8.16.0",
@@ -29,11 +35,6 @@
     "lint-staged": "^12.4.3",
     "prettier": "^2.6.2"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npx lint-staged"
-    }
-  },  
   "jest": {
     "testEnvironment": "jsdom"
   },
