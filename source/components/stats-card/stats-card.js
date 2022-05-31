@@ -5,20 +5,14 @@ class StatsCard extends HTMLElement {
 
     const styleSheet = document.createElement('link');
     styleSheet.rel = 'stylesheet';
-    styleSheet.href = './stats-card.css';
+    styleSheet.href = '/components/stats-card/stats-card.css';
 
     this.shadowRoot.appendChild(styleSheet);
   }
 
   connectedCallback() {
-    const {
-      srcUrl,
-      altText,
-      imgWidth,
-      imgHeight,
-      stat,
-      cardTitle,
-    } = this.getContent();
+    const { srcUrl, altText, imgWidth, imgHeight, stat, cardTitle } =
+      this.getContent();
 
     const template = document.createElement('template');
     template.innerHTML = `
@@ -67,7 +61,7 @@ class StatsCard extends HTMLElement {
         stat = this.calculateStat().successRate;
         break;
       default:
-        console.log('Bad attribute');
+        break;
     }
 
     return { srcUrl, altText, imgWidth, imgHeight, stat, cardTitle };
@@ -112,11 +106,19 @@ class StatsCard extends HTMLElement {
       avgDistractions = '0';
       successRate = '0%';
     } else {
-      avgDistractions = (distractions / completedPomos).toFixed(1);
+      avgDistractions = (distractions / numPomos).toFixed(1);
       successRate = `${((completedPomos / numPomos) * 100).toFixed(2)}%`;
     }
 
     return { completedPomos, avgDistractions, successRate };
+  }
+
+  resetStats() {
+    this.calculateStat();
+    const { stat } = this.getContent();
+
+    const value = this.shadowRoot.getElementById('todayPomos');
+    value.textContent = stat;
   }
 }
 
