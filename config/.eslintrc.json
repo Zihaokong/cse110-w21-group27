@@ -1,7 +1,24 @@
 {
-    "extends": ["airbnb-base", "prettier", "plugin:cypress/recommended"],
-    "plugins": ["prettier", "jest"],
-    "ignorePatterns": ["/build/*"],
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": [
+        "airbnb-base",
+        "prettier", 
+        "plugin:cypress/recommended"
+    ],
+    "ignorePatterns": [
+        "/build/*"
+    ],
+    "parserOptions": {
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "plugins": [
+        "prettier",
+        "jest"
+    ],
     "rules": {
         "no-unused-vars":"warn",
         "no-plusplus":"off",
@@ -13,10 +30,6 @@
               "endOfLine": "auto",
               "singleQuote": true
             }
-          ]
-    },
-    "env": {
-        "jest/globals": true,
-        "browser": true
+        ]
     }
 }

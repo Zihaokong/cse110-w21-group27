@@ -3,11 +3,6 @@
 @import url(https://fonts.googleapis.com/icon?family=Material+Icons);
 
 :root {
-  --primary-color: #2e4756;
-  --medium-color: #828282;
-  --light-color: #e5e5e5;
-  --btn-color: #fff;
-  --btn-hover-color: #64838c;
   --small-text-color: red;
   --background-color: rgba(0, 0, 0, 0.25)
 }
