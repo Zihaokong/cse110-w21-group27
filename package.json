@@ -2,7 +2,8 @@
   "name": "cse112-sp22-group8",
   "version": "2.0.0",
   "description": "",
-  "main": "index.js",
+  "license": "GPL",
+  "homepage": "https://github.com/cmwall0605/cse112-sp22-group8#readme",
   "scripts": {
     "doc": "jsdoc -c config/jsdoc.json",
     "jest-test": "jest --coverage",
@@ -23,6 +24,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "husky": "^8.0.1",
     "jest": "^28.1.0",
+    "jest-environment-jsdom": "^28.1.0",
     "jsdoc": "^3.6.10",
     "lint-staged": "^12.4.3",
     "prettier": "^2.6.2"
@@ -31,6 +33,9 @@
     "hooks": {
       "pre-commit": "npx lint-staged"
     }
+  },  
+  "jest": {
+    "testEnvironment": "jsdom"
   },
   "lint-staged": {
     "*.js": "eslint -c config/.eslintrc.json --cache --fix"
