@@ -125,7 +125,7 @@ class TaskList extends HTMLElement {
     countInput.required = true;
     countInput.setAttribute('content', 'count');
 
-    // (CREATE) Creat the submit button
+    // (CREATE) Create the submit button
     const submitButton = document.createElement('button');
     submitButton.className = 'icon';
     submitButton.textContent = 'add_circle';
