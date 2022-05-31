@@ -85,7 +85,7 @@ class StatsCard extends HTMLElement {
         statsList.splice(statsList.indexOf(statsItem));
       }
 
-      if (daysPassed === 0 || daysPassed < statLength) {
+      if (daysPassed < statLength) {
         numPomos += statsItem.pomoCount;
         distractions += statsItem.distractions;
         completedPomos += statsItem.completedPomos;
