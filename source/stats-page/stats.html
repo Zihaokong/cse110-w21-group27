@@ -6,11 +6,110 @@
     <meta name="description" content="Stats page containing statistics relating to completed pomos, average distractions for pomo, and pomo success rate" />
     <title>Pomodoro Timer</title>
 
-    <link rel="stylesheet" href="../globals/global.css" />
-    <link rel="stylesheet" href="./stats.css" />
     <link rel="shortcut icon" type="image/svg" href="/assets/images/logo-white.svg" />
+    <link rel="stylesheet" href="/globals/global.css" />
     <script src="/components/header-comp/header-comp.js"></script>
-    <script src="./stats.js" defer="defer"></script>
+    <script src="/components/stats-row/stats-row.js" defer="defer"></script>
+    <script src="/components/stats-card/stats-card.js" defer="defer"></script>
+    <script src="/stats-page/stats.js" defer="defer"></script>
+    <style>
+      :root {
+        font-family: "Poppins", sans-serif;
+      }
+
+      .no-style {
+          display: none;
+      }
+      
+      body {
+        margin: 0;
+      }
+      
+      button,
+      #distraction-btn {
+        color: var(--btn-color);
+        background: var(--linear-gradient-dark);
+        box-shadow: 2px 2px 3px var(--medium-color);
+        cursor: pointer;
+
+        margin: 5px;
+        padding: 10px;
+        border: none;
+        font-size: 2rem;
+        text-align: center;
+        font-weight: lighter;
+        border-radius: 1rem;
+      }
+
+      button:hover,
+      #distraction-btn:hover {
+        animation: button-pop;
+        transform: scale(1.2);
+        animation-duration: 0.25s;
+      }
+
+      button:active, 
+      #distraction-btn:active {
+        animation: button-click;
+        transform: scale(1);
+        animation-duration: 0.25s;
+      }
+      
+      h1 {
+        color: var(--primary-color);
+        font-size: 2.5rem;
+        margin: 0;
+      }
+
+      
+      main {
+        display: grid;
+        padding-bottom: 5em;
+        margin: 1rem;
+      }
+
+      #heading-container {
+        align-items: center;
+        border-bottom: 2px solid var(--medium-light-color);
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin: 0 1rem 2% 1rem;
+        padding-bottom: 0.5rem;
+      }
+
+      #heading-container-btns {
+        display: flex;
+      }
+      
+      @keyframes button-pop {
+        0% {
+          transform: scale(1);
+        }
+        
+        50% {
+          transform: scale(1.4);
+        }
+        
+        100% {
+          transform: scale(1.2);
+        }
+      }
+
+      @keyframes button-click {
+        0% {
+          transform: scale(1.2);
+        }
+        
+        50% {
+          transform: scale(0.9);
+        }
+        
+        100% {
+          transform: scale(1);
+        }
+      }
+    </style>
   </head>
 
   <body>
@@ -36,110 +135,33 @@
 
     <header-comp page="stats"></header-comp>
 
-    <main class="main-contents">
+    <main>
 
       <div id="heading-container">
         <h1>Statistics:</h1>
         <div id="heading-container-btns">
           <button id="reset" onclick="resetStats()">Reset</button>
-          <button id="info" onclick="openInfoModal()">?</button>
         </div>
       </div>
 
-      <section>
-        <h2>Today</h2>
-        <div class="stats-row">
-          <article class="block-contents">
-            <img src="/assets/images/check.png" alt="checkmark symbol indicating completed pomos" width="40" height="39" />
-            <p id="todayPomos">0</p>
-            <h3>completed pomos</h3>
-          </article>
-          <article class="block-contents">
-            <img src="/assets/images/warning.png" alt="warning symbol indicating average distractions per pomo" width="39" height="38" />
-            <p id="todayAvgDistractions">0</p>
-            <h3>average distractions per pomo</h3>
-          </article>
-          <article class="block-contents">
-            <img src="/assets/images/star.png" alt="star symbol indicating pomo success rate" width="39" height="39" />
-            <p id="todaySuccess">0%</p>
-            <h3>pomo success rate</h3>
-          </article>
-        </div>
-      </section>
-
-      <section>
-        <h2>Last 7 Days</h2>
-        <div class="stats-row">
-          <article class="block-contents">
-            <img src="/assets/images/check.png" alt="checkmark symbol indicating completed pomos" width="40" height="39" />
-            <p id="weekPomos">0</p>
-            <h3>completed pomos</h3>
-          </article>
-          <article class="block-contents">
-            <img src="/assets/images/warning.png" alt="warning symbol indicating average distractions per pomo" width="39" height="38" />
-            <p id="weekAvgDistractions">0</p>
-            <h3>average distractions per pomo</h3>
-          </article>
-          <article class="block-contents">
-            <img src="/assets/images/star.png" alt="star symbol indicating pomo success rate" width="39" height="39" />
-            <p id="weekSuccess">0%</p>
-            <h3>pomo success rate</h3>
-          </article>
-        </div>
-      </section>
-
-      <section>
-        <h2>Last 30 Days</h2>
-        <div class="stats-row">
-          <article class="block-contents">
-            <img src="/assets/images/check.png" alt="checkmark symbol indicating completed pomos" width="40" height="39" />
-            <p id="monthPomos">0</p>
-            <h3>completed pomos</h3>
-          </article>
-          <article class="block-contents">
-            <img src="/assets/images/warning.png" alt="warning symbol indicating average distractions per pomo" width="39" height="38" />
-            <p id="monthAvgDistractions">0</p>
-            <h3>average distractions per pomo</h3>
-          </article>
-          <article class="block-contents">
-            <img src="/assets/images/star.png" alt="star symbol indicating pomo success rate" width="39" height="39" />
-            <p id="monthSuccess">0%</p>
-            <h3>pomo success rate</h3>
-          </article>
-        </div>
-      </section>
+      <stats-row>
+        <stats-card stat-type="completed" stat-length="1" slot="stats-card"></stats-card>
+        <stats-card stat-type="distractions" stat-length="1" slot="stats-card"></stats-card>
+        <stats-card stat-type="success" stat-length="1" slot="stats-card"></stats-card>
+      </stats-row>
+      
+      <stats-row>
+        <stats-card stat-type="completed" stat-length="7" slot="stats-card"></stats-card>
+        <stats-card stat-type="distractions" stat-length="7" slot="stats-card"></stats-card>
+        <stats-card stat-type="success" stat-length="7" slot="stats-card"></stats-card>
+      </stats-row>
+      
+      <stats-row>
+        <stats-card stat-type="completed" stat-length="30" slot="stats-card"></stats-card>
+        <stats-card stat-type="distractions" stat-length="30" slot="stats-card"></stats-card>
+        <stats-card stat-type="success" stat-length="30" slot="stats-card"></stats-card>
+      </stats-row>
 
     </main>
-
-    <div id="info-modal" class="modal" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h3>Information</h3>
-            <button
-              type="button"
-              class="close"
-              data-bs-dismiss="modal"
-              aria-label="Close the info dialog"
-              onclick="closeInfoModal()"
-            >X</button>
-          </div>
-          <div class="modal-body">
-            <div class="modal-text">
-              <p>
-                <b>Completed Pomos: </b><br />Total number of completed pomos
-              </p>
-              <p>
-                <b>Average Distractions Per Pomo: </b><br />Ratio of total
-                number of distractions to total number of completed pomos
-              </p>
-              <p>
-                <b>Pomo Success Rate: </b><br />Ratio of total number of
-                completed pomos to total number of attempted pomos (including
-                failed pomos)
-              </p>
-            </div>
-          </div>
-        </div>
-    </div>
   </body>
 </html>
