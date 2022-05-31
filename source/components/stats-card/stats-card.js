@@ -18,7 +18,7 @@ class StatsCard extends HTMLElement {
     template.innerHTML = `
             <article class="block-contents">
                 <img src="${srcUrl}" alt="${altText}" width="${imgWidth}" height="${imgHeight}" />
-                <p id="todayPomos">${stat}</p>
+                <p id="stat">${stat}</p>
                 <h3>${cardTitle}</h3>
             </article>
         `;
@@ -69,20 +69,14 @@ class StatsCard extends HTMLElement {
 
   calculateStat() {
     const statLength = this.getAttribute('stat-length');
-
-    let statsList = JSON.parse(localStorage.getItem('statsList'));
-    if (statsList == null) {
-      statsList = [];
-    }
-
+    const statsList = JSON.parse(localStorage.getItem('statsList')) ?? [];
     const today = new Date();
     let numPomos = Number(localStorage.getItem('todayPomo'));
     let completedPomos = Number(localStorage.getItem('sessionCounter'));
     let distractions = Number(localStorage.getItem('distractCounter'));
 
-    for (let i = 0; i < statsList.length; i++) {
-      const statsItem = statsList[i];
-
+    // eslint-disable-next-line no-restricted-syntax
+    for (const statsItem of statsList) {
       const daysPassed = Math.floor(
         Math.abs(today - new Date(statsItem.day)) / (1000 * 60 * 60 * 24)
       );
@@ -111,11 +105,11 @@ class StatsCard extends HTMLElement {
     return { completedPomos, avgDistractions, successRate };
   }
 
-  resetStats() {
+  reset() {
     this.calculateStat();
     const { stat } = this.getContent();
 
-    const value = this.shadowRoot.getElementById('todayPomos');
+    const value = this.shadowRoot.getElementById('stat');
     value.textContent = stat;
   }
 }

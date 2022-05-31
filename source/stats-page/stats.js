@@ -23,7 +23,7 @@ function resetStats() {
   localStorage.setItem('distractCounter', 0);
   const cards = document.querySelectorAll('stats-card');
   for (let i = 0; i < cards.length; i++) {
-    cards[i].resetStats();
+    cards[i].reset();
   }
 }
 
