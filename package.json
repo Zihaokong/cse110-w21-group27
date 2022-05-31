@@ -2,7 +2,8 @@
   "name": "cse112-sp22-group8",
   "version": "2.0.0",
   "description": "",
-  "main": "index.js",
+  "license": "GPL",
+  "homepage": "https://github.com/cmwall0605/cse112-sp22-group8#readme",
   "scripts": {
     "doc": "jsdoc -c config/jsdoc.json",
     "jest-test": "jest --coverage",
@@ -10,47 +11,36 @@
     "test": "npm run jest-test",
     "cov": "start coverage\\lcov-report\\index.html",
     "testCov": "npm run jest-test && npm run cov",
-    "docmd": "mkdir docs; jsdoc2md \"./source/**/*.js\" > docs/Code-Documentation.md"
+    "docmd": "mkdir docs; jsdoc2md \"./source/**/*.js\" > docs/Code-Documentation.md",
+    "setupESLint-windows": "copy .\\config\\.eslintrc.json .\\.eslintrc.json",
+    "setupESLint": "cp ./config/.eslintrc.json ./.eslintrc.json",
+    "installHusky": "husky install",
+    "setupPrecommit": "npx husky add .husky/pre-commit \"npx lint-staged\"",
+    "setupHusky": "npm run installHusky && npm run setupPrecommit",
+    "setup": "npm run setupESLint & npm run setupHusky",
+    "setup-windows": "npm run setupESLint-windows & npm run setupHusky"
+  },
+  "devDependencies": {
+    "eslint": "^8.16.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-cypress": "^2.12.1",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jest": "^26.4.6",
+    "eslint-plugin-prettier": "^4.0.0",
+    "husky": "^8.0.1",
+    "jest": "^28.1.0",
+    "jest-environment-jsdom": "^28.1.0",
+    "jsdoc": "^3.6.10",
+    "lint-staged": "^12.4.3",
+    "prettier": "^2.6.2"
   },
   "jest": {
     "testEnvironment": "jsdom"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/cmwall0605/cse112-sp22-group8.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/cmwall0605/cse112-sp22-group8/issues"
-  },
-  "homepage": "https://github.com/cmwall0605/cse112-sp22-group8#readme",
-  "devDependencies": {
-    "cypress": "^9.6.1",
-    "eslint": "^7.2.0",
-    "eslint-config-airbnb-base": "^14.2.1",
-    "eslint-config-prettier": "^7.2.0",
-    "eslint-plugin-cypress": "^2.11.2",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-jest": "^24.1.3",
-    "eslint-plugin-prettier": "^3.3.1",
-    "husky": "^4.3.8",
-    "jest": "^26.6.3",
-    "jsdoc": "^3.6.10",
-    "jsdoc-to-markdown": "^7.1.1",
-    "lint-staged": "^10.5.3",
-    "prettier": "^2.2.1"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npx lint-staged"
-    }
-  },
   "lint-staged": {
     "*.js": "eslint -c config/.eslintrc.json --cache --fix"
   },
-  "dependencies": {},
   "directories": {
     "doc": "docs"
   }
