@@ -75,9 +75,8 @@ class StatsCard extends HTMLElement {
     let completedPomos = Number(localStorage.getItem('sessionCounter'));
     let distractions = Number(localStorage.getItem('distractCounter'));
 
-    for (let i = 0; i < statsList.length; i++) {
-      const statsItem = statsList[i];
-
+    // eslint-disable-next-line no-restricted-syntax
+    for (const statsItem of statsList) {
       const daysPassed = Math.floor(
         Math.abs(today - new Date(statsItem.day)) / (1000 * 60 * 60 * 24)
       );
