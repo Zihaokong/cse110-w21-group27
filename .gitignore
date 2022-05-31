@@ -7,6 +7,7 @@ cypress/screenshots
 cypress/videos
 build
 .vscode
+.husky
 ./source/.vscode
 .idea/vcs.xml
 .idea/inspectionProfiles/Project_Default.xml
