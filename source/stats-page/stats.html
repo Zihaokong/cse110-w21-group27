@@ -16,8 +16,7 @@
     <script src="/components/stats-card/stats-card.js" defer="defer"></script>
     <script src="/stats-page/stats.js" defer="defer"></script>
     <style>
-      button,
-      #distraction-btn {
+      button {
         color: var(--btn-color);
         background: var(--linear-gradient-dark);
         box-shadow: 2px 2px 3px var(--medium-color);
@@ -32,15 +31,13 @@
         border-radius: 1rem;
       }
 
-      button:hover,
-      #distraction-btn:hover {
+      button:hover {
         animation: button-pop;
-        transform: scale(1.2);
+        transform: scale(1          .2);
         animation-duration: 0.25s;
       }
 
-      button:active, 
-      #distraction-btn:active {
+      button:active {
         animation: button-click;
         transform: scale(1);
         animation-duration: 0.25s;

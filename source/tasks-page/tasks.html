@@ -15,17 +15,20 @@
     body {
       color: var(--medium-color);
     }
-
-    #heading-container{
-
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+    
+    #heading-container {
+        align-items: center;
+        border-bottom: 2px solid var(--medium-light-color);
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin: 0 1rem 2% 1rem;
+        padding-bottom: 0.5rem;
+      }
 
     h1 {
-      padding-top: 5%;
-      padding-left: 5%;
+      color: var(--primary-color);
+      font-size: 2.5rem;
       margin: 0;
     }
 
@@ -50,7 +53,9 @@
   <header-comp page="tasks">
   </header-comp>
   <main>
-    <h1>To-do List</h1>
+    <div id="heading-container"></div>
+      <h1>To-do List</h1>
+    </div>
     <task-list>
     </task-list>
   </main>
