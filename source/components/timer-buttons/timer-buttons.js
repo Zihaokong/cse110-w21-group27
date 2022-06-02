@@ -336,7 +336,7 @@ class TimerButtons extends HTMLElement {
     const sadFaceImg = TimerButtons.createElementWithAttributes(
       'img',
       ['src', 'alt', 'width', 'height'],
-      ['/assets/images/tomo-sad.webp', 'sad face', '121px', '100px']
+      ['/assets/images/tomo-sad.webp', 'sad face', '118px', '100px']
     );
 
     const failButtonContainer = TimerButtons.createElementWithAttributes(
