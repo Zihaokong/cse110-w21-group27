@@ -162,6 +162,7 @@ class HeaderComp extends HTMLElement {
     logo.src = '/assets/images/logo-white.svg';
     logo.width = '68';
     logo.height = '68';
+    logo.alt = 'Tomo Timer Logo';
     const title = document.createElement('h1');
     title.textContent = 'Tomo';
 
