@@ -15,16 +15,6 @@
     body {
       color: var(--medium-color);
     }
-    
-    #heading-container {
-        align-items: center;
-        border-bottom: 2px solid var(--medium-light-color);
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        margin: 0 1rem 2% 1rem;
-        padding-bottom: 0.5rem;
-      }
 
     h1 {
       color: var(--primary-color);
@@ -32,6 +22,21 @@
       margin: 0;
     }
 
+    main {
+      padding-bottom: 5em;
+      margin: 1rem;
+    }
+    
+    #heading-container {
+      align-items: center;
+      border-bottom: 2px solid var(--medium-light-color);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      margin: 0 1rem 2% 1rem;
+      padding-bottom: 0.5rem;
+    }
+    
   </style>
 </head>
 
@@ -54,7 +59,7 @@
   </header-comp>
   <main>
     <div id="heading-container">
-      <h1>To-do List</h1>
+      <h1>To-do List:</h1>
     </div>
     <task-list>
     </task-list>
