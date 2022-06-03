@@ -7,7 +7,7 @@
   "scripts": {
     "doc": "jsdoc -c config/jsdoc.json",
     "jest-test": "jest --coverage",
-    "cypress-test": "npx cypress open --config-file config/cypress.json",
+    "cypress-test": "npx cypress open --config-file config/cypress.config.js",
     "test": "npm run jest-test",
     "cov": "start coverage\\lcov-report\\index.html",
     "testCov": "npm run jest-test && npm run cov",
