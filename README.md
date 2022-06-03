@@ -1,4 +1,4 @@
-# cse110-w21-group8 (AKA Team Cre8tors)
+# CSE 112 SPRING 2022 TEAM 8 (AKA Team Cre8tors)
 ## README (WORK IN PROGRESS...)
 
 <div id="top"></div>
