@@ -214,13 +214,9 @@ function timerCompCallback(mutations) {
       const seconds = timer.dataset.secondsLeft;
 
       if (seconds < 10) {
-        document.getElementById(
-          'title_timer'
-        ).innerHTML = `${minutes}:0${seconds}`;
+        document.title = `Tomo Timer - ${minutes}:0${seconds}`;
       } else {
-        document.getElementById(
-          'title_timer'
-        ).innerHTML = `${minutes}:${seconds}`;
+        document.title = `Tomo Timer - ${minutes}:${seconds}`;
       }
     }
   }
