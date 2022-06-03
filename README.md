@@ -1,5 +1,5 @@
 # CSE 112 SPRING 2022 TEAM 8 (AKA Team Cre8tors)
-## README (WORK IN PROGRESS...)
+## README
 
 <div id="top"></div>
 <!--
@@ -72,9 +72,9 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+[![Tomo Timer][product-screenshot]](https://pomodoro-timer-c1a2a.web.app/timer-page/timer.html)
 
-Pomodoro is a productivity technique where inidividuals work for 25 minutes at a time and take 5 minute breaks in between. They take a longer break every 4 sessions. Our app takes this technique and adds a task manager that allows users to focus and keep track of their tasks. Furthermore, our app does not include a pause button to give users unrestricted focus. 
+The Pomodoro Technique is a productivity technique where inidividuals work for 25 minutes at a time and take 5 minute breaks in between. They take a longer break every 4 sessions. Our app, Tomo Timer, takes this technique and adds a task manager that allows users to focus and keep track of their tasks. Furthermore, our app does not include a pause button to give users unrestricted focus. 
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
