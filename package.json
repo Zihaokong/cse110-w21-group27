@@ -21,6 +21,7 @@
     "setup-windows": "npm run setupESLint-windows & npm run setupHusky"
   },
   "devDependencies": {
+    "cypress": "^10.0.2",
     "eslint": "^8.16.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^8.5.0",
