@@ -4,7 +4,6 @@
  */
 
 /**
- * @class
  * A webcomponent that exists on the top of every page.
  * 
  * Shows the logo and the current amount of pomo cycles completed.
@@ -14,7 +13,6 @@
 class HeaderComp extends HTMLElement {
   /**
    * Constructor which attaches a shadow root to this element in open mode.
-   * @constructor
    */
   constructor() {
     super();

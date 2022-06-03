@@ -1,5 +1,4 @@
 /**
- * @class
  * A webcomponent used to display statistic information on the stats page.
  *
  * The StatsCard represents a single statistic, and contains an image, a number,
@@ -9,7 +8,6 @@ class StatsCard extends HTMLElement {
   /**
    * Attaches a shadow DOM to the webcomponent, as well as adds the link to the
    * stylesheet.
-   * @constructor
    */
   constructor() {
     super();

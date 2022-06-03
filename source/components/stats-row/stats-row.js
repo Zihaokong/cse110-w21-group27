@@ -1,4 +1,14 @@
-class StatsRow extends HTMLElement {
+/**
+ * A webcomponent used to group stat-card components.
+ *
+ * The StatsRow represents a the statistics for a single period of time 
+ * (1 day, 7 days, 30 days).
+ */
+ class StatsRow extends HTMLElement {
+  /**
+   * Attaches a shadow DOM to the webcomponent, as well as adds the link to the
+   * stylesheet.
+   */
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
@@ -9,7 +19,10 @@ class StatsRow extends HTMLElement {
 
     this.shadowRoot.appendChild(styleSheet);
   }
-
+  
+  /**
+   * Called when the webcomponent is applied to the DOM; Sets up the webcomponent.
+   */
   connectedCallback() {
     const template = document.createElement('template');
 
