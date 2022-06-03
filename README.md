@@ -249,6 +249,7 @@ Project Link: [https://github.com/cmwall0605/cse112-sp22-group8](https://github.
 
 * [UCSD CSE Department](https://cse.ucsd.edu)
 * [Professor Powell](https://classes.pint.com)
+* Priyanka Bhatia - TA Mentor
 * [Purrwitch (Tomo Mascot Artist)](https://purrwitch.com/)
 <!--
 * [Malven's Flexbox Cheatsheet](https://flexbox.malven.co/)
