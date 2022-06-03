@@ -10,7 +10,6 @@
 *** Thanks again! Now go create something AMAZING! :D
 -->
 
-
 <!-- PROJECT SHIELDS -->
 <!--
 *** I'm using markdown "reference style" links for readability.
@@ -45,8 +44,6 @@
   </p>
 </div>
 
-
-
 <!-- TABLE OF CONTENTS -->
 <details>
   <summary>Table of Contents</summary>
@@ -72,8 +69,6 @@
   </ol>
 </details>
 
-
-
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
@@ -84,18 +79,17 @@ Pomodoro is a productivity technique where inidividuals work for 25 minutes at a
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ### Built With
-
-* [Cypress](https://www.cypress.io)
-* [JSDocs](https://jsdoc.app)
-* [Jest](https://jestjs.io)
-* [Web Components](https://www.webcomponents.org)
+* [HTML5](https://developer.mozilla.org/en-US/docs/Glossary/HTML5)
+* [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS)
+* [Javascript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+  * [Web Components](https://developer.mozilla.org/en-US/docs/Web/Web_Components)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- GETTING STARTED -->
-## Getting Started
+## Getting Started As a Developer
 
-_Below are steps of how you can install and set up the app._
+_Below are steps of how you can install and set up the web app locally as the developer._
 
 ### Installation
 
@@ -107,14 +101,16 @@ _Below are steps of how you can install and set up the app._
    ```sh
    npm install
    ```
-3. Get source
+3. Set up ESLint and Husky Autocommit
    ```sh
-   open the source/index.html 
+   npm run setup
+   ```
+   If on Windows
+   ```sh
+   npm run setup-windows
    ```
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
-
 
 <!-- USAGE EXAMPLES -->
 ## Usage
@@ -135,12 +131,8 @@ Demonstrated Workflow:
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-
 <!-- ROADMAP -->
 ## Roadmap
-
-
-
 
 Logistics
   - [x] Repo evaluations
@@ -207,8 +199,6 @@ See the [open issues](https://github.com/cmwall0605/cse112-sp22-group8/issues) f
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-
-
 <!-- CONTRIBUTING 
 ## Contributing
 
@@ -230,30 +220,25 @@ Don't forget to give the project a star! Thanks again!
 <!-- LICENSE -->
 ## License
 
-Distributed under the MIT License. See `LICENSE.txt` for more information.
+Distributed under the MIT License. See `LICENSE.md` for more information.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-
-
 <!-- CONTACT -->
 ## Contact
-
+Chad Wall: cmwall@ucsd.edu  
 Sohum Modha: smodha@ucsd.edu
 
 Project Link: [https://github.com/cmwall0605/cse112-sp22-group8](https://github.com/cmwall0605/cse112-sp22-group8)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-
-
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-
-
 * [UCSD CSE Department](https://cse.ucsd.edu)
 * [Professor Powell](https://classes.pint.com)
+* [Purrwitch (Tomo Mascot Artist)](https://purrwitch.com/)
 <!--
 * [Malven's Flexbox Cheatsheet](https://flexbox.malven.co/)
 * [Malven's Grid Cheatsheet](https://grid.malven.co/)
@@ -263,8 +248,6 @@ Project Link: [https://github.com/cmwall0605/cse112-sp22-group8](https://github.
 * [React Icons](https://react-icons.github.io/react-icons/search) -->
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
-
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
