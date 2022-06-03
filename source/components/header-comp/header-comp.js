@@ -4,6 +4,8 @@
  */
 
 /**
+ * \<header-comp\>
+ * 
  * A webcomponent that exists on the top of every page.
  * 
  * Shows the logo and the current amount of pomo cycles completed.

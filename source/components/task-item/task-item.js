@@ -9,7 +9,9 @@
  */
 
 /**
- * The component that represents an individual task. Houses the task's
+ * \<task-item\>
+ * 
+ * The web component that represents an individual task. Houses the task's
  * information and contains event listeners for play, edit,  delete, and
  * complete, which it gets from the task list.
  */

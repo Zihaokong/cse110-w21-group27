@@ -1,4 +1,6 @@
 /**
+ * \<stats-row\>
+ * 
  * A webcomponent used to group stat-card components.
  *
  * The StatsRow represents a the statistics for a single period of time 

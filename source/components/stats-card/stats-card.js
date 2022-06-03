@@ -1,4 +1,6 @@
 /**
+ * \<stats-card\>
+ * 
  * A webcomponent used to display statistic information on the stats page.
  *
  * The StatsCard represents a single statistic, and contains an image, a number,
