@@ -72,7 +72,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Tomo Timer][product-screenshot]](https://pomodoro-timer-c1a2a.web.app/timer-page/timer.html)
+[![Tomo Timer][/admin/readme-assets/tomo-timer-screenshot.webp]](https://pomodoro-timer-c1a2a.web.app/timer-page/timer.html)
 
 The Pomodoro Technique is a productivity technique where inidividuals work for 25 minutes at a time and take 5 minute breaks in between. They take a longer break every 4 sessions. Our app, Tomo Timer, takes this technique and adds a task manager that allows users to focus and keep track of their tasks. Furthermore, our app does not include a pause button to give users unrestricted focus. 
 
