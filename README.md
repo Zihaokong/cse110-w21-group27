@@ -113,21 +113,33 @@ _Below are steps of how you can install and set up the web app locally as the de
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- USAGE EXAMPLES -->
-## Usage
+## User Flow
 
 Demonstrated Workflow: 
 
-1. On the landing page, we input a task, start a 25 minute pomodoro timer, and fail the task. 
-
-< need to add photo >
-
-2.  Multiple tasks can be added and deleted at any time
-
-< need to add photo >
-
-3. All tasks live in the local storage. 
-
-< need to add photo >
+1. On the landing page, we are introducted to the timer.
+2. The timer switches between work mode (25 minutes) and break mode (5 minutes), with every 4th break being thrice as long as the usual break (15 minutes).
+3. Starting the timer without a task, the user is prompted to either choose a task they created in the past, or create one now. The user can optionally opt out of making a task and run the timer without logging the session in a task.
+4. Starting the timer, the user must then begin the task they decided to commit to.
+5. The user, if distracted, can use the distraction button to quickly note that they were distracted at this point.
+6. Additionally, the user can fail the session if they find themselves not being able to work on the task at a consistent rate.
+7. At the end of a work session, it then prompts the user to begin the their break.
+8. During this break, the user is free to do whatever they want so long as it is not the task at hand.
+9. After the break, the user can either continue their task, or they can change their task. Changing their task leads them to the tasks list page.
+10. The task list page is where tasks will typically be created, shown, updated, and deleted (though they can also be created on the timer page).
+11. To create a task, the user can use the form underneath the todo list title, giving a title of the task and the amount of work sessions it would take to complete the task.
+12. To edit a task, the user can click the pencil icon which will pop down an edit form.
+13. To play a task, the user can click the play icon which will redirect them to the timer page with the task they chose selected and ready to start.
+14. To delete a task, the user can click the trash icon which will ask them to confirm their decision.
+15. The user can additionally move their tasks around the list to suit their own needs (possibly to show a hieracrchy of importance, but that is up to the user).
+16. The timer's settings can be modified in the settings menu on the top right, indicated by the cog.
+17. Here you can set the time of each type of session,
+18. Change the volume,
+19. Or enable auto timer
+17. The stats of the user is logged and visible to the user on the stats page.
+18. On the stats page there are three sets of info displayed across three different sets of time ranges.
+19. The three sets of info displayed are completed pomos, average distractions per pomo, and pomo completion rate.
+20. The three time ranges are today, the past 7 days, and the past 30 days. 
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
