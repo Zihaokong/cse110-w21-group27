@@ -55,14 +55,10 @@
       </ul>
     </li>
     <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
+      <a href="#getting-started-as-a-developer">Getting Started as a Developer</a>
     </li>
-    <li><a href="#usage">Usage</a></li>
+    <li><a href="#user-flow">User Flow</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
-    <!-- <li><a href="#contributing">Contributing</a></li> -->
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
@@ -71,8 +67,11 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-
-[![Tomo Timer][/admin/readme-assets/tomo-timer-screenshot.webp]](https://pomodoro-timer-c1a2a.web.app/timer-page/timer.html)
+<div align="center">
+  <a href="https://pomodoro-timer-c1a2a.web.app/">
+    <img src="/admin/readme-assets/tomo-timer-screenshot.webp" alt="Tomo Timer" width="500" height="271">
+  </a>
+</div>
 
 The Pomodoro Technique is a productivity technique where inidividuals work for 25 minutes at a time and take 5 minute breaks in between. They take a longer break every 4 sessions. Our app, Tomo Timer, takes this technique and adds a task manager that allows users to focus and keep track of their tasks. Furthermore, our app does not include a pause button to give users unrestricted focus. 
 
