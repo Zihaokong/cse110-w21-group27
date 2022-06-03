@@ -36,31 +36,17 @@ class TaskItem extends HTMLElement {
   }
 
   /**
-   * The current amount of completed pomos on the task.
-   */
-  set current(newValue) {
-    this.setAttribute('current', newValue);
-  }
-
-  /**
-   * The estimated amount of pomos on the task.
-   */
-  set number(newValue) {
-    this.setAttribute('number', newValue);
-  }
-
-  /**
-   * Wheter or not the task is completed.
-   */
-  set completed(newValue) {
-    this.setAttribute('completed', newValue);
-  }
-
-  /**
    * Name of the task item given by the user.
    */
   get name() {
     return this.getAttribute('name');
+  }
+
+  /**
+   * The current amount of completed pomos on the task.
+   */
+  set current(newValue) {
+    this.setAttribute('current', newValue);
   }
 
   /**
@@ -73,8 +59,22 @@ class TaskItem extends HTMLElement {
   /**
    * The estimated amount of pomos on the task.
    */
+  set number(newValue) {
+    this.setAttribute('number', newValue);
+  }
+
+  /**
+   * The estimated amount of pomos on the task.
+   */
   get number() {
     return this.getAttribute('number');
+  }
+
+  /**
+   * Wheter or not the task is completed.
+   */
+  set completed(newValue) {
+    this.setAttribute('completed', newValue);
   }
 
   /**

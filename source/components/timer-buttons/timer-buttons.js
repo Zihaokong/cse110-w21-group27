@@ -52,8 +52,8 @@ class TimerButtons extends HTMLElement {
       [
         'distraction-btn',
         'image',
-        '/assets/images/tomo-excited.png',
-        'None',
+        '/assets/images/tomo-excited.webp',
+        'excited face',
         'Press If Distracted!',
       ],
       ''
@@ -256,8 +256,8 @@ class TimerButtons extends HTMLElement {
     );
     const happyFaceImg = TimerButtons.createElementWithAttributes(
       'img',
-      ['src', 'alt', 'height'],
-      ['/assets/images/tomo-nice.png', 'happy face', '100px']
+      ['src', 'alt', 'width', 'height'],
+      ['/assets/images/tomo-nice.webp', 'happy face', '121px', '100px']
     );
 
     const buttonTaskContainer = TimerButtons.createElementWithAttributes(
@@ -335,8 +335,8 @@ class TimerButtons extends HTMLElement {
 
     const sadFaceImg = TimerButtons.createElementWithAttributes(
       'img',
-      ['src', 'alt', 'height'],
-      ['/assets/images/tomo-sad.png', 'sad face', '100px']
+      ['src', 'alt', 'width', 'height'],
+      ['/assets/images/tomo-sad.webp', 'sad face', '118px', '100px']
     );
 
     const failButtonContainer = TimerButtons.createElementWithAttributes(
@@ -416,7 +416,7 @@ class TimerButtons extends HTMLElement {
 
   startSession() {
     this.shadowRoot.querySelector('#distraction-btn').src =
-      '/assets/images/tomo-excited.png';
+      '/assets/images/tomo-excited.webp';
     this.hideButtons();
     this.shadowRoot.querySelector('#distraction-btn').style.display = '';
     this.shadowRoot.querySelector('.fail-button').style.display = '';
@@ -505,19 +505,27 @@ class TimerButtons extends HTMLElement {
 
     switch (distractCounter) {
       case 0:
-        source = '/assets/images/tomo-excited.png';
+        source = '/assets/images/tomo-excited.webp';
         break;
       case 1:
-        source = '/assets/images/tomo-happy.png';
+        source = '/assets/images/tomo-happy.webp';
+        this.alt = 'happy face';
+        this.title = 'Distraction Level: A Little Bit';
         break;
       case 2:
-        source = '/assets/images/tomo-neutral.png';
+        source = '/assets/images/tomo-neutral.webp';
+        this.alt = 'neutral face';
+        this.title = `Distraction Level: Somewhat`;
         break;
       case 3:
-        source = '/assets/images/tomo-meh.png';
+        source = '/assets/images/tomo-meh.webp';
+        this.alt = 'meh face';
+        this.title = `Distraction Level: Pretty High`;
         break;
       default:
-        source = '/assets/images/tomo-bleh.png';
+        source = '/assets/images/tomo-bleh.webp';
+        this.alt = 'bleh face';
+        this.title = `Distraction Level: Out of It`;
         break;
     }
 
