@@ -1,4 +1,5 @@
-const { defineConfig } = require('cypress')
+// eslint-disable-next-line import/no-extraneous-dependencies
+const { defineConfig } = require('cypress');
 
 module.exports = defineConfig({
   fixturesFolder: 'tests/cypress/fixtures',
@@ -15,4 +16,4 @@ module.exports = defineConfig({
     specPattern: 'tests/cypress/integration/**/*.cy.{js,jsx,ts,tsx}',
     supportFile: 'tests/cypress/support/index.js',
   },
-})
+});
