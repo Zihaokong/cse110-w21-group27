@@ -84,7 +84,7 @@ class TaskItem extends HTMLElement {
   }
 
   /**
-   * Sets wheter or not the task is completed.
+   * Sets whether or not the task is completed.
    * @type {string|boolean}
    */
   set completed(newValue) {
@@ -92,7 +92,7 @@ class TaskItem extends HTMLElement {
   }
 
   /**
-   * Gets wheter or not the task is completed.
+   * Gets whether or not the task is completed.
    * @type {string}
    */
   get completed() {
