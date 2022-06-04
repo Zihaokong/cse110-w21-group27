@@ -110,6 +110,20 @@ function timerOnLoad() {
     localStorage.setItem('volumePercentage', 50);
 }
 
+/**
+ * @typedef {object} Task
+ * @property {boolean} completed Whether the task has been marked as completed
+ * @property {number} current How many sessions have been completed for this task 
+ * @property {string} id The unique identifier for this task
+ * @property {string} name The name of the task
+ * @property {string} note The note associated with the task
+ * @property {string} number The estimated total number of sessions for this task
+ */
+
+/**
+ * Gets the current task using the currentTaskIndex.
+ * @returns {Task}
+ */
 function getTask() {
   if (currentTaskIndex === -1) {
     return null;
@@ -117,6 +131,10 @@ function getTask() {
   return allTasks[currentTaskIndex];
 }
 
+/**
+ * Gets the list of all tasks that are saved.
+ * @returns {Task[]}
+ */
 function getTasks() {
   return allTasks;
 }
@@ -195,12 +213,23 @@ function startTimer() {
   document.getElementsByTagName('timer-comp')[0].dataset.running = 'true';
 }
 
+/**
+ * Sets the data-minutes-left and data-seconds-left attributes of the 
+ * timer-comp based on the passed parameters.
+ * @param {string|number} minutes 
+ * @param {string|number} seconds 
+ */
 function setTimer(minutes, seconds) {
   const timerComp = document.getElementsByTagName('timer-comp')[0];
   timerComp.dataset.minutesLeft = minutes;
   timerComp.dataset.secondsLeft = seconds;
 }
 
+/**
+ * Called by the MutationObserver set up by timerOnLoad.
+ * Makes changes based on if attributes of the timer-comp are changed.
+ * @param {object[]} mutations Passed by the MutationObserver
+ */
 function timerCompCallback(mutations) {
   for (let i = 0; i < mutations.length; i++) {
     if (mutations[i].attributeName === 'data-running') {

@@ -46,7 +46,7 @@ class TaskList extends HTMLElement {
    * Function which is triggered by the event of the user submitting a new task
    * from add task modal; Creates a new task item, adds it to the list, and
    * saves its properties to the allTasks array in local storage.
-   * @param {string|number} givenId A unique number identifying the task, generated randomly
+   * @param {string} givenId A unique string identifying the task, generated randomly
    * @param {string|boolean} isCompleted Whether the task has been completed
    * @param {string} givenName The name of the task
    * @param {string|number} totalCount The estimated number of pomos needed to complete the task
