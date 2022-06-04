@@ -9,17 +9,23 @@
  */
 
 /**
- * The component that represents an individual task. Houses the task's
+ * \<task-item\>
+ *
+ * The web component that represents an individual task. Houses the task's
  * information and contains event listeners for play, edit,  delete, and
  * complete, which it gets from the task list.
  */
 class TaskItem extends HTMLElement {
+  /**
+   * Returns a list of the attributes this component interacts with.
+   * @type {string[]}
+   */
   static get observedAttributes() {
     return ['name', 'number', 'completed', 'current'];
   }
 
   /**
-   * Constructor which attaches a shadow root to this element in open mode
+   * Constructor which attaches a shadow root to this element in open mode.
    */
   constructor() {
     super();
@@ -29,70 +35,80 @@ class TaskItem extends HTMLElement {
   }
 
   /**
-   * Name of the task item given by the user.
+   * Sets the name of the task item given by the user.
+   * @type {string}
    */
   set name(newValue) {
     this.setAttribute('name', newValue);
   }
 
   /**
-   * Name of the task item given by the user.
+   * Gets the name of the task item given by the user.
+   * @type {string}
    */
   get name() {
     return this.getAttribute('name');
   }
 
   /**
-   * The current amount of completed pomos on the task.
+   * Sets the current amount of completed pomos on the task.
+   * @type {string|number}
    */
   set current(newValue) {
     this.setAttribute('current', newValue);
   }
 
   /**
-   * The current amount of completed pomos on the task.
+   * Gets the current amount of completed pomos on the task.
+   * @type {string}
    */
   get current() {
     return this.getAttribute('current');
   }
 
   /**
-   * The estimated amount of pomos on the task.
+   * Sets the estimated amount of pomos on the task.
+   * @type {string|number}
    */
   set number(newValue) {
     this.setAttribute('number', newValue);
   }
 
   /**
-   * The estimated amount of pomos on the task.
+   * Gets the estimated amount of pomos on the task.
+   * @type {string}
    */
   get number() {
     return this.getAttribute('number');
   }
 
   /**
-   * Wheter or not the task is completed.
+   * Sets whether or not the task is completed.
+   * @type {string|boolean}
    */
   set completed(newValue) {
     this.setAttribute('completed', newValue);
   }
 
   /**
-   * Wheter or not the task is completed.
+   * Gets whether or not the task is completed.
+   * @type {string}
    */
   get completed() {
     return this.getAttribute('completed');
   }
 
   /**
-   * the <input> for checkmark from <task-item>
+   * Gets the input-element (the checkmark) from this task-item
+   * @type {HTMLInputElement}
    */
   get checkmark() {
     return this.shadowRoot.querySelector('input');
   }
 
   /**
-   * the <p>'s content from <task-item>
+   * Gets the p-element's content from this task-item
+   * @type {string}
    */
   get taskName() {
     return this.shadowRoot.querySelector('h1').textContent;
@@ -103,10 +119,10 @@ class TaskItem extends HTMLElement {
    * attributes: {string}'name', {number}'number', {string}'completed',
    *             {number}'current'
    * @param {string} name name of the attribute being changed
-   * @param {*} oldValue Value is not used, only exists to fit function template
+   * @param {*} _ Value is not used, only exists to fit function template
    * @param {string|number} newValue new value of the attribute
    */
-  attributeChangedCallback(name, oldValue, newValue) {
+  attributeChangedCallback(name, _, newValue) {
     // When changing the name, change the text content to the newvalue.
     if (name === 'name') {
       if (this.shadowRoot.querySelector('h1')) {
@@ -286,7 +302,7 @@ class TaskItem extends HTMLElement {
    * Method for creating checkbox icon for the task-item. The checkmark element
    * shows if the task is completed; user can check/uncheck it, which triggers a
    * completion event.
-   * @returns {HTMLSpanElement} The checkmark element inside the task.
+   * @returns {HTMLInputElement} The checkmark element inside the task.
    */
   createCheckmark() {
     // Create the checkmark
@@ -316,7 +332,7 @@ class TaskItem extends HTMLElement {
   /**
    * Method for creating drag icon for the task-item. The drag icon element acts
    * as a visual indicator that the task can be dragged.
-   * @returns {HTMLSpanElement} The drag element of the task
+   * @returns {HTMLElement} The drag element of the task
    */
   static createDrag() {
     const dragIcon = document.createElement('drag-ind');
@@ -345,7 +361,7 @@ class TaskItem extends HTMLElement {
   /**
    * Method for creating the play-button. The play button element handles user
    * interaction and triggers a play event on click.
-   * @return the button element with the play-icon
+   * @return {HTMLButtonElement} The button element with the play-icon
    */
   createPlayButton() {
     // Create play button element
@@ -362,7 +378,7 @@ class TaskItem extends HTMLElement {
    * Method for creating progress bar for the task-item. The progress bar
    * element shows the progress of the current task; changes based on the
    * current and number attributes.
-   * @returns {HTMLDivElement} The progress bar element.
+   * @returns {HTMLElement} The progress bar element.
    */
   createProgressBar() {
     let percent = '0%';
@@ -394,7 +410,7 @@ class TaskItem extends HTMLElement {
    * Method for creating the task name element. The task name element shows the
    * name of the task; changes based on name attribute.
    * @param {string} name the name of the task.
-   * @returns {HTMLParagraphElement} The elemet containing the task's name.
+   * @returns {HTMLHeadingElement} The elemet containing the task's name.
    */
   createTitle() {
     const title = document.createElement('h1');
@@ -403,12 +419,11 @@ class TaskItem extends HTMLElement {
   }
 
   /**
-   * Sets all of the functions of this task item associated with systems outside
-   * of the task object (modals, allTasks array in task list)
-   * @param {function} playTask function associated with showing the "play" modal.
-   * @param {function} deleteTask function associated with showing the "delete" modal.
-   * @param {function} editTask function associated with showing the "edit" modal.
-   * @param {function} setCheck function associated with completeing the task.
+   * Sets the functions called by this element when different buttons are pressed.
+   * @param {function} playTask function associated with the "play" button.
+   * @param {function} deleteTask function associated with the "delete" button.
+   * @param {function} editTask function associated with the "edit" button.
+   * @param {function} setCheck function associated with the checkmark button.
    */
   setFunctions(playTask, deleteTask, editTask, setCheck) {
     this.playTask = playTask;
@@ -417,6 +432,15 @@ class TaskItem extends HTMLElement {
     this.setCheck = setCheck;
   }
 
+  /**
+   * This function handles opening and closing the edit form via the permit attribute
+   * of the form element. The CSS will choose the height of the form element based off
+   * of the permit attribute (0 when false, based on screen size when true).
+   *
+   * This function will also make the task-item undraggable while being edited.
+   *
+   * Calling this function will toggle the permit attribute.
+   */
   setUpEdit() {
     // Open Edit Form;
     const form = this.shadowRoot.querySelector('form');
@@ -451,7 +475,7 @@ class TaskItem extends HTMLElement {
       }
     }
 
-    // the div for the progress itserlf and uses the attribute from the newTask object
+    // the div for the progress itself and uses the attribute from the newTask object
     const progress = this.shadowRoot.querySelector('progress-bar');
     progress.style.width = percent;
     progress.textContent = `${this.current}/${this.number}`;

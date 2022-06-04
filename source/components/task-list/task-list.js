@@ -3,7 +3,9 @@
  */
 
 /**
- * The component which acts as the manager for tasks. It has the ability to
+ * \<task-list\>
+ * 
+ * This webcomponent acts as the manager for tasks. It has the ability to
  * create tasks, change ordering of tasks in the list, and houses functionality
  * to play, edit, delete, and complete tasks, which the task item references in
  * their event listeners. Keeps track of task items and stores/loads their info
@@ -43,8 +45,13 @@ class TaskList extends HTMLElement {
   /**
    * Function which is triggered by the event of the user submitting a new task
    * from add task modal; Creates a new task item, adds it to the list, and
-   * saves its properties to All tasks array.
-   * @param {Event} event Event which triggered this function.
+   * saves its properties to the allTasks array in local storage.
+   * @param {string} givenId A unique string identifying the task, generated randomly
+   * @param {string|boolean} isCompleted Whether the task has been completed
+   * @param {string} givenName The name of the task
+   * @param {string|number} totalCount The estimated number of pomos needed to complete the task
+   * @param {string|number} currentCount The current number of pomos spent on the task
+   * @param {string} givenNote A note included with the task
    */
   addTask(
     givenId,
@@ -77,7 +84,7 @@ class TaskList extends HTMLElement {
   }
 
   /**
-   * Invoked each time the task-list is appeneded into a document-connected
+   * Invoked each time the task-list is appended into a document-connected
    * element; sets up the list and reads localstorage to set up saved
    * task-items.
    */
@@ -270,7 +277,7 @@ class TaskList extends HTMLElement {
   }
 
   /**
-   * For measuring the selected node position from the list.
+   * For measuring the selected node's position in the list.
    */
   establishNodePositions() {
     for (let i = 0; i < this.nodes.length; i++) {

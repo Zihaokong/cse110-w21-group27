@@ -3,10 +3,17 @@
  * also implements the behaviors of timer.
  */
 
+/**
+ * \<timer-comp\>
+ *
+ * This webcomponent controls the physical display of the timer. It increments
+ * the appearance of the timer based on how much time remains, and also controls
+ * whether the timer is visibily counting down or not.
+ */
 class TimerComp extends HTMLElement {
   /**
-   * Returns observed attributes
-   * @returns {object} observed attributes of the web component
+   * Returns the attributes of the timer-comp that are monitored
+   * @type {string[]}
    */
   static get observedAttributes() {
     return ['data-minutes-left', 'data-seconds-left', 'data-running'];
@@ -23,32 +30,32 @@ class TimerComp extends HTMLElement {
   }
 
   /**
-   * Sets minutes on timer
-   * @param {string} newValue minutes left
+   * Sets the number of minutes remaining on timer
+   * @type {string|number}
    */
   set dataMinutesLeft(newValue) {
     this.setAttribute('data-minutes-left', newValue);
   }
 
   /**
-   * Gets number of minutes on timer
-   * @return {string} number of minutes left on timer
+   * Gets the number of minutes remaining on timer
+   * @type {string}
    */
   get dataMinutesLeft() {
     return this.getAttribute('data-minutes-left');
   }
 
   /**
-   * Sets seconds on timer
-   * @param {string} newValue seconds left
+   * Sets the number of seconds remaining on timer
+   * @type {string|number}
    */
   set dataSecondsLeft(newValue) {
     this.setAttribute('data-seconds-left', newValue);
   }
 
   /**
-   * Gets number of seconds on timer
-   * @return {string} number of seconds left on timer
+   * Gets the number of seconds remaining on timer
+   * @type {string}
    */
   get dataSecondsLeft() {
     return this.getAttribute('data-seconds-left');
@@ -56,7 +63,7 @@ class TimerComp extends HTMLElement {
 
   /**
    * Sets whether timer is running
-   * @param {string} newValue true if timer is running, false otherwise
+   * @type {string|boolean}
    */
   set dataRunning(newValue) {
     this.setAttribute('data-running', newValue);
@@ -64,7 +71,7 @@ class TimerComp extends HTMLElement {
 
   /**
    * Gets whether timer is running
-   * @return {string} true if timer is running, false otherwise
+   * @type {string}
    */
   get dataRunning() {
     return this.getAttribute('data-running');
@@ -73,11 +80,11 @@ class TimerComp extends HTMLElement {
   /**
    * Called when an attribute is changed. Triggers timer to start. Also
    * changes display of timer when minutesLeft or secondsLeft are changed.
-   * @param {string} name
-   * @param {*} oldValue
-   * @param {*} newValue
+   * @param {string} name name of the attribute being changed
+   * @param {*} _ Value is not used, only exists to fit function template
+   * @param {string|number} newValue new value of the attribute
    */
-  attributeChangedCallback(name, oldValue, newValue) {
+  attributeChangedCallback(name, _, newValue) {
     if (name === 'data-running') {
       if (newValue === 'true') {
         this.start();
@@ -223,7 +230,9 @@ class TimerComp extends HTMLElement {
   }
 
   /**
-   * When timer reaches zero, stop the timer
+   * Stops the timer and prevents it from updating further.
+   *
+   * Called when the time remaining gets to 0.
    */
   stopTimer() {
     this.dataset.running = 'false';

@@ -1,4 +1,20 @@
+/**
+ * \<timer-buttons\>
+ *
+ * This webcomponent represents the controls to the timer. It contains all
+ * the buttons and forms that are shown underneath the timer. These controls
+ * allow for starting and stopping the timer, creating new tasks, selecting
+ * preexisting tasks, fail a pomo session, and incrementing the distraction
+ * counter.
+ *
+ * This webcomponent also contains the modals for failing a task and for
+ * when a break is complete.
+ */
 class TimerButtons extends HTMLElement {
+  /**
+   * Creates a shadow DOM and attaches it to this element. Also adds default
+   * functions to this object.
+   */
   constructor() {
     super();
 
@@ -17,6 +33,10 @@ class TimerButtons extends HTMLElement {
     });
   }
 
+  /**
+   * Invoked each time the timer-buttons is appended into a document-connected
+   * element. Adds all the subelements to this webcomponent.
+   */
   connectedCallback() {
     // Set up the style sheets
     const styleSheet = document.createElement('link');
@@ -35,6 +55,10 @@ class TimerButtons extends HTMLElement {
     this.shadowRoot.appendChild(styleSheet);
   }
 
+  /**
+   * Creates the different buttons and forms that exist in this webcomponent.
+   * @returns {HTMLElement} A section element containing the buttons and forms
+   */
   createButtons() {
     const buttonContainer = document.createElement('section');
 
@@ -93,6 +117,13 @@ class TimerButtons extends HTMLElement {
     return buttonContainer;
   }
 
+  /**
+   * A helper function to simplify button creation.
+   * @param {string} attributeName The name of an attribute
+   * @param {string} value The value given to the named attribute
+   * @param {string} content The textContent of the button element
+   * @returns {HTMLButtonElement} A button element with the given attribute and textContent
+   */
   static createButton(attributeName, value, content) {
     const createdButton = document.createElement('button');
     createdButton.setAttribute(attributeName, value);
@@ -101,6 +132,14 @@ class TimerButtons extends HTMLElement {
     return createdButton;
   }
 
+  /**
+   * A helper function to simplify the creation of an element.
+   * @param {string} tagName The tag of the element to be created
+   * @param {string[]|string} attributes Either a list of attribute names, or a single attribute
+   * @param {string[]|string} attrValues Either a list of attribute values, or a single value
+   * @param {string} content The textContent of the element
+   * @returns {HTMLElement} An element with the given attributes and textContent
+   */
   static createElementWithAttributes(tagName, attributes, attrValues, content) {
     const element = document.createElement(tagName);
     if (Array.isArray(attributes) && Array.isArray(attrValues)) {
@@ -117,6 +156,13 @@ class TimerButtons extends HTMLElement {
     return element;
   }
 
+  /**
+   * Builds the form element which is used to create a new task. This form
+   * contains a select menu for selection of a previously created task,
+   * as well a text field and number field for creating a new task. Finally,
+   * it contains a checkbox to prevent display of the create-task form again.
+   * @returns {HTMLFormElement} A form element with the relevant subelements
+   */
   buildCreateTaskForm() {
     // Set up the create task form
     const createTaskForm = document.createElement('form');
@@ -242,6 +288,12 @@ class TimerButtons extends HTMLElement {
     return createTaskForm;
   }
 
+  /**
+   * Creates a dialog element used when a short or long break is completed.
+   * It offers the user the choice to either continue with the current
+   * task or choose a new task to work on.
+   * @returns {HTMLDialogElement} The break end modal
+   */
   createBreakEndDialog() {
     const breakCompleteDialog = document.createElement('dialog');
     breakCompleteDialog.id = 'breakCompleteDialog';
@@ -319,6 +371,11 @@ class TimerButtons extends HTMLElement {
     return breakCompleteDialog;
   }
 
+  /**
+   * Creates a dialog element used when a user wants to fail a session.
+   * It offers the user the choice to either continue or cancel.
+   * @returns {HTMLDialogElement} The fail modal
+   */
   createFailDialog() {
     const failDialog = document.createElement('dialog');
 
@@ -383,6 +440,8 @@ class TimerButtons extends HTMLElement {
 
   /**
    * Display modal for fail.
+   *
+   * This is called by the fail button.
    */
   openFailDialog() {
     this.shadowRoot.getElementById('failDialog').showModal();
@@ -390,7 +449,9 @@ class TimerButtons extends HTMLElement {
 
   /**
    * Open the create-task form or start the pomodoro timer
-   * depending on whether a task is already selected
+   * depending on whether a task is already selected.
+   *
+   * Called by the start button.
    */
   openTaskForm() {
     // If a task is already selected or the create-menu is disabled
@@ -414,6 +475,11 @@ class TimerButtons extends HTMLElement {
     }
   }
 
+  /**
+   * Starts a pomo session.
+   *
+   * Called by openTaskForm.
+   */
   startSession() {
     this.shadowRoot.querySelector('#distraction-btn').src =
       '/assets/images/tomo-excited.webp';
@@ -424,7 +490,9 @@ class TimerButtons extends HTMLElement {
   }
 
   /**
-   * Hide all the different button elements below the timer
+   * Hide all the different button elements below the timer.
+   *
+   * Called whenever a new set of buttons is rendered.
    */
   hideButtons() {
     // TODO FIX THIS LINTING ISSUE!
@@ -538,6 +606,17 @@ class TimerButtons extends HTMLElement {
     );
   }
 
+  /**
+   * Used by timer.js to interact with the timer-buttons component
+   * @param {function} changeTask
+   * @param {function} continueTask
+   * @param {function} createTask
+   * @param {function} failSession
+   * @param {function} getTask
+   * @param {function} getTasks
+   * @param {function} startBreak
+   * @param {function} startTimer
+   */
   setFunctions(
     changeTask,
     continueTask,

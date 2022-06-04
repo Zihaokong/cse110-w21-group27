@@ -5,9 +5,7 @@
  * The users can observate the statistics for today, last 7 days, and last 30 days.
  */
 
-/**
- *  variable holds the List of Statistic for the last 30 days.
- */
+// variable holds the List of Statistic for the last 30 days.
 let statsList;
 
 /**

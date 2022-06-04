@@ -4,13 +4,17 @@
  */
 
 /**
- * Shows the current date and the current amount of cycles completed.
+ * \<header-comp\>
+ *
+ * A webcomponent that exists on the top of every page.
+ *
+ * Shows the logo and the current amount of pomo cycles completed.
  * Gets completed cycle count from local storage, if it exists. Increments and
  * saves cycle count to local storage after every completed session.
  */
 class HeaderComp extends HTMLElement {
   /**
-   * Constructor which attaches a shadow root to this element in open mode
+   * Constructor which attaches a shadow root to this element in open mode.
    */
   constructor() {
     super();
@@ -25,19 +29,25 @@ class HeaderComp extends HTMLElement {
     this.isNoob = localStorage.getItem('isNoob');
   }
 
+  /**
+   * Returns a list of the attributes this component interacts with.
+   * @type {string[]}
+   */
   static get observedAttributes() {
     return ['completedcycles', 'isnewcycle', 'page'];
   }
 
   /**
    * Gets the amount of completed cycles.
+   * @type {string}
    */
   get completedCycles() {
     return this.getAttribute('completedcycles');
   }
 
   /**
-   * sets the amount of completed cycles
+   * Sets the amount of completed cycles.
+   * @type {string|number}
    */
   set completedCycles(newValue) {
     this.setAttribute('completedcycles', newValue);
@@ -45,27 +55,31 @@ class HeaderComp extends HTMLElement {
 
   /**
    * Gets whether it is newcycle.
+   * @type {string}
    */
   get isNewCycle() {
     return this.getAttribute('isnewcycle');
   }
 
   /**
-   * Set isnewcycle
+   * Set isnewcycle.
+   * @type {string|boolean}
    */
   set isNewCycle(newValue) {
     this.setAttribute('isnewcycle', newValue);
   }
 
   /**
-   * Gets whether it is newcycle.
+   * Gets what page this header component is on.
+   * @type {string}
    */
   get page() {
     return this.getAttribute('page');
   }
 
   /**
-   * Set isnewcycle
+   * Sets what page this header component is on.
+   * @type {'tasks'|'timer'|'stats'}
    */
   set page(newValue) {
     this.setAttribute('page', newValue);
@@ -76,6 +90,8 @@ class HeaderComp extends HTMLElement {
    * Calculate the difference of days since the last visit. If it is not the same
    * work day, create the new object with the current number in counters and add
    * to the list. Reset the counters current work day.
+   *
+   * Called by the connectedCallback function when the header component is rendered onto the page.
    */
   static determineSessionDate() {
     const retrievedStats = localStorage.getItem('statsList');

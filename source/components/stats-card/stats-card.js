@@ -1,4 +1,16 @@
+/**
+ * \<stats-card\>
+ *
+ * A webcomponent used to display statistic information on the stats page.
+ *
+ * The StatsCard represents a single statistic, and contains an image, a number,
+ * as well as an overall title describing what the stat represents.
+ */
 class StatsCard extends HTMLElement {
+  /**
+   * Attaches a shadow DOM to the webcomponent, as well as adds the link to the
+   * stylesheet.
+   */
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
@@ -10,6 +22,9 @@ class StatsCard extends HTMLElement {
     this.shadowRoot.appendChild(styleSheet);
   }
 
+  /**
+   * Called when the webcomponent is applied to the DOM; Sets up the webcomponent.
+   */
   connectedCallback() {
     const { srcUrl, altText, imgWidth, imgHeight, stat, cardTitle } =
       this.getContent();
@@ -26,6 +41,21 @@ class StatsCard extends HTMLElement {
     this.shadowRoot.appendChild(template.content.cloneNode(true));
   }
 
+  /**
+   * @typedef {object} StatContent
+   * @property {string} srcUrl The path to the image used for the card.
+   * @property {string} altText The alt text for the image.
+   * @property {string} imgWidth The width of the image.
+   * @property {string} imgHeight The height of the image.
+   * @property {string} cardTitle The title describing the stat.
+   * @property {number|string} stat The number showing the value of the stat.
+   */
+
+  /**
+   * Gets what the contents of this card should be based off of its attributes.
+   *
+   * @returns {StatContent}
+   */
   getContent() {
     const statType = this.getAttribute('stat-type');
     let srcUrl = '';
@@ -67,6 +97,21 @@ class StatsCard extends HTMLElement {
     return { srcUrl, altText, imgWidth, imgHeight, stat, cardTitle };
   }
 
+  /**
+   * @typedef {object} StatValues
+   * @property {number} completedPomos How many pomos have been completed.
+   * @property {string} avgDistractions How many distractions have occurred.
+   * @property {string} successRate A string representation of the percent of pomos completed.
+   */
+
+  /**
+   * Goes through the statsList in localStorage and calculates all the
+   * relevant data for the stats being tracked in the given time period.
+   *
+   * The time period is established via the stat-length attribute.
+   *
+   * @returns {StatValues}
+   */
   calculateStat() {
     const statLength = this.getAttribute('stat-length');
     const statsList = JSON.parse(localStorage.getItem('statsList')) ?? [];
@@ -105,8 +150,12 @@ class StatsCard extends HTMLElement {
     return { completedPomos, avgDistractions, successRate };
   }
 
+  /**
+   * Recalculates the stat value for this card.
+   *
+   * Called by the stats-page after the Reset stats button is pressed.
+   */
   reset() {
-    this.calculateStat();
     const { stat } = this.getContent();
 
     const value = this.shadowRoot.getElementById('stat');
