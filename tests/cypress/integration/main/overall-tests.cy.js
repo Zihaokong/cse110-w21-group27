@@ -6,117 +6,7 @@ describe('Overall testing', () => {
   const firstName = 'testname1';
   const firstNum = 1;
   beforeEach(() => {
-    cy.visit('http://127.0.0.1:5501/tasks-page/tasks.html');
-  });
-
-  it('Check that the stats card statistics start at 0', () => {
-    cy.get('header-comp').shadow().find('button[title="Go to Stats"]').click();
-    cy.get('stats-card[stat-type="completed"][stat-length="1"]')
-      .shadow()
-      .find('#stat')
-      .should('have.text', '0');
-    cy.get('stats-card[stat-type="distractions"][stat-length="1"]')
-      .shadow()
-      .find('#stat')
-      .should('have.text', '0');
-    cy.get('stats-card[stat-type="success"][stat-length="1"]')
-      .shadow()
-      .find('#stat')
-      .should('have.text', '0%');
-    cy.get('stats-card[stat-type="completed"][stat-length="7"]')
-      .shadow()
-      .find('#stat')
-      .should('have.text', '0');
-    cy.get('stats-card[stat-type="distractions"][stat-length="7"]')
-      .shadow()
-      .find('#stat')
-      .should('have.text', '0');
-    cy.get('stats-card[stat-type="success"][stat-length="7"]')
-      .shadow()
-      .find('#stat')
-      .should('have.text', '0%');
-    cy.get('stats-card[stat-type="completed"][stat-length="30"]')
-      .shadow()
-      .find('#stat')
-      .should('have.text', '0');
-    cy.get('stats-card[stat-type="distractions"][stat-length="30"]')
-      .shadow()
-      .find('#stat')
-      .should('have.text', '0');
-    cy.get('stats-card[stat-type="success"][stat-length="30"]')
-      .shadow()
-      .find('#stat')
-      .should('have.text', '0%');
-  });
-
-  it('Check for correct header after entering website', () => {
-    cy.get('header-comp')
-      .shadow()
-      .find('#cycle-count')
-      .children('.dot')
-      .should('have.length', 4);
-    cy.get('header-comp')
-      .shadow()
-      .find('#cycle-count')
-      .children('.filled-dot')
-      .should('have.length', 0);
-  });
-
-  it('Add one task', () => {
-    cy.get('task-list').shadow().find('input[content="title"]').type(firstName);
-
-    cy.get('task-list').shadow().find('input[content="count"]').type(firstNum);
-
-    cy.get('task-list').shadow().find('button[type="submit"]').click();
-
-    cy.get('task-list')
-      .shadow()
-      .find('task-item[name="testname1"]')
-      .shadow()
-      .find('h1')
-      .should('have.text', firstName);
-
-    cy.get('task-list')
-      .shadow()
-      .find('task-item[name="testname1"]')
-      .shadow()
-      .find('progress-bar')
-      .should('have.text', `0/${firstNum}`);
-
-    cy.get('task-list')
-      .shadow()
-      .find('task-item[name="testname1"]')
-      .shadow()
-      .find('progress-bar')
-      .should('have.text', `0/${firstNum}`);
-
-    cy.get('task-list')
-      .shadow()
-      .find('task-item[name="testname1"]')
-      .shadow()
-      .find('button[job="play"]')
-      .should('not.be.disabled');
-
-    cy.get('task-list')
-      .shadow()
-      .find('task-item[name="testname1"]')
-      .shadow()
-      .find('button[job="play"]')
-      .should('not.be.disabled');
-
-    cy.get('task-list')
-      .shadow()
-      .find('task-item[name="testname1"]')
-      .shadow()
-      .find('button[job="edit"]')
-      .should('not.be.disabled');
-
-    cy.get('task-list')
-      .shadow()
-      .find('task-item[name="testname1"]')
-      .shadow()
-      .find('button[job="delete"]')
-      .should('not.be.disabled');
+    cy.visit('http://127.0.0.1:5501/tasks-page/timer.html');
   });
 
   it(
@@ -125,7 +15,15 @@ describe('Overall testing', () => {
       'that the timer runs for 30 minutes (25 work + 5 break). Ensure that ' +
       'after the break, that there is no task-item created in the task page. ' +
       'Ensure that the stats timer page has the correct info',
-    () => {}
+    () => {
+      // Click Start
+      // Click Skip
+      // Skip 25 Minutes
+      // Click Break
+      // Skip 5 Minutes
+      // Click Task Page
+      // Click Stats
+    }
   );
 
   it(
@@ -135,7 +33,15 @@ describe('Overall testing', () => {
       'after the break, that there is a task-item created in the task page ' +
       ' with the correct title and the correct ratio. Ensure that the stats ' +
       'timer page has the correct info.',
-    () => {}
+    () => {
+      // Click Start
+      // Click Skip
+      // Skip 25 Minutes
+      // Click Break
+      // Skip 5 Minutes
+      // Click Task Page
+      // Click Stats
+    }
   );
 
   it(
@@ -143,7 +49,68 @@ describe('Overall testing', () => {
       'page, creates a task, and then goes to the timer page through the ' +
       'header (not by playing the task). Ensure that it goes through the ' +
       'same process as the first process.',
-    () => {}
+    () => {
+      cy.get('task-list')
+        .shadow()
+        .find('input[content="title"]')
+        .type(firstName);
+
+      cy.get('task-list')
+        .shadow()
+        .find('input[content="count"]')
+        .type(firstNum);
+
+      cy.get('task-list').shadow().find('button[type="submit"]').click();
+
+      cy.get('task-list')
+        .shadow()
+        .find('task-item[name="testname1"]')
+        .shadow()
+        .find('h1')
+        .should('have.text', firstName);
+
+      cy.get('task-list')
+        .shadow()
+        .find('task-item[name="testname1"]')
+        .shadow()
+        .find('progress-bar')
+        .should('have.text', `0/${firstNum}`);
+
+      cy.get('task-list')
+        .shadow()
+        .find('task-item[name="testname1"]')
+        .shadow()
+        .find('progress-bar')
+        .should('have.text', `0/${firstNum}`);
+
+      cy.get('task-list')
+        .shadow()
+        .find('task-item[name="testname1"]')
+        .shadow()
+        .find('button[job="play"]')
+        .should('not.be.disabled');
+
+      cy.get('task-list')
+        .shadow()
+        .find('task-item[name="testname1"]')
+        .shadow()
+        .find('button[job="play"]')
+        .should('not.be.disabled');
+
+      cy.get('task-list')
+        .shadow()
+        .find('task-item[name="testname1"]')
+        .shadow()
+        .find('button[job="edit"]')
+        .should('not.be.disabled');
+
+      cy.get('task-list')
+        .shadow()
+        .find('task-item[name="testname1"]')
+        .shadow()
+        .find('button[job="delete"]')
+        .should('not.be.disabled');
+    }
   );
 
   it(
@@ -157,7 +124,7 @@ describe('Overall testing', () => {
   );
 
   it(
-    ' Create a test where the user edits the work, short and long break ' +
+    'Create a test where the user edits the work, short and long break ' +
       'and then starts a test. Make sure that the work, short, and long ' +
       'sessions are the correct amount of time.',
     () => {}
