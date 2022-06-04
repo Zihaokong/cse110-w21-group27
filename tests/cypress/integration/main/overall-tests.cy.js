@@ -1,6 +1,3 @@
-const {
-  HeaderComp,
-} = require('../../../../source/components/header-comp/header-comp');
 // How tests should go:
 // Create Task, edit task, delete task, create twenty tasks, scroll to bottom,
 // use top bottom, check top task, uncheck, run seccesion on first task, run 2
@@ -8,502 +5,168 @@ const {
 describe('Overall testing', () => {
   const firstName = 'testname1';
   const firstNum = 1;
-  const firstNotes = 'Notes for testname1';
-  const firstNameEdited = 'testname1edit';
-  const firstNumEdited = 3;
   beforeEach(() => {
-    cy.visit('http://127.0.0.1:5501/source/index.html');
+    cy.visit('http://127.0.0.1:5501/tasks-page/tasks.html');
   });
 
-  it('Check that info modal appears', () => {
-    cy.get('#info').click();
-    cy.get('#info-modal').then(($el) => {
-      expect($el).to.have.attr('style', 'display: block;');
-    });
-  });
-
-  it('Check the stats info modal', () => {
-    cy.get('#stats-btn').click();
-    cy.get('#info').click();
-    cy.get('#info-modal').then(($el) => {
-      expect($el).to.have.attr('style', 'display: block;');
-    });
-  });
-
-  it("Check that today's stats start at all 0", () => {
-    cy.get('#stats-btn').click();
-    cy.get('#todayPomos').contains('0');
-    cy.get('#todayAvgDistractions').contains('0');
-    cy.get('#weekSuccess').contains('0%');
-  });
-
-  it("Check that last 7 days' stats start at all 0", () => {
-    cy.get('#stats-btn').click();
-    cy.get('#weekPomos').contains('0');
-    cy.get('#weekAvgDistractions').contains('0');
-    cy.get('#weekSuccess').contains('0%');
-  });
-
-  it("Check that last 30 days' stats start at all 0", () => {
-    cy.get('#stats-btn').click();
-    cy.get('#monthPomos').contains('0');
-    cy.get('#monthAvgDistractions').contains('0');
-    cy.get('#monthSuccess').contains('0%');
+  it('Check that the stats card statistics start at 0', () => {
+    cy.get('header-comp').shadow().find('button[title="Go to Stats"]').click();
+    cy.get('stats-card[stat-type="completed"][stat-length="1"]')
+      .shadow()
+      .find('#stat')
+      .should('have.text', '0');
+    cy.get('stats-card[stat-type="distractions"][stat-length="1"]')
+      .shadow()
+      .find('#stat')
+      .should('have.text', '0');
+    cy.get('stats-card[stat-type="success"][stat-length="1"]')
+      .shadow()
+      .find('#stat')
+      .should('have.text', '0%');
+    cy.get('stats-card[stat-type="completed"][stat-length="7"]')
+      .shadow()
+      .find('#stat')
+      .should('have.text', '0');
+    cy.get('stats-card[stat-type="distractions"][stat-length="7"]')
+      .shadow()
+      .find('#stat')
+      .should('have.text', '0');
+    cy.get('stats-card[stat-type="success"][stat-length="7"]')
+      .shadow()
+      .find('#stat')
+      .should('have.text', '0%');
+    cy.get('stats-card[stat-type="completed"][stat-length="30"]')
+      .shadow()
+      .find('#stat')
+      .should('have.text', '0');
+    cy.get('stats-card[stat-type="distractions"][stat-length="30"]')
+      .shadow()
+      .find('#stat')
+      .should('have.text', '0');
+    cy.get('stats-card[stat-type="success"][stat-length="30"]')
+      .shadow()
+      .find('#stat')
+      .should('have.text', '0%');
   });
 
   it('Check for correct header after entering website', () => {
-    cy.get('#header').shadow().find('#date').contains(HeaderComp.createDate());
-    cy.get('#header')
+    cy.get('header-comp')
       .shadow()
       .find('#cycle-count')
       .children('.dot')
       .should('have.length', 4);
-    cy.get('#header')
+    cy.get('header-comp')
       .shadow()
       .find('#cycle-count')
       .children('.filled-dot')
       .should('have.length', 0);
   });
 
-  it('Add task modal appears when add task-btn is clicked', () => {
-    cy.get('#add-task-modal').should('have.css', 'display', 'none');
-    cy.get('#add-task-btn').click();
-    cy.get('#add-task-modal').should('have.css', 'display', 'block');
-  });
-
-  it('Add task modal appears when add-task-btn-bot is clicked', () => {
-    cy.get('#add-task-modal').should('have.css', 'display', 'none');
-    cy.get('#add-task-btn-bottom').click();
-    cy.get('#add-task-modal').should('have.css', 'display', 'block');
-  });
-
   it('Add one task', () => {
-    cy.get('#add-task-btn').click();
-    cy.get('#task-name').clear();
-    cy.get('#task-name').type(firstName);
-    cy.get('#task-num').clear();
-    cy.get('#task-num').type(firstNum);
-    cy.get('#task-note').clear();
-    cy.get('#task-note').type(firstNotes);
-    cy.get('#save-btn').click();
-    cy.get('#main-container')
-      .shadow()
-      .find('#main-list')
-      .find(`[name="${firstName}"]`)
-      .should('exist');
-    cy.get('#main-container')
-      .shadow()
-      .find('#main-list')
-      .find(`[name="${firstName}"]`)
-      .then(($el) => {
-        expect($el).to.have.attr('number', firstNum);
-        expect($el).to.have.attr('current', 0);
-      });
-  });
+    cy.get('task-list').shadow().find('input[content="title"]').type(firstName);
 
-  it('Play modal displays correct info', () => {
-    cy.get('#main-container')
-      .shadow()
-      .find('#main-list')
-      .find(`[name="${firstName}"]`)
-      .shadow()
-      .find('#play-btn')
-      .click({ force: true });
-    cy.get('#timer-name').contains(firstName);
-    cy.get('#timer-note').contains(firstName);
-  });
+    cy.get('task-list').shadow().find('input[content="count"]').type(firstNum);
 
-  it('Delete modal displays correct info', () => {
-    cy.get('#main-container')
-      .shadow()
-      .find('#main-list')
-      .find(`[name="${firstName}"]`)
-      .shadow()
-      .find('#delete-btn')
-      .click({ force: true });
-    cy.get('#task-delete').contains(firstName);
-  });
+    cy.get('task-list').shadow().find('button[type="submit"]').click();
 
-  it('Edit modal displays correct info', () => {
-    cy.get('#main-container')
+    cy.get('task-list')
       .shadow()
-      .find('#main-list')
-      .find(`[name="${firstName}"]`)
+      .find('task-item[name="testname1"]')
       .shadow()
-      .find('#edit-btn')
-      .click({ force: true });
-    cy.get('#edit-name').should('have.value', firstName);
-    cy.get('#edit-num').should('have.value', firstNum);
-    cy.get('#edit-note').should('have.value', firstNotes);
-  });
+      .find('h1')
+      .should('have.text', firstName);
 
-  it('Checkmark disables play/edit button and fully completes task', () => {
-    cy.get('#main-container')
+    cy.get('task-list')
       .shadow()
-      .find('#main-list')
-      .find(`[name="${firstName}"]`)
+      .find('task-item[name="testname1"]')
       .shadow()
-      .find('#edit-btn')
+      .find('progress-bar')
+      .should('have.text', `0/${firstNum}`);
+
+    cy.get('task-list')
+      .shadow()
+      .find('task-item[name="testname1"]')
+      .shadow()
+      .find('progress-bar')
+      .should('have.text', `0/${firstNum}`);
+
+    cy.get('task-list')
+      .shadow()
+      .find('task-item[name="testname1"]')
+      .shadow()
+      .find('button[job="play"]')
       .should('not.be.disabled');
-    cy.get('#main-container')
+
+    cy.get('task-list')
       .shadow()
-      .find('#main-list')
-      .find(`[name="${firstName}"]`)
+      .find('task-item[name="testname1"]')
       .shadow()
-      .find('#play-btn')
+      .find('button[job="play"]')
       .should('not.be.disabled');
-    cy.get('#main-container')
+
+    cy.get('task-list')
       .shadow()
-      .find('#main-list')
-      .find(`[name="${firstName}"]`)
+      .find('task-item[name="testname1"]')
       .shadow()
-      .find('#delete-btn')
+      .find('button[job="edit"]')
       .should('not.be.disabled');
-    cy.get('#main-container')
+
+    cy.get('task-list')
       .shadow()
-      .find('#main-list')
-      .find(`[name="${firstName}"]`)
+      .find('task-item[name="testname1"]')
       .shadow()
-      .find('#progress-bar')
-      .should('have.attr', 'style', 'width: 0.00%;');
-    cy.get('#main-container')
-      .shadow()
-      .find('#main-list')
-      .find(`[name="${firstName}"]`)
-      .shadow()
-      .find('#checkmark')
-      .find('#checkmark-input')
-      .check();
-    cy.get('#main-container')
-      .shadow()
-      .find('#main-list')
-      .find(`[name="${firstName}"]`)
-      .shadow()
-      .find('#edit-btn')
-      .should('be.disabled');
-    cy.get('#main-container')
-      .shadow()
-      .find('#main-list')
-      .find(`[name="${firstName}"]`)
-      .shadow()
-      .find('#play-btn')
-      .should('be.disabled');
-    cy.get('#main-container')
-      .shadow()
-      .find('#main-list')
-      .find(`[name="${firstName}"]`)
-      .shadow()
-      .find('#delete-btn')
+      .find('button[job="delete"]')
       .should('not.be.disabled');
-    cy.get('#main-container')
-      .shadow()
-      .find('#main-list')
-      .find(`[name="${firstName}"]`)
-      .shadow()
-      .find('#progress-bar')
-      .should('have.attr', 'style', 'width: 100%;');
   });
 
-  it('Unchecking enables play/edit button and reverts progress', () => {
-    cy.get('#main-container')
-      .shadow()
-      .find('#main-list')
-      .find(`[name="${firstName}"]`)
-      .shadow()
-      .find('#checkmark')
-      .find('#checkmark-input')
-      .click();
-    cy.get('#main-container')
-      .shadow()
-      .find('#main-list')
-      .find(`[name="${firstName}"]`)
-      .shadow()
-      .find('#edit-btn')
-      .should('not.be.disabled');
-    cy.get('#main-container')
-      .shadow()
-      .find('#main-list')
-      .find(`[name="${firstName}"]`)
-      .shadow()
-      .find('#play-btn')
-      .should('not.be.disabled');
-    cy.get('#main-container')
-      .shadow()
-      .find('#main-list')
-      .find(`[name="${firstName}"]`)
-      .shadow()
-      .find('#delete-btn')
-      .should('not.be.disabled');
-    cy.get('#main-container')
-      .shadow()
-      .find('#main-list')
-      .find(`[name="${firstName}"]`)
-      .shadow()
-      .find('#progress-bar')
-      .should('have.attr', 'style', 'width: 0.00%;');
-  });
+  it(
+    'Create a test where a user enters the timer page, starts, and does not ' +
+      'create a task. Ensure that the create task dialog pops up, and ensure ' +
+      'that the timer runs for 30 minutes (25 work + 5 break). Ensure that ' +
+      'after the break, that there is no task-item created in the task page. ' +
+      'Ensure that the stats timer page has the correct info',
+    () => {}
+  );
 
-  it('Should have task on page after reload', () => {
-    cy.reload();
-    cy.get('#main-container')
-      .shadow()
-      .find('#main-list')
-      .find(`[name="${firstName}"]`)
-      .should('exist');
-    cy.get('#main-container')
-      .shadow()
-      .find('#main-list')
-      .find(`[name="${firstName}"]`)
-      .then(($el) => {
-        expect($el).to.have.attr('number', firstNum);
-        expect($el).to.have.attr('current', 0);
-      });
-  });
+  it(
+    'Create a test where a user enters the timer page, starts, and does ' +
+      'create a task. Ensure that the create task dialog pops up, and ensure ' +
+      'that the timer runs for 30 minutes (25 work + 5 break). Ensure that ' +
+      'after the break, that there is a task-item created in the task page ' +
+      ' with the correct title and the correct ratio. Ensure that the stats ' +
+      'timer page has the correct info.',
+    () => {}
+  );
 
-  it('Edit one task', () => {
-    cy.get('#main-container')
-      .shadow()
-      .find('#main-list')
-      .find(`[name="${firstName}"]`)
-      .shadow()
-      .find('#edit-btn')
-      .click({ force: true });
-    cy.get('#edit-name').clear();
-    cy.get('#edit-name').type(firstNameEdited);
-    cy.get('#edit-num').clear();
-    cy.get('#edit-num').type(firstNumEdited);
-    cy.get('#edit-note').clear();
-    cy.get('#edit-note').type('Notes for testname1 edited');
-    cy.get('#edit-save-btn').click();
-    cy.get('#main-container')
-      .shadow()
-      .find('#main-list')
-      .find(`[name="${firstNameEdited}"]`)
-      .should('exist');
-    cy.get('#main-container')
-      .shadow()
-      .find('#main-list')
-      .find(`[name="${firstNameEdited}"]`)
-      .then(($el) => {
-        expect($el).to.have.attr('number', firstNumEdited);
-        expect($el).to.have.attr('current', 0);
-      });
-  });
+  it(
+    ' Create a test where a user enters the timer page, goes to the stats ' +
+      'page, creates a task, and then goes to the timer page through the ' +
+      'header (not by playing the task). Ensure that it goes through the ' +
+      'same process as the first process.',
+    () => {}
+  );
 
-  it('Delete one task', () => {
-    cy.get('#main-container')
-      .shadow()
-      .find('#main-list')
-      .find(`[name="${firstNameEdited}"]`)
-      .should('exist');
-    cy.get('#main-container')
-      .shadow()
-      .find('#main-list')
-      .find(`[name="${firstNameEdited}"]`)
-      .then(($el) => {
-        expect($el).to.have.attr('number', firstNumEdited);
-        expect($el).to.have.attr('current', 0);
-      });
-    cy.get('#main-container')
-      .shadow()
-      .find('#main-list')
-      .find(`[name="${firstNameEdited}"]`)
-      .shadow()
-      .find('#delete-btn')
-      .click({ force: true });
-    cy.get('#confirm-button').click();
-    cy.get('#main-container')
-      .shadow()
-      .find('#main-list')
-      .find(`[name="${firstNameEdited}"]`)
-      .should('not.exist');
-  });
+  it(
+    'Create a test where a user enters the timer page, goes to the stats ' +
+      'page, creates a task, and then goes to the timer page through the ' +
+      'task item (not through the header). Click the start and ensure that ' +
+      'the create task does not show up. After the session, go to the task ' +
+      'page and ensure that the task chosen updates its ratio and that the ' +
+      'stats page is updated.',
+    () => {}
+  );
 
-  it('Should not have task on page after reload', () => {
-    cy.reload();
-    cy.get('#main-container')
-      .shadow()
-      .find('#main-list')
-      .find(`[name="${firstNameEdited}"]`)
-      .should('not.exist');
-  });
+  it(
+    ' Create a test where the user edits the work, short and long break ' +
+      'and then starts a test. Make sure that the work, short, and long ' +
+      'sessions are the correct amount of time.',
+    () => {}
+  );
 
-  for (let taskIndex = 0; taskIndex < 10; taskIndex++) {
-    it(`Create task ${taskIndex + 1} of 10`, () => {
-      cy.get('#add-task-btn').click();
-      cy.get('#task-name').clear();
-      cy.get('#task-name').type(`name${taskIndex}`);
-      cy.get('#task-num').clear();
-      cy.get('#task-num').type(taskIndex + 1);
-      cy.get('#task-note').clear();
-      cy.get('#task-note').type(`${taskIndex}`);
-      cy.get('#save-btn').click();
-      cy.get('#main-container')
-        .shadow()
-        .find('#main-list')
-        .find(`[name="name${taskIndex}"]`)
-        .should('exist');
-      cy.get('#main-container')
-        .shadow()
-        .find('#main-list')
-        .find(`[name="name${taskIndex}"]`)
-        .then(($el) => {
-          expect($el).to.have.attr('number', taskIndex + 1);
-          expect($el).to.have.attr('current', 0);
-        });
-    });
-  }
-
-  it('For each task, run it 4 times', () => {
-    cy.clock();
-    for (let taskIndex = 0; taskIndex < 10; taskIndex++) {
-      const currentTaskName = `name${taskIndex}`;
-      const currentTaskNum = taskIndex + 1;
-      for (let taskSessionIndex = 0; taskSessionIndex < 4; taskSessionIndex++) {
-        cy.get('#header')
-          .shadow()
-          .find('#cycle-count')
-          .children('.dot')
-          .should('have.length', 4 - (taskSessionIndex % 4));
-        cy.get('#header')
-          .shadow()
-          .find('#cycle-count')
-          .children('.filled-dot')
-          .should('have.length', taskSessionIndex % 4);
-        cy.get('#main-container')
-          .shadow()
-          .find('#main-list')
-          .find(`[name="${currentTaskName}"]`)
-          .shadow()
-          .find('#play-btn')
-          .click({ force: true });
-        cy.get('#start-btn').click();
-        cy.get('#start-btn').click();
-        cy.tick(1000);
-        cy.get('#distraction-btn').click();
-        cy.tick(1500000 + 2000);
-        if ((taskSessionIndex + 1) % 4 === 0) {
-          cy.get('#start-long-btn').click();
-        } else {
-          cy.get('#start-short-btn').click();
-        }
-        if ((taskSessionIndex + 1) % 4 === 0) {
-          cy.get('#header')
-            .shadow()
-            .find('#cycle-count')
-            .children('.dot')
-            .should('have.length', 0);
-          cy.get('#header')
-            .shadow()
-            .find('#cycle-count')
-            .children('.filled-dot')
-            .should('have.length', 4);
-        } else {
-          cy.get('#header')
-            .shadow()
-            .find('#cycle-count')
-            .children('.dot')
-            .should('have.length', 4 - ((taskSessionIndex + 1) % 4));
-          cy.get('#header')
-            .shadow()
-            .find('#cycle-count')
-            .children('.filled-dot')
-            .should('have.length', (taskSessionIndex + 1) % 4);
-        }
-        cy.tick(1500000 + 2000);
-        cy.get('#change-btn').click();
-
-        // Check to make sure stats are changed correctly
-        cy.get('#stats-btn').click();
-        cy.get('#todayPomos').contains(
-          `${4 * taskIndex + taskSessionIndex + 1}`
-        );
-        cy.get('#todayAvgDistractions').contains('1.0');
-        cy.get('#weekSuccess').contains('100.00%');
-        cy.get('#weekPomos').contains(
-          `${4 * taskIndex + taskSessionIndex + 1}`
-        );
-        cy.get('#weekAvgDistractions').contains('1.0');
-        cy.get('#weekSuccess').contains('100.00%');
-        cy.get('#monthPomos').contains(
-          `${4 * taskIndex + taskSessionIndex + 1}`
-        );
-        cy.get('#monthAvgDistractions').contains('1.0');
-        cy.get('#monthSuccess').contains('100.00%');
-        cy.get('#stats-btn').click();
-        cy.get('#header')
-          .shadow()
-          .find('#cycle-count')
-          .children('.dot')
-          .should('have.length', 4 - ((taskSessionIndex + 1) % 4));
-        cy.get('#header')
-          .shadow()
-          .find('#cycle-count')
-          .children('.filled-dot')
-          .should('have.length', (taskSessionIndex + 1) % 4);
-        cy.get('#main-container')
-          .shadow()
-          .find('#main-list')
-          .find(`[name="${currentTaskName}"]`)
-          .then(($el) => {
-            expect($el).to.have.attr('number', currentTaskNum);
-            expect($el).to.have.attr('current', taskSessionIndex + 1);
-          });
-
-        // Check that the current task's progress bar is correct
-        let classname;
-        let width;
-        const widthPercentage = ((taskSessionIndex + 1) / currentTaskNum) * 100;
-        if (widthPercentage > 100) {
-          classname = 'progress-bar progress-bar bg-danger';
-        } else {
-          classname = 'progress-bar progress-bar';
-        }
-        if (widthPercentage >= 100) {
-          width = '100%';
-        } else {
-          width = `${widthPercentage.toFixed(2)}%`;
-        }
-
-        cy.get('#main-container')
-          .shadow()
-          .find('#main-list')
-          .find(`[name="${currentTaskName}"]`)
-          .shadow()
-          .find('#progress-bar')
-          .then(($el) => {
-            expect($el).to.have.attr('class', classname);
-            expect($el).to.have.attr('style', `width: ${width};`);
-          });
-
-        // Check that the current task's progress text is correct
-        cy.get('#main-container')
-          .shadow()
-          .find('#main-list')
-          .find(`[name="${currentTaskName}"]`)
-          .shadow()
-          .find('.progress-text')
-          .contains(`${taskSessionIndex + 1}/${currentTaskNum}`);
-      }
-
-      // Check to make sure that all tasks that are not current task are
-      // Unaffected and that the current task remains the same.
-      for (let checkTaskIndex = 0; checkTaskIndex < 10; checkTaskIndex++) {
-        let currentAmount = 0;
-
-        if (checkTaskIndex <= taskIndex) {
-          currentAmount = 4;
-        }
-
-        cy.get('#main-container')
-          .shadow()
-          .find('#main-list')
-          .find(`[name="name${checkTaskIndex}"]`)
-          .then(($el) => {
-            expect($el).to.have.attr('number', checkTaskIndex + 1);
-            expect($el).to.have.attr('current', currentAmount);
-          });
-      }
-    }
-  });
+  it(
+    'Enable auto timer and run through 4 work sessions, ensuring that ' +
+      'that the system runs through them automatically and that no ' +
+      'interaction needs to happen.',
+    () => {}
+  );
 });

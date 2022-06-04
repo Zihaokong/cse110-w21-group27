@@ -1,8 +1,8 @@
-# RECORD NUMBER - ISSUE
+# 012 - Noob System
 * Date: 05/22/22
   * (Originally created 05/21/22 on whiteboard and was converted to markdown on 
     05/22)
-* Status: COMPLETED
+* Status: COMPLETED (EDIT: PUSHED TO BACKLOG)
 
 ## Context and Problem Statement
 We were planning on adding a new-user system. Essentially, now that you can
@@ -71,5 +71,12 @@ better.
 
 
 ## Consequences
-The logic for determining if the warning should occur needs to be implemented.
+The logic for determining if the warning should occur needs to be implemented.  
+UPDATE: Since analytics was pushed backed, we could not reasonably see A/B as
+a means to determining what would be the best route to take for this. As a 
+result, we decided to choose the more opinionated option of forcing the
+system on initial users. We worried that this might overload the user with
+options, but they are given the option to ignore this warning, which means
+that if they find it better to start on the micro, they can make that 
+desicion for themselves.
 

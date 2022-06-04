@@ -31,22 +31,6 @@ class TimerComp extends HTMLElement {
   }
 
   /**
-   * Sets seconds on timer
-   * @param {string} newValue seconds left
-   */
-  set dataSecondsLeft(newValue) {
-    this.setAttribute('data-seconds-left', newValue);
-  }
-
-  /**
-   * Sets whether timer is running
-   * @param {string} newValue true if timer is running, false otherwise
-   */
-  set dataRunning(newValue) {
-    this.setAttribute('data-running', newValue);
-  }
-
-  /**
    * Gets number of minutes on timer
    * @return {string} number of minutes left on timer
    */
@@ -55,11 +39,27 @@ class TimerComp extends HTMLElement {
   }
 
   /**
+   * Sets seconds on timer
+   * @param {string} newValue seconds left
+   */
+  set dataSecondsLeft(newValue) {
+    this.setAttribute('data-seconds-left', newValue);
+  }
+
+  /**
    * Gets number of seconds on timer
    * @return {string} number of seconds left on timer
    */
   get dataSecondsLeft() {
     return this.getAttribute('data-seconds-left');
+  }
+
+  /**
+   * Sets whether timer is running
+   * @param {string} newValue true if timer is running, false otherwise
+   */
+  set dataRunning(newValue) {
+    this.setAttribute('data-running', newValue);
   }
 
   /**
@@ -110,13 +110,13 @@ class TimerComp extends HTMLElement {
     const numberDisplay = document.createElement('span');
     numberDisplay.setAttribute('class', 'container');
 
-    const minutes = document.createElement('h4');
+    const minutes = document.createElement('p');
     minutes.setAttribute('id', 'minutes');
 
-    const colon = document.createElement('h4');
+    const colon = document.createElement('p');
     colon.textContent = ':';
 
-    const seconds = document.createElement('h4');
+    const seconds = document.createElement('p');
     seconds.setAttribute('id', 'seconds');
 
     const progressRing = document.createElementNS(
