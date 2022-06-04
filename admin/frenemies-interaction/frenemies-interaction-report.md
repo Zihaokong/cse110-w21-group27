@@ -7,17 +7,17 @@ Bolded bullet points indicate possible points of improvement.
 ## Frenemies Interaction User Feedback
 - Feedback by Theodore Alo
 - Took place 05/25/2022 @ 11:00AM - 12:00PM
-- Was shown only the website.
+- Was shown only on the website.
 
 ### Website Flow
 * Start button was not working (minor bug)
 * **Checkbox on task item was unclear** 
-* Likes the icons usage, thinks they're intuitive
-* User is pretty familiar with the pomodoro timer
+* Likes the usage of the icon, thinks they're intuitive
+* User is pretty familiar with the Pomodoro timer
 * **The Auto Timer was unclear in the settings menu**
 * **Pomodoro count on the header is unclear**
 * Didn't know the long break system, needed more explanation
-* Likes the break between the break and the work session when auto timer is
+* Likes the break between the break and the work session when the auto timer is
   enabled
 * Going back is breaking the clock
 * 0/1 is unintuitive for completed
@@ -25,12 +25,12 @@ Bolded bullet points indicate possible points of improvement.
 ### UI
 * Everything looks outdated because everything is sharp
   * **Round off the edges**
-* Color pallete is old shcool
-  * **Get a more lively color pallete**
-* layout is fine, but ui needs more pizzaz.
+* Color palette is old school
+  * **Get a more lively color palette**
+* layout is fine, but UI needs more pizzaz.
 * **Add drop shadow to the task items**
 * looks bunched up, space things out more
-  * Use the stats drop box as example
+  * Use the stats drop box as an example
 * **Differentiate the colors of the icons**
 
 ## Frenemies Interaction Dev Feedback
@@ -42,10 +42,10 @@ Bolded bullet points indicate possible points of improvement.
 - **We should probably have linting on GitHub's end rather than enforcing everything via client only.**
 - **We should also lint HTML and CSS**
 - Why do we have config files in /source?
-- README and most docs still just templates
+- README and most docs are still just templates
 - Our meeting, sprint planning, and incident reports are unintuitively organized.
 - If we're going to have code quality checkers from the template, we should probably just implement those into the repo
-- **Testing should be higher priority (we have been ignoring tests for a long time)**
+- **Testing should be a higher priority (we have been ignoring tests for a long time)**
   
 ### JS Source
 - Code documentation is iffy- not every function explains its params/args/returns. **Make JSDocs documentation more consistent**
@@ -60,6 +60,6 @@ Bolded bullet points indicate possible points of improvement.
 
 ## Issues to incorporate
 * Get a more lively color pallete
-  * **Reason:** This is a rather straightforward fix that can be accomplished in a reasonable amount of time with little new skills being added. Additionally, we currently have a team working on UI (as of sprint 3) so it incorporates into our current work flow quite nicely.
+  * **Reason:** This is a rather straightforward fix that can be accomplished in a reasonable amount of time with few new skills being added. Additionally, we currently have a team working on UI (as of sprint 3) so it incorporates into our current workflow quite nicely.
 * Make JSDocs documentation more consistent
-  * **Reason:** Documentation is extremely valuable as a tool for the dev and we would benefit greatly if we expanded upon this. This plays greatly into our values of simplicity and organization as we are simplifying the cognitive requirements of understanding our functions by openly laying out the inputs, outputs and everything inbetween for the functions.
+  * **Reason:** Documentation is extremely valuable as a tool for the dev and we would benefit greatly if we expanded upon this. This plays greatly into our values of simplicity and organization as we are simplifying the cognitive requirements of understanding our functions by openly laying out the inputs, outputs, and everything in between for the functions.
