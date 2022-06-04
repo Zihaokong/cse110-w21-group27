@@ -84,7 +84,7 @@ class TaskList extends HTMLElement {
   }
 
   /**
-   * Invoked each time the task-list is appeneded into a document-connected
+   * Invoked each time the task-list is appended into a document-connected
    * element; sets up the list and reads localstorage to set up saved
    * task-items.
    */
