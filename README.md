@@ -1,5 +1,5 @@
-# cse110-w21-group8 (AKA Team Cre8tors)
-## README (WORK IN PROGRESS...)
+# CSE 112 SPRING 2022 TEAM 8 (AKA Team Cre8tors)
+## README
 
 <div id="top"></div>
 <!--
@@ -9,7 +9,6 @@
 *** Don't forget to give the project a star!
 *** Thanks again! Now go create something AMAZING! :D
 -->
-
 
 <!-- PROJECT SHIELDS -->
 <!--
@@ -39,13 +38,11 @@
     <br />
     <a href="https://pomodoro-timer-c1a2a.web.app/">View Demo</a>
     ·
-    <a href="https://github.com/othneildrew/Best-README-Template/issues">Report Bug</a>
+    <a href="https://github.com/cmwall0605/cse112-sp22-group8/issues">Report Bug</a>
     ·
-    <a href="https://github.com/othneildrew/Best-README-Template/issues">Request Feature</a>
+    <a href="https://github.com/cmwall0605/cse112-sp22-group8/issues">Request Feature</a>
   </p>
 </div>
-
-
 
 <!-- TABLE OF CONTENTS -->
 <details>
@@ -58,179 +55,206 @@
       </ul>
     </li>
     <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
+      <a href="#getting-started-as-a-developer">Getting Started as a Developer</a>
     </li>
-    <li><a href="#usage">Usage</a></li>
+    <li><a href="#user-flow">User Flow</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
 
-
-
 <!-- ABOUT THE PROJECT -->
 ## About The Project
+<div align="center">
+  <a href="https://pomodoro-timer-c1a2a.web.app/">
+    <img src="/admin/readme-assets/tomo-timer-screenshot.webp" alt="Tomo Timer" width="500" height="271">
+  </a>
+</div>
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
-
-There are many great README templates available on GitHub; however, I didn't find one that really suited my needs so I created this enhanced one. I want to create a README template so amazing that it'll be the last one you ever need -- I think this is it.
-
-Here's why:
-* Your time should be focused on creating something amazing. A project that solves a problem and helps others
-* You shouldn't be doing the same tasks over and over like creating a README from scratch
-* You should implement DRY principles to the rest of your life :smile:
-
-Of course, no one template will serve all projects since your needs may be different. So I'll be adding more in the near future. You may also suggest changes by forking this repo and creating a pull request or opening an issue. Thanks to all the people have contributed to expanding this template!
-
-Use the `BLANK_README.md` to get started.
+The Pomodoro Technique is a productivity technique where inidividuals work for 25 minutes at a time and take 5 minute breaks in between. They take a longer break every 4 sessions. Our app, Tomo Timer, takes this technique and adds a task manager that allows users to focus and keep track of their tasks. Furthermore, our app does not include a pause button to give users unrestricted focus. 
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
-
 
 ### Built With
-
-This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
-
-* [Next.js](https://nextjs.org/)
-* [React.js](https://reactjs.org/)
-* [Vue.js](https://vuejs.org/)
-* [Angular](https://angular.io/)
-* [Svelte](https://svelte.dev/)
-* [Laravel](https://laravel.com)
-* [Bootstrap](https://getbootstrap.com)
-* [JQuery](https://jquery.com)
+* [HTML5](https://developer.mozilla.org/en-US/docs/Glossary/HTML5)
+* [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS)
+* [Javascript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+  * [Web Components](https://developer.mozilla.org/en-US/docs/Web/Web_Components)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-
-
 <!-- GETTING STARTED -->
-## Getting Started
+## Getting Started As a Developer
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
-
-### Prerequisites
-
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
+_Below are steps of how you can install and set up the web app locally as the developer._
 
 ### Installation
 
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
-
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+1. Clone the repo
    ```sh
-   git clone https://github.com/your_username_/Project-Name.git
+   git clone https://github.com/cmwall0605/cse112-sp22-group8.git
    ```
-3. Install NPM packages
+2. Download [Visual Studio Code](https://code.visualstudio.com/download)
+3. In Visual Studio Code, download the following extensions:
+   * [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
+   * [Prettier - Code formatter](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+   * [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer)
+4. Go to the repository that has the project; make sure that the following files were taken from the git repository:
+   * `package-lock.json`
+   * `package.json`
+5. Open up a new terminal in Visual Studio Code  (Terminal > New Terminal or `` Ctrl+Shift+` ``)
+6. Update NodeJS from the [website](https://nodejs.org/en/download/).
+7. Update npm via command in the terminal.
+   ```sh
+   npm install -g npm
+   ```
+9. Install all of the project packages via
    ```sh
    npm install
    ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
-   ```
+13. If successful, you will now have a `node_modules` folder.
+14. Afterwards, set up the project by running the set up command in your terminal.
+    ```sh
+    npm run setup
+    ```
+    If on Windows run instead
+    ```sh
+    npm run setup-windows
+    ```
+    If successful, you will now have a `.husky` folder and a `.eslintrc.json` file in the root directory.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
-
 
 <!-- USAGE EXAMPLES -->
-## Usage
+## User Flow
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+Demonstrated Workflow: 
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+1. On the landing page, we are introducted to the timer.
+2. The timer switches between work mode (25 minutes) and break mode (5 minutes), with every 4th break being thrice as long as the usual break (15 minutes).
+3. Starting the timer without a task, the user is prompted to either choose a task they created in the past, or create one now. The user can optionally opt out of making a task and run the timer without logging the session in a task.
+4. Starting the timer, the user must then begin the task they decided to commit to.
+5. The user, if distracted, can use the distraction button to quickly note that they were distracted at this point.
+6. Additionally, the user can fail the session if they find themselves not being able to work on the task at a consistent rate.
+7. At the end of a work session, it then prompts the user to begin the their break.
+8. During this break, the user is free to do whatever they want so long as it is not the task at hand.
+9. After the break, the user can either continue their task, or they can change their task. Changing their task leads them to the tasks list page.
+10. The task list page is where tasks will typically be created, shown, updated, and deleted (though they can also be created on the timer page).
+11. To create a task, the user can use the form underneath the todo list title, giving a title of the task and the amount of work sessions it would take to complete the task.
+12. To edit a task, the user can click the pencil icon which will pop down an edit form.
+13. To play a task, the user can click the play icon which will redirect them to the timer page with the task they chose selected and ready to start.
+14. To delete a task, the user can click the trash icon which will ask them to confirm their decision.
+15. The user can additionally move their tasks around the list to suit their own needs (possibly to show a hieracrchy of importance, but that is up to the user).
+16. The timer's settings can be modified in the settings menu on the top right, indicated by the cog.
+17. Here you can set the time of each type of session,
+18. Change the volume,
+19. Or enable auto timer
+17. The stats of the user is logged and visible to the user on the stats page.
+18. On the stats page there are three sets of info displayed across three different sets of time ranges.
+19. The three sets of info displayed are completed pomos, average distractions per pomo, and pomo completion rate.
+20. The three time ranges are today, the past 7 days, and the past 30 days. 
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
-
 
 <!-- ROADMAP -->
 ## Roadmap
 
-- [x] Add Changelog
-- [x] Add back to top links
-- [ ] Add Additional Templates w/ Examples
-- [ ] Add "components" document to easily copy & paste sections of the readme
-- [ ] Multi-language Support
-    - [ ] Chinese
-    - [ ] Spanish
+Logistics
+  - [x] Repo evaluations
+  - [x] User flow diagrams, codebase diagrams, design diagrams
 
-See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a full list of proposed features (and known issues).
+Major refactoring 
+  - [x] Restructure the Repo
+  - [x] Migrate to Web Components
+    - [x] Task List
+    - [x] Items in Timer Page
+  - [x] Color Style Adjustments - refactor
+  - [x] Accessibility Style Adjustments
+  - [x] Icon for Stats Page
+  - [x] Notes Button Added to Timer Page
+  - [x] Make edit button a non-modal form
+  - [x] Modals use < dialogue > elements
+  - [x] Fractional Progress Bar
+  - [x] Grey out edit/delete/play task buttons
+  - [x] Make timer the landing page
+  - [x] Stats page
+  - [x] Timer Page
+  - [x] Task Page
+  - [x] Change Unit Test Workflow Info
+  - [x] Removing Bootstraps
+  - [x] Change Delete Modal to Confirm Button
+  - [x] Button Styling
+  - [x] Custom Color Properties, Global CSS File
+  - [x] Restructure CSS Files
+  - [x] Adjust Settings Menu Style
+  - [x] Header Icons as words
+  - [x] Implement main.css file
+  - [ ] Circles for Pomodoro count
+  - [ ] Adapt Readme
+
+Features
+  - [x] Dynamic Timer
+  - [x] Change Tasks via Timer Page
+  - [x] To-Do list integrated into timer page
+  - [x] Add Timer Continuance
+  - [x] Settings Menu
+  - [x] Add Pop-ups for CSS/JS not enabled
+  - [x] Incorporate Emotes
+  - [x] Stats Items into Web Components
+  - [x] Replace Date with Icon
+  - [x] Remove the date - minor design choice
+  - [x] Mascot for website
+  - [x] Polish UI
+  - [ ] Confirmation Modal for Reset Stats
+  - [ ] Analytics Planning and Collection
+  - [ ] Database Analytics
+  - [ ] Implement Noob System
+  - [ ] Update CICD Wiki Page
+  - [ ] Fix up Website for Increased LightHouse Report Marks
+
+CI/CD Pipeline
+  - [x] Create Personal Access Token
+
+Testing  
+- [ ] 90% Coverage for Unit Tests
+- [ ] Unit Tests for timer and stats pages web components
+- [ ] Jest and Cypress tests
+
+See the [open issues](https://github.com/cmwall0605/cse112-sp22-group8/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
-
-
-<!-- CONTRIBUTING -->
-## Contributing
-
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-
-If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
-Don't forget to give the project a star! Thanks again!
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-
 
 <!-- LICENSE -->
 ## License
 
-Distributed under the MIT License. See `LICENSE.txt` for more information.
+Distributed under the MIT License. See `LICENSE.md` for more information.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
-
 
 <!-- CONTACT -->
 ## Contact
-
-Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com
-
-Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
+[See Team Wiki Page](https://github.com/cmwall0605/cse112-sp22-group8/wiki)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
-
 
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-Use this space to list resources you find helpful and would like to give credit to. I've included a few of my favorites to kick things off!
-
-* [Choose an Open Source License](https://choosealicense.com)
-* [GitHub Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet)
+* [UCSD CSE Department](https://cse.ucsd.edu)
+* [Professor Powell](https://classes.pint.com)
+* Priyanka Bhatia - TA Mentor
+* [Purrwitch (Tomo Mascot Artist)](https://purrwitch.com/)
+<!--
 * [Malven's Flexbox Cheatsheet](https://flexbox.malven.co/)
 * [Malven's Grid Cheatsheet](https://grid.malven.co/)
 * [Img Shields](https://shields.io)
 * [GitHub Pages](https://pages.github.com)
 * [Font Awesome](https://fontawesome.com)
-* [React Icons](https://react-icons.github.io/react-icons/search)
+* [React Icons](https://react-icons.github.io/react-icons/search) -->
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
-
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
