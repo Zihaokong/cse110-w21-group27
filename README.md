@@ -96,18 +96,34 @@ _Below are steps of how you can install and set up the web app locally as the de
    ```sh
    git clone https://github.com/cmwall0605/cse112-sp22-group8.git
    ```
-2. Install NPM packages
+2. Download [Visual Studio Code](https://code.visualstudio.com/download)
+3. In Visual Studio Code, download the following extensions:
+   * [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
+   * [Prettier - Code formatter](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+   * [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer)
+4. Go to the repository that has the project; make sure that the following files were taken from the git repository:
+   * `package-lock.json`
+   * `package.json`
+5. Open up a new terminal in Visual Studio Code  (Terminal > New Terminal or `` Ctrl+Shift+` ``)
+6. Update NodeJS from the [website](https://nodejs.org/en/download/).
+7. Update npm via command in the terminal.
+   ```sh
+   npm install -g npm
+   ```
+9. Install all of the project packages via
    ```sh
    npm install
    ```
-3. Set up ESLint and Husky Autocommit
-   ```sh
-   npm run setup
-   ```
-   If on Windows
-   ```sh
-   npm run setup-windows
-   ```
+13. If successful, you will now have a `node_modules` folder.
+14. Afterwards, set up the project by running the set up command in your terminal.
+    ```sh
+    npm run setup
+    ```
+    If on Windows run instead
+    ```sh
+    npm run setup-windows
+    ```
+    If successful, you will now have a `.husky` folder and a `.eslintrc.json` file in the root directory.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
