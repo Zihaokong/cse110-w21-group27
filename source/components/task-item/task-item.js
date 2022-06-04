@@ -10,13 +10,12 @@
 
 /**
  * \<task-item\>
- * 
+ *
  * The web component that represents an individual task. Houses the task's
  * information and contains event listeners for play, edit,  delete, and
  * complete, which it gets from the task list.
  */
 class TaskItem extends HTMLElement {
-  
   /**
    * Returns a list of the attributes this component interacts with.
    * @type {string[]}
@@ -434,12 +433,12 @@ class TaskItem extends HTMLElement {
   }
 
   /**
-   * This function handles opening and closing the edit form via the permit attribute 
-   * of the form element. The CSS will choose the height of the form element based off 
+   * This function handles opening and closing the edit form via the permit attribute
+   * of the form element. The CSS will choose the height of the form element based off
    * of the permit attribute (0 when false, based on screen size when true).
-   * 
+   *
    * This function will also make the task-item undraggable while being edited.
-   * 
+   *
    * Calling this function will toggle the permit attribute.
    */
   setUpEdit() {
