@@ -1,12 +1,12 @@
 /**
  * \<timer-buttons\>
- * 
+ *
  * This webcomponent represents the controls to the timer. It contains all
  * the buttons and forms that are shown underneath the timer. These controls
- * allow for starting and stopping the timer, creating new tasks, selecting 
+ * allow for starting and stopping the timer, creating new tasks, selecting
  * preexisting tasks, fail a pomo session, and incrementing the distraction
  * counter.
- * 
+ *
  * This webcomponent also contains the modals for failing a task and for
  * when a break is complete.
  */
@@ -32,7 +32,7 @@ class TimerButtons extends HTMLElement {
       mode: 'open',
     });
   }
-  
+
   /**
    * Invoked each time the timer-buttons is appended into a document-connected
    * element. Adds all the subelements to this webcomponent.
@@ -376,7 +376,7 @@ class TimerButtons extends HTMLElement {
    * It offers the user the choice to either continue or cancel.
    * @returns {HTMLDialogElement} The fail modal
    */
-   createFailDialog() {
+  createFailDialog() {
     const failDialog = document.createElement('dialog');
 
     failDialog.id = 'failDialog';
@@ -440,7 +440,7 @@ class TimerButtons extends HTMLElement {
 
   /**
    * Display modal for fail.
-   * 
+   *
    * This is called by the fail button.
    */
   openFailDialog() {
@@ -450,7 +450,7 @@ class TimerButtons extends HTMLElement {
   /**
    * Open the create-task form or start the pomodoro timer
    * depending on whether a task is already selected.
-   * 
+   *
    * Called by the start button.
    */
   openTaskForm() {
@@ -477,7 +477,7 @@ class TimerButtons extends HTMLElement {
 
   /**
    * Starts a pomo session.
-   * 
+   *
    * Called by openTaskForm.
    */
   startSession() {
@@ -491,7 +491,7 @@ class TimerButtons extends HTMLElement {
 
   /**
    * Hide all the different button elements below the timer.
-   * 
+   *
    * Called whenever a new set of buttons is rendered.
    */
   hideButtons() {
@@ -608,14 +608,14 @@ class TimerButtons extends HTMLElement {
 
   /**
    * Used by timer.js to interact with the timer-buttons component
-   * @param {function} changeTask 
-   * @param {function} continueTask 
-   * @param {function} createTask 
-   * @param {function} failSession 
-   * @param {function} getTask 
-   * @param {function} getTasks 
-   * @param {function} startBreak 
-   * @param {function} startTimer 
+   * @param {function} changeTask
+   * @param {function} continueTask
+   * @param {function} createTask
+   * @param {function} failSession
+   * @param {function} getTask
+   * @param {function} getTasks
+   * @param {function} startBreak
+   * @param {function} startTimer
    */
   setFunctions(
     changeTask,

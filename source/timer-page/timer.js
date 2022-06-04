@@ -113,7 +113,7 @@ function timerOnLoad() {
 /**
  * @typedef {object} Task
  * @property {boolean} completed Whether the task has been marked as completed
- * @property {number} current How many sessions have been completed for this task 
+ * @property {number} current How many sessions have been completed for this task
  * @property {string} id The unique identifier for this task
  * @property {string} name The name of the task
  * @property {string} note The note associated with the task
@@ -214,10 +214,10 @@ function startTimer() {
 }
 
 /**
- * Sets the data-minutes-left and data-seconds-left attributes of the 
+ * Sets the data-minutes-left and data-seconds-left attributes of the
  * timer-comp based on the passed parameters.
- * @param {string|number} minutes 
- * @param {string|number} seconds 
+ * @param {string|number} minutes
+ * @param {string|number} seconds
  */
 function setTimer(minutes, seconds) {
   const timerComp = document.getElementsByTagName('timer-comp')[0];

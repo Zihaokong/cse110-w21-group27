@@ -5,7 +5,7 @@
 
 /**
  * \<timer-comp\>
- * 
+ *
  * This webcomponent controls the physical display of the timer. It increments
  * the appearance of the timer based on how much time remains, and also controls
  * whether the timer is visibily counting down or not.
@@ -231,7 +231,7 @@ class TimerComp extends HTMLElement {
 
   /**
    * Stops the timer and prevents it from updating further.
-   * 
+   *
    * Called when the time remaining gets to 0.
    */
   stopTimer() {
