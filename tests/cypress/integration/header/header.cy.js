@@ -44,7 +44,9 @@ describe('Header Tests', () => {
         .click();
       cy.get('timer-buttons').shadow().find('.start-button').click();
       cy.tick(1600000);
+      cy.clock().invoke('restore');
       cy.wait(2000);
+      cy.clock(new Date());
       cy.get('timer-buttons').shadow().find('#break-button').click();
 
       cy.tick(900000);
