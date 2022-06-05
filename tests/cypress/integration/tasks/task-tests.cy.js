@@ -6,7 +6,7 @@
  * @param {number} num How many tasks should be in the task list
  */
 function numTasks(num) {
-  if (num == 0) {
+  if (num === 0) {
     cy.get('task-list')
       .shadow()
       .find('section > task-item')
@@ -48,13 +48,16 @@ function taskExists(task, count) {
  */
 function addTask(task, count) {
   // type task1 title
-  cy.get('task-list').shadow().find('input[content="title"]').type(`${task}`);
+  cy.get('task-list')
+    .shadow()
+    .find('input[content="title"]')
+    .type(`${task}`, { force: true });
   // type task1 count
   cy.get('task-list')
     .shadow()
     .find('input[content="count"]')
     .click()
-    .type(`${count}`);
+    .type(`${count}`, { force: true });
   cy.get('task-list').shadow().find('form > button').click();
 }
 describe('Tasks tests', () => {
