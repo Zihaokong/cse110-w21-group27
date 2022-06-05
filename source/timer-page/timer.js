@@ -291,7 +291,7 @@ function finishedTask() {
     const workEndAudio = new Audio('/assets/audio/work-tune.mp3');
     workEndAudio.volume = localStorage.getItem('volumePercentage') / 100.0;
     workEndAudio.play();
-    setTimeout(() => {
+    window.setTimeout(() => {
       document.getElementById('deselect-task').style.display = 'none';
 
       if (localStorage.getItem('shortBreak') === 'true') {
@@ -312,7 +312,6 @@ function finishedTask() {
 
       document.querySelector('timer-buttons').setupBreak();
     }, 2000);
-
     // update progress for current task
     if (currentTaskIndex !== -1) {
       allTasks[currentTaskIndex].current += 1;

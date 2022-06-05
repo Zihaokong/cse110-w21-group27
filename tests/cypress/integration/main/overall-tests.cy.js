@@ -6,7 +6,6 @@ describe('Overall testing', () => {
   const firstName = 'testname1';
   const firstNum = 1;
   beforeEach(() => {
-    cy.clock();
     cy.visit('http://127.0.0.1:5501/timer-page/timer.html');
   });
 
@@ -112,13 +111,13 @@ describe('Overall testing', () => {
         .shadow()
         .find('#create-task')
         .should('not.have.css', 'display', 'none');
-      cy.get('timer-buttons')
-        .shadow()
-        .find('#create-skip')
-        .click()
-        .then(function () {
-          this.clock.tick(1500000 + 2000);
-        });
+      cy.clock(new Date());
+      cy.get('timer-buttons').shadow().find('#create-skip').click();
+      // Skip through Session
+      cy.tick(1500000);
+      cy.tick(2000).then(() => {
+        cy.clock().invoke('restore');
+      });
       cy.get('#currTask').should('have.text', 'Short Break');
 
       // Ensure Task was NOT updated (as it was not selected)
@@ -270,13 +269,11 @@ describe('Overall testing', () => {
         .shadow()
         .find('#create-task')
         .should('not.have.css', 'display', 'none');
-      cy.get('timer-buttons')
-        .shadow()
-        .find('#create-skip')
-        .click()
-        .then(() => {
-          this.clock.tick(1500000 + 2000);
-        });
+      cy.get('timer-buttons').shadow().find('#create-skip').click();
+
+      // Skip through Session
+      cy.tick(1500000);
+      cy.tick(2000);
 
       cy.get('#currTask').should('have.text', 'Short Break');
       // Ensure Task was NOT updated (as it was not selected)
