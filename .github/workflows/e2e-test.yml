@@ -18,6 +18,7 @@ jobs:
           start: npm run start-server
           config-file: config/cypress.config.js
           record: true
+          headless: false
         env: 
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
