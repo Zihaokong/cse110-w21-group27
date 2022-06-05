@@ -1,0 +1,17 @@
+# Basic Cyress E2E for maintaining pull-requests and pushes.
+name: Cypress E2E Test Suite
+ 
+on:
+  # Workflow is triggered on a pull request and a push
+  [pull_request, push]
+  
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Run Cypress
+        uses: cypress-io/github-action@v2
+        with:
+          browser: chrome

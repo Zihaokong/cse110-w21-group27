@@ -1,9 +1,9 @@
 # Basic unit tests for maintaining pull-requests to the main branch
-#   by testing js.
-name: Unit Test
+#   by testing js with Jest.
+name: Jest Unit Test Suite
  
 on:
-  # Workflow is triggered on a pull_request and a push
+  # Workflow is triggered on a pull request and a push
   [pull_request, push]
     
 # Workflow of testing the code
