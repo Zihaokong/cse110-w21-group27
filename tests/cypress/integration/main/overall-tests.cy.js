@@ -116,12 +116,9 @@ describe('Overall testing', () => {
         .shadow()
         .find('#create-skip')
         .click()
-        .then(() => {
+        .then(function () {
           this.clock.tick(1500000 + 2000);
         });
-
-      cy.clock().invoke('restore');
-      cy.clock();
       cy.get('#currTask').should('have.text', 'Short Break');
 
       // Ensure Task was NOT updated (as it was not selected)
