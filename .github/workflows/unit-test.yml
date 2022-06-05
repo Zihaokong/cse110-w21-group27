@@ -3,9 +3,8 @@
 name: Unit Test
  
 on:
-  # Workflow is triggered on a pull_request to the main branch
-  pull_request:
-    branches: [ main ]
+  # Workflow is triggered on a pull_request and a push
+  [pull_request, push]
     
 # Workflow of testing the code
 jobs:
