@@ -118,9 +118,8 @@ describe('Overall testing', () => {
       cy.tick(1500000);
       cy.tick(3000);
       cy.clock().invoke('restore');
-      cy.clock();
       cy.get('#currTask').should('have.text', 'Short Break');
-
+      cy.clock();
       // Ensure Task was NOT updated (as it was not selected)
       cy.get('header-comp')
         .shadow()
@@ -276,9 +275,8 @@ describe('Overall testing', () => {
       cy.tick(1500000);
       cy.tick(3000);
       cy.clock().invoke('restore');
-      cy.clock();
       cy.get('#currTask').should('have.text', 'Short Break');
-
+      cy.clock();
       // Ensure Task was NOT updated (as it was not selected)
       cy.get('header-comp')
         .shadow()
