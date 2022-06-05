@@ -263,7 +263,7 @@ Distributed under the MIT License. See `LICENSE.md` for more information.
 [issues-shield]: https://img.shields.io/github/issues-closed/cmwall0605/cse112-sp22-group8?style=for-the-badge
 [issues-url]: https://github.com/cmwall0605/cse112-sp22-group8/issues
 [license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
-[license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
+[license-url]: https://github.com/cmwall0605/cse112-sp22-group8/blob/main/LICENSE.md
 [firebase-shield]: https://img.shields.io/badge/firebase-%23039BE5.svg?style=for-the-badge&logo=firebase
 [firebase-url]: https://firebase.google.com/
 [product-screenshot]: images/screenshot.png
