@@ -1,3 +1,4 @@
+/* eslint-disable cypress/no-unnecessary-waiting */
 describe('Header Tests', () => {
   const firstName = 'testname1';
   const firstNum = 1;
@@ -42,11 +43,9 @@ describe('Header Tests', () => {
         .find('button[job="play"]')
         .click();
       cy.get('timer-buttons').shadow().find('.start-button').click();
-      cy.tick(1600000).then(() => {
-        cy.tick(3000).then(() => {
-          cy.get('timer-buttons').shadow().find('#break-button').click();
-        });
-      });
+      cy.tick(1600000);
+      cy.wait(2000);
+      cy.get('timer-buttons').shadow().find('#break-button').click();
 
       cy.tick(900000);
       cy.get('timer-buttons').shadow().find('#change-btn').click();

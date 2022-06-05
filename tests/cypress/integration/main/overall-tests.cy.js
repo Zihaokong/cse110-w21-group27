@@ -1,3 +1,4 @@
+/* eslint-disable cypress/no-unnecessary-waiting */
 // How tests should go:
 // Create Task, edit task, delete task, create twenty tasks, scroll to bottom,
 // use top bottom, check top task, uncheck, run seccesion on first task, run 2
@@ -114,9 +115,10 @@ describe('Overall testing', () => {
         .should('not.have.css', 'display', 'none');
       cy.get('timer-buttons').shadow().find('#create-skip').click();
       // Skip through Session
-      cy.tick(1500000).then(() => {
-        cy.tick(2000);
-      });
+      cy.tick(1500000);
+      cy.clock().invoke('restore');
+      cy.wait(2000);
+      cy.clock(new Date());
       cy.get('#currTask').should('have.text', 'Short Break');
 
       // Ensure Task was NOT updated (as it was not selected)
@@ -271,10 +273,10 @@ describe('Overall testing', () => {
       cy.get('timer-buttons').shadow().find('#create-skip').click();
 
       // Skip through Session
-      cy.tick(1500000).then(() => {
-        cy.tick(2000);
-      });
-
+      cy.tick(1500000);
+      cy.clock().invoke('restore');
+      cy.wait(2000);
+      cy.clock(new Date());
       cy.get('#currTask').should('have.text', 'Short Break');
       // Ensure Task was NOT updated (as it was not selected)
       cy.get('header-comp')
