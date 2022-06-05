@@ -42,24 +42,12 @@ describe('Header Tests', () => {
         .find('button[job="play"]')
         .click();
       cy.get('timer-buttons').shadow().find('.start-button').click();
-      cy.tick(1500000);
-      cy.tick(2000).then(() => {
-        cy.clock().invoke('restore');
+      cy.tick(1500000).then(() => {
+        cy.tick(2000);
       });
-      cy.clock(new Date()).then(() => {
-        cy.get('timer-buttons').shadow().find('#break-button').click();
-      });
-
-      cy.tick(900000).then(() => {
-        cy.clock().invoke('restore');
-      });
-      cy.get('timer-buttons')
-        .shadow()
-        .find('#change-btn')
-        .click()
-        .then(() => {
-          cy.clock(new Date());
-        });
+      cy.get('timer-buttons').shadow().find('#break-button').click();
+      cy.tick(900000);
+      cy.get('timer-buttons').shadow().find('#change-btn').click();
       if (i !== 3) {
         cy.get('header-comp')
           .shadow()

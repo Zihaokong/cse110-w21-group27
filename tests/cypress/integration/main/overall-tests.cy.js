@@ -114,9 +114,8 @@ describe('Overall testing', () => {
         .should('not.have.css', 'display', 'none');
       cy.get('timer-buttons').shadow().find('#create-skip').click();
       // Skip through Session
-      cy.tick(1500000);
-      cy.tick(2000).then(() => {
-        cy.clock().invoke('restore');
+      cy.tick(1500000).then(() => {
+        cy.tick(2000);
       });
       cy.get('#currTask').should('have.text', 'Short Break');
 
@@ -272,9 +271,8 @@ describe('Overall testing', () => {
       cy.get('timer-buttons').shadow().find('#create-skip').click();
 
       // Skip through Session
-      cy.tick(1500000);
-      cy.tick(2000).then(() => {
-        cy.clock().invoke('restore');
+      cy.tick(1500000).then(() => {
+        cy.tick(2000);
       });
 
       cy.get('#currTask').should('have.text', 'Short Break');

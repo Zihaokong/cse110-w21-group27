@@ -291,7 +291,7 @@ function finishedTask() {
     const workEndAudio = new Audio('/assets/audio/work-tune.mp3');
     workEndAudio.volume = localStorage.getItem('volumePercentage') / 100.0;
     workEndAudio.play();
-    window.setTimeout(() => {
+    setTimeout(() => {
       document.getElementById('deselect-task').style.display = 'none';
 
       if (localStorage.getItem('shortBreak') === 'true') {
