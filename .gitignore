@@ -3,8 +3,6 @@ docs
 coverage
 .eslintcache
 minified
-cypress/screenshots
-cypress/videos
 build
 .vscode
 .husky
@@ -16,6 +14,8 @@ build
 .idea/codeStyles/Project.xml
 .idea/codeStyles/codeStyleConfig.xml
 **/.DS_Store
+tests/cypress/screenshots
+tests/cypress/videos
 .eslintrc.json
 source/.idea/modules.xml
 source/.idea/source.iml

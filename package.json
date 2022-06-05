@@ -2,12 +2,13 @@
   "name": "cse112-sp22-group8",
   "version": "2.0.0",
   "description": "",
-  "license": "GPL",
+  "license": "MIT",
   "homepage": "https://github.com/cmwall0605/cse112-sp22-group8#readme",
   "scripts": {
     "doc": "jsdoc -c config/jsdoc.json",
     "jest-test": "jest --coverage",
-    "cypress-test": "npx cypress open --config-file config/cypress.config.js",
+    "cypress-ui": "npx cypress open --config-file config/cypress.config.js",
+    "cypress-test": "npx cypress run -C config/cypress.config.js",
     "test": "npm run jest-test",
     "cov": "start coverage\\lcov-report\\index.html",
     "testCov": "npm run jest-test && npm run cov",
@@ -18,7 +19,8 @@
     "setupPrecommit": "npx husky add .husky/pre-commit \"npx lint-staged\"",
     "setupHusky": "npm run installHusky && npm run setupPrecommit",
     "setup": "npm run setupESLint & npm run setupHusky",
-    "setup-windows": "npm run setupESLint-windows & npm run setupHusky"
+    "setup-windows": "npm run setupESLint-windows & npm run setupHusky",
+    "start-server": "npx serve source -p 5501"
   },
   "devDependencies": {
     "cypress": "^10.0.2",

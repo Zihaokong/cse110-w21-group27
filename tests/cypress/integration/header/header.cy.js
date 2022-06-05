@@ -1,8 +1,10 @@
+/* eslint-disable cypress/no-unnecessary-waiting */
 describe('Header Tests', () => {
   const firstName = 'testname1';
   const firstNum = 1;
 
   beforeEach(() => {
+    cy.clock(new Date());
     cy.visit('http://127.0.0.1:5501/tasks-page/tasks.html');
   });
 
@@ -20,7 +22,6 @@ describe('Header Tests', () => {
   });
 
   it('Test header after 4 cycles', () => {
-    cy.clock();
     cy.get('task-list').shadow().find('input[content="title"]').type(firstName);
     cy.get('task-list').shadow().find('input[content="count"]').type(firstNum);
     cy.get('task-list').shadow().find('button[type="submit"]').click();
@@ -42,8 +43,11 @@ describe('Header Tests', () => {
         .find('button[job="play"]')
         .click();
       cy.get('timer-buttons').shadow().find('.start-button').click();
-      cy.tick(1500000);
+      cy.tick(1600000);
       cy.tick(2000);
+      cy.clock().invoke('restore');
+      cy.wait(2000);
+      cy.clock(new Date());
       cy.get('timer-buttons').shadow().find('#break-button').click();
       cy.tick(900000);
       cy.get('timer-buttons').shadow().find('#change-btn').click();

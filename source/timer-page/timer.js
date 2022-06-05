@@ -312,7 +312,6 @@ function finishedTask() {
 
       document.querySelector('timer-buttons').setupBreak();
     }, 2000);
-
     // update progress for current task
     if (currentTaskIndex !== -1) {
       allTasks[currentTaskIndex].current += 1;
