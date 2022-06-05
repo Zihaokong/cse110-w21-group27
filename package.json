@@ -18,7 +18,8 @@
     "setupPrecommit": "npx husky add .husky/pre-commit \"npx lint-staged\"",
     "setupHusky": "npm run installHusky && npm run setupPrecommit",
     "setup": "npm run setupESLint & npm run setupHusky",
-    "setup-windows": "npm run setupESLint-windows & npm run setupHusky"
+    "setup-windows": "npm run setupESLint-windows & npm run setupHusky",
+    "start-server": "npx serve source -p 5501"
   },
   "devDependencies": {
     "cypress": "^10.0.2",
