@@ -43,17 +43,14 @@ describe('Header Tests', () => {
         .click();
       cy.get('timer-buttons').shadow().find('.start-button').click();
       cy.tick(1500000);
-      cy.tick(2000);
-      cy.clock().invoke('restore');
-      cy.get('timer-buttons')
-        .shadow()
-        .find('#break-button')
-        .click()
-        .then(() => {
-          cy.clock(new Date());
-        });
-      cy.tick(900000);
-      cy.clock().invoke('re store');
+      cy.tick(2000).then(() => {
+        cy.clock().invoke('restore');
+      });
+      cy.clock(new Date());
+      cy.get('timer-buttons').shadow().find('#break-button').click();
+      cy.tick(900000).then(() => {
+        cy.clock().invoke('restore');
+      });
       cy.get('timer-buttons')
         .shadow()
         .find('#change-btn')
