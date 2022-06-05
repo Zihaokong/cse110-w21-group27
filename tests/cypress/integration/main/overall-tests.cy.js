@@ -5,10 +5,6 @@
 describe('Overall testing', () => {
   const firstName = 'testname1';
   const firstNum = 1;
-  beforeEach(() => {
-    cy.clock();
-    cy.visit('http://127.0.0.1:5501/timer-page/timer.html');
-  });
 
   it(
     'Create a test where a user enters the timer page, starts, and does not ' +
@@ -51,6 +47,8 @@ describe('Overall testing', () => {
       'header (not by playing the task). Ensure that it goes through the ' +
       'same process as the first process.',
     () => {
+      cy.clock();
+      cy.visit('http://127.0.0.1:5501/timer-page/timer.html');
       // Create a Task
       cy.get('header-comp')
         .shadow()
@@ -207,6 +205,8 @@ describe('Overall testing', () => {
       'page and ensure that the task chosen updates its ratio and that the ' +
       'stats page is updated.',
     () => {
+      cy.clock();
+      cy.visit('http://127.0.0.1:5501/timer-page/timer.html');
       // Create a Task
       cy.get('header-comp')
         .shadow()
