@@ -6,12 +6,19 @@
  * @param {number} num How many tasks should be in the task list
  */
 function numTasks(num) {
-  cy.get('task-list')
-    .shadow()
-    .find('section > task-item')
-    .shadow()
-    .find('section > h1')
-    .should('have.length', num);
+  if (num == 0) {
+    cy.get('task-list')
+      .shadow()
+      .find('section > task-item')
+      .should('not.exist');
+  } else {
+    cy.get('task-list')
+      .shadow()
+      .find('section > task-item')
+      .shadow()
+      .find('section > h1')
+      .should('have.length', num);
+  }
 }
 
 /**
@@ -203,5 +210,31 @@ describe('Tasks tests', () => {
     addTask('task', 3);
     cy.reload();
     taskExists('task', 3);
+  });
+
+  it('Attempt to add a task that should not be allowed', () => {
+    addTask(
+      'a very long task name that should be past the character limit',
+      '100'
+    );
+    numTasks(0);
+  });
+
+  it('Attempt to add a task with a name that is too long', () => {
+    addTask(
+      'a very long task name that should be past the character limit',
+      '10'
+    );
+    numTasks(1);
+    taskExists('a very long task name that', '10');
+  });
+
+  it('Create 50 tasks and verify they exist', () => {
+    for (let i = 0; i < 50; i++) {
+      addTask(`task ${i}`, (i % 9) + 1);
+    }
+    for (let i = 0; i < 50; i++) {
+      taskExists(`task ${i}`, (i % 9) + 1);
+    }
   });
 });
