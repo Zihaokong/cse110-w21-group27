@@ -53,7 +53,7 @@ describe('Header Tests', () => {
           cy.clock(new Date());
         });
       cy.tick(900000);
-      cy.clock().invoke('restore');
+      cy.clock().invoke('re store');
       cy.get('timer-buttons')
         .shadow()
         .find('#change-btn')
