@@ -6,7 +6,7 @@ describe('Overall testing', () => {
   const firstName = 'testname1';
   const firstNum = 1;
   beforeEach(() => {
-    cy.clock();
+    cy.clock(new Date());
     cy.visit('http://127.0.0.1:5501/timer-page/timer.html');
   });
 
