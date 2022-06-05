@@ -44,13 +44,12 @@ describe('Header Tests', () => {
       cy.get('timer-buttons').shadow().find('.start-button').click();
       cy.tick(1500000);
       cy.tick(2000).then(() => {
-        cy.clock()
-          .invoke('restore')
-          .then(() => {
-            cy.clock(new Date());
-          });
+        cy.clock().invoke('restore');
       });
-      cy.get('timer-buttons').shadow().find('#break-button').click();
+      cy.clock(new Date()).then(() => {
+        cy.get('timer-buttons').shadow().find('#break-button').click();
+      });
+
       cy.tick(900000).then(() => {
         cy.clock().invoke('restore');
       });
