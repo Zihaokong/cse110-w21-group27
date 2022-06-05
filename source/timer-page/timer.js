@@ -206,6 +206,7 @@ function timerCompCallback(mutations) {
     if (mutations[i].attributeName === 'data-running') {
       if (mutations[i].target.dataset.running === 'false') {
         finishedTask();
+        console.log('sdfadsfadsfadfadsf');
       }
     } else {
       // render the title
