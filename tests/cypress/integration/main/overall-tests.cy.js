@@ -115,6 +115,12 @@ describe('Overall testing', () => {
       // Skip through Session
       cy.tick(1500000);
       cy.tick(3000);
+      cy.tick(3000);
+      cy.tick(3000);
+      cy.tick(3000);
+      cy.tick(3000);
+      cy.tick(3000);
+      cy.tick(3000);
       cy.get('#currTask').should('have.text', 'Short Break');
 
       // Ensure Task was NOT updated (as it was not selected)
