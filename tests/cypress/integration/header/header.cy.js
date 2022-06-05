@@ -42,8 +42,8 @@ describe('Header Tests', () => {
         .find('button[job="play"]')
         .click();
       cy.get('timer-buttons').shadow().find('.start-button').click();
-      cy.tick(1500000).then(() => {
-        cy.tick(2000);
+      cy.tick(1600000).then(() => {
+        cy.tick(3000);
       });
       cy.get('timer-buttons').shadow().find('#break-button').click();
       cy.tick(900000);
