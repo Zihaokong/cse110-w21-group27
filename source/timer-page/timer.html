@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <title>Tomo Timer</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -12,52 +13,51 @@
     <link rel="stylesheet" href="/globals/global.css" />
     <link rel="shortcut icon" type="image/svg" href="/assets/images/logo-white.svg" />
     <style>
-      body {
-        background: linear-gradient(var(--gradient-light),var(--gradient-medium));
-      }
-
-      .container {
-        margin: auto;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-
-      #currTask {
-        display: inline;
-        color: var(--dark-color);
-        font-size: 3rem;
-        text-align: center;
-      }
-
-      #deselect-task {
-        border: none;
-        background: transparent;
-        color: var(--dark-color);
-        cursor: pointer;
-        font-family: 'Material Icons';
-        font-size: 2rem;
-        font-weight: lighter;
-        margin: 0 0 0 1rem;
-        padding: 0;
-        text-align: center;
-      }
-
-      @keyframes increaseProgress {
-        from {
-          width: 0;
+        body {
+            background: linear-gradient(var(--gradient-light), var(--gradient-medium));
         }
-
-        to {
-          width: 100%;
+        
+        .container {
+            margin: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-      }
+        
+        #currTask {
+            display: inline;
+            color: var(--dark-color);
+            font-size: 3rem;
+            text-align: center;
+        }
+        
+        #deselect-task {
+            border: none;
+            background: transparent;
+            color: var(--dark-color);
+            cursor: pointer;
+            font-family: 'Material Icons';
+            font-size: 2rem;
+            font-weight: lighter;
+            margin: 0 0 0 1rem;
+            padding: 0;
+            text-align: center;
+        }
+        
+        @keyframes increaseProgress {
+            from {
+                width: 0;
+            }
+            to {
+                width: 100%;
+            }
+        }
     </style>
     <title id="title_timer">Pomodoro Timer</title>
-  </head>
+</head>
 
-  <body>
-  
+<body>
+
     <!--Javascript Not Enabled Contingency-->
     <noscript>
       <section style="width: 100vw; height: 100vh; background-color: black;">
@@ -69,29 +69,32 @@
         </p>
       </section>
     </noscript>
-    
+
     <!--CSS Not Enabled Contingency-->
     <section class="no-style" style="width: 100%; background-color: black;">
-      <h1 style="text-align: center; font-size: 3em; color: red;">
-        WARNING! CSS is not working!
-      </h1>
+        <h1 style="text-align: center; font-size: 3em; color: red;">
+            WARNING! CSS is not working!
+        </h1>
     </section>
-  
+
     <header-comp page="timer"></header-comp>
 
     <!--Task Heading-->
     <div class="container">
-      <h1 id="currTask">No Task Selected</h1>
-      <button id="deselect-task">cancel</button>
+        <h1 id="currTask">No Task Selected</h1>
+        <button id="deselect-task">cancel</button>
     </div>
 
     <timer-comp data-running="false"></timer-comp>
 
     <timer-buttons></timer-buttons>
-    
+
     <script src="./timer.js"></script>
     <script src="../components/header-comp/header-comp.js"></script>
     <script src="../components/timer-comp/timer-comp.js"></script>
     <script src="../components/timer-buttons/timer-buttons.js"></script>
-  </body>
+    <script type="module" src="../collector.js"></script>
+
+</body>
+
 </html>
